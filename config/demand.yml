@@ -67,3 +67,16 @@ external_evidence:
 # Routing candidates to PREPARE (not to finalise). The winner cannot be chosen
 # without local routing and real taxi tariffs.
 k_candidates: [4, 5]
+
+# Restaurant-origin demand model (owner decision).
+# ~85% of orders originate in central Bender, ~15% in BAM and other outer Bender
+# districts. OSM venue coverage is incomplete, so food-service POIs read from the
+# LOCAL extract are clustered into REPRESENTATIVE origins rather than each POI
+# being treated as complete truth. Villages never become restaurant origins
+# unless real restaurant evidence exists there.
+restaurant_origins:
+  central_weight: 0.85
+  outer_total_weight: 0.15
+  cluster_radius_m: 600        # single-link clustering distance between venues
+  min_outer_cluster_pois: 3    # ignore one-off venues as outer origins
+  bam_landmark_name: "Бамовское озеро"   # BAM has no place=* object in OSM

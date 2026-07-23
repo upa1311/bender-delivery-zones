@@ -174,7 +174,8 @@ def test_tier_weights_a_full_b_low_c_zero():
 def test_service_status_labels():
     assert service_status("A") == "standard"
     assert service_status("B") == "low_density"
-    assert service_status("C") == "manual_review"
+    # Owner decision: Tier C fringe is not serviceable at all.
+    assert service_status("C") == "no_delivery"
 
 
 def test_thresholds_are_configurable():

@@ -168,7 +168,8 @@ function addPermanentLabels(fc) {
 
 function tierCPopup(p) {
   return `<div class="popup">
-    <div class="popup-title">${esc(p.street_ru)} <span class="badge review">Tier C</span></div>
+    <div class="popup-title">${esc(p.street_ru)}
+      <span class="badge review">Tier C — не обслуживается</span></div>
     <table>
       <tr><td class="k">территория</td><td>${esc(TERRITORY_LABEL[p.settlement] || p.settlement)}</td></tr>
       <tr><td class="k">адресов</td><td>${p.confirmed_addresses}</td></tr>
@@ -177,6 +178,35 @@ function tierCPopup(p) {
       <tr><td class="k">до ядра по дорогам</td><td>${p.distance_to_core_by_road_km ?? "—"} км</td></tr>
       <tr><td class="k">причина</td><td><code>${esc(p.reason)}</code></td></tr>
       <tr><td class="k">влияет на тарифы</td><td><b>нет</b></td></tr>
+    </table>
+    <p class="muted small">${esc(p.note)}</p></div>`;
+}
+
+const ZONE_COLORS = ["#2f6fed", "#e8730c", "#1f9d55", "#7c3aed", "#d1461f"];
+
+function zonePopup(p) {
+  return `<div class="popup">
+    <div class="popup-title">K=${p.k} · зона ${p.zone}
+      <span class="badge review">черновик</span></div>
+    <table>
+      <tr><td class="k">адресов</td><td>${p.addresses}</td></tr>
+      <tr><td class="k">вес спроса</td><td>${p.demand_weight}</td></tr>
+      <tr><td class="k">медиана</td><td>${p.median_km} км · ${p.median_min} мин</td></tr>
+      <tr><td class="k">p90 время</td><td>${p.p90_min} мин</td></tr>
+      <tr><td class="k">компактность</td><td>${p.compactness}</td></tr>
+      <tr><td class="k">площадь</td><td>${p.area_km2} км²</td></tr>
+    </table>
+    <p class="muted small">Время по свободному потоку (без пробок) — нижняя граница.
+    Победитель K не выбран, цены не назначались.</p></div>`;
+}
+
+function originPopup(p) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(p.key)}</div>
+    <table>
+      <tr><td class="k">роль</td><td>${esc(p.role)}</td></tr>
+      <tr><td class="k">доля заказов</td><td>${p.weight}</td></tr>
+      <tr><td class="k">заведений в кластере</td><td>${p.poi_count}</td></tr>
     </table>
     <p class="muted small">${esc(p.note)}</p></div>`;
 }
@@ -256,7 +286,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, kCand, demand] = await Promise.all([
+           tierC, kCand, demand, zoneCand, origins] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -268,6 +298,8 @@ async function init() {
       loadJSON("data/tier-c-manual-review.geojson"),
       loadJSON("data/k-candidates.geojson"),
       loadJSON("data/demand-summary.json"),
+      loadJSON("data/zone-candidates.geojson"),
+      loadJSON("data/restaurant-origins.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -328,8 +360,9 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(streetPopup(f.properties)),
     });
 
-    // Tier C: manual-review only. Never shapes polygons, zone centres or tariffs.
-    overlays["Tier C — ручная проверка"] = L.geoJSON(tierC, {
+    // Tier C: NOT serviceable (owner decision). QA visibility only — never shapes
+    // polygons, zone centres, clustering, percentiles or tariffs.
+    overlays["Tier C — не обслуживается"] = L.geoJSON(tierC, {
       style: () => ({ color: "#b45309", weight: 5, dashArray: "4 5", opacity: 0.95 }),
       onEachFeature: (f, l) => l.bindPopup(tierCPopup(f.properties)),
     }).addTo(map);
@@ -350,6 +383,28 @@ async function init() {
         onEachFeature: (f, l) => l.bindPopup(kPopup(f.properties)),
       });
     });
+
+    // Routing-based candidate zones: both K published, neither chosen.
+    [4, 5].forEach((k) => {
+      overlays[`Зоны K=${k} (черновик)`] = L.geoJSON({
+        type: "FeatureCollection",
+        features: zoneCand.features.filter((f) => f.properties.k === k),
+      }, {
+        style: (f) => ({ color: ZONE_COLORS[f.properties.zone % ZONE_COLORS.length],
+          weight: 2, fillColor: ZONE_COLORS[f.properties.zone % ZONE_COLORS.length],
+          fillOpacity: 0.25 }),
+        onEachFeature: (f, l) => l.bindPopup(zonePopup(f.properties)),
+      });
+    });
+
+    // Representative restaurant origins (85% central / 15% BAM + outer).
+    overlays["Источники заказов (рестораны)"] = L.geoJSON(origins, {
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+        radius: 6 + 14 * f.properties.weight, color: "#111827", weight: 2,
+        fillColor: f.properties.role === "central" ? "#dc2626" : "#f59e0b",
+        fillOpacity: 0.9 }),
+      onEachFeature: (f, l) => l.bindPopup(originPopup(f.properties)),
+    }).addTo(map);
 
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);
     renderStats(diff, demand);

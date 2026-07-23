@@ -131,11 +131,20 @@ TIER_B = "B"
 TIER_C = "C"
 
 TIER_WEIGHT = {TIER_A: 1.0, TIER_B: 0.3, TIER_C: 0.0}
+# Owner decision: Tier C fringe locations (1-2 isolated probable residences) are
+# NOT serviceable. They are excluded from the service area, from zone centres,
+# from K clustering and from distance percentiles, and get no surcharge and no
+# manual-delivery option. They stay visible only as a QA layer.
 TIER_SERVICE_STATUS = {
     TIER_A: "standard",
     TIER_B: "low_density",
-    TIER_C: "manual_review",
+    TIER_C: "no_delivery",
 }
+
+
+def is_serviceable(tier: str) -> bool:
+    """Tier C is not served at all; A and B are."""
+    return tier in (TIER_A, TIER_B)
 
 
 @dataclass

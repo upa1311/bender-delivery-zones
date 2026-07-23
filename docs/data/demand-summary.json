@@ -1,11 +1,11 @@
 {
-  "addresses_included": 11837,
+  "addresses_included": 11979,
   "direct_integration": false,
   "excluded_abandoned_or_ruin": 18,
   "excluded_construction": 5,
   "excluded_nonresidential": 275,
   "excluded_outbuildings": 135,
-  "generated_at": "2026-07-23T20:33:07Z",
+  "generated_at": "2026-07-23T20:51:42Z",
   "isolated_fringe_streets": [
     {
       "reason": "at_most_2_probable_residences",
@@ -218,10 +218,10 @@
       "unknown_buildings": 0
     },
     "protyagailovka": {
-      "addresses_inside": 573,
-      "buildings_excluded": 487,
-      "buildings_included": 1509,
-      "candidate_area_km2": 2.0596,
+      "addresses_inside": 715,
+      "buildings_excluded": 12,
+      "buildings_included": 1984,
+      "candidate_area_km2": 2.5153,
       "display_ru": "Протягайловка",
       "excluded_abandoned_or_ruin": 2,
       "excluded_construction": 0,
@@ -230,7 +230,6 @@
       "exclusion_reasons": [
         "non_residential_buildings",
         "outbuildings",
-        "outside_owner_named_limit",
         "sparse_buildings"
       ],
       "inclusion_reasons": [
@@ -239,7 +238,7 @@
         "owner_named_boundary",
         "residential_street"
       ],
-      "reduction_pct": 87.65,
+      "reduction_pct": 84.92,
       "residential_customers": 652,
       "source_area_km2": 16.6775,
       "source_relation": 12463378,

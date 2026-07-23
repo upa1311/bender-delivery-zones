@@ -224,7 +224,7 @@ bender_lipcani,улица Титова,87499736,5,2,7,0,0,0,0,False,8,False,,A,T
 bender_lipcani,улица Шмидта,60739725,26,26,19,0,0,0,0,False,2,True,0.0,A,True,standard,confirmed_addresses>=5
 bender_lipcani,улица Энгельса,136388030;223694718;321419593;415365323,44,41,16,3,2,0,1,True,6,True,0.0,A,True,standard,apartment_building
 giska,Госпитальная улица,223226239;223226271;223226498;255961147,57,26,163,0,0,0,0,True,0,True,0.0,A,True,standard,confirmed_addresses>=5
-giska,Гыска-Золотиевка,674138530,0,0,1,0,0,0,0,False,0,False,3.453,C,False,manual_review,at_most_2_probable_residences
+giska,Гыска-Золотиевка,674138530,0,0,1,0,0,0,0,False,0,False,3.453,C,False,no_delivery,at_most_2_probable_residences
 giska,Заречная улица,223678956;223679180;492941936;492941937;1355154976,2,0,54,0,0,0,0,False,0,False,2.17,A,True,standard,residential_buildings>=8
 giska,Молодёжная улица,223225486,13,14,91,0,0,0,0,True,0,True,0.0,A,True,standard,confirmed_addresses>=5
 giska,Октябрьская улица,223677079,9,9,45,0,0,0,0,True,0,False,3.24,A,True,standard,confirmed_addresses>=5
@@ -293,10 +293,10 @@ parkany,улица Чехова,83039113,123,152,87,0,0,3,0,False,0,True,0.0,A,T
 parkany,улица Чкалова,83039147,116,186,63,0,0,3,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
 parkany,улица Шевченко,83039153;482003377;605027891,62,125,15,0,1,2,0,False,1,True,0.0,A,True,standard,confirmed_addresses>=5
 parkany,улица Энгельса,83039157,97,172,86,0,0,1,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
-protyagailovka,Абрикосовая,224903383;1540927204,0,0,2,0,0,0,0,False,0,False,,C,False,manual_review,at_most_2_probable_residences
+protyagailovka,Абрикосовая,224903383;1540927204,0,0,2,0,0,0,0,False,0,False,,C,False,no_delivery,at_most_2_probable_residences
 protyagailovka,Банный переулок,60739723;525039132;525039136,15,13,43,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
-protyagailovka,Виноградная,224903381;1540927202,0,0,1,0,0,0,0,False,0,False,,C,False,manual_review,at_most_2_probable_residences
-protyagailovka,Вишневая,224903379;1540927200,0,0,0,0,0,0,0,False,0,False,,C,False,manual_review,at_most_2_probable_residences
+protyagailovka,Виноградная,224903381;1540927202,0,0,1,0,0,0,0,False,0,False,,C,False,no_delivery,at_most_2_probable_residences
+protyagailovka,Вишневая,224903379;1540927200,0,0,0,0,0,0,0,False,0,False,,C,False,no_delivery,at_most_2_probable_residences
 protyagailovka,Гербовецкая улица,222904316;224954327,76,62,214,0,0,0,0,True,5,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Гербовецкий переулок,60739714;728335944;728335945,28,22,13,0,0,0,0,True,1,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Главная улица,60739683;60739688,76,47,361,0,0,0,0,False,5,True,0.0,A,True,standard,confirmed_addresses>=5
@@ -310,12 +310,12 @@ protyagailovka,Молодёжная улица,224898448;525036244;525036245,14,
 protyagailovka,Молодёжный переулок,224898440,18,18,11,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Первомайская улица,224898439,80,65,174,0,0,0,0,True,2,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Первомайский переулок,224898441,23,23,10,0,0,0,0,True,1,True,0.0,A,True,standard,confirmed_addresses>=5
-protyagailovka,Полевая,1265061308,0,0,0,0,0,0,0,False,0,False,,C,False,manual_review,at_most_2_probable_residences
+protyagailovka,Полевая,1265061308,0,0,0,0,0,0,0,False,0,False,,C,False,no_delivery,at_most_2_probable_residences
 protyagailovka,Полевой переулок,222904322,7,6,25,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Садовая улица,224903393;224914988;315968143;315968586;315969111,31,28,36,0,0,0,0,True,0,False,,A,True,standard,confirmed_addresses>=5
 protyagailovka,Санаторная улица,224914996,40,46,0,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,Славянская улица,224882001,26,3,55,0,0,0,1,True,0,False,,A,True,standard,confirmed_addresses>=5
-protyagailovka,Сливовая,224903380;1540927206,0,0,1,0,0,0,0,False,0,False,,C,False,manual_review,at_most_2_probable_residences
+protyagailovka,Сливовая,224903380;1540927206,0,0,1,0,0,0,0,False,0,False,,C,False,no_delivery,at_most_2_probable_residences
 protyagailovka,Совхозная улица,222904324,12,31,39,0,0,0,0,False,0,False,,A,True,standard,confirmed_addresses>=5
 protyagailovka,переулок Куйбышева,223692025,12,11,10,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5
 protyagailovka,улица 50 лет Победы,209668169,74,76,5,0,0,0,0,False,0,True,0.0,A,True,standard,confirmed_addresses>=5

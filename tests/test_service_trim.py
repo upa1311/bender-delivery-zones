@@ -207,13 +207,24 @@ def test_inclusion_reasons_use_the_documented_vocabulary(repo_root):
             assert reason in EXCLUSION_REASONS
 
 
-def test_protyagailovka_stays_on_the_kept_side_of_glavnaya(repo_root):
-    """The candidate must not spill over the owner's Glavnaya limit."""
-    meta = _report(repo_root)["owner_limits"]["protyagailovka"]
-    assert meta["applied"] is True
-    assert meta["left_limit_street"] == "Главная улица"
-    line = LineString(meta["line_lonlat"])
-    kept_sign = meta["kept_side_sign"]
+def test_protyagailovka_covers_both_sides_of_glavnaya(repo_root):
+    """Owner correction: Glavnaya is included in full, houses on BOTH sides.
+
+    The earlier "exclude everything left of Glavnaya" clip is cancelled, so the
+    candidate must now have area on both sides of the street.
+    """
+    # Stage 04 is the current authoritative builder for the candidate geometry.
+    report04 = json.loads((repo_root / "reports/stage-04/residential-demand-audit.json")
+                          .read_text(encoding="utf-8"))
+    meta = report04["owner_limits"]["protyagailovka"]
+    assert meta["clipped_by_side"] is False
+    assert "Главная улица" in meta["include_full_length_streets"]
+
+    questions = json.loads((repo_root / "docs/data/boundary-questions.geojson")
+                           .read_text(encoding="utf-8"))
+    line_feat = next(f for f in questions["features"]
+                     if f["properties"].get("street") == "Главная улица")
+    line = LineString(line_feat["geometry"]["coordinates"])
 
     geom = None
     for f in _load(repo_root, "candidate-service-area.geojson")["features"]:
@@ -221,15 +232,17 @@ def test_protyagailovka_stays_on_the_kept_side_of_glavnaya(repo_root):
             geom = shape(f["geometry"])
     assert geom is not None
 
-    tolerance_deg = 5.0 / 111320.0  # ~5 m, absorbs simplification jitter
-    offenders = 0
+    tolerance_deg = 5.0 / 111320.0  # ignore vertices sitting on the line itself
+    sides = set()
     for poly in polygon_components(geom):
         for x, y in poly.exterior.coords:
             pt = Point(x, y)
-            if side_of_line(line, pt) not in (kept_sign, 0.0) \
-                    and pt.distance(line) > tolerance_deg:
-                offenders += 1
-    assert offenders == 0, f"{offenders} vertices on the excluded side of Главная"
+            if pt.distance(line) <= tolerance_deg:
+                continue
+            side = side_of_line(line, pt)
+            if side != 0.0:
+                sides.add(side)
+    assert sides == {1.0, -1.0}, f"expected both sides of Главная, got {sides}"
 
 
 def test_source_boundaries_are_kept_as_a_separate_untouched_layer(repo_root):

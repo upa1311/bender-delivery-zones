@@ -1,6 +1,6 @@
 # Stage 04 — residential delivery-demand audit
 
-- Generated (UTC): `2026-07-23T20:33:07Z`
+- Generated (UTC): `2026-07-23T20:51:42Z`
 - zones: **False** · tariffs: **False** · routing graph: **False** · Direct: **False**
 
 > Рабочая территория создана по жилой застройке (Tier A + Tier B) и указаниям владельца. Это ещё не четыре зоны доставки и не тарифы.
@@ -13,7 +13,7 @@
 |---|---:|---:|---:|---:|---:|
 | Бендеры (`bender_core`) | 204 | 1 | 0 | 5845 | 17.9802 → 13.0298 км² (−27.53%) |
 | Липканы (`bender_lipcani`) | 19 | 0 | 0 | 288 | 3.0678 → 1.4031 км² (−54.26%) |
-| Протягайловка (`protyagailovka`) | 29 | 0 | 5 | 573 | 16.6775 → 2.0596 км² (−87.65%) |
+| Протягайловка (`protyagailovka`) | 29 | 0 | 5 | 715 | 16.6775 → 2.5153 км² (−84.92%) |
 | Гиска (`giska`) | 29 | 0 | 1 | 623 | 30.8582 → 2.8693 км² (−90.7%) |
 | Парканы (`parkany`) | 38 | 2 | 0 | 4508 | 82.4359 → 6.4859 км² (−92.13%) |
 
@@ -22,7 +22,7 @@
 - outbuildings (сараи/гаражи/теплицы): **135**
 - non-residential (склады/промышленность/торговля): **275**
 - abandoned/ruin: **18** · construction: **5** · unknown: **0**
-- addresses included: **11837** · confirmed residential customers: **14473**
+- addresses included: **11979** · confirmed residential customers: **14473**
 
 ## Isolated fringe streets (Tier C, not connected to core)
 

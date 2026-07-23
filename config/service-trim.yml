@@ -34,12 +34,16 @@ territories:
     display_ru: Протягайловка
     source_relation: 12463378
     owner_limits:
-      # Owner wording: one side ends at Munteanu / Lesovaya, the other at
-      # Pervomayskaya, the left edge runs along Glavnaya; everything left of
-      # Glavnaya is excluded. Ambiguous sides are published as map questions.
-      limit_streets: ["улица Мунтяна", "Лесовая улица", "Первомайская улица"]
-      left_limit_street: "Главная улица"
-      left_direction: west
+      # AUTHORITATIVE OWNER CORRECTION: the earlier "everything left of Glavnaya
+      # is excluded" reading is CANCELLED. Glavnaya is included over its FULL
+      # length, with residential houses and addressable streets on BOTH sides.
+      # Protyagailovka is no longer clipped by any side of Glavnaya.
+      include_full_length_streets: ["Главная улица"]
+      # Munteanu / Lesovaya / Pervomayskaya remain OUTER ORIENTATION limits only:
+      # they are not cutting lines. Fields, empty land and isolated
+      # non-serviceable houses beyond the residential fabric are still removed by
+      # the residential-demand rules.
+      orientation_streets: ["улица Мунтяна", "Лесовая улица", "Первомайская улица"]
 
   - key: giska
     display_ru: Гиска

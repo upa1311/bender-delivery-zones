@@ -3,21 +3,6 @@
     {
       "geometry": {
         "coordinates": [
-          29.43796,
-          46.8231
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "kind": "interpretation",
-        "layer": "protyagailovka_boundary_questions",
-        "question": "«Левее» улицы «Главная улица» невозможно свести к стороне света: улица идёт с юго-запада на северо-восток, а названные владельцем предельные улицы Мунтяна и Лесовая лежат западнее неё. Оставлена сторона, на которой лежат другие названные владельцем предельные улицы (Мунтяна, Лесовая, Первомайская); отсечение применено. Подтвердите сторону."
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
           [
             29.42592,
             46.8306
@@ -260,8 +245,8 @@
       "properties": {
         "kind": "limit_street",
         "layer": "protyagailovka_boundary_questions",
-        "question": "Левый предел по указанию владельца.",
-        "role": "left_limit",
+        "question": "Включена целиком по указанию владельца, вместе с жилой застройкой по ОБЕИМ сторонам. Отсечение по стороне отменено.",
+        "role": "included_full_length",
         "street": "Главная улица"
       },
       "type": "Feature"
@@ -367,8 +352,8 @@
       "properties": {
         "kind": "limit_street",
         "layer": "protyagailovka_boundary_questions",
-        "question": "Улица «улица Мунтяна» названа владельцем как предел. Сторона («с одной стороны» / «с другой стороны») не задана однозначно.",
-        "role": "side_limit",
+        "question": "Внешний ориентир владельца. Не режет полигон: границу определяет жилая застройка.",
+        "role": "outer_orientation",
         "street": "улица Мунтяна"
       },
       "type": "Feature"
@@ -418,8 +403,8 @@
       "properties": {
         "kind": "limit_street",
         "layer": "protyagailovka_boundary_questions",
-        "question": "Улица «Лесовая улица» названа владельцем как предел. Сторона («с одной стороны» / «с другой стороны») не задана однозначно.",
-        "role": "side_limit",
+        "question": "Внешний ориентир владельца. Не режет полигон: границу определяет жилая застройка.",
+        "role": "outer_orientation",
         "street": "Лесовая улица"
       },
       "type": "Feature"
@@ -593,8 +578,8 @@
       "properties": {
         "kind": "limit_street",
         "layer": "protyagailovka_boundary_questions",
-        "question": "Улица «Первомайская улица» названа владельцем как предел. Сторона («с одной стороны» / «с другой стороны») не задана однозначно.",
-        "role": "side_limit",
+        "question": "Внешний ориентир владельца. Не режет полигон: границу определяет жилая застройка.",
+        "role": "outer_orientation",
         "street": "Первомайская улица"
       },
       "type": "Feature"

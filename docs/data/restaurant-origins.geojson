@@ -1,0 +1,130 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          29.48277,
+          46.82423
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "central_bender_origin",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 44,
+        "role": "central",
+        "weight": 0.85
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          29.47195,
+          46.84192
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "bam_outer_origin_1",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 7,
+        "role": "bam_outer",
+        "weight": 0.05
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          29.4706,
+          46.81785
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "bam_outer_origin_2",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 5,
+        "role": "bam_outer",
+        "weight": 0.035714
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          29.48047,
+          46.80403
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "bam_outer_origin_3",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 3,
+        "role": "bam_outer",
+        "weight": 0.021429
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          29.4679,
+          46.80454
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "bam_outer_origin_4",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 3,
+        "role": "bam_outer",
+        "weight": 0.021429
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          29.48801,
+          46.83396
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "key": "bam_outer_origin_5",
+        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "poi_count": 3,
+        "role": "bam_outer",
+        "weight": 0.021429
+      },
+      "type": "Feature"
+    }
+  ],
+  "selection": {
+    "bam_landmark_note": "BAM has no place=* object in OSM; the northern outer cluster nearest 'Бамовское озеро' represents it. Confirm with the owner.",
+    "central_cluster_pois": 44,
+    "central_weight": 0.85,
+    "method": "Food-service POIs (amenity=restaurant/fast_food/cafe/bar/pub plus takeaway/delivery venues) were read from the LOCAL Bender extract and single-link clustered at 600 m. The largest cluster is the central origin; remaining clusters with >= 3 POIs represent BAM and other outer Bender districts.",
+    "outer_clusters": [
+      7,
+      5,
+      3,
+      3,
+      3
+    ],
+    "outer_total_weight": 0.15,
+    "source": "local Geofabrik Moldova extract (no Nominatim, no Overpass)",
+    "total_food_pois_bender": 73,
+    "village_food_poi_counts": {
+      "12215667": 2,
+      "12463378": 1,
+      "7431263": 2
+    },
+    "villages_excluded": "Villages are NOT restaurant origins: too little actual restaurant evidence in the local extract.",
+    "why_representative": "OSM venue coverage is incomplete, so clusters are used as representative origins instead of treating each POI as complete truth."
+  },
+  "type": "FeatureCollection"
+}

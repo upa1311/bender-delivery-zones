@@ -67,7 +67,6 @@ from bender_zones.service_trim import (
     EXCL_EMPTY,
     EXCL_NON_RESIDENTIAL,
     EXCL_OUTBUILDINGS,
-    EXCL_OWNER_LIMIT,
     EXCL_SPARSE,
     REASON_ACCESS,
     REASON_ADDRESSED,
@@ -77,7 +76,6 @@ from bender_zones.service_trim import (
     TrimParams,
     area_m2,
     build_candidate_geometry,
-    clip_to_side,
     count_points_within,
     drop_small_components,
     exclusion_reason_for_tags,
@@ -85,7 +83,6 @@ from bender_zones.service_trim import (
     points_within,
     polygon_components,
     reduction_pct,
-    side_of_line,
     to_degrees,
     to_metres,
 )
@@ -515,11 +512,10 @@ def build(pbf: Path, repo_root: Path) -> int:
 
         limits = terr.get("owner_limits")
         if limits:
-            candidate_m, applied, qs, meta = _apply_owner_limits(
-                candidate_m, t_streets, limits, proj)
+            candidate_m, qs, meta = _apply_owner_limits(
+                candidate_m, t_streets, limits, proj, params)
+            candidate_m = candidate_m.intersection(region_m)
             inclusion.add(REASON_OWNER)
-            if applied:
-                exclusion.add(EXCL_OWNER_LIMIT)
             question_features.extend(qs)
             if meta:
                 owner_limit_meta[key] = meta
@@ -692,57 +688,54 @@ def _collect_excluded(region_m, candidate_m, feats, params, territory):
     return out, leftover
 
 
-def _apply_owner_limits(candidate_m, streets, limits, proj):
-    questions, applied, meta = [], False, {}
-    left_name = limits.get("left_limit_street")
-    other_names = list(limits.get("limit_streets", []))
-    other_lines = [ln for ln in (_street_line(streets, n) for n in other_names)
-                   if ln is not None]
+def _apply_owner_limits(candidate_m, streets, limits, proj, params):
+    """Apply the owner's AUTHORITATIVE Protyagailovka instruction.
 
-    if left_name:
-        line = _street_line(streets, left_name)
-        if line is None:
-            questions.append(_question(proj, candidate_m,
-                                       f"Улица «{left_name}» не найдена — предел не применён.",
-                                       kind="unresolved"))
-        else:
-            keep_point = (unary_union(other_lines).centroid if other_lines
-                          else candidate_m.centroid)
-            rule = ("сторона, на которой лежат другие названные владельцем предельные "
-                    "улицы (Мунтяна, Лесовая, Первомайская)")
-            clipped, applied = clip_to_side(candidate_m, line, keep_point)
-            if applied:
-                candidate_m = clipped
-            line_deg = to_degrees(line, proj)
-            meta = {"left_limit_street": left_name, "applied": applied,
-                    "keep_rule": rule, "kept_side_sign": side_of_line(line, keep_point),
-                    "line_lonlat": [[round(x, 6), round(y, 6)] for x, y in line_deg.coords]}
-            questions.append(_question(
-                proj, line,
-                f"«Левее» улицы «{left_name}» невозможно свести к стороне света: улица "
-                "идёт с юго-запада на северо-восток, а названные владельцем предельные "
-                f"улицы Мунтяна и Лесовая лежат западнее неё. Оставлена {rule}"
-                f"{'; отсечение применено' if applied else '; отсечение НЕ применено'}. "
-                "Подтвердите сторону.",
-                kind="interpretation" if applied else "unresolved"))
-            questions.append(_feature(line_deg, {
-                "layer": "protyagailovka_boundary_questions", "kind": "limit_street",
-                "street": left_name, "role": "left_limit",
-                "question": "Левый предел по указанию владельца."}))
+    The earlier "everything left of Glavnaya is excluded" reading is cancelled:
+    Glavnaya is included over its full length with houses on BOTH sides, and the
+    territory is no longer clipped by any side of it. Munteanu / Lesovaya /
+    Pervomayskaya remain outer ORIENTATION references only - they never cut the
+    polygon. Fields, empty land and isolated non-serviceable houses are still
+    removed by the residential-demand rules.
+    """
+    questions, meta = [], {}
 
-    for name in other_names:
+    forced = []
+    for name in limits.get("include_full_length_streets", []):
         line = _street_line(streets, name)
         if line is None:
             questions.append(_question(proj, candidate_m,
-                                       f"Предельная улица «{name}» не найдена в OSM.",
+                                       f"Улица «{name}» не найдена в OSM.",
+                                       kind="unresolved"))
+            continue
+        forced.append(line.buffer(params.street_buffer_m))
+        questions.append(_feature(to_degrees(line, proj), {
+            "layer": "protyagailovka_boundary_questions", "kind": "limit_street",
+            "street": name, "role": "included_full_length",
+            "question": ("Включена целиком по указанию владельца, вместе с жилой "
+                         "застройкой по ОБЕИМ сторонам. Отсечение по стороне отменено.")}))
+    if forced:
+        candidate_m = unary_union([candidate_m, *forced])
+
+    for name in limits.get("orientation_streets", []):
+        line = _street_line(streets, name)
+        if line is None:
+            questions.append(_question(proj, candidate_m,
+                                       f"Ориентирная улица «{name}» не найдена в OSM.",
                                        kind="unresolved"))
             continue
         questions.append(_feature(to_degrees(line, proj), {
             "layer": "protyagailovka_boundary_questions", "kind": "limit_street",
-            "street": name, "role": "side_limit",
-            "question": (f"Улица «{name}» названа владельцем как предел. Сторона "
-                         "(«с одной стороны» / «с другой стороны») не задана однозначно.")}))
-    return candidate_m, applied, questions, meta
+            "street": name, "role": "outer_orientation",
+            "question": ("Внешний ориентир владельца. Не режет полигон: границу "
+                         "определяет жилая застройка.")}))
+
+    meta = {"clipped_by_side": False,
+            "include_full_length_streets": limits.get("include_full_length_streets", []),
+            "orientation_streets": limits.get("orientation_streets", []),
+            "note": ("Owner correction applied: Glavnaya included in full, both "
+                     "sides; no side-clip; orientation streets do not cut.")}
+    return candidate_m, questions, meta
 
 
 def _question(proj, geom_m, text, kind="question"):

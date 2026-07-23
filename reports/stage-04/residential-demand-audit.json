@@ -65,7 +65,7 @@
     ]
   },
   "external_evidence_note": "Validation metadata only. No scraping and no proprietary map coordinates were used; geometry comes from the local OSM extract.",
-  "generated_at": "2026-07-23T20:33:07Z",
+  "generated_at": "2026-07-23T20:51:42Z",
   "isolated_fringe_streets": [
     {
       "reason": "at_most_2_probable_residences",
@@ -172,7 +172,7 @@
         }
       ]
     },
-    "generated_at": "2026-07-23T20:33:07Z",
+    "generated_at": "2026-07-23T20:51:42Z",
     "note": "K=4 и K=5 подготовлены как варианты. Победитель не выбран: нужны локальная маршрутизация и реальные тарифы такси.",
     "schema": "bender-k-candidates/4",
     "status": "prepared_not_selected",
@@ -198,247 +198,15 @@
   "osm_boundaries_modified": false,
   "owner_limits": {
     "protyagailovka": {
-      "applied": true,
-      "keep_rule": "сторона, на которой лежат другие названные владельцем предельные улицы (Мунтяна, Лесовая, Первомайская)",
-      "kept_side_sign": 1.0,
-      "left_limit_street": "Главная улица",
-      "line_lonlat": [
-        [
-          29.425917,
-          46.830605
-        ],
-        [
-          29.42658,
-          46.829805
-        ],
-        [
-          29.42807,
-          46.828815
-        ],
-        [
-          29.428868,
-          46.828188
-        ],
-        [
-          29.429629,
-          46.827568
-        ],
-        [
-          29.43077,
-          46.826548
-        ],
-        [
-          29.430946,
-          46.826314
-        ],
-        [
-          29.431082,
-          46.826092
-        ],
-        [
-          29.431354,
-          46.825808
-        ],
-        [
-          29.431635,
-          46.825534
-        ],
-        [
-          29.431708,
-          46.825476
-        ],
-        [
-          29.431843,
-          46.825367
-        ],
-        [
-          29.431937,
-          46.825308
-        ],
-        [
-          29.432306,
-          46.825129
-        ],
-        [
-          29.4324,
-          46.825079
-        ],
-        [
-          29.432516,
-          46.825007
-        ],
-        [
-          29.432732,
-          46.824849
-        ],
-        [
-          29.432919,
-          46.824731
-        ],
-        [
-          29.433174,
-          46.824568
-        ],
-        [
-          29.433451,
-          46.82439
-        ],
-        [
-          29.433995,
-          46.824036
-        ],
-        [
-          29.434096,
-          46.823981
-        ],
-        [
-          29.434216,
-          46.82391
-        ],
-        [
-          29.434366,
-          46.823826
-        ],
-        [
-          29.434474,
-          46.823784
-        ],
-        [
-          29.434558,
-          46.823758
-        ],
-        [
-          29.434655,
-          46.823748
-        ],
-        [
-          29.434789,
-          46.823738
-        ],
-        [
-          29.43498,
-          46.823736
-        ],
-        [
-          29.435258,
-          46.823755
-        ],
-        [
-          29.435411,
-          46.823768
-        ],
-        [
-          29.435514,
-          46.823767
-        ],
-        [
-          29.435631,
-          46.823766
-        ],
-        [
-          29.435737,
-          46.823756
-        ],
-        [
-          29.435861,
-          46.823731
-        ],
-        [
-          29.436066,
-          46.823674
-        ],
-        [
-          29.436375,
-          46.823578
-        ],
-        [
-          29.436715,
-          46.823474
-        ],
-        [
-          29.437074,
-          46.823388
-        ],
-        [
-          29.437803,
-          46.82322
-        ],
-        [
-          29.438279,
-          46.82309
-        ],
-        [
-          29.438689,
-          46.822963
-        ],
-        [
-          29.439172,
-          46.822798
-        ],
-        [
-          29.439551,
-          46.822649
-        ],
-        [
-          29.439862,
-          46.822528
-        ],
-        [
-          29.440597,
-          46.822217
-        ],
-        [
-          29.441343,
-          46.821919
-        ],
-        [
-          29.442002,
-          46.821644
-        ],
-        [
-          29.442724,
-          46.821328
-        ],
-        [
-          29.44359,
-          46.820906
-        ],
-        [
-          29.443823,
-          46.820768
-        ],
-        [
-          29.443927,
-          46.820704
-        ],
-        [
-          29.444454,
-          46.820376
-        ],
-        [
-          29.445134,
-          46.819867
-        ],
-        [
-          29.446289,
-          46.818923
-        ],
-        [
-          29.447299,
-          46.818075
-        ],
-        [
-          29.448535,
-          46.817122
-        ],
-        [
-          29.450324,
-          46.815899
-        ],
-        [
-          29.450468,
-          46.815788
-        ]
+      "clipped_by_side": false,
+      "include_full_length_streets": [
+        "Главная улица"
+      ],
+      "note": "Owner correction applied: Glavnaya included in full, both sides; no side-clip; orientation streets do not cut.",
+      "orientation_streets": [
+        "улица Мунтяна",
+        "Лесовая улица",
+        "Первомайская улица"
       ]
     }
   },
@@ -471,7 +239,7 @@
     }
   ],
   "summary": {
-    "addresses_included": 11837,
+    "addresses_included": 11979,
     "excluded_abandoned_or_ruin": 18,
     "excluded_construction": 5,
     "excluded_nonresidential": 275,
@@ -630,10 +398,10 @@
       "unknown_buildings": 0
     },
     "protyagailovka": {
-      "addresses_inside": 573,
-      "buildings_excluded": 487,
-      "buildings_included": 1509,
-      "candidate_area_km2": 2.0596,
+      "addresses_inside": 715,
+      "buildings_excluded": 12,
+      "buildings_included": 1984,
+      "candidate_area_km2": 2.5153,
       "display_ru": "Протягайловка",
       "excluded_abandoned_or_ruin": 2,
       "excluded_construction": 0,
@@ -642,7 +410,6 @@
       "exclusion_reasons": [
         "non_residential_buildings",
         "outbuildings",
-        "outside_owner_named_limit",
         "sparse_buildings"
       ],
       "inclusion_reasons": [
@@ -651,7 +418,7 @@
         "owner_named_boundary",
         "residential_street"
       ],
-      "reduction_pct": 87.65,
+      "reduction_pct": 84.92,
       "residential_customers": 652,
       "source_area_km2": 16.6775,
       "source_relation": 12463378,

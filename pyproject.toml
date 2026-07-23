@@ -1,0 +1,38 @@
+[project]
+name = "bender-zones"
+version = "0.1.0"
+description = "Reproducible OpenStreetMap source-audit scaffold for the Bender delivery-zone project (pre-modeling stage)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "bender-delivery-zones contributors" }]
+dependencies = [
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+    "osmium>=4.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bender_zones"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

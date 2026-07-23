@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Hand-written minimal OSM fixture for offline tests. Contains exactly:
+    * one boundary relation (id 944727) built from one closed way,
+    * one road (highway way, named, with name:ru/name:ro/old_name),
+    * one building with an address (addr:housenumber + addr:street + alt_name),
+    * standalone address nodes, including
+    * one duplicate of a normalized (street, housenumber) pair.
+  Expected metric values are asserted in tests/test_metrics.py.
+-->
+<osm version="0.6" generator="bender-zones-fixture">
+  <node id="1" lat="46.800" lon="29.470"/>
+  <node id="2" lat="46.800" lon="29.500"/>
+  <node id="3" lat="46.830" lon="29.500"/>
+  <node id="4" lat="46.830" lon="29.470"/>
+  <node id="5" lat="46.810" lon="29.480"/>
+  <node id="6" lat="46.815" lon="29.485"/>
+  <node id="11" lat="46.811" lon="29.481">
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:street" v="Ленина"/>
+    <tag k="name:ru" v="Дом"/>
+  </node>
+  <node id="12" lat="46.812" lon="29.482">
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:street" v="ленина  "/>
+  </node>
+  <node id="13" lat="46.813" lon="29.483">
+    <tag k="addr:place" v="Центр"/>
+  </node>
+  <node id="14" lat="46.814" lon="29.484">
+    <tag k="addr:housenumber" v="7"/>
+  </node>
+  <way id="20">
+    <nd ref="5"/><nd ref="6"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Strada Lenin"/>
+    <tag k="name:ru" v="улица Ленина"/>
+    <tag k="name:ro" v="Strada Lenin"/>
+    <tag k="old_name" v="ulitsa Lenina"/>
+  </way>
+  <way id="21">
+    <nd ref="1"/><nd ref="2"/><nd ref="3"/><nd ref="4"/><nd ref="1"/>
+    <tag k="building" v="yes"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:street" v="Strada Mare"/>
+    <tag k="alt_name" v="Big Street"/>
+  </way>
+  <way id="30">
+    <nd ref="1"/><nd ref="2"/><nd ref="3"/><nd ref="4"/><nd ref="1"/>
+  </way>
+  <relation id="944727">
+    <member type="way" ref="30" role="outer"/>
+    <tag k="type" v="boundary"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="admin_level" v="8"/>
+    <tag k="name" v="Bender"/>
+  </relation>
+</osm>

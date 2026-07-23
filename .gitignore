@@ -1,0 +1,59 @@
+# --- Large / generated geodata: NEVER commit -------------------------------
+# Source extracts, routing graphs, spatial databases and derived data are
+# regenerated from config + manifests and must stay out of version control.
+*.osm.pbf
+*.osm.bz2
+*.osm.gz
+*.osm.xml
+*.pbf
+*.o5m
+*.osm.o5m
+*.poly
+*.gpkg
+*.geopackage
+*.sqlite
+*.sqlite3
+*.mbtiles
+*.db
+*.gpkg-journal
+# routing graph / engine artifacts (not produced in this stage, blocked anyway)
+*.osrm
+*.osrm.*
+*.ghz
+graph.bin
+valhalla_tiles/
+*.graph
+
+# Generated GeoJSON extracts / clips (keep small hand-written fixtures via allowlist below)
+*.geojson
+*.geojsonl
+*.geojson.seq
+
+# --- Data directories: keep the folders, ignore their contents -------------
+data/raw/*
+data/interim/*
+data/processed/*
+data/manifests/*
+!data/**/.gitkeep
+# Manifests ARE provenance and should be committed when intentionally added:
+!data/manifests/*.json
+
+# --- Reports: keep the folder; generated audit outputs stay local ----------
+reports/stage-01/*
+!reports/**/.gitkeep
+
+# --- Test fixtures: allow the tiny hand-written OSM XML fixture -------------
+!tests/fixtures/*.osm
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/

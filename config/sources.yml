@@ -1,0 +1,13 @@
+# OSM source extracts. The PBF itself is never committed (see .gitignore);
+# only the manifest under data/manifests/ is version-controlled.
+sources:
+  osm_moldova:
+    # Human-readable landing page for the extract (for the audit trail).
+    info_url: https://download.geofabrik.de/europe/moldova.html
+    # Direct download of the latest Moldova extract.
+    source_url: https://download.geofabrik.de/europe/moldova-latest.osm.pbf
+    destination: data/raw/moldova-latest.osm.pbf
+    # Identify the client honestly to the tile/extract provider.
+    user_agent: "bender-delivery-zones-audit/0.1 (research; contact: maintainer)"
+    timeout_seconds: 120
+    max_retries: 3

@@ -1,0 +1,29 @@
+# Audit configuration.
+
+# highway values counted as "potentially car-drivable". Deliberately excludes
+# footway, path, cycleway, pedestrian, steps, track, bridleway, etc. This is a
+# coarse classification for a coverage signal, not a routing profile.
+car_highway_values:
+  - motorway
+  - motorway_link
+  - trunk
+  - trunk_link
+  - primary
+  - primary_link
+  - secondary
+  - secondary_link
+  - tertiary
+  - tertiary_link
+  - unclassified
+  - residential
+  - living_street
+  - service
+  - road
+
+extraction:
+  # osmium-tool extract strategy for the exact city clip.
+  osmium_strategy: smart
+  # scratch space for relation extracts / boundary geojson / city extracts.
+  workdir: data/interim
+
+report_dir: reports/stage-01

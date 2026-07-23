@@ -1,0 +1,32 @@
+# Candidate boundary relations to INSPECT ONLY.
+#
+# These ids come from the project brief. The audit verifies them against the
+# real PBF and reports their actual current tags. If the PBF disagrees with the
+# descriptions below, the PBF wins — the descriptions here are not authoritative.
+#
+# `selection: none` is a hard reminder: this stage never chooses a boundary.
+selection: none
+
+# `expected` values are heuristic hints for warning generation only. `admin_level`
+# is intentionally given as a broad accepted set, because the correct level for
+# Bender is exactly what this audit is meant to discover, not assume.
+candidates:
+  - id: 9581354
+    label: "Municipiul Bender / MD-BD (official municipal boundary, per brief)"
+    note: >-
+      Brief describes this as the official Municipiul Bender boundary.
+      Verify tags against the PBF before trusting this description.
+    expected:
+      type: boundary
+      boundary: administrative
+      admin_level_in: ["4", "5", "6", "7", "8", "9", "10"]
+
+  - id: 944727
+    label: "Bender City Council (de-facto city boundary, per brief)"
+    note: >-
+      Brief describes this as the de-facto Bender City Council boundary.
+      Verify tags against the PBF before trusting this description.
+    expected:
+      type: boundary
+      boundary: administrative
+      admin_level_in: ["4", "5", "6", "7", "8", "9", "10"]

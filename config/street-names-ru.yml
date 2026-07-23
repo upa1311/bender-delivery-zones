@@ -1,0 +1,8 @@
+# Verified local Russian street-name overrides.
+#
+# Used ONLY when an OSM street has none of name:ru / official_name:ru /
+# alt_name:ru. Keyed by the exact original OSM `name`. Values must be genuinely
+# verified Russian names — NEVER invented and NEVER auto-transliterated. A street
+# with no confirmed Russian name here is reported as `needs_ru_review`, not
+# machine-translated.
+verified: {}

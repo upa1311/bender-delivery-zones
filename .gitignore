@@ -45,6 +45,13 @@ reports/stage-01/*
 !reports/stage-01/source-audit.json
 !reports/stage-01/source-audit.md
 
+# --- Stage-02 public map: small hand-committed data for docs/ ---------------
+# The global *.geojson rule above still ignores large interim clips in
+# data/interim/; here we re-include only the small map data under docs/data/.
+!docs/data/*.geojson
+!docs/data/*.json
+!docs/data/*.csv
+
 # --- Test fixtures: allow the tiny hand-written OSM XML fixture -------------
 !tests/fixtures/*.osm
 

@@ -1,0 +1,52 @@
+# Fixed delivery-QA territory. This is a DATA-QA scope, not a delivery zone.
+#
+# Allowed territories ONLY: Bender (whole city, incl. all microdistricts),
+# Protyagailovka, Giska, Parkany. Varnița is explicitly EXCLUDED. Do not add
+# other settlements without a separate owner decision.
+#
+# OSM object ids below were discovered from the local Geofabrik Moldova extract
+# (not Overpass/Nominatim) and verified: each relation assembles into a polygon,
+# and the Parkany relation is the one whose polygon contains the Parkany place
+# node near Bender. The build never invents geometry; a settlement without a
+# usable boundary is shown as a `boundary_missing` marker.
+
+allowed_settlements:
+  - key: bender
+    display_ru: Бендеры
+    osm_type: relation
+    osm_id: 12463379          # admin_level=8 city boundary (name=Bender, ru=Бендеры)
+    place_node: 265099165     # place=city Бендеры
+    microdistricts_ru: [БАМ, Липканы, Шёлковый, Ленинский]
+
+  - key: protyagailovka
+    display_ru: Протягайловка
+    osm_type: relation
+    osm_id: 12463378          # admin_level=8 (name=Протягайловка)
+    place_node: 278767930
+
+  - key: giska
+    display_ru: Гиска
+    osm_type: relation
+    osm_id: 12215667          # admin_level=8 (name=Gîsca, ru=Гиска)
+    place_node: 2897469559
+
+  - key: parkany
+    display_ru: Парканы
+    osm_type: relation
+    osm_id: 7431263           # admin_level=8 "Парканский сельский совет" (contains Parkany node)
+    place_node: 2561188871
+
+# Never allowed. Kept explicit so the exclusion is testable, not just absent.
+excluded_settlements:
+  - key: varnita
+    display_ru: Варница
+    reason: Excluded from the delivery service area by owner decision.
+
+tiles:
+  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution: "© OpenStreetMap contributors"
+
+start_view:
+  lat: 46.8218
+  lon: 29.4819
+  zoom: 13

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Бендеры — карта проверки территории доставки</title>
+  <!-- Leaflet is vendored locally (docs/vendor/) so the map is self-contained:
+       no CDN dependency. OSM raster tiles remain the only external request. -->
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Prominent QA notice. This is a data-verification map, not a delivery product. -->
+  <div id="notice" role="alert">
+    Это карта проверки данных. Финальные зоны доставки ещё не созданы.
+  </div>
+
+  <div id="layout">
+    <aside id="sidebar">
+      <h1>Территория доставки — проверка данных</h1>
+      <p class="muted">
+        Границы и улицы получены из локально обработанного экстракта OpenStreetMap.
+        Данные © OpenStreetMap contributors.
+      </p>
+
+      <section id="search-box">
+        <label for="street-search"><strong>Поиск улицы</strong> (русское или исходное название)</label>
+        <input id="street-search" type="search" placeholder="например: Ленина / Ștefan" autocomplete="off" />
+        <div id="search-results" class="muted"></div>
+      </section>
+
+      <section id="stats">
+        <h2>Статистика</h2>
+        <div id="stats-body" class="muted">Загрузка…</div>
+      </section>
+
+      <section id="legend">
+        <h2>Легенда</h2>
+        <ul class="legend-list">
+          <li><span class="swatch found"></span> граница найдена в OSM</li>
+          <li><span class="swatch missing"></span> граница отсутствует (маркер)</li>
+          <li><span class="swatch road"></span> улица</li>
+          <li><span class="swatch review"></span> улица без русского названия</li>
+        </ul>
+      </section>
+
+      <p class="muted small">
+        Разрешённые территории: Бендеры (включая микрорайоны), Протягайловка, Гиска, Парканы.
+        Варница исключена. Зоны доставки, тарифы и маршрутизация ещё не создаются.
+      </p>
+    </aside>
+
+    <main id="map" aria-label="Карта территории"></main>
+  </div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

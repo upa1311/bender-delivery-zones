@@ -1,0 +1,74 @@
+{
+  "boundary_selected": false,
+  "excluded_settlements": [
+    {
+      "key": "varnita",
+      "reason": "Excluded from the delivery service area by owner decision."
+    }
+  ],
+  "generated_at": "2026-07-23T07:55:21Z",
+  "notice": "Это карта проверки данных. Финальные зоны доставки ещё не созданы.",
+  "per_settlement": {
+    "bender": {
+      "address_objects": 6186,
+      "boundary_status": "boundary_found",
+      "buildings": 10336,
+      "display_ru": "Бендеры",
+      "osm_id": 12463379,
+      "osm_type": "relation",
+      "streets_needs_ru_review": 1,
+      "streets_with_name_ru": 247,
+      "unique_streets": 248
+    },
+    "giska": {
+      "address_objects": 630,
+      "boundary_status": "boundary_found",
+      "buildings": 2419,
+      "display_ru": "Гиска",
+      "osm_id": 12215667,
+      "osm_type": "relation",
+      "streets_needs_ru_review": 1,
+      "streets_with_name_ru": 31,
+      "unique_streets": 32
+    },
+    "parkany": {
+      "address_objects": 4514,
+      "boundary_status": "boundary_found",
+      "buildings": 8858,
+      "display_ru": "Парканы",
+      "osm_id": 7431263,
+      "osm_type": "relation",
+      "streets_needs_ru_review": 0,
+      "streets_with_name_ru": 47,
+      "unique_streets": 47
+    },
+    "protyagailovka": {
+      "address_objects": 720,
+      "boundary_status": "boundary_found",
+      "buildings": 2036,
+      "display_ru": "Протягайловка",
+      "osm_id": 12463378,
+      "osm_type": "relation",
+      "streets_needs_ru_review": 5,
+      "streets_with_name_ru": 36,
+      "unique_streets": 41
+    }
+  },
+  "schema": "bender-service-area/2",
+  "source_pbf_sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+  "tool_versions": {
+    "libosmium": "2.23.1",
+    "osmium_tool": "osmium version 1.19.1",
+    "pyosmium": "4.3.1",
+    "python": "3.12.10"
+  },
+  "totals": {
+    "boundaries_found": 4,
+    "boundaries_missing": 0,
+    "settlements": 4,
+    "streets_needs_ru_review": 7,
+    "streets_with_name_ru": 361,
+    "unique_streets": 368
+  },
+  "zones_created": false
+}

@@ -1,8 +1,12 @@
 # Verified local Russian street-name overrides.
 #
-# Used ONLY when an OSM street has none of name:ru / official_name:ru /
-# alt_name:ru. Keyed by the exact original OSM `name`. Values must be genuinely
-# verified Russian names — NEVER invented and NEVER auto-transliterated. A street
-# with no confirmed Russian name here is reported as `needs_ru_review`, not
-# machine-translated.
-verified: {}
+# Human-verified Russian street names. This table is AUTHORITATIVE: it wins over
+# OSM name:ru/official_name:ru/alt_name:ru, because some OSM segments carry
+# inconsistent or partial name:ru. Keyed by the exact original OSM `name`. Values
+# must be genuinely verified — NEVER invented and NEVER auto-transliterated. A
+# street absent here and lacking a confirmed OSM Russian name is reported as
+# `needs_ru_review`. Original OSM tags are never modified.
+verified:
+  # Giска: OSM segments carry inconsistent name:ru ("улица Штефан чел Маре" vs
+  # the full form); the verified canonical Russian name is below.
+  "Strada Ștefan cel Mare și Sfânt": "улица Штефан чел Маре ши Сфынт"

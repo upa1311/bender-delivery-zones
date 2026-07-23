@@ -16,6 +16,8 @@ from bender_zones.service_area import (
     STATUS_OK,
     SettlementEntry,
     build_settlement_feature,
+    classify_road,
+    load_local_ru_table,
     load_service_area,
     resolve_ru_name,
     round_coords,
@@ -116,11 +118,128 @@ def test_street_without_ru_gets_needs_review_and_no_transliteration():
 
 def test_street_record_preserves_all_fields():
     tags = {"name": "N", "name:ru": "Н", "name:ro": "R", "official_name": "O",
-            "alt_name": "A", "old_name": "OLD"}
+            "alt_name": "A", "old_name": "OLD", "highway": "residential"}
     rec = street_record("way", 42, tags, "bender")
     for key in ("name", "name:ru", "name:ro", "official_name", "alt_name", "old_name"):
         assert rec[key] == tags[key]
     assert rec["osm_id"] == 42 and rec["osm_type"] == "way"
+    assert rec["road_class"] == "address_street" and rec["is_address_street"] is True
+
+
+def test_verified_override_is_authoritative_over_osm_name_ru():
+    # OSM carries a partial/inconsistent name:ru; the verified table wins.
+    tags = {"name": "Strada Ștefan cel Mare și Sfânt", "name:ru": "улица Штефан чел Маре"}
+    table = {"Strada Ștefan cel Mare și Sfânt": "улица Штефан чел Маре ши Сфынт"}
+    display, source, status = resolve_ru_name(tags, table)
+    assert display == "улица Штефан чел Маре ши Сфынт"
+    assert source == "local_table"
+    assert status == STATUS_OK
+
+
+# --- road classification ----------------------------------------------------
+
+def test_intercity_road_is_not_an_address_street():
+    rc, is_addr, _ = classify_road({"highway": "primary", "name": "Кишинёв-Тирасполь"})
+    assert rc == "intercity"
+    assert is_addr is False
+
+
+def test_named_bridge_structure_is_not_an_address_street():
+    rc, is_addr, _ = classify_road({"highway": "primary", "name": "Бендерский мост"})
+    assert rc == "bridge"
+    assert is_addr is False
+
+
+def test_street_with_bridge_tag_is_still_counted():
+    # bridge=yes on a genuine street must NOT exclude it.
+    rc, is_addr, _ = classify_road(
+        {"highway": "residential", "name": "улица Победы", "bridge": "yes"})
+    assert rc == "address_street"
+    assert is_addr is True
+
+
+def test_informal_names_excluded_and_flagged_for_review():
+    for name in ("Горка (с ручником)", "начало пути"):
+        rc, is_addr, review = classify_road({"highway": "service", "name": name})
+        assert is_addr is False
+        assert review is True
+
+
+def test_service_way_flagged_for_classification_review():
+    rc, is_addr, review = classify_road({"highway": "service", "name": "Проезд к складу"})
+    assert rc == "service"
+    assert is_addr is False
+    assert review is True
+
+
+def test_residential_street_is_address_no_review():
+    rc, is_addr, review = classify_road({"highway": "residential", "name": "улица Ленина"})
+    assert rc == "address_street"
+    assert is_addr is True
+    assert review is False
+
+
+# --- committed data reflects classification + override ----------------------
+
+def test_config_has_verified_giska_override(repo_root):
+    table = load_local_ru_table(repo_root / "config" / "street-names-ru.yml")
+    assert table.get("Strada Ștefan cel Mare și Sfânt") == "улица Штефан чел Маре ши Сфынт"
+
+
+def _street_rows(repo_root):
+    text = (repo_root / "docs/data/street-names-review.csv").read_text(encoding="utf-8")
+    return list(csv.DictReader(text.splitlines()))
+
+
+def test_stefan_street_resolved_to_verified_ru_in_committed_csv(repo_root):
+    rows = [r for r in _street_rows(repo_root)
+            if r["name"] == "Strada Ștefan cel Mare și Sfânt"]
+    assert rows, "expected the Giska street in the review CSV"
+    for r in rows:
+        assert r["ru_display"] == "улица Штефан чел Маре ши Сфынт"
+        assert r["ru_status"] == STATUS_OK
+        assert r["ru_source"] == "local_table"
+
+
+def test_review_csv_has_classification_columns(repo_root):
+    header = (repo_root / "docs/data/street-names-review.csv").read_text(
+        encoding="utf-8").splitlines()[0]
+    for col in ("road_class", "is_address_street", "needs_name_classification_review"):
+        assert col in header
+
+
+def test_roads_geojson_has_classification_fields(repo_root):
+    fc = json.loads((repo_root / "docs/data/roads.geojson").read_text(encoding="utf-8"))
+    props = fc["features"][0]["properties"]
+    for key in ("road_class", "is_address_street", "needs_name_classification_review"):
+        assert key in props
+
+
+def test_unique_streets_counts_only_address_streets(repo_root):
+    rows = _street_rows(repo_root)
+    address_rows = [r for r in rows if r["is_address_street"] == "True"]
+    summary = json.loads((repo_root / "docs/data/summary.json").read_text(encoding="utf-8"))
+    assert summary["totals"]["unique_streets"] == len(address_rows)
+    assert summary["totals"]["named_ways_total"] == len(rows)
+    # the count excludes non-address ways
+    assert summary["totals"]["unique_streets"] < summary["totals"]["named_ways_total"]
+
+
+def test_excluded_examples_are_not_address_streets(repo_root):
+    by_name = {(r["settlement"], r["name"]): r for r in _street_rows(repo_root)}
+    for key in [("bender", "начало пути"), ("bender", "Бендерский мост"),
+                ("bender", "Кишинёв-Тирасполь")]:
+        row = by_name.get(key)
+        if row is not None:
+            assert row["is_address_street"] == "False", f"{key} must not count as a street"
+
+
+def test_no_address_street_has_informal_name(repo_root):
+    for r in _street_rows(repo_root):
+        if r["is_address_street"] == "True":
+            name = r["name"] or ""
+            assert "(" not in name
+            assert not (name and name == name.lower() and any(c.isalpha() for c in name))
 
 
 # --- determinism ------------------------------------------------------------

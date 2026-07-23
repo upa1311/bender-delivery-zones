@@ -52,12 +52,16 @@ function streetPopup(p) {
   const badge = p.ru_status === "needs_ru_review"
     ? '<span class="badge review">нужна проверка RU</span>'
     : '<span class="badge ok">RU подтверждено</span>';
+  const cls = p.is_address_street ? "адресная улица" : "не адресная улица";
+  const review = p.needs_name_classification_review
+    ? ' <span class="badge review">классификация?</span>' : "";
   return `<div class="popup">
     <div class="popup-title">${esc(p.ru_display || p.name)} ${badge}</div>
     <table>
       <tr><td class="k">исходное</td><td>${esc(p.name)}</td></tr>
       ${fieldRows(p, ["name:ru", "name:ro", "official_name", "alt_name", "old_name"])}
       <tr><td class="k">RU источник</td><td>${esc(p.ru_source)}</td></tr>
+      <tr><td class="k">класс</td><td>${esc(p.road_class)} — ${cls}${review}</td></tr>
       <tr><td class="k">OSM</td><td>${esc(p.osm_type)} ${esc(p.osm_id)}</td></tr>
     </table></div>`;
 }
@@ -124,9 +128,11 @@ function renderStats(summary) {
     ["Населённых пунктов", t.settlements],
     ["Границы найдены", t.boundaries_found],
     ["Границы отсутствуют", t.boundaries_missing],
-    ["Уникальных улиц", t.unique_streets],
+    ["Адресных улиц", t.unique_streets],
+    ["Именованных линий всего", t.named_ways_total],
     ["Улиц с name:ru", t.streets_with_name_ru],
     ["Требуют проверки RU", t.streets_needs_ru_review],
+    ["Требуют классификации", t.streets_needs_name_classification_review],
   ].map(([k, v]) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`).join("");
 
   let rows = "";

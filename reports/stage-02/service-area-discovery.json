@@ -12,10 +12,12 @@
         "n": 1,
         "w": 20
       },
+      "named_ways_total": 248,
       "osm_id": 12463379,
       "osm_type": "relation",
-      "streets_needs_ru_review": 1,
-      "streets_with_name_ru": 247,
+      "streets_needs_name_classification_review": 33,
+      "streets_needs_ru_review": 0,
+      "streets_with_name_ru": 229,
       "tags": {
         "admin_level": "8",
         "alt_name": "Tighina",
@@ -47,7 +49,7 @@
         "wikidata": "Q192176",
         "wikipedia": "ro:Tighina"
       },
-      "unique_streets": 248
+      "unique_streets": 229
     },
     {
       "address_objects": 720,
@@ -61,10 +63,12 @@
         "n": 1,
         "w": 9
       },
+      "named_ways_total": 41,
       "osm_id": 12463378,
       "osm_type": "relation",
+      "streets_needs_name_classification_review": 3,
       "streets_needs_ru_review": 5,
-      "streets_with_name_ru": 36,
+      "streets_with_name_ru": 33,
       "tags": {
         "admin_level": "8",
         "boundary": "administrative",
@@ -92,7 +96,7 @@
         "wikidata": "Q3924179",
         "wikipedia": "ro:Proteagailovca, Tighina"
       },
-      "unique_streets": 41
+      "unique_streets": 38
     },
     {
       "address_objects": 630,
@@ -106,9 +110,11 @@
         "n": 1,
         "w": 13
       },
+      "named_ways_total": 32,
       "osm_id": 12215667,
       "osm_type": "relation",
-      "streets_needs_ru_review": 1,
+      "streets_needs_name_classification_review": 8,
+      "streets_needs_ru_review": 0,
       "streets_with_name_ru": 31,
       "tags": {
         "admin_level": "8",
@@ -141,10 +147,12 @@
         "n": 1,
         "w": 16
       },
+      "named_ways_total": 47,
       "osm_id": 7431263,
       "osm_type": "relation",
+      "streets_needs_name_classification_review": 2,
       "streets_needs_ru_review": 0,
-      "streets_with_name_ru": 47,
+      "streets_with_name_ru": 41,
       "tags": {
         "admin_level": "8",
         "boundary": "administrative",
@@ -172,7 +180,7 @@
         "wikidata": "Q212077",
         "wikipedia": "ro:Parcani, Stînga Nistrului"
       },
-      "unique_streets": 47
+      "unique_streets": 41
     }
   ],
   "boundaries_found": [
@@ -189,12 +197,13 @@
       "reason": "Excluded from the delivery service area by owner decision."
     }
   ],
-  "generated_at": "2026-07-23T07:55:21Z",
+  "generated_at": "2026-07-23T08:24:02Z",
   "limitations": [
     "This is a data-QA map. No delivery zones, tariffs, routing graph, or production polygon are created.",
     "Territories are shown as separate real OSM boundaries; they are NOT merged into a final service polygon at this stage.",
     "Varnița is intentionally excluded from the service area.",
-    "Street Russian names are resolved by strict priority; unconfirmed ones are flagged needs_ru_review and never transliterated.",
+    "The unique_streets statistic counts only real address streets (is_address_street=true). Intercity roads, named bridge structures, service/track ways and informal placeholder names are classified via road_class and excluded from the count; ambiguous ones set needs_name_classification_review for a human to confirm.",
+    "Street Russian names are resolved by priority (verified local override first, then name:ru/official_name:ru/alt_name:ru); unconfirmed ones are flagged needs_ru_review and never transliterated.",
     "Address coverage in OpenStreetMap is community-contributed and NOT complete."
   ],
   "schema": "bender-service-area-discovery/2",
@@ -208,10 +217,12 @@
   "totals": {
     "boundaries_found": 4,
     "boundaries_missing": 0,
+    "named_ways_total": 368,
     "settlements": 4,
-    "streets_needs_ru_review": 7,
-    "streets_with_name_ru": 361,
-    "unique_streets": 368
+    "streets_needs_name_classification_review": 46,
+    "streets_needs_ru_review": 5,
+    "streets_with_name_ru": 334,
+    "unique_streets": 340
   },
   "warnings": [],
   "zones_created": false

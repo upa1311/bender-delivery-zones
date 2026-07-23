@@ -1,369 +1,369 @@
-settlement,osm_type,osm_id,name,name_ru,name_ro,official_name,alt_name,old_name,ru_display,ru_source,ru_status
-bender,way,223672862,1-й Братский переулок,1-й Братский переулок,,,,,1-й Братский переулок,name:ru,ok
-bender,way,325664970,1-й Измаильский переулок,1-й Измаильский переулок,Stradela 1 Ismail,,,,1-й Измаильский переулок,name:ru,ok
-bender,way,161635487,1-й Индустриальный переулок,1-й Индустриальный переулок,,,,,1-й Индустриальный переулок,name:ru,ok
-bender,way,60739720,1-й переулок Кутузова,1-й переулок Кутузова,Stradela Kutuzov 1,,,,1-й переулок Кутузова,name:ru,ok
-bender,way,223672774,1-й переулок Петровского,1-й переулок Петровского,Stradela Petrovski 1,,,,1-й переулок Петровского,name:ru,ok
-bender,way,597364118,2-й Береговой переулок,2-й Береговой переулок,,,,,2-й Береговой переулок,name:ru,ok
-bender,way,116073590,2-й Братский переулок,2-й Братский переулок,,,,,2-й Братский переулок,name:ru,ok
-bender,way,106082963,2-й Измаильский переулок,2-й Измаильский переулок,Stradela 2 Ismail,,,,2-й Измаильский переулок,name:ru,ok
-bender,way,160164525,2-й переулок Кутузова,2-й переулок Кутузова,Stradela Kutuzov 2,,,,2-й переулок Кутузова,name:ru,ok
-bender,way,223673219,2-й переулок Петровского,2-й переулок Петровского,Stradela 2 Petrovski,,,,2-й переулок Петровского,name:ru,ok
-bender,way,115331444,3-й Индустриальный переулок,3-й Индустриальный переулок,,,,,3-й Индустриальный переулок,name:ru,ok
-bender,way,165762115,4-й Береговой переулок,4-й Береговой переулок,,,,,4-й Береговой переулок,name:ru,ok
-bender,way,162030318,6-й Береговой переулок,6-й Береговой переулок,,,,,6-й Береговой переулок,name:ru,ok
-bender,way,450216778,Bender-Copanca,Бендеры-Копанка,,,,,Бендеры-Копанка,name:ru,ok
-bender,way,680239003,Bender-Căușeni,Бендеры-Кэушень,Bender-Căușeni,,,,Бендеры-Кэушень,name:ru,ok
-bender,way,224765321,Strada 27 Aprilie 1990,улица 27 Апреля 1990,Strada 27 Aprilie 1990,,,,улица 27 Апреля 1990,name:ru,ok
-bender,way,525235554,Strada Pocitarenco,улица Почитаренко,Strada Pocitarenco,,,,улица Почитаренко,name:ru,ok
-bender,way,44310025,Strada Ștefan cel Mare și Sfânt,улица Штефан чел Маре ши Сфынт,,,,,улица Штефан чел Маре ши Сфынт,name:ru,ok
-bender,way,91850350,Безымянный переулок,Безымянный переулок,Stradela Bezîmianîi,,,,Безымянный переулок,name:ru,ok
-bender,way,41749666,Бельцкая улица,Бельцкая улица,Strada Bălți,,,,Бельцкая улица,name:ru,ok
-bender,way,28584679,Бендерский мост,Бендерский мост,Podul pacificatorilor ruși,,,,Бендерский мост,name:ru,ok
-bender,way,116073592,Братская улица,Братская улица,Strada Bratscaia,,,,Братская улица,name:ru,ok
-bender,way,165445033,Варницкий переулок,Варницкий переулок,Stradela Varnița,,,,Варницкий переулок,name:ru,ok
-bender,way,223670457,Варницкий тупик,Варницкий тупик,Fundătura Varnița,,,,Варницкий тупик,name:ru,ok
-bender,way,87506333,Восточная улица,Восточная улица,Strada Vostocinaia,,,,Восточная улица,name:ru,ok
-bender,way,96404889,Восточный переулок,Восточный переулок,,,,,Восточный переулок,name:ru,ok
-bender,way,222655027,Гвардейская улица,Гвардейская улица,Strada Gvardeiscaia,,,,Гвардейская улица,name:ru,ok
-bender,way,222904315,Гербовецкая улица,Гербовецкая улица,Strada Hîrbovățului,,,,Гербовецкая улица,name:ru,ok
-bender,way,60739688,Главная улица,Главная улица,Strada Glavnaia,,,,Главная улица,name:ru,ok
-bender,way,209668181,Глинная улица,Глинная улица,Strada Glinnaia,,,,Глинная улица,name:ru,ok
-bender,way,525053240,Горка (с ручником),Горка (с ручником),,,,,Горка (с ручником),name:ru,ok
-bender,way,87497012,Дачная улица,Дачная улица,Strada Vilelor,,,,Дачная улица,name:ru,ok
-bender,way,224953397,Деповская улица,Деповская улица,Strada Depo,,,,Деповская улица,name:ru,ok
-bender,way,47475966,Донецкая улица,Донецкая улица,Strada Donețk,,,,Донецкая улица,name:ru,ok
-bender,way,41852355,Дубоссарская улица,Дубоссарская улица,Strada Dubăsari,,,,Дубоссарская улица,name:ru,ok
-bender,way,45858824,Железнодорожная улица,Железнодорожная улица,,,,улица Александру Хаждеу,Железнодорожная улица,name:ru,ok
-bender,way,225087000,Железнодорожный тупик,Железнодорожный тупик,,,,,Железнодорожный тупик,name:ru,ok
-bender,way,491561503,Заводская улица,Заводская улица,Strada Uzinelor,,,,Заводская улица,name:ru,ok
-bender,way,165943504,Загородная улица,Загородная улица,Strada Zagorodnaia,,,,Загородная улица,name:ru,ok
-bender,way,87506328,Индустриальная улица,Индустриальная улица,Strada Industrială,,,,Индустриальная улица,name:ru,ok
-bender,way,223269325,Кагульская улица,Кагульская улица,Strada Cahulului,,,,Кагульская улица,name:ru,ok
-bender,way,87506350,Карпатская улица,Карпатская улица,Strada Carpați,,,,Карпатская улица,name:ru,ok
-bender,way,224623030,Каховская улица,Каховская улица,Strada Cahovscaia,,,,Каховская улица,name:ru,ok
-bender,way,224623587,Каховский тупик,Каховский тупик,,,,,Каховский тупик,name:ru,ok
-bender,way,87497014,Киевская улица,Киевская улица,Strada Kiev,,,,Киевская улица,name:ru,ok
-bender,way,115331401,Киркаештская улица,Киркаештская улица,Strada Chircăiești,,,,Киркаештская улица,name:ru,ok
-bender,way,87506340,Кирпичная улица,Кирпичная улица,Strada Kirpicinaia,,,,Кирпичная улица,name:ru,ok
-bender,way,115331349,Кирпичный переулок,Кирпичный переулок,Stradela Kirpicinîi,,,,Кирпичный переулок,name:ru,ok
-bender,way,161126058,Кицканская улица,Кицканская улица,Strada Chițcani,,,,Кицканская улица,name:ru,ok
-bender,way,44537119,Кицканский переулок,Кицканский переулок,Stradela Chițcani,,,,Кицканский переулок,name:ru,ok
-bender,way,28796004,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok
-bender,way,41749663,Кишинёвская улица,Кишинёвская улица,Strada Chișinăului,,,,Кишинёвская улица,name:ru,ok
-bender,way,184989519,Кишинёвский переулок,Кишинёвский переулок,Stradela Chișinăului,,,,Кишинёвский переулок,name:ru,ok
-bender,way,223670398,Кишинёвский тупик,Кишинёвский тупик,Fundătura Chișinăului,,,,Кишинёвский тупик,name:ru,ok
-bender,way,225113349,Колодезная улица,Колодезная улица,Strada Colodeznaia,,,,Колодезная улица,name:ru,ok
-bender,way,87506313,Колодезный переулок,Колодезный переулок,,,,,Колодезный переулок,name:ru,ok
-bender,way,136388032,Колхозная улица,Колхозная улица,Strada Colhozului,,,,Колхозная улица,name:ru,ok
-bender,way,161631166,Колхозный переулок,Колхозный переулок,Stradela Colhozului,,,,Колхозный переулок,name:ru,ok
-bender,way,63221762,Коммунистическая улица,Коммунистическая улица,Strada Comunismului,,,,Коммунистическая улица,name:ru,ok
-bender,way,91430810,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok
-bender,way,223677899,Кооперативный тупик,Кооперативный тупик,,,,,Кооперативный тупик,name:ru,ok
-bender,way,159915378,Красивая улица,Красивая улица,Strada Frumoasă,,,,Красивая улица,name:ru,ok
-bender,way,87506358,Красноармейская улица,Красноармейская улица,Strada Krasnoarmeiscaia,,,,Красноармейская улица,name:ru,ok
-bender,way,96404887,Красноармейский переулок,Красноармейский переулок,,,,,Красноармейский переулок,name:ru,ok
-bender,way,41749664,Ленинградская улица,Ленинградская улица,Strada Leningradului,,,,Ленинградская улица,name:ru,ok
-bender,way,224944806,Лесовой переулок,Лесовой переулок,Stradela Pădurii,,,,Лесовой переулок,name:ru,ok
-bender,way,87497001,Мельничный переулок,Мельничный переулок,,,,,Мельничный переулок,name:ru,ok
-bender,way,161126079,Молдавская улица,Молдавская улица,Strada Moldovenească,,,,Молдавская улица,name:ru,ok
-bender,way,161630391,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok
-bender,way,41749657,Московская улица,Московская улица,Strada Moscovei,,,,Московская улица,name:ru,ok
-bender,way,733032838,Мостик,Мостик,,,,,Мостик,name:ru,ok
-bender,way,224631135,Новый проезд,Новый проезд,Pasajul Nou,,,,Новый проезд,name:ru,ok
-bender,way,161630392,Одесская улица,Одесская улица,Strada Odessa,,,,Одесская улица,name:ru,ok
-bender,way,115331460,Октябрьская улица,Октябрьская улица,Strada Octombrie,,,,Октябрьская улица,name:ru,ok
-bender,way,87506326,Оргеевский переулок,Оргеевский переулок,Stradela Orheiului,,,,Оргеевский переулок,name:ru,ok
-bender,way,160164527,Парканская улица,Парканская улица,Strada Parcani,,,,Парканская улица,name:ru,ok
-bender,way,87506335,Первомайская улица,Первомайская улица,Strada 1 Mai,,,,Первомайская улица,name:ru,ok
-bender,way,87506319,Первомайский переулок,Первомайский переулок,Stradela 1 Mai,,,,Первомайский переулок,name:ru,ok
-bender,way,115331340,Песчанная улица,Песчанная улица,Strada Pesciannaia,,,,Песчанная улица,name:ru,ok
-bender,way,225206119,Песчанный переулок,Песчанный переулок,,,,,Песчанный переулок,name:ru,ok
-bender,way,222832796,Пивоваренный переулок,Пивоваренный переулок,Stradela Pivovarennîi,,,,Пивоваренный переулок,name:ru,ok
-bender,way,209668183,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok
-bender,way,209668157,Пионерский переулок,Пионерский переулок,Stradela Pionerskii,,,,Пионерский переулок,name:ru,ok
-bender,way,160024304,Пограничный переулок,Пограничный переулок,,,,,Пограничный переулок,name:ru,ok
-bender,way,161627667,Подольская улица,Подольская улица,Strada Podolscaia,,,,Подольская улица,name:ru,ok
-bender,way,96821662,Подольский переулок,Подольский переулок,Stradela Podolscaia,,,,Подольский переулок,name:ru,ok
-bender,way,393488079,Полевой переулок,Полевой переулок,,,,,Полевой переулок,name:ru,ok
-bender,way,222835413,Почтовый переулок,Почтовый переулок,Stradela Poștei,,,,Почтовый переулок,name:ru,ok
-bender,way,657287120,Протягайловская улица,Протягайловская улица,Strada Proteagailovca,,,,Протягайловская улица,name:ru,ok
-bender,way,222764129,Путейская улица,Путейская улица,Strada Puteiscaia,,,,Путейская улица,name:ru,ok
-bender,way,222702908,Рыбницкая улица,Рыбницкая улица,Strada Rîbnița,,,,Рыбницкая улица,name:ru,ok
-bender,way,50738518,Рыбницкий переулок,Рыбницкий переулок,Stradela Rîbnița,,,,Рыбницкий переулок,name:ru,ok
-bender,way,41749659,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok
-bender,way,87506320,Садовый переулок,Садовый переулок,Stradela Livezilor,,,,Садовый переулок,name:ru,ok
-bender,way,209668174,Санаторная улица,Санаторная улица,,,,,Санаторная улица,name:ru,ok
-bender,way,87496997,Севастопольская улица,Севастопольская улица,Strada Sevastopol,,,,Севастопольская улица,name:ru,ok
-bender,way,87502095,Советская улица,Советская улица,Strada Sovietică,,,Дворянская улица,Советская улица,name:ru,ok
-bender,way,87499738,Спортивная улица,Спортивная улица,,,,,Спортивная улица,name:ru,ok
-bender,way,38633109,Тираспольская улица,Тираспольская улица,Strada Tiraspol,,,Конная площадь,Тираспольская улица,name:ru,ok
-bender,way,161635489,Треугольный переулок,Треугольный переулок,,,,,Треугольный переулок,name:ru,ok
-bender,way,164987460,Украинская улица,Украинская улица,Strada Ucraineană,,,,Украинская улица,name:ru,ok
-bender,way,91850332,Фонтанная улица,Фонтанная улица,,,,,Фонтанная улица,name:ru,ok
-bender,way,41844063,Фруктовая улица,Фруктовая улица,Strada Fructelor,,,,Фруктовая улица,name:ru,ok
-bender,way,87502087,Херсонская улица,Херсонская улица,Strada Herson,,,,Херсонская улица,name:ru,ok
-bender,way,87502091,Херсонский проезд,Херсонский проезд,Pasajul Herson,,,,Херсонский проезд,name:ru,ok
-bender,way,116073593,Хотинская улица,Хотинская улица,Strada Hotinului,,,,Хотинская улица,name:ru,ok
-bender,way,707283902,Цареградская улица,Цареградская улица,Strada Țaregradscaia,,,,Цареградская улица,name:ru,ok
-bender,way,87496984,Школьная улица,Школьная улица,Strada Școlii,,,,Школьная улица,name:ru,ok
-bender,way,222699791,Школьный переулок,Школьный переулок,Stradela Școlii,,,,Школьный переулок,name:ru,ok
-bender,way,222655026,Южная улица,Южная улица,Strada de Sud,,,,Южная улица,name:ru,ok
-bender,way,525053249,начало пути,,,,,,начало пути,none,needs_ru_review
-bender,way,87506347,переулок 28 Июня,переулок 28 Июня,Stradela 28 Iunie,,,,переулок 28 Июня,name:ru,ok
-bender,way,224636548,переулок 5 Декабря,переулок 5 Декабря,Stradela 5 Decembrie,,,,переулок 5 Декабря,name:ru,ok
-bender,way,47475963,переулок Баумана,переулок Баумана,Stradela Bauman,,,,переулок Баумана,name:ru,ok
-bender,way,161635488,переулок Бородина,переулок Бородина,Stradela Borodin,,,,переулок Бородина,name:ru,ok
-bender,way,160166705,переулок Грибоедова,переулок Грибоедова,Stradela Griboedov,,,,переулок Грибоедова,name:ru,ok
-bender,way,224360312,переулок Емилиана Букова,переулок Емилиана Букова,Stradela Emilian Bucov,,,переулок Жданова,переулок Емилиана Букова,name:ru,ok
-bender,way,165636730,переулок Иона Солтыса,переулок Иона Солтыса,Stradela Ion Soltîs,,,,переулок Иона Солтыса,name:ru,ok
-bender,way,295088587,переулок Калинина,переулок Калинина,Stradela Kalinin,,,,переулок Калинина,name:ru,ok
-bender,way,222702910,переулок Карбышева,переулок Карбышева,Stradela Carbîșev,,,,переулок Карбышева,name:ru,ok
-bender,way,223692025,переулок Куйбышева,переулок Куйбышева,Strada Kuibișev,,,,переулок Куйбышева,name:ru,ok
-bender,way,45858828,переулок Лермонтова,переулок Лермонтова,Stradela Lermontov,,,,переулок Лермонтова,name:ru,ok
-bender,way,165943497,переулок Менделеева,переулок Менделеева,Stradela Mendeleev,,,,переулок Менделеева,name:ru,ok
-bender,way,222776787,переулок Мира,переулок Мира,Stradela Păcii,,,,переулок Мира,name:ru,ok
-bender,way,225085705,переулок Мичурина,переулок Мичурина,Stradela Miciurin,,,,переулок Мичурина,name:ru,ok
-bender,way,222699796,переулок Некрасова,переулок Некрасова,Stradela Necrasov,,,,переулок Некрасова,name:ru,ok
-bender,way,222986039,переулок Осипенко,переулок Осипенко,Stradela Osipenco,,,,переулок Осипенко,name:ru,ok
-bender,way,222660151,переулок Павлова,переулок Павлова,Stradela Pavlov,,,,переулок Павлова,name:ru,ok
-bender,way,165943496,переулок Пирогова,переулок Пирогова,Stradela Pirogov,,,,переулок Пирогова,name:ru,ok
-bender,way,230698195,переулок Полоза,переулок Полоза,Stradela Poloz,,,,переулок Полоза,name:ru,ok
-bender,way,91430797,переулок Разина,переулок Разина,Stradela Razin,,,,переулок Разина,name:ru,ok
-bender,way,115331374,переулок Строителей,переулок Строителей,,,,,переулок Строителей,name:ru,ok
-bender,way,87502090,переулок Суворова,переулок Суворова,Stradela Suvorov,,,,переулок Суворова,name:ru,ok
-bender,way,96404883,переулок Текстильщиков,переулок Текстильщиков,,,,,переулок Текстильщиков,name:ru,ok
-bender,way,224928886,переулок Щорса,переулок Щорса,Stradela Șciors,,,,переулок Щорса,name:ru,ok
-bender,way,223694600,переулок Энгельса,переулок Энгельса,Stradela Engels,,,,переулок Энгельса,name:ru,ok
-bender,way,305226282,площадь Освобождения,площадь Освобождения,Piața Eliberării,,,,площадь Освобождения,name:ru,ok
-bender,way,222699794,тупик Некрасова,тупик Некрасова,Fundătura Necrasov,,,,тупик Некрасова,name:ru,ok
-bender,way,326376188,тупик Пирогова,тупик Пирогова,Fundătura Pirogov,,,,тупик Пирогова,name:ru,ok
-bender,way,91850365,улица 12 Октября,улица 12 Октября,Strada 12 Octombrie,,,,улица 12 Октября,name:ru,ok
-bender,way,87497008,улица 23 Августа,улица 23 Августа,Strada 23 August,,,,улица 23 Августа,name:ru,ok
-bender,way,87506329,улица 28 Июня,улица 28 Июня,Strada 28 Iunie,,,,улица 28 Июня,name:ru,ok
-bender,way,87506332,улица 40 лет ВЛКСМ,улица 40 лет ВЛКСМ,40 de ani ai Uniunii Tineretului Leninist Comunist,,,,улица 40 лет ВЛКСМ,name:ru,ok
-bender,way,48175206,улица 40 лет МССР,улица 40 лет МССР,Strada 40 de ani în RSSM,,,,улица 40 лет МССР,name:ru,ok
-bender,way,47475975,улица 40 лет Победы,улица 40 лет Победы,Strada 40 de ani ai Biruinței,,,,улица 40 лет Победы,name:ru,ok
-bender,way,45858829,улица 40 лет Советской Пионерии,улица 40 лет Советской Пионерии,,,,,улица 40 лет Советской Пионерии,name:ru,ok
-bender,way,224635705,улица 5 Декабря,улица 5 Декабря,Strada 5 Decembrie,,,,улица 5 Декабря,name:ru,ok
-bender,way,64716999,улица 50 лет ВЛКСМ,улица 50 лет ВЛКСМ,50 de ani ai Uniunii Tineretului Leninist Comunist,,,,улица 50 лет ВЛКСМ,name:ru,ok
-bender,way,222663028,улица 7 Ноября,улица 7 Ноября,Strada 7 Noiembrie,,,,улица 7 Ноября,name:ru,ok
-bender,way,115331354,улица 8 Марта,улица 8 Марта,Strada 8 Martie,,,,улица 8 Марта,name:ru,ok
-bender,way,41749661,улица Академика Фёдорова,улица Академика Фёдорова,Strada Academician Fiodorov,,,,улица Академика Фёдорова,name:ru,ok
-bender,way,161058089,улица Асаке,улица Асаке,Strada Asachi,,,Заводская улица,улица Асаке,name:ru,ok
-bender,way,224364421,улица Баумана,улица Баумана,Strada Bauman,,,,улица Баумана,name:ru,ok
-bender,way,63221784,улица Бендерского Восстания,улица Бендерского Восстания,Strada Răscoalei din Bender,,,,улица Бендерского Восстания,name:ru,ok
-bender,way,46581879,улица Богдана Хмельницкого,улица Богдана Хмельницкого,Strada Bogdan Hmelnițki,,,,улица Богдана Хмельницкого,name:ru,ok
-bender,way,87496986,улица Бориса Главана,улица Бориса Главана,Strada Boris Glavan,,,,улица Бориса Главана,name:ru,ok
-bender,way,161635490,улица Бородина,улица Бородина,Strada Borodin,,,,улица Бородина,name:ru,ok
-bender,way,41749655,улица Гагарина,улица Гагарина,Strada Gagarin,,,Почтовая улица,улица Гагарина,name:ru,ok
-bender,way,160164521,улица Гайдара,улица Гайдара,Strada Gaidar,,,,улица Гайдара,name:ru,ok
-bender,way,91850343,улица Гастелло,улица Гастелло,Strada Gastello,,,,улица Гастелло,name:ru,ok
-bender,way,41749662,улица Георге Асаке,улица Георге Асаке,Strada Asachi,,,Заводская улица,улица Георге Асаке,name:ru,ok
-bender,way,91850346,улица Герцена,улица Герцена,Strada Gherțen,,,,улица Герцена,name:ru,ok
-bender,way,60739676,улица Глядковской,улица Глядковской,Strada Gladcovscaia,,,Кооперативная улица,улица Глядковской,name:ru,ok
-bender,way,45858825,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok
-bender,way,87502093,улица Горького,улица Горького,Strada Gorki,,,,улица Горького,name:ru,ok
-bender,way,87497006,улица Дзержинского,улица Дзержинского,Strada Dzerjinski,,,,улица Дзержинского,name:ru,ok
-bender,way,165943503,улица Димитрова,улица Димитрова,Strada Dimitrov,,,,улица Димитрова,name:ru,ok
-bender,way,45858830,улица Добродеева,улица Добродеева,Strada Dobrodeev,,,Могилёвская улица,улица Добродеева,name:ru,ok
-bender,way,45858821,улица Дружбы,улица Дружбы,Strada Prieteniei,,,,улица Дружбы,name:ru,ok
-bender,way,224360307,улица Емилиана Букова,улица Емилиана Букова,Strada Emilian Bucov,,,,улица Емилиана Букова,name:ru,ok
-bender,way,38633120,улица Ермакова,улица Ермакова,Strada Ermacov,,,,улица Ермакова,name:ru,ok
-bender,way,63221780,улица Ечина,улица Ечина,Strada Ecin,,,Совхозная улица,улица Ечина,name:ru,ok
-bender,way,63221747,улица Зои Космодемьянской,улица Зои Космодемьянской,Strada Zoia Cosmodemianscaia,,,Кладбищенская улица,улица Зои Космодемьянской,name:ru,ok
-bender,way,91850335,улица Ивана Федько,улица Ивана Федько,Strada Ivan Fedico,,,,улица Ивана Федько,name:ru,ok
-bender,way,91850352,улица Ивана Шимкова,улица Ивана Шимкова,Strada Ivan Șimcov,,,Подгорная улица,улица Ивана Шимкова,name:ru,ok
-bender,way,91850331,улица Интернационалистов,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok
-bender,way,165636729,улица Иона Солтыса,улица Иона Солтыса,Strada Ion Soltîs,,,,улица Иона Солтыса,name:ru,ok
-bender,way,87502094,улица Кавриаго,улица Кавриаго,Strada Cavriago,,,,улица Кавриаго,name:ru,ok
-bender,way,87496982,улица Калашникова,улица Калашникова,Strada Calașnicov,,,,улица Калашникова,name:ru,ok
-bender,way,87496983,улица Калинина,улица Калинина,Strada Kalinin,,,Александровская улица,улица Калинина,name:ru,ok
-bender,way,222702909,улица Карбышева,улица Карбышева,Strada Carbîșev,,,,улица Карбышева,name:ru,ok
-bender,way,41851869,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok
-bender,way,91850342,улица Клары Цеткин,улица Клары Цеткин,Strada Clara Zetkin,,,,улица Клары Цеткин,name:ru,ok
-bender,way,63221789,улица Космонавтов,улица Космонавтов,Strada Cosmonauților,,,,улица Космонавтов,name:ru,ok
-bender,way,38633107,улица Котовского,улица Котовского,Strada Kotovski,,,Сергеевская улица,улица Котовского,name:ru,ok
-bender,way,91850344,улица Кошевого,улица Кошевого,Strada Coșevoi,,,,улица Кошевого,name:ru,ok
-bender,way,115331520,улица Крупской,улица Крупской,Strada Krupskaia,,,,улица Крупской,name:ru,ok
-bender,way,161630390,улица Крянгэ,улица Крянгэ,Strada Creangă,,,,улица Крянгэ,name:ru,ok
-bender,way,223691987,улица Куйбышева,улица Куйбышева,Strada Kuibișev,,,,улица Куйбышева,name:ru,ok
-bender,way,47475976,улица Курило,улица Курило,Strada Curilo,,,,улица Курило,name:ru,ok
-bender,way,160164518,улица Кутузова,улица Кутузова,Strada Kutuzov,,,,улица Кутузова,name:ru,ok
-bender,way,87497002,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok
-bender,way,91850364,улица Лермонтова,улица Лермонтова,Strada Lermontov,,,,улица Лермонтова,name:ru,ok
-bender,way,209668149,улица Ломоносова,улица Ломоносова,Strada Lomonosov,,,,улица Ломоносова,name:ru,ok
-bender,way,402416688,улица Луначарского,улица Луначарского,Strada Lunacearski,,,,улица Луначарского,name:ru,ok
-bender,way,91850361,улица Матросова,улица Матросова,Strada Matrosov,,,,улица Матросова,name:ru,ok
-bender,way,103643506,улица Мацнева,улица Мацнева,Strada Mațnev,,,,улица Мацнева,name:ru,ok
-bender,way,41749658,улица Маяковского,улица Маяковского,Strada Maiacovschi,,,,улица Маяковского,name:ru,ok
-bender,way,165943499,улица Менделеева,улица Менделеева,Strada Mendeleev,,,,улица Менделеева,name:ru,ok
-bender,way,115331483,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok
-bender,way,165943510,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok
-bender,way,41844062,улица Некрасова,улица Некрасова,Strada Necrasov,,,,улица Некрасова,name:ru,ok
-bender,way,115331480,улица Няги,улица Няги,Strada Neaga,,,,улица Няги,name:ru,ok
-bender,way,45858827,улица Осипенко,улица Осипенко,Strada Osipenco,,,,улица Осипенко,name:ru,ok
-bender,way,87496995,улица Островского,улица Островского,Strada Ostrovski,,,,улица Островского,name:ru,ok
-bender,way,209668156,улица Павлика Морозова,улица Павлика Морозова,Strada Pavlik Morozov,,,,улица Павлика Морозова,name:ru,ok
-bender,way,165943506,улица Павлова,улица Павлова,Strada Pavlov,,,,улица Павлова,name:ru,ok
-bender,way,38633115,улица Панина,улица Панина,Strada Panin,,,,улица Панина,name:ru,ok
-bender,way,91850333,улица Панфилова,улица Панфилова,Strada Panfilov,,,,улица Панфилова,name:ru,ok
-bender,way,60739704,улица Петровского,улица Петровского,Strada Petrovski,,,,улица Петровского,name:ru,ok
-bender,way,165943498,улица Пирогова,улица Пирогова,Strada Pirogov,,,,улица Пирогова,name:ru,ok
-bender,way,161630393,улица Победы,улица Победы,Strada Biruinței,,,,улица Победы,name:ru,ok
-bender,way,45858826,улица Ползунова,улица Ползунова,Strada Polzunov,,,,улица Ползунова,name:ru,ok
-bender,way,91850338,улица Полоза,улица Полоза,Strada Poloz,,,Лесовая улица,улица Полоза,name:ru,ok
-bender,way,222660149,улица Правды,улица Правды,Strada Adevărul,,,,улица Правды,name:ru,ok
-bender,way,222776786,улица Пугачёва,улица Пугачёва,Strada Pugaciov,,,,улица Пугачёва,name:ru,ok
-bender,way,41851867,улица Пушкина,улица Пушкина,Strada Pușkin,,,,улица Пушкина,name:ru,ok
-bender,way,91430822,улица Разина,улица Разина,Strada Razin,,,,улица Разина,name:ru,ok
-bender,way,41749660,улица Сергея Лазо,улица Сергея Лазо,Strada Serghei Lazo,,,,улица Сергея Лазо,name:ru,ok
-bender,way,161635491,улица Сергея Ревенялэ,улица Сергея Ревенялэ,Strada Serghei Reveneală,,,Треугольная улица,улица Сергея Ревенялэ,name:ru,ok
-bender,way,115331475,улица Советской Армии,улица Советской Армии,Strada Armata Sovietică,,,,улица Советской Армии,name:ru,ok
-bender,way,91850340,улица Спартака,улица Спартака,Strada Spartac,,,,улица Спартака,name:ru,ok
-bender,way,525055331,улица Старого,улица Старого,Strada Starîi,,,,улица Старого,name:ru,ok
-bender,way,115331515,улица Строителей,улица Строителей,Strada Constructorilor,,,,улица Строителей,name:ru,ok
-bender,way,58427502,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok
-bender,way,91430809,улица Тамары Кручок,улица Тамары Кручок,Strada Tamara Crucioc,,,,улица Тамары Кручок,name:ru,ok
-bender,way,224693667,улица Текстильщиков,улица Текстильщиков,,,,,улица Текстильщиков,name:ru,ok
-bender,way,165943500,улица Тельмана,улица Тельмана,Strada Thälmann,,,,улица Тельмана,name:ru,ok
-bender,way,133021436,улица Тимирязева,улица Тимирязева,Strada Timireazev,,,,улица Тимирязева,name:ru,ok
-bender,way,87499736,улица Титова,улица Титова,Strada Titov,,,,улица Титова,name:ru,ok
-bender,way,38633095,улица Ткаченко,улица Ткаченко,Strada Tcacenco,,,,улица Ткаченко,name:ru,ok
-bender,way,115331424,улица Толбухина,улица Толбухина,Strada Tolbuhin,,,,улица Толбухина,name:ru,ok
-bender,way,91850341,улица Толстого,улица Толстого,Strada Tolstoi,,,,улица Толстого,name:ru,ok
-bender,way,87496996,улица Тургенева,улица Тургенева,Strada Turghenev,,,,улица Тургенева,name:ru,ok
-bender,way,47475967,улица Урицкого,улица Урицкого,Strada Urițkii,,,,улица Урицкого,name:ru,ok
-bender,way,225249096,улица Франко,улица Франко,Strada Franko,,,,улица Франко,name:ru,ok
-bender,way,165943501,улица Фрунзе,улица Фрунзе,Strada Frunze,,,,улица Фрунзе,name:ru,ok
-bender,way,161635492,улица Халтурина,улица Халтурина,Strada Halturin,,,,улица Халтурина,name:ru,ok
-bender,way,64717017,улица Чайковского,улица Чайковского,Strada Ceaikovski,,,,улица Чайковского,name:ru,ok
-bender,way,161126085,улица Чапаева,улица Чапаева,Strada Ceapaev,,,,улица Чапаева,name:ru,ok
-bender,way,223883053,улица Чернышевского,улица Чернышевского,Strada Cernîșevskii,,,,улица Чернышевского,name:ru,ok
-bender,way,87496994,улица Чехова,улица Чехова,Strada Cehov,,,,улица Чехова,name:ru,ok
-bender,way,222660150,улица Чкалова,улица Чкалова,Strada Cikalov,,,,улица Чкалова,name:ru,ok
-bender,way,87506355,улица Шевченко,улица Шевченко,Strada Șevcenco,,,Шевская улица,улица Шевченко,name:ru,ok
-bender,way,223422015,улица Шестакова,улица Шестакова,Strada Șestacov,,,,улица Шестакова,name:ru,ok
-bender,way,60739725,улица Шмидта,улица Шмидта,Strada Schmidt,,,,улица Шмидта,name:ru,ok
-bender,way,87496985,улица Щорса,улица Щорса,Strada Șciors,,,,улица Щорса,name:ru,ok
-bender,way,136388030,улица Энгельса,улица Энгельса,Strada Engels,,,,улица Энгельса,name:ru,ok
-giska,way,1262895332,Gîsca-Zolotievcа,Гыска-Золотиевка,Gîsca-Zolotievcа,,,,Гыска-Золотиевка,name:ru,ok
-giska,way,90414304,Strada Ștefan cel Mare și Sfânt,,,,,,Strada Ștefan cel Mare și Sfânt,none,needs_ru_review
-giska,way,223226239,Госпитальная улица,Госпитальная улица,,,,,Госпитальная улица,name:ru,ok
-giska,way,674138530,Гыска-Золотиевка,Гыска-Золотиевка,Gîsca-Zolotievcа,,,,Гыска-Золотиевка,name:ru,ok
-giska,way,223678956,Заречная улица,Заречная улица,,,,,Заречная улица,name:ru,ok
-giska,way,223225486,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok
-giska,way,223677079,Октябрьская улица,Октябрьская улица,Strada Octombrie,,,,Октябрьская улица,name:ru,ok
-giska,way,223676960,Октябрьский переулок,Октябрьский переулок,Stradela Octombrie,,,,Октябрьский переулок,name:ru,ok
-giska,way,222899721,Первомайская улица,Первомайская улица,Strada 1 Mai,,,,Первомайская улица,name:ru,ok
-giska,way,352361041,Приднестровская улица,Приднестровская улица,Strada Pridnestrovscaia,,,,Приднестровская улица,name:ru,ok
-giska,way,223673077,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok
-giska,way,222899723,Студенческая улица,Студенческая улица,Strada Studențească,,,,Студенческая улица,name:ru,ok
-giska,way,223684900,Театральная улица,Театральная улица,Strada Teatrală,,,,Театральная улица,name:ru,ok
-giska,way,223668765,Учительская улица,Учительская улица,Strada Ucitelscaia,,,,Учительская улица,name:ru,ok
-giska,way,223256046,Школьная улица,Школьная улица,Strada Școlii,,,,Школьная улица,name:ru,ok
-giska,way,223669261,Школьный переулок,Школьный переулок,Stradela Școlii,,,,Школьный переулок,name:ru,ok
-giska,way,223225649,переулок Мира,переулок Мира,Stradela Păcii,,,,переулок Мира,name:ru,ok
-giska,way,223224975,переулок Суворова,переулок Суворова,Stradela Suvorov,,,,переулок Суворова,name:ru,ok
-giska,way,223433474,улица 40 лет МССР,улица 40 лет МССР,Strada 40 de ani în RSSM,,,,улица 40 лет МССР,name:ru,ok
-giska,way,223226306,улица 60 лет Октября,улица 60 лет Октября,Strada 60 de ani în Octombrie,,,,улица 60 лет Октября,name:ru,ok
-giska,way,223226396,улица Бориса Главана,улица Бориса Главана,Strada Boris Glavan,,,,улица Бориса Главана,name:ru,ok
-giska,way,223677259,улица Гагарина,улица Гагарина,Strada Gagarin,,,Почтовая улица,улица Гагарина,name:ru,ok
-giska,way,223225568,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok
-giska,way,1354633408,улица Интернациональная,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok
-giska,way,223970478,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok
-giska,way,223232234,улица Курило,улица Курило,Strada Curilo,,,,улица Курило,name:ru,ok
-giska,way,223231541,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok
-giska,way,223225831,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok
-giska,way,223669589,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok
-giska,way,223669725,улица Победы,улица Победы,Strada Biruinței,,,,улица Победы,name:ru,ok
-giska,way,223221669,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok
-giska,way,223669347,улица Ткаченко,улица Ткаченко,Strada Tcacenco,,,,улица Ткаченко,name:ru,ok
-parkany,way,28584679,Бендерский мост,Бендерский мост,Podul pacificatorilor ruși,,,,Бендерский мост,name:ru,ok
-parkany,way,638340407,Железнодорожный переулок,Железнодорожный переулок,,,,,Железнодорожный переулок,name:ru,ok
-parkany,way,701258447,Заводская улица,Заводская улица,Strada Zavodscaia,,,,Заводская улица,name:ru,ok
-parkany,way,28584680,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok
-parkany,way,83039143,Коммунистическая улица,Коммунистическая улица,Strada Comunismului,,,,Коммунистическая улица,name:ru,ok
-parkany,way,83039130,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok
-parkany,way,83039146,Красный переулок,Красный переулок,,,,,Красный переулок,name:ru,ok
-parkany,way,83039106,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok
-parkany,way,83039107,Парканы-Бычок,Парканы-Бычок,Parcani-Bîcioc,,,,Парканы-Бычок,name:ru,ok
-parkany,way,83039099,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok
-parkany,way,223442923,Садовая улица,Садовая улица,Strada Sadovaia,,,,Садовая улица,name:ru,ok
-parkany,way,596998110,Светлая улица,Светлая улица,,,,,Светлая улица,name:ru,ok
-parkany,way,288717237,Солнечная улица,Солнечная улица,Strada Solnecinaia,,,,Солнечная улица,name:ru,ok
-parkany,way,83039155,Степная улица,Степная улица,Strada Stepei,,,,Степная улица,name:ru,ok
-parkany,way,83039110,Тираспольское шоссе,Тираспольское шоссе,Strada Tiraspol,,Тираспольская улица,,Тираспольское шоссе,name:ru,ok
-parkany,way,285067757,переулок Специалистов,переулок Специалистов,Stradela Specialiștilor,,,,переулок Специалистов,name:ru,ok
-parkany,way,238062004,улица Анатолия Макалича,улица Анатолия Макалича,Strada Anatolii Macalici,,,,улица Анатолия Макалича,name:ru,ok
-parkany,way,83039101,улица Благоева,улица Благоева,Strada Blagoev,,,,улица Благоева,name:ru,ok
-parkany,way,83039123,улица Будённого,улица Будённого,Strada Budionnîi,,,,улица Будённого,name:ru,ok
-parkany,way,83039095,улица Ворошилова,улица Ворошилова,Strada Voroșilov,,,,улица Ворошилова,name:ru,ok
-parkany,way,83039139,улица Гагарина,улица Гагарина,Strada Gagarin,,,,улица Гагарина,name:ru,ok
-parkany,way,83039144,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok
-parkany,way,83039137,улица Горького,улица Горького,Strada Gorki,,,,улица Горького,name:ru,ok
-parkany,way,83039152,улица Димитрова,улица Димитрова,Strada Dimitrov,,,,улица Димитрова,name:ru,ok
-parkany,way,83039115,улица Дружбы,улица Дружбы,Strada Prieteniei,,,,улица Дружбы,name:ru,ok
-parkany,way,83039140,улица Калинина,улица Калинина,Strada Kalinin,,,,улица Калинина,name:ru,ok
-parkany,way,83039145,улица Карла Маркса,улица Карла Маркса,Strada Karl Marx,,,,улица Карла Маркса,name:ru,ok
-parkany,way,83039104,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok
-parkany,way,83039118,улица Ковалёва,улица Ковалёва,Strada Covaliov,,,,улица Ковалёва,name:ru,ok
-parkany,way,83039103,улица Котовского,улица Котовского,Strada Kotovski,,,,улица Котовского,name:ru,ok
-parkany,way,43201858,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok
-parkany,way,83039090,улица Маяковского,улица Маяковского,Strada Maiacovschi,,,,улица Маяковского,name:ru,ok
-parkany,way,83039105,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok
-parkany,way,83039112,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok
-parkany,way,83039117,улица Петра Николаева,улица Петра Николаева,Strada Piotr Nicolaev,,,,улица Петра Николаева,name:ru,ok
-parkany,way,83039138,улица Пушкина,улица Пушкина,Strada Pușkin,,,,улица Пушкина,name:ru,ok
-parkany,way,83039094,улица Романенко,улица Романенко,Strada Romanenco,,,,улица Романенко,name:ru,ok
-parkany,way,238031302,улица Русакова,улица Русакова,Strada Rusacov,,,,улица Русакова,name:ru,ok
-parkany,way,83039141,улица Свердлова,улица Свердлова,Strada Sverdlov,,,,улица Свердлова,name:ru,ok
-parkany,way,83039149,улица Сергея Лазо,улица Сергея Лазо,Strada Serghei Lazo,,,,улица Сергея Лазо,name:ru,ok
-parkany,way,83039111,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok
-parkany,way,83039128,улица Фрунзе,улица Фрунзе,Strada Frunze,,,,улица Фрунзе,name:ru,ok
-parkany,way,83039100,улица Чапаева,улица Чапаева,Strada Ceapaev,,,,улица Чапаева,name:ru,ok
-parkany,way,83039113,улица Чехова,улица Чехова,Strada Cehov,,,,улица Чехова,name:ru,ok
-parkany,way,83039147,улица Чкалова,улица Чкалова,Strada Cikalov,,,,улица Чкалова,name:ru,ok
-parkany,way,83039153,улица Шевченко,улица Шевченко,Strada Șevcenko,,,,улица Шевченко,name:ru,ok
-parkany,way,83039157,улица Энгельса,улица Энгельса,Strada Engels,,,,улица Энгельса,name:ru,ok
-protyagailovka,way,883199041,Chișinău-Bender,Кишинёв-Бендеры,Chișinău-Bender,,,,Кишинёв-Бендеры,name:ru,ok
-protyagailovka,way,224903383,Абрикосовая,,,,,,Абрикосовая,none,needs_ru_review
-protyagailovka,way,60739723,Банный переулок,Банный переулок,,,,,Банный переулок,name:ru,ok
-protyagailovka,way,224903381,Виноградная,,,,,,Виноградная,none,needs_ru_review
-protyagailovka,way,224903379,Вишневая,,,,,,Вишневая,none,needs_ru_review
-protyagailovka,way,222904315,Гербовецкая улица,Гербовецкая улица,Strada Hîrbovățului,,,,Гербовецкая улица,name:ru,ok
-protyagailovka,way,60739714,Гербовецкий переулок,Гербовецкий переулок,Stradela Hîrbovățului,,,,Гербовецкий переулок,name:ru,ok
-protyagailovka,way,60739683,Главная улица,Главная улица,Strada Glavnaia,,,,Главная улица,name:ru,ok
-protyagailovka,way,222904317,Главный переулок,Главный переулок,,,,,Главный переулок,name:ru,ok
-protyagailovka,way,185144051,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok
-protyagailovka,way,184989528,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok
-protyagailovka,way,224903410,Комсомольский переулок,Комсомольский переулок,Stradela Comsomolului,,,,Комсомольский переулок,name:ru,ok
-protyagailovka,way,60739686,Лесовая улица,Лесовая улица,Strada Pădurii,,,,Лесовая улица,name:ru,ok
-protyagailovka,way,224903408,Луговая улица,Луговая улица,Strada Lugovaia,,,,Луговая улица,name:ru,ok
-protyagailovka,way,316847103,Мирная улица,Мирная улица,,,,,Мирная улица,name:ru,ok
-protyagailovka,way,224898448,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok
-protyagailovka,way,224898440,Молодёжный переулок,Молодёжный переулок,Stradela Tineretului,,,,Молодёжный переулок,name:ru,ok
-protyagailovka,way,224898439,Первомайская улица,Первомайская улица,Strada 1 Mai,,,,Первомайская улица,name:ru,ok
-protyagailovka,way,224898441,Первомайский переулок,Первомайский переулок,Stradela 1 Mai,,,,Первомайский переулок,name:ru,ok
-protyagailovka,way,224691154,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok
-protyagailovka,way,1265061308,Полевая,,,,,,Полевая,none,needs_ru_review
-protyagailovka,way,222904322,Полевой переулок,Полевой переулок,,,,,Полевой переулок,name:ru,ok
-protyagailovka,way,224903393,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok
-protyagailovka,way,209668174,Санаторная улица,Санаторная улица,,,,,Санаторная улица,name:ru,ok
-protyagailovka,way,224882001,Славянская улица,Славянская улица,Strada Slavianscaia,,,,Славянская улица,name:ru,ok
-protyagailovka,way,224903380,Сливовая,,,,,,Сливовая,none,needs_ru_review
-protyagailovka,way,222904324,Совхозная улица,Совхозная улица,Strada Sovhozului,,,,Совхозная улица,name:ru,ok
-protyagailovka,way,60739692,Степной переулок,Степной переулок,,,,,Степной переулок,name:ru,ok
-protyagailovka,way,223692025,переулок Куйбышева,переулок Куйбышева,Strada Kuibișev,,,,переулок Куйбышева,name:ru,ok
-protyagailovka,way,230698195,переулок Полоза,переулок Полоза,Stradela Poloz,,,,переулок Полоза,name:ru,ok
-protyagailovka,way,209668169,улица 50 лет Победы,улица 50 лет Победы,Strada 50 de ani ai Biruinței,,,,улица 50 лет Победы,name:ru,ok
-protyagailovka,way,224903396,улица Академика Берга,улица Академика Берга,Strada Academician Berg,,,,улица Академика Берга,name:ru,ok
-protyagailovka,way,222904321,улица Алеку Руссо,улица Алеку Руссо,Strada Alecu Russo,,,,улица Алеку Руссо,name:ru,ok
-protyagailovka,way,91850331,улица Интернационалистов,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok
-protyagailovka,way,224898438,улица Космонавтов,улица Космонавтов,Strada Cosmonauţilor,,,,улица Космонавтов,name:ru,ok
-protyagailovka,way,91850344,улица Кошевого,улица Кошевого,Strada Coșevoi,,,,улица Кошевого,name:ru,ok
-protyagailovka,way,223691988,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok
-protyagailovka,way,224898442,улица Мунтяна,улица Мунтяна,Strada Muntean,,,,улица Мунтяна,name:ru,ok
-protyagailovka,way,224903405,улица Николая Белана,улица Николая Белана,Strada Nicolai Belan,,,,улица Николая Белана,name:ru,ok
-protyagailovka,way,315963790,улица Серикова,улица Серикова,Strada Sericov,,,,улица Серикова,name:ru,ok
-protyagailovka,way,222904320,улица Штефан чел Маре,улица Штефан чел Маре,Strada Ștefan cel Mare,,,,улица Штефан чел Маре,name:ru,ok
+settlement,osm_type,osm_id,name,name_ru,name_ro,official_name,alt_name,old_name,ru_display,ru_source,ru_status,road_class,is_address_street,needs_name_classification_review
+bender,way,223672862,1-й Братский переулок,1-й Братский переулок,,,,,1-й Братский переулок,name:ru,ok,address_street,True,False
+bender,way,325664970,1-й Измаильский переулок,1-й Измаильский переулок,Stradela 1 Ismail,,,,1-й Измаильский переулок,name:ru,ok,address_street,True,False
+bender,way,161635487,1-й Индустриальный переулок,1-й Индустриальный переулок,,,,,1-й Индустриальный переулок,name:ru,ok,service,False,True
+bender,way,60739720,1-й переулок Кутузова,1-й переулок Кутузова,Stradela Kutuzov 1,,,,1-й переулок Кутузова,name:ru,ok,address_street,True,False
+bender,way,223672774,1-й переулок Петровского,1-й переулок Петровского,Stradela Petrovski 1,,,,1-й переулок Петровского,name:ru,ok,address_street,True,False
+bender,way,597364118,2-й Береговой переулок,2-й Береговой переулок,,,,,2-й Береговой переулок,name:ru,ok,address_street,True,False
+bender,way,116073590,2-й Братский переулок,2-й Братский переулок,,,,,2-й Братский переулок,name:ru,ok,address_street,True,False
+bender,way,106082963,2-й Измаильский переулок,2-й Измаильский переулок,Stradela 2 Ismail,,,,2-й Измаильский переулок,name:ru,ok,address_street,True,False
+bender,way,160164525,2-й переулок Кутузова,2-й переулок Кутузова,Stradela Kutuzov 2,,,,2-й переулок Кутузова,name:ru,ok,address_street,True,False
+bender,way,223673219,2-й переулок Петровского,2-й переулок Петровского,Stradela 2 Petrovski,,,,2-й переулок Петровского,name:ru,ok,address_street,True,False
+bender,way,115331444,3-й Индустриальный переулок,3-й Индустриальный переулок,,,,,3-й Индустриальный переулок,name:ru,ok,address_street,True,False
+bender,way,165762115,4-й Береговой переулок,4-й Береговой переулок,,,,,4-й Береговой переулок,name:ru,ok,address_street,True,False
+bender,way,162030318,6-й Береговой переулок,6-й Береговой переулок,,,,,6-й Береговой переулок,name:ru,ok,service,False,True
+bender,way,450216778,Bender-Copanca,Бендеры-Копанка,,,,,Бендеры-Копанка,name:ru,ok,address_street,True,False
+bender,way,680239003,Bender-Căușeni,Бендеры-Кэушень,Bender-Căușeni,,,,Бендеры-Кэушень,name:ru,ok,intercity,False,False
+bender,way,224765321,Strada 27 Aprilie 1990,улица 27 Апреля 1990,Strada 27 Aprilie 1990,,,,улица 27 Апреля 1990,name:ru,ok,address_street,True,False
+bender,way,525235554,Strada Pocitarenco,улица Почитаренко,Strada Pocitarenco,,,,улица Почитаренко,name:ru,ok,address_street,True,False
+bender,way,44310025,Strada Ștefan cel Mare și Sfânt,улица Штефан чел Маре ши Сфынт,,,,,улица Штефан чел Маре ши Сфынт,local_table,ok,address_street,True,False
+bender,way,91850350,Безымянный переулок,Безымянный переулок,Stradela Bezîmianîi,,,,Безымянный переулок,name:ru,ok,address_street,True,False
+bender,way,41749666,Бельцкая улица,Бельцкая улица,Strada Bălți,,,,Бельцкая улица,name:ru,ok,address_street,True,False
+bender,way,28584679,Бендерский мост,Бендерский мост,Podul pacificatorilor ruși,,,,Бендерский мост,name:ru,ok,bridge,False,False
+bender,way,116073592,Братская улица,Братская улица,Strada Bratscaia,,,,Братская улица,name:ru,ok,address_street,True,False
+bender,way,165445033,Варницкий переулок,Варницкий переулок,Stradela Varnița,,,,Варницкий переулок,name:ru,ok,address_street,True,False
+bender,way,223670457,Варницкий тупик,Варницкий тупик,Fundătura Varnița,,,,Варницкий тупик,name:ru,ok,address_street,True,False
+bender,way,87506333,Восточная улица,Восточная улица,Strada Vostocinaia,,,,Восточная улица,name:ru,ok,address_street,True,False
+bender,way,96404889,Восточный переулок,Восточный переулок,,,,,Восточный переулок,name:ru,ok,address_street,True,False
+bender,way,222655027,Гвардейская улица,Гвардейская улица,Strada Gvardeiscaia,,,,Гвардейская улица,name:ru,ok,address_street,True,False
+bender,way,222904315,Гербовецкая улица,Гербовецкая улица,Strada Hîrbovățului,,,,Гербовецкая улица,name:ru,ok,address_street,True,False
+bender,way,60739688,Главная улица,Главная улица,Strada Glavnaia,,,,Главная улица,name:ru,ok,address_street,True,False
+bender,way,209668181,Глинная улица,Глинная улица,Strada Glinnaia,,,,Глинная улица,name:ru,ok,address_street,True,True
+bender,way,525053240,Горка (с ручником),Горка (с ручником),,,,,Горка (с ручником),name:ru,ok,informal,False,True
+bender,way,87497012,Дачная улица,Дачная улица,Strada Vilelor,,,,Дачная улица,name:ru,ok,address_street,True,False
+bender,way,224953397,Деповская улица,Деповская улица,Strada Depo,,,,Деповская улица,name:ru,ok,address_street,True,False
+bender,way,47475966,Донецкая улица,Донецкая улица,Strada Donețk,,,,Донецкая улица,name:ru,ok,address_street,True,False
+bender,way,41852355,Дубоссарская улица,Дубоссарская улица,Strada Dubăsari,,,,Дубоссарская улица,name:ru,ok,address_street,True,False
+bender,way,45858824,Железнодорожная улица,Железнодорожная улица,,,,улица Александру Хаждеу,Железнодорожная улица,name:ru,ok,address_street,True,False
+bender,way,225087000,Железнодорожный тупик,Железнодорожный тупик,,,,,Железнодорожный тупик,name:ru,ok,address_street,True,False
+bender,way,491561503,Заводская улица,Заводская улица,Strada Uzinelor,,,,Заводская улица,name:ru,ok,address_street,True,False
+bender,way,165943504,Загородная улица,Загородная улица,Strada Zagorodnaia,,,,Загородная улица,name:ru,ok,address_street,True,False
+bender,way,87506328,Индустриальная улица,Индустриальная улица,Strada Industrială,,,,Индустриальная улица,name:ru,ok,address_street,True,True
+bender,way,223269325,Кагульская улица,Кагульская улица,Strada Cahulului,,,,Кагульская улица,name:ru,ok,address_street,True,False
+bender,way,87506350,Карпатская улица,Карпатская улица,Strada Carpați,,,,Карпатская улица,name:ru,ok,address_street,True,False
+bender,way,224623030,Каховская улица,Каховская улица,Strada Cahovscaia,,,,Каховская улица,name:ru,ok,address_street,True,False
+bender,way,224623587,Каховский тупик,Каховский тупик,,,,,Каховский тупик,name:ru,ok,address_street,True,False
+bender,way,87497014,Киевская улица,Киевская улица,Strada Kiev,,,,Киевская улица,name:ru,ok,address_street,True,True
+bender,way,115331401,Киркаештская улица,Киркаештская улица,Strada Chircăiești,,,,Киркаештская улица,name:ru,ok,address_street,True,False
+bender,way,87506340,Кирпичная улица,Кирпичная улица,Strada Kirpicinaia,,,,Кирпичная улица,name:ru,ok,address_street,True,False
+bender,way,115331349,Кирпичный переулок,Кирпичный переулок,Stradela Kirpicinîi,,,,Кирпичный переулок,name:ru,ok,address_street,True,False
+bender,way,161126058,Кицканская улица,Кицканская улица,Strada Chițcani,,,,Кицканская улица,name:ru,ok,address_street,True,False
+bender,way,44537119,Кицканский переулок,Кицканский переулок,Stradela Chițcani,,,,Кицканский переулок,name:ru,ok,address_street,True,False
+bender,way,28796004,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok,intercity,False,False
+bender,way,41749663,Кишинёвская улица,Кишинёвская улица,Strada Chișinăului,,,,Кишинёвская улица,name:ru,ok,address_street,True,False
+bender,way,184989519,Кишинёвский переулок,Кишинёвский переулок,Stradela Chișinăului,,,,Кишинёвский переулок,name:ru,ok,address_street,True,False
+bender,way,223670398,Кишинёвский тупик,Кишинёвский тупик,Fundătura Chișinăului,,,,Кишинёвский тупик,name:ru,ok,address_street,True,False
+bender,way,225113349,Колодезная улица,Колодезная улица,Strada Colodeznaia,,,,Колодезная улица,name:ru,ok,address_street,True,False
+bender,way,87506313,Колодезный переулок,Колодезный переулок,,,,,Колодезный переулок,name:ru,ok,address_street,True,False
+bender,way,136388032,Колхозная улица,Колхозная улица,Strada Colhozului,,,,Колхозная улица,name:ru,ok,address_street,True,False
+bender,way,161631166,Колхозный переулок,Колхозный переулок,Stradela Colhozului,,,,Колхозный переулок,name:ru,ok,address_street,True,False
+bender,way,63221762,Коммунистическая улица,Коммунистическая улица,Strada Comunismului,,,,Коммунистическая улица,name:ru,ok,address_street,True,False
+bender,way,91430810,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok,address_street,True,True
+bender,way,223677899,Кооперативный тупик,Кооперативный тупик,,,,,Кооперативный тупик,name:ru,ok,address_street,True,False
+bender,way,159915378,Красивая улица,Красивая улица,Strada Frumoasă,,,,Красивая улица,name:ru,ok,address_street,True,False
+bender,way,87506358,Красноармейская улица,Красноармейская улица,Strada Krasnoarmeiscaia,,,,Красноармейская улица,name:ru,ok,address_street,True,False
+bender,way,96404887,Красноармейский переулок,Красноармейский переулок,,,,,Красноармейский переулок,name:ru,ok,address_street,True,False
+bender,way,41749664,Ленинградская улица,Ленинградская улица,Strada Leningradului,,,,Ленинградская улица,name:ru,ok,address_street,True,False
+bender,way,224944806,Лесовой переулок,Лесовой переулок,Stradela Pădurii,,,,Лесовой переулок,name:ru,ok,address_street,True,False
+bender,way,87497001,Мельничный переулок,Мельничный переулок,,,,,Мельничный переулок,name:ru,ok,address_street,True,False
+bender,way,161126079,Молдавская улица,Молдавская улица,Strada Moldovenească,,,,Молдавская улица,name:ru,ok,address_street,True,False
+bender,way,161630391,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok,address_street,True,True
+bender,way,41749657,Московская улица,Московская улица,Strada Moscovei,,,,Московская улица,name:ru,ok,address_street,True,False
+bender,way,733032838,Мостик,Мостик,,,,,Мостик,name:ru,ok,bridge,False,False
+bender,way,224631135,Новый проезд,Новый проезд,Pasajul Nou,,,,Новый проезд,name:ru,ok,address_street,True,False
+bender,way,161630392,Одесская улица,Одесская улица,Strada Odessa,,,,Одесская улица,name:ru,ok,address_street,True,False
+bender,way,115331460,Октябрьская улица,Октябрьская улица,Strada Octombrie,,,,Октябрьская улица,name:ru,ok,address_street,True,False
+bender,way,87506326,Оргеевский переулок,Оргеевский переулок,Stradela Orheiului,,,,Оргеевский переулок,name:ru,ok,address_street,True,False
+bender,way,160164527,Парканская улица,Парканская улица,Strada Parcani,,,,Парканская улица,name:ru,ok,address_street,True,False
+bender,way,87506335,Первомайская улица,Первомайская улица,Strada 1 Mai,,,Аккерманская ул.,Первомайская улица,name:ru,ok,address_street,True,False
+bender,way,87506319,Первомайский переулок,Первомайский переулок,Stradela 1 Mai,,,,Первомайский переулок,name:ru,ok,address_street,True,False
+bender,way,115331340,Песчанная улица,Песчанная улица,Strada Pesciannaia,,,,Песчанная улица,name:ru,ok,address_street,True,False
+bender,way,225206119,Песчанный переулок,Песчанный переулок,,,,,Песчанный переулок,name:ru,ok,address_street,True,False
+bender,way,222832796,Пивоваренный переулок,Пивоваренный переулок,Stradela Pivovarennîi,,,,Пивоваренный переулок,name:ru,ok,address_street,True,False
+bender,way,209668183,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok,address_street,True,True
+bender,way,209668157,Пионерский переулок,Пионерский переулок,Stradela Pionerskii,,,,Пионерский переулок,name:ru,ok,address_street,True,False
+bender,way,160024304,Пограничный переулок,Пограничный переулок,,,,,Пограничный переулок,name:ru,ok,address_street,True,False
+bender,way,161627667,Подольская улица,Подольская улица,Strada Podolscaia,,,,Подольская улица,name:ru,ok,address_street,True,True
+bender,way,96821662,Подольский переулок,Подольский переулок,Stradela Podolscaia,,,,Подольский переулок,name:ru,ok,address_street,True,False
+bender,way,393488079,Полевой переулок,Полевой переулок,,,,,Полевой переулок,name:ru,ok,service,False,True
+bender,way,222835413,Почтовый переулок,Почтовый переулок,Stradela Poștei,,,,Почтовый переулок,name:ru,ok,address_street,True,False
+bender,way,657287120,Протягайловская улица,Протягайловская улица,Strada Proteagailovca,,,,Протягайловская улица,name:ru,ok,address_street,True,False
+bender,way,222764129,Путейская улица,Путейская улица,Strada Puteiscaia,,,,Путейская улица,name:ru,ok,address_street,True,False
+bender,way,222702908,Рыбницкая улица,Рыбницкая улица,Strada Rîbnița,,,,Рыбницкая улица,name:ru,ok,address_street,True,False
+bender,way,50738518,Рыбницкий переулок,Рыбницкий переулок,Stradela Rîbnița,,,,Рыбницкий переулок,name:ru,ok,address_street,True,True
+bender,way,41749659,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok,address_street,True,False
+bender,way,87506320,Садовый переулок,Садовый переулок,Stradela Livezilor,,,,Садовый переулок,name:ru,ok,address_street,True,False
+bender,way,209668174,Санаторная улица,Санаторная улица,,,,,Санаторная улица,name:ru,ok,address_street,True,False
+bender,way,87496997,Севастопольская улица,Севастопольская улица,Strada Sevastopol,,,,Севастопольская улица,name:ru,ok,address_street,True,False
+bender,way,87502095,Советская улица,Советская улица,Strada Sovietică,,,Дворянская улица,Советская улица,name:ru,ok,address_street,True,True
+bender,way,87499738,Спортивная улица,Спортивная улица,,,,,Спортивная улица,name:ru,ok,address_street,True,True
+bender,way,38633109,Тираспольская улица,Тираспольская улица,Strada Tiraspol,,,Конная площадь,Тираспольская улица,name:ru,ok,address_street,True,False
+bender,way,161635489,Треугольный переулок,Треугольный переулок,,,,,Треугольный переулок,name:ru,ok,address_street,True,False
+bender,way,164987460,Украинская улица,Украинская улица,Strada Ucraineană,,,,Украинская улица,name:ru,ok,address_street,True,False
+bender,way,91850332,Фонтанная улица,Фонтанная улица,,,,,Фонтанная улица,name:ru,ok,address_street,True,False
+bender,way,41844063,Фруктовая улица,Фруктовая улица,Strada Fructelor,,,,Фруктовая улица,name:ru,ok,address_street,True,False
+bender,way,87502087,Херсонская улица,Херсонская улица,Strada Herson,,,,Херсонская улица,name:ru,ok,address_street,True,False
+bender,way,87502091,Херсонский проезд,Херсонский проезд,Pasajul Herson,,,,Херсонский проезд,name:ru,ok,address_street,True,False
+bender,way,116073593,Хотинская улица,Хотинская улица,Strada Hotinului,,,,Хотинская улица,name:ru,ok,address_street,True,False
+bender,way,707283902,Цареградская улица,Цареградская улица,Strada Țaregradscaia,,,,Цареградская улица,name:ru,ok,service,False,True
+bender,way,87496984,Школьная улица,Школьная улица,Strada Școlii,,,,Школьная улица,name:ru,ok,address_street,True,False
+bender,way,222699791,Школьный переулок,Школьный переулок,Stradela Școlii,,,,Школьный переулок,name:ru,ok,address_street,True,False
+bender,way,222655026,Южная улица,Южная улица,Strada de Sud,,,,Южная улица,name:ru,ok,address_street,True,False
+bender,way,525053249,начало пути,,,,,,начало пути,none,needs_ru_review,informal,False,True
+bender,way,87506347,переулок 28 Июня,переулок 28 Июня,Stradela 28 Iunie,,,,переулок 28 Июня,name:ru,ok,address_street,True,False
+bender,way,224636548,переулок 5 Декабря,переулок 5 Декабря,Stradela 5 Decembrie,,,,переулок 5 Декабря,name:ru,ok,address_street,True,False
+bender,way,47475963,переулок Баумана,переулок Баумана,Stradela Bauman,,,,переулок Баумана,name:ru,ok,address_street,True,False
+bender,way,161635488,переулок Бородина,переулок Бородина,Stradela Borodin,,,,переулок Бородина,name:ru,ok,address_street,True,False
+bender,way,160166705,переулок Грибоедова,переулок Грибоедова,Stradela Griboedov,,,,переулок Грибоедова,name:ru,ok,address_street,True,False
+bender,way,224360312,переулок Емилиана Букова,переулок Емилиана Букова,Stradela Emilian Bucov,,,переулок Жданова,переулок Емилиана Букова,name:ru,ok,address_street,True,False
+bender,way,165636730,переулок Иона Солтыса,переулок Иона Солтыса,Stradela Ion Soltîs,,,,переулок Иона Солтыса,name:ru,ok,address_street,True,False
+bender,way,295088587,переулок Калинина,переулок Калинина,Stradela Kalinin,,,,переулок Калинина,name:ru,ok,address_street,True,False
+bender,way,222702910,переулок Карбышева,переулок Карбышева,Stradela Carbîșev,,,,переулок Карбышева,name:ru,ok,service,False,True
+bender,way,223692025,переулок Куйбышева,переулок Куйбышева,Strada Kuibișev,,,,переулок Куйбышева,name:ru,ok,address_street,True,False
+bender,way,45858828,переулок Лермонтова,переулок Лермонтова,Stradela Lermontov,,,,переулок Лермонтова,name:ru,ok,address_street,True,False
+bender,way,165943497,переулок Менделеева,переулок Менделеева,Stradela Mendeleev,,,,переулок Менделеева,name:ru,ok,address_street,True,False
+bender,way,222776787,переулок Мира,переулок Мира,Stradela Păcii,,,,переулок Мира,name:ru,ok,address_street,True,False
+bender,way,225085705,переулок Мичурина,переулок Мичурина,Stradela Miciurin,,,,переулок Мичурина,name:ru,ok,address_street,True,False
+bender,way,222699796,переулок Некрасова,переулок Некрасова,Stradela Necrasov,,,,переулок Некрасова,name:ru,ok,address_street,True,False
+bender,way,222986039,переулок Осипенко,переулок Осипенко,Stradela Osipenco,,,,переулок Осипенко,name:ru,ok,address_street,True,False
+bender,way,222660151,переулок Павлова,переулок Павлова,Stradela Pavlov,,,,переулок Павлова,name:ru,ok,address_street,True,False
+bender,way,165943496,переулок Пирогова,переулок Пирогова,Stradela Pirogov,,,,переулок Пирогова,name:ru,ok,address_street,True,False
+bender,way,230698195,переулок Полоза,переулок Полоза,Stradela Poloz,,,,переулок Полоза,name:ru,ok,address_street,True,False
+bender,way,91430797,переулок Разина,переулок Разина,Stradela Razin,,,,переулок Разина,name:ru,ok,address_street,True,False
+bender,way,115331374,переулок Строителей,переулок Строителей,,,,,переулок Строителей,name:ru,ok,address_street,True,True
+bender,way,87502090,переулок Суворова,переулок Суворова,Stradela Suvorov,,,,переулок Суворова,name:ru,ok,address_street,True,False
+bender,way,96404883,переулок Текстильщиков,переулок Текстильщиков,,,,,переулок Текстильщиков,name:ru,ok,address_street,True,False
+bender,way,224928886,переулок Щорса,переулок Щорса,Stradela Șciors,,,,переулок Щорса,name:ru,ok,service,False,True
+bender,way,223694600,переулок Энгельса,переулок Энгельса,Stradela Engels,,,,переулок Энгельса,name:ru,ok,address_street,True,False
+bender,way,305226282,площадь Освобождения,площадь Освобождения,Piața Eliberării,,,,площадь Освобождения,name:ru,ok,address_street,True,False
+bender,way,222699794,тупик Некрасова,тупик Некрасова,Fundătura Necrasov,,,,тупик Некрасова,name:ru,ok,address_street,True,False
+bender,way,326376188,тупик Пирогова,тупик Пирогова,Fundătura Pirogov,,,,тупик Пирогова,name:ru,ok,address_street,True,True
+bender,way,91850365,улица 12 Октября,улица 12 Октября,Strada 12 Octombrie,,,,улица 12 Октября,name:ru,ok,address_street,True,False
+bender,way,87497008,улица 23 Августа,улица 23 Августа,Strada 23 August,,,,улица 23 Августа,name:ru,ok,address_street,True,False
+bender,way,87506329,улица 28 Июня,улица 28 Июня,Strada 28 Iunie,,,,улица 28 Июня,name:ru,ok,address_street,True,False
+bender,way,87506332,улица 40 лет ВЛКСМ,улица 40 лет ВЛКСМ,40 de ani ai Uniunii Tineretului Leninist Comunist,,,,улица 40 лет ВЛКСМ,name:ru,ok,address_street,True,False
+bender,way,48175206,улица 40 лет МССР,улица 40 лет МССР,Strada 40 de ani în RSSM,,,,улица 40 лет МССР,name:ru,ok,intercity,False,False
+bender,way,47475975,улица 40 лет Победы,улица 40 лет Победы,Strada 40 de ani ai Biruinței,,,,улица 40 лет Победы,name:ru,ok,address_street,True,False
+bender,way,45858829,улица 40 лет Советской Пионерии,улица 40 лет Советской Пионерии,,,,,улица 40 лет Советской Пионерии,name:ru,ok,address_street,True,False
+bender,way,224635705,улица 5 Декабря,улица 5 Декабря,Strada 5 Decembrie,,,,улица 5 Декабря,name:ru,ok,address_street,True,True
+bender,way,64716999,улица 50 лет ВЛКСМ,улица 50 лет ВЛКСМ,50 de ani ai Uniunii Tineretului Leninist Comunist,,,,улица 50 лет ВЛКСМ,name:ru,ok,address_street,True,False
+bender,way,222663028,улица 7 Ноября,улица 7 Ноября,Strada 7 Noiembrie,,,,улица 7 Ноября,name:ru,ok,address_street,True,False
+bender,way,115331354,улица 8 Марта,улица 8 Марта,Strada 8 Martie,,,,улица 8 Марта,name:ru,ok,service,False,True
+bender,way,41749661,улица Академика Фёдорова,улица Академика Фёдорова,Strada Academician Fiodorov,,,,улица Академика Фёдорова,name:ru,ok,address_street,True,False
+bender,way,161058089,улица Асаке,улица Асаке,Strada Asachi,,,Заводская улица,улица Асаке,name:ru,ok,address_street,True,False
+bender,way,224364421,улица Баумана,улица Баумана,Strada Bauman,,,,улица Баумана,name:ru,ok,address_street,True,False
+bender,way,63221784,улица Бендерского Восстания,улица Бендерского Восстания,Strada Răscoalei din Bender,,,,улица Бендерского Восстания,name:ru,ok,intercity,False,False
+bender,way,46581879,улица Богдана Хмельницкого,улица Богдана Хмельницкого,Strada Bogdan Hmelnițki,,,,улица Богдана Хмельницкого,name:ru,ok,address_street,True,False
+bender,way,87496986,улица Бориса Главана,улица Бориса Главана,Strada Boris Glavan,,,,улица Бориса Главана,name:ru,ok,address_street,True,False
+bender,way,161635490,улица Бородина,улица Бородина,Strada Borodin,,,,улица Бородина,name:ru,ok,address_street,True,False
+bender,way,41749655,улица Гагарина,улица Гагарина,Strada Gagarin,,,Почтовая улица,улица Гагарина,name:ru,ok,address_street,True,False
+bender,way,160164521,улица Гайдара,улица Гайдара,Strada Gaidar,,,,улица Гайдара,name:ru,ok,address_street,True,False
+bender,way,91850343,улица Гастелло,улица Гастелло,Strada Gastello,,,,улица Гастелло,name:ru,ok,address_street,True,False
+bender,way,41749662,улица Георге Асаке,улица Георге Асаке,Strada Asachi,,,Заводская улица,улица Георге Асаке,name:ru,ok,address_street,True,False
+bender,way,91850346,улица Герцена,улица Герцена,Strada Gherțen,,,,улица Герцена,name:ru,ok,address_street,True,False
+bender,way,60739676,улица Глядковской,улица Глядковской,Strada Gladcovscaia,,,Кооперативная улица,улица Глядковской,name:ru,ok,address_street,True,False
+bender,way,45858825,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok,address_street,True,False
+bender,way,87502093,улица Горького,улица Горького,Strada Gorki,,,,улица Горького,name:ru,ok,address_street,True,False
+bender,way,87497006,улица Дзержинского,улица Дзержинского,Strada Dzerjinski,,,,улица Дзержинского,name:ru,ok,address_street,True,False
+bender,way,165943503,улица Димитрова,улица Димитрова,Strada Dimitrov,,,,улица Димитрова,name:ru,ok,address_street,True,False
+bender,way,45858830,улица Добродеева,улица Добродеева,Strada Dobrodeev,,,Могилёвская улица,улица Добродеева,name:ru,ok,address_street,True,False
+bender,way,45858821,улица Дружбы,улица Дружбы,Strada Prieteniei,,,,улица Дружбы,name:ru,ok,address_street,True,False
+bender,way,224360307,улица Емилиана Букова,улица Емилиана Букова,Strada Emilian Bucov,,,улица Жданова,улица Емилиана Букова,name:ru,ok,address_street,True,True
+bender,way,38633120,улица Ермакова,улица Ермакова,Strada Ermacov,,,,улица Ермакова,name:ru,ok,intercity,False,False
+bender,way,63221780,улица Ечина,улица Ечина,Strada Ecin,,,Совхозная улица,улица Ечина,name:ru,ok,intercity,False,False
+bender,way,63221747,улица Зои Космодемьянской,улица Зои Космодемьянской,Strada Zoia Cosmodemianscaia,,,Кладбищенская улица,улица Зои Космодемьянской,name:ru,ok,address_street,True,False
+bender,way,91850335,улица Ивана Федько,улица Ивана Федько,Strada Ivan Fedico,,,,улица Ивана Федько,name:ru,ok,address_street,True,False
+bender,way,91850352,улица Ивана Шимкова,улица Ивана Шимкова,Strada Ivan Șimcov,,,Подгорная улица,улица Ивана Шимкова,name:ru,ok,address_street,True,False
+bender,way,91850331,улица Интернационалистов,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok,address_street,True,False
+bender,way,165636729,улица Иона Солтыса,улица Иона Солтыса,Strada Ion Soltîs,,,,улица Иона Солтыса,name:ru,ok,address_street,True,False
+bender,way,87502094,улица Кавриаго,улица Кавриаго,Strada Cavriago,,,,улица Кавриаго,name:ru,ok,address_street,True,False
+bender,way,87496982,улица Калашникова,улица Калашникова,Strada Calașnicov,,,Красная улица,улица Калашникова,name:ru,ok,address_street,True,True
+bender,way,87496983,улица Калинина,улица Калинина,Strada Kalinin,,,Александровская улица,улица Калинина,name:ru,ok,address_street,True,False
+bender,way,222702909,улица Карбышева,улица Карбышева,Strada Carbîșev,,,,улица Карбышева,name:ru,ok,address_street,True,False
+bender,way,41851869,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok,address_street,True,False
+bender,way,91850342,улица Клары Цеткин,улица Клары Цеткин,Strada Clara Zetkin,,,,улица Клары Цеткин,name:ru,ok,address_street,True,False
+bender,way,63221789,улица Космонавтов,улица Космонавтов,Strada Cosmonauților,,,,улица Космонавтов,name:ru,ok,address_street,True,False
+bender,way,38633107,улица Котовского,улица Котовского,Strada Kotovski,,,Сергеевская улица,улица Котовского,name:ru,ok,intercity,False,False
+bender,way,91850344,улица Кошевого,улица Кошевого,Strada Coșevoi,,,,улица Кошевого,name:ru,ok,address_street,True,False
+bender,way,115331520,улица Крупской,улица Крупской,Strada Krupskaia,,,,улица Крупской,name:ru,ok,address_street,True,False
+bender,way,161630390,улица Крянгэ,улица Крянгэ,Strada Creangă,,,,улица Крянгэ,name:ru,ok,address_street,True,False
+bender,way,223691987,улица Куйбышева,улица Куйбышева,Strada Kuibișev,,,,улица Куйбышева,name:ru,ok,address_street,True,False
+bender,way,47475976,улица Курило,улица Курило,Strada Curilo,,,,улица Курило,name:ru,ok,address_street,True,False
+bender,way,160164518,улица Кутузова,улица Кутузова,Strada Kutuzov,,,,улица Кутузова,name:ru,ok,address_street,True,False
+bender,way,87497002,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok,address_street,True,False
+bender,way,91850364,улица Лермонтова,улица Лермонтова,Strada Lermontov,,,,улица Лермонтова,name:ru,ok,address_street,True,False
+bender,way,209668149,улица Ломоносова,улица Ломоносова,Strada Lomonosov,,,,улица Ломоносова,name:ru,ok,address_street,True,True
+bender,way,402416688,улица Луначарского,улица Луначарского,Strada Lunacearski,,,,улица Луначарского,name:ru,ok,address_street,True,False
+bender,way,91850361,улица Матросова,улица Матросова,Strada Matrosov,,,,улица Матросова,name:ru,ok,address_street,True,False
+bender,way,103643506,улица Мацнева,улица Мацнева,Strada Mațnev,,,,улица Мацнева,name:ru,ok,address_street,True,True
+bender,way,41749658,улица Маяковского,улица Маяковского,Strada Maiacovschi,,,,улица Маяковского,name:ru,ok,address_street,True,False
+bender,way,165943499,улица Менделеева,улица Менделеева,Strada Mendeleev,,,,улица Менделеева,name:ru,ok,address_street,True,False
+bender,way,115331483,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok,address_street,True,False
+bender,way,165943510,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok,address_street,True,False
+bender,way,41844062,улица Некрасова,улица Некрасова,Strada Necrasov,,,,улица Некрасова,name:ru,ok,address_street,True,False
+bender,way,115331480,улица Няги,улица Няги,Strada Neaga,,,,улица Няги,name:ru,ok,address_street,True,True
+bender,way,45858827,улица Осипенко,улица Осипенко,Strada Osipenco,,,,улица Осипенко,name:ru,ok,address_street,True,False
+bender,way,87496995,улица Островского,улица Островского,Strada Ostrovski,,,,улица Островского,name:ru,ok,address_street,True,False
+bender,way,209668156,улица Павлика Морозова,улица Павлика Морозова,Strada Pavlik Morozov,,,,улица Павлика Морозова,name:ru,ok,address_street,True,False
+bender,way,165943506,улица Павлова,улица Павлова,Strada Pavlov,,,,улица Павлова,name:ru,ok,address_street,True,False
+bender,way,38633115,улица Панина,улица Панина,Strada Panin,,,,улица Панина,name:ru,ok,address_street,True,True
+bender,way,91850333,улица Панфилова,улица Панфилова,Strada Panfilov,,,,улица Панфилова,name:ru,ok,address_street,True,False
+bender,way,60739704,улица Петровского,улица Петровского,Strada Petrovski,,,,улица Петровского,name:ru,ok,address_street,True,False
+bender,way,165943498,улица Пирогова,улица Пирогова,Strada Pirogov,,,,улица Пирогова,name:ru,ok,address_street,True,False
+bender,way,161630393,улица Победы,улица Победы,Strada Biruinței,,,,улица Победы,name:ru,ok,address_street,True,False
+bender,way,45858826,улица Ползунова,улица Ползунова,Strada Polzunov,,,,улица Ползунова,name:ru,ok,address_street,True,False
+bender,way,91850338,улица Полоза,улица Полоза,Strada Poloz,,,Лесовая улица,улица Полоза,name:ru,ok,address_street,True,False
+bender,way,222660149,улица Правды,улица Правды,Strada Adevărul,,,,улица Правды,name:ru,ok,address_street,True,False
+bender,way,222776786,улица Пугачёва,улица Пугачёва,Strada Pugaciov,,,,улица Пугачёва,name:ru,ok,address_street,True,False
+bender,way,41851867,улица Пушкина,улица Пушкина,Strada Pușkin,,,,улица Пушкина,name:ru,ok,address_street,True,False
+bender,way,91430822,улица Разина,улица Разина,Strada Razin,,,,улица Разина,name:ru,ok,address_street,True,False
+bender,way,41749660,улица Сергея Лазо,улица Сергея Лазо,Strada Serghei Lazo,,,,улица Сергея Лазо,name:ru,ok,address_street,True,True
+bender,way,161635491,улица Сергея Ревенялэ,улица Сергея Ревенялэ,Strada Serghei Reveneală,,,Треугольная улица,улица Сергея Ревенялэ,name:ru,ok,address_street,True,False
+bender,way,115331475,улица Советской Армии,улица Советской Армии,Strada Armata Sovietică,,,,улица Советской Армии,name:ru,ok,address_street,True,False
+bender,way,91850340,улица Спартака,улица Спартака,Strada Spartac,,,,улица Спартака,name:ru,ok,address_street,True,False
+bender,way,525055331,улица Старого,улица Старого,Strada Starîi,,,,улица Старого,name:ru,ok,address_street,True,False
+bender,way,115331515,улица Строителей,улица Строителей,Strada Constructorilor,,,,улица Строителей,name:ru,ok,address_street,True,True
+bender,way,58427502,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok,address_street,True,False
+bender,way,91430809,улица Тамары Кручок,улица Тамары Кручок,Strada Tamara Crucioc,,,,улица Тамары Кручок,name:ru,ok,address_street,True,False
+bender,way,224693667,улица Текстильщиков,улица Текстильщиков,,,,,улица Текстильщиков,name:ru,ok,service,False,True
+bender,way,165943500,улица Тельмана,улица Тельмана,Strada Thälmann,,,,улица Тельмана,name:ru,ok,address_street,True,False
+bender,way,133021436,улица Тимирязева,улица Тимирязева,Strada Timireazev,,,,улица Тимирязева,name:ru,ok,address_street,True,False
+bender,way,87499736,улица Титова,улица Титова,Strada Titov,,,,улица Титова,name:ru,ok,address_street,True,False
+bender,way,38633095,улица Ткаченко,улица Ткаченко,Strada Tcacenco,,,,улица Ткаченко,name:ru,ok,address_street,True,False
+bender,way,115331424,улица Толбухина,улица Толбухина,Strada Tolbuhin,,,,улица Толбухина,name:ru,ok,address_street,True,False
+bender,way,91850341,улица Толстого,улица Толстого,Strada Tolstoi,,,,улица Толстого,name:ru,ok,address_street,True,False
+bender,way,87496996,улица Тургенева,улица Тургенева,Strada Turghenev,,,,улица Тургенева,name:ru,ok,address_street,True,False
+bender,way,47475967,улица Урицкого,улица Урицкого,Strada Urițkii,,,,улица Урицкого,name:ru,ok,address_street,True,False
+bender,way,225249096,улица Франко,улица Франко,Strada Franko,,,,улица Франко,name:ru,ok,address_street,True,True
+bender,way,165943501,улица Фрунзе,улица Фрунзе,Strada Frunze,,,,улица Фрунзе,name:ru,ok,address_street,True,False
+bender,way,161635492,улица Халтурина,улица Халтурина,Strada Halturin,,,,улица Халтурина,name:ru,ok,address_street,True,False
+bender,way,64717017,улица Чайковского,улица Чайковского,Strada Ceaikovski,,,,улица Чайковского,name:ru,ok,address_street,True,False
+bender,way,161126085,улица Чапаева,улица Чапаева,Strada Ceapaev,,,,улица Чапаева,name:ru,ok,address_street,True,False
+bender,way,223883053,улица Чернышевского,улица Чернышевского,Strada Cernîșevskii,,,,улица Чернышевского,name:ru,ok,address_street,True,True
+bender,way,87496994,улица Чехова,улица Чехова,Strada Cehov,,,,улица Чехова,name:ru,ok,address_street,True,False
+bender,way,222660150,улица Чкалова,улица Чкалова,Strada Cikalov,,,,улица Чкалова,name:ru,ok,address_street,True,False
+bender,way,87506355,улица Шевченко,улица Шевченко,Strada Șevcenco,,,Шевская улица,улица Шевченко,name:ru,ok,address_street,True,False
+bender,way,223422015,улица Шестакова,улица Шестакова,Strada Șestacov,,,,улица Шестакова,name:ru,ok,address_street,True,False
+bender,way,60739725,улица Шмидта,улица Шмидта,Strada Schmidt,,,,улица Шмидта,name:ru,ok,address_street,True,False
+bender,way,87496985,улица Щорса,улица Щорса,Strada Șciors,,,,улица Щорса,name:ru,ok,address_street,True,False
+bender,way,136388030,улица Энгельса,улица Энгельса,Strada Engels,,,,улица Энгельса,name:ru,ok,address_street,True,False
+giska,way,1262895332,Gîsca-Zolotievcа,Гыска-Золотиевка,Gîsca-Zolotievcа,,,,Гыска-Золотиевка,name:ru,ok,address_street,True,False
+giska,way,90414304,Strada Ștefan cel Mare și Sfânt,,,,,,улица Штефан чел Маре ши Сфынт,local_table,ok,address_street,True,False
+giska,way,223226239,Госпитальная улица,Госпитальная улица,,,,,Госпитальная улица,name:ru,ok,address_street,True,False
+giska,way,674138530,Гыска-Золотиевка,Гыска-Золотиевка,Gîsca-Zolotievcа,,,,Гыска-Золотиевка,name:ru,ok,address_street,True,False
+giska,way,223678956,Заречная улица,Заречная улица,,,,,Заречная улица,name:ru,ok,address_street,True,True
+giska,way,223225486,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok,address_street,True,False
+giska,way,223677079,Октябрьская улица,Октябрьская улица,Strada Octombrie,,,,Октябрьская улица,name:ru,ok,address_street,True,False
+giska,way,223676960,Октябрьский переулок,Октябрьский переулок,Stradela Octombrie,,,,Октябрьский переулок,name:ru,ok,address_street,True,False
+giska,way,222899721,Первомайская улица,Первомайская улица,Strada 1 Mai,,,,Первомайская улица,name:ru,ok,address_street,True,True
+giska,way,352361041,Приднестровская улица,Приднестровская улица,Strada Pridnestrovscaia,,,,Приднестровская улица,name:ru,ok,address_street,True,False
+giska,way,223673077,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok,address_street,True,False
+giska,way,222899723,Студенческая улица,Студенческая улица,Strada Studențească,,,,Студенческая улица,name:ru,ok,address_street,True,True
+giska,way,223684900,Театральная улица,Театральная улица,Strada Teatrală,,,,Театральная улица,name:ru,ok,address_street,True,True
+giska,way,223668765,Учительская улица,Учительская улица,Strada Ucitelscaia,,,,Учительская улица,name:ru,ok,address_street,True,False
+giska,way,223256046,Школьная улица,Школьная улица,Strada Școlii,,,,Школьная улица,name:ru,ok,address_street,True,False
+giska,way,223669261,Школьный переулок,Школьный переулок,Stradela Școlii,,,,Школьный переулок,name:ru,ok,address_street,True,False
+giska,way,223225649,переулок Мира,переулок Мира,Stradela Păcii,,,,переулок Мира,name:ru,ok,address_street,True,False
+giska,way,223224975,переулок Суворова,переулок Суворова,Stradela Suvorov,,,,переулок Суворова,name:ru,ok,address_street,True,True
+giska,way,223433474,улица 40 лет МССР,улица 40 лет МССР,Strada 40 de ani în RSSM,,,,улица 40 лет МССР,name:ru,ok,address_street,True,False
+giska,way,223226306,улица 60 лет Октября,улица 60 лет Октября,Strada 60 de ani în Octombrie,,,,улица 60 лет Октября,name:ru,ok,address_street,True,False
+giska,way,223226396,улица Бориса Главана,улица Бориса Главана,Strada Boris Glavan,,,,улица Бориса Главана,name:ru,ok,address_street,True,False
+giska,way,223677259,улица Гагарина,улица Гагарина,Strada Gagarin,,,Почтовая улица,улица Гагарина,name:ru,ok,address_street,True,False
+giska,way,223225568,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok,address_street,True,False
+giska,way,1354633408,улица Интернациональная,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok,address_street,True,False
+giska,way,223970478,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok,address_street,True,False
+giska,way,223232234,улица Курило,улица Курило,Strada Curilo,,,,улица Курило,name:ru,ok,address_street,True,True
+giska,way,223231541,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok,address_street,True,False
+giska,way,223225831,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok,address_street,True,True
+giska,way,223669589,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok,address_street,True,False
+giska,way,223669725,улица Победы,улица Победы,Strada Biruinței,,,,улица Победы,name:ru,ok,address_street,True,False
+giska,way,223221669,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok,address_street,True,True
+giska,way,223669347,улица Ткаченко,улица Ткаченко,Strada Tcacenco,,,,улица Ткаченко,name:ru,ok,address_street,True,False
+parkany,way,28584679,Бендерский мост,Бендерский мост,Podul pacificatorilor ruși,,,,Бендерский мост,name:ru,ok,bridge,False,False
+parkany,way,638340407,Железнодорожный переулок,Железнодорожный переулок,,,,,Железнодорожный переулок,name:ru,ok,service,False,True
+parkany,way,701258447,Заводская улица,Заводская улица,Strada Zavodscaia,,,,Заводская улица,name:ru,ok,address_street,True,False
+parkany,way,28584680,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok,intercity,False,False
+parkany,way,83039143,Коммунистическая улица,Коммунистическая улица,Strada Comunismului,,,,Коммунистическая улица,name:ru,ok,address_street,True,False
+parkany,way,83039130,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok,address_street,True,False
+parkany,way,83039146,Красный переулок,Красный переулок,,,,,Красный переулок,name:ru,ok,address_street,True,False
+parkany,way,83039106,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok,address_street,True,False
+parkany,way,83039107,Парканы-Бычок,Парканы-Бычок,Parcani-Bîcioc,,,,Парканы-Бычок,name:ru,ok,intercity,False,False
+parkany,way,83039099,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok,address_street,True,False
+parkany,way,223442923,Садовая улица,Садовая улица,Strada Sadovaia,,,,Садовая улица,name:ru,ok,address_street,True,False
+parkany,way,596998110,Светлая улица,Светлая улица,,,,,Светлая улица,name:ru,ok,address_street,True,False
+parkany,way,288717237,Солнечная улица,Солнечная улица,Strada Solnecinaia,,,,Солнечная улица,name:ru,ok,address_street,True,False
+parkany,way,83039155,Степная улица,Степная улица,Strada Stepei,,,,Степная улица,name:ru,ok,address_street,True,False
+parkany,way,83039110,Тираспольское шоссе,Тираспольское шоссе,Strada Tiraspol,,Тираспольская улица,,Тираспольское шоссе,name:ru,ok,intercity,False,False
+parkany,way,285067757,переулок Специалистов,переулок Специалистов,Stradela Specialiștilor,,,,переулок Специалистов,name:ru,ok,service,False,True
+parkany,way,238062004,улица Анатолия Макалича,улица Анатолия Макалича,Strada Anatolii Macalici,,,,улица Анатолия Макалича,name:ru,ok,address_street,True,False
+parkany,way,83039101,улица Благоева,улица Благоева,Strada Blagoev,,,,улица Благоева,name:ru,ok,address_street,True,False
+parkany,way,83039123,улица Будённого,улица Будённого,Strada Budionnîi,,,,улица Будённого,name:ru,ok,address_street,True,False
+parkany,way,83039095,улица Ворошилова,улица Ворошилова,Strada Voroșilov,,,,улица Ворошилова,name:ru,ok,address_street,True,False
+parkany,way,83039139,улица Гагарина,улица Гагарина,Strada Gagarin,,,,улица Гагарина,name:ru,ok,address_street,True,False
+parkany,way,83039144,улица Гоголя,улица Гоголя,Strada Gogol,,,,улица Гоголя,name:ru,ok,address_street,True,False
+parkany,way,83039137,улица Горького,улица Горького,Strada Gorki,,,,улица Горького,name:ru,ok,address_street,True,False
+parkany,way,83039152,улица Димитрова,улица Димитрова,Strada Dimitrov,,,,улица Димитрова,name:ru,ok,address_street,True,False
+parkany,way,83039115,улица Дружбы,улица Дружбы,Strada Prieteniei,,,,улица Дружбы,name:ru,ok,address_street,True,False
+parkany,way,83039140,улица Калинина,улица Калинина,Strada Kalinin,,,,улица Калинина,name:ru,ok,address_street,True,False
+parkany,way,83039145,улица Карла Маркса,улица Карла Маркса,Strada Karl Marx,,,,улица Карла Маркса,name:ru,ok,address_street,True,False
+parkany,way,83039104,улица Кирова,улица Кирова,Strada Kirov,,,,улица Кирова,name:ru,ok,address_street,True,False
+parkany,way,83039118,улица Ковалёва,улица Ковалёва,Strada Covaliov,,,,улица Ковалёва,name:ru,ok,address_street,True,False
+parkany,way,83039103,улица Котовского,улица Котовского,Strada Kotovski,,,,улица Котовского,name:ru,ok,address_street,True,False
+parkany,way,43201858,улица Ленина,улица Ленина,Strada Lenin,,,,улица Ленина,name:ru,ok,address_street,True,False
+parkany,way,83039090,улица Маяковского,улица Маяковского,Strada Maiacovschi,,,,улица Маяковского,name:ru,ok,address_street,True,False
+parkany,way,83039105,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok,address_street,True,False
+parkany,way,83039112,улица Мичурина,улица Мичурина,Strada Miciurin,,,,улица Мичурина,name:ru,ok,address_street,True,False
+parkany,way,83039117,улица Петра Николаева,улица Петра Николаева,Strada Piotr Nicolaev,,,,улица Петра Николаева,name:ru,ok,address_street,True,False
+parkany,way,83039138,улица Пушкина,улица Пушкина,Strada Pușkin,,,,улица Пушкина,name:ru,ok,address_street,True,False
+parkany,way,83039094,улица Романенко,улица Романенко,Strada Romanenco,,,,улица Романенко,name:ru,ok,address_street,True,False
+parkany,way,238031302,улица Русакова,улица Русакова,Strada Rusacov,,,,улица Русакова,name:ru,ok,address_street,True,False
+parkany,way,83039141,улица Свердлова,улица Свердлова,Strada Sverdlov,,,,улица Свердлова,name:ru,ok,address_street,True,False
+parkany,way,83039149,улица Сергея Лазо,улица Сергея Лазо,Strada Serghei Lazo,,,,улица Сергея Лазо,name:ru,ok,address_street,True,False
+parkany,way,83039111,улица Суворова,улица Суворова,Strada Suvorov,,,,улица Суворова,name:ru,ok,address_street,True,False
+parkany,way,83039128,улица Фрунзе,улица Фрунзе,Strada Frunze,,,,улица Фрунзе,name:ru,ok,address_street,True,False
+parkany,way,83039100,улица Чапаева,улица Чапаева,Strada Ceapaev,,,,улица Чапаева,name:ru,ok,address_street,True,False
+parkany,way,83039113,улица Чехова,улица Чехова,Strada Cehov,,,,улица Чехова,name:ru,ok,address_street,True,False
+parkany,way,83039147,улица Чкалова,улица Чкалова,Strada Cikalov,,,,улица Чкалова,name:ru,ok,address_street,True,False
+parkany,way,83039153,улица Шевченко,улица Шевченко,Strada Șevcenko,,,,улица Шевченко,name:ru,ok,address_street,True,False
+parkany,way,83039157,улица Энгельса,улица Энгельса,Strada Engels,,,,улица Энгельса,name:ru,ok,address_street,True,False
+protyagailovka,way,883199041,Chișinău-Bender,Кишинёв-Бендеры,Chișinău-Bender,,,,Кишинёв-Бендеры,name:ru,ok,intercity,False,False
+protyagailovka,way,224903383,Абрикосовая,,,,,,Абрикосовая,none,needs_ru_review,address_street,True,False
+protyagailovka,way,60739723,Банный переулок,Банный переулок,,,,,Банный переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,224903381,Виноградная,,,,,,Виноградная,none,needs_ru_review,address_street,True,False
+protyagailovka,way,224903379,Вишневая,,,,,,Вишневая,none,needs_ru_review,address_street,True,False
+protyagailovka,way,222904315,Гербовецкая улица,Гербовецкая улица,Strada Hîrbovățului,,,,Гербовецкая улица,name:ru,ok,address_street,True,False
+protyagailovka,way,60739714,Гербовецкий переулок,Гербовецкий переулок,Stradela Hîrbovățului,,,,Гербовецкий переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,60739683,Главная улица,Главная улица,Strada Glavnaia,,,,Главная улица,name:ru,ok,address_street,True,False
+protyagailovka,way,222904317,Главный переулок,Главный переулок,,,,,Главный переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,185144051,Кишинёв-Тирасполь,Кишинёв-Тирасполь,Chișinău-Tiraspol,,,,Кишинёв-Тирасполь,name:ru,ok,intercity,False,False
+protyagailovka,way,184989528,Комсомольская улица,Комсомольская улица,Strada Comsomolului,,,,Комсомольская улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224903410,Комсомольский переулок,Комсомольский переулок,Stradela Comsomolului,,,,Комсомольский переулок,name:ru,ok,address_street,True,True
+protyagailovka,way,60739686,Лесовая улица,Лесовая улица,Strada Pădurii,,,,Лесовая улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224903408,Луговая улица,Луговая улица,Strada Lugovaia,,,,Луговая улица,name:ru,ok,address_street,True,False
+protyagailovka,way,316847103,Мирная улица,Мирная улица,,,,,Мирная улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224898448,Молодёжная улица,Молодёжная улица,Strada Tineretului,,,,Молодёжная улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224898440,Молодёжный переулок,Молодёжный переулок,Stradela Tineretului,,,,Молодёжный переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,224898439,Первомайская улица,Первомайская улица,Strada 1 Mai,,,,Первомайская улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224898441,Первомайский переулок,Первомайский переулок,Stradela 1 Mai,,,,Первомайский переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,224691154,Пионерская улица,Пионерская улица,Strada Pionierilor,,,,Пионерская улица,name:ru,ok,address_street,True,False
+protyagailovka,way,1265061308,Полевая,,,,,,Полевая,none,needs_ru_review,address_street,True,False
+protyagailovka,way,222904322,Полевой переулок,Полевой переулок,,,,,Полевой переулок,name:ru,ok,address_street,True,False
+protyagailovka,way,224903393,Садовая улица,Садовая улица,Strada Livezilor,,,,Садовая улица,name:ru,ok,address_street,True,False
+protyagailovka,way,209668174,Санаторная улица,Санаторная улица,,,,,Санаторная улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224882001,Славянская улица,Славянская улица,Strada Slavianscaia,,,,Славянская улица,name:ru,ok,address_street,True,False
+protyagailovka,way,224903380,Сливовая,,,,,,Сливовая,none,needs_ru_review,address_street,True,False
+protyagailovka,way,222904324,Совхозная улица,Совхозная улица,Strada Sovhozului,,,,Совхозная улица,name:ru,ok,address_street,True,False
+protyagailovka,way,60739692,Степной переулок,Степной переулок,,,,,Степной переулок,name:ru,ok,service,False,True
+protyagailovka,way,223692025,переулок Куйбышева,переулок Куйбышева,Strada Kuibișev,,,,переулок Куйбышева,name:ru,ok,address_street,True,False
+protyagailovka,way,230698195,переулок Полоза,переулок Полоза,Stradela Poloz,,,,переулок Полоза,name:ru,ok,address_street,True,False
+protyagailovka,way,209668169,улица 50 лет Победы,улица 50 лет Победы,Strada 50 de ani ai Biruinței,,,,улица 50 лет Победы,name:ru,ok,address_street,True,False
+protyagailovka,way,224903396,улица Академика Берга,улица Академика Берга,Strada Academician Berg,,,,улица Академика Берга,name:ru,ok,address_street,True,False
+protyagailovka,way,222904321,улица Алеку Руссо,улица Алеку Руссо,Strada Alecu Russo,,,,улица Алеку Руссо,name:ru,ok,address_street,True,False
+protyagailovka,way,91850331,улица Интернационалистов,улица Интернационалистов,Strada Internaționaliștilor,,,,улица Интернационалистов,name:ru,ok,address_street,True,False
+protyagailovka,way,224898438,улица Космонавтов,улица Космонавтов,Strada Cosmonauţilor,,,,улица Космонавтов,name:ru,ok,address_street,True,False
+protyagailovka,way,91850344,улица Кошевого,улица Кошевого,Strada Coșevoi,,,,улица Кошевого,name:ru,ok,address_street,True,False
+protyagailovka,way,223691988,улица Мира,улица Мира,Strada Păcii,,,,улица Мира,name:ru,ok,address_street,True,False
+protyagailovka,way,224898442,улица Мунтяна,улица Мунтяна,Strada Muntean,,,,улица Мунтяна,name:ru,ok,address_street,True,True
+protyagailovka,way,224903405,улица Николая Белана,улица Николая Белана,Strada Nicolai Belan,,,,улица Николая Белана,name:ru,ok,address_street,True,False
+protyagailovka,way,315963790,улица Серикова,улица Серикова,Strada Sericov,,,,улица Серикова,name:ru,ok,address_street,True,False
+protyagailovka,way,222904320,улица Штефан чел Маре,улица Штефан чел Маре,Strada Ștefan cel Mare,,,,улица Штефан чел Маре,name:ru,ok,address_street,True,False

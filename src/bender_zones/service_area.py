@@ -16,6 +16,7 @@ All functions here are pure and offline; the PBF-driven pipeline lives in
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -33,6 +34,108 @@ STATUS_OK = "ok"
 STATUS_NEEDS_REVIEW = "needs_ru_review"
 BOUNDARY_FOUND = "boundary_found"
 BOUNDARY_MISSING = "boundary_missing"
+
+# --- road classification vocabulary ----------------------------------------
+# Intercity / through-roads: not addressable neighbourhood streets.
+INTERCITY_HIGHWAY = frozenset({
+    "motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link",
+})
+# Ordinary addressable urban streets.
+ADDRESS_HIGHWAY = frozenset({
+    "residential", "living_street", "unclassified", "tertiary", "tertiary_link",
+    "secondary", "secondary_link", "road", "pedestrian",
+})
+SERVICE_HIGHWAY = frozenset({"service"})
+TRACK_HIGHWAY = frozenset({"track"})
+PATH_HIGHWAY = frozenset({"footway", "path", "cycleway", "steps", "bridleway"})
+
+# Tokens that mark a *named bridge structure* (its own feature, not an address street).
+BRIDGE_NAME_TOKENS = ("мост", "podul", "bridge")
+# Tokens that mark a genuine street name (used to rescue mis-tagged paths and to
+# protect streets whose name merely contains a bridge word).
+STREET_WORD_TOKENS = frozenset({
+    "улица", "ул", "переулок", "пер", "бульвар", "бул", "проспект", "пр", "шоссе",
+    "тупик", "площадь", "пл", "проезд", "аллея", "набережная",
+    "strada", "str", "stradela", "stradă", "bulevardul", "soseaua", "șoseaua",
+    "street", "road", "alley", "lane",
+})
+
+ROAD_CLASS_ADDRESS = "address_street"
+ROAD_CLASS_INTERCITY = "intercity"
+ROAD_CLASS_BRIDGE = "bridge"
+ROAD_CLASS_SERVICE = "service"
+ROAD_CLASS_TRACK = "track"
+ROAD_CLASS_PATH = "path"
+ROAD_CLASS_INFORMAL = "informal"
+ROAD_CLASS_OTHER = "other"
+
+_WORD_RE = re.compile(r"[^\W\d_]+", re.UNICODE)
+
+
+def _name_tokens(name: str) -> list[str]:
+    return _WORD_RE.findall(name.lower())
+
+
+def _has_street_word(name: str) -> bool:
+    return any(tok in STREET_WORD_TOKENS for tok in _name_tokens(name))
+
+
+def _looks_informal(name: str) -> bool:
+    """A placeholder/description rather than a street name.
+
+    e.g. ``Горка (с ручником)`` (parenthetical note) or ``начало пути``
+    (all-lowercase description).
+    """
+    text = name.strip()
+    if "(" in text or ")" in text:
+        return True
+    if any(c.isalpha() for c in text) and text == text.lower():
+        return True
+    return False
+
+
+def classify_road(tags: dict) -> tuple[str, bool, bool]:
+    """Classify a named highway way.
+
+    Returns ``(road_class, is_address_street, needs_name_classification_review)``.
+
+    Only real neighbourhood streets get ``is_address_street=True`` and are counted
+    in the ``unique_streets`` statistic. Intercity roads, named bridge structures,
+    service/track ways, and informal placeholder names are excluded. Genuinely
+    ambiguous cases (service/track/informal names, or a street word on a path)
+    set the review flag so a human can reclassify — they are never silently
+    turned into address streets except when the evidence (a real street word) is
+    strong, and even then the review flag is set.
+    """
+    name = (tags.get("name") or "").strip()
+    highway = tags.get("highway") or ""
+    lowered = name.lower()
+
+    # Named bridge structures (but not streets that merely contain a bridge word).
+    if any(tok in lowered for tok in BRIDGE_NAME_TOKENS) and not _has_street_word(name):
+        return ROAD_CLASS_BRIDGE, False, False
+
+    if highway in INTERCITY_HIGHWAY:
+        return ROAD_CLASS_INTERCITY, False, False
+
+    if _looks_informal(name):
+        return ROAD_CLASS_INFORMAL, False, True
+
+    if highway in SERVICE_HIGHWAY:
+        return ROAD_CLASS_SERVICE, False, True
+    if highway in TRACK_HIGHWAY:
+        return ROAD_CLASS_TRACK, False, True
+
+    if highway in PATH_HIGHWAY:
+        if _has_street_word(name):
+            # A real street name on a path-class way: keep it, but flag for review.
+            return ROAD_CLASS_ADDRESS, True, True
+        return ROAD_CLASS_PATH, False, False
+
+    if highway in ADDRESS_HIGHWAY:
+        return ROAD_CLASS_ADDRESS, True, False
+
+    return ROAD_CLASS_OTHER, False, True
 
 
 @dataclass(frozen=True)
@@ -121,32 +224,42 @@ def load_local_ru_table(path: str | Path) -> dict[str, str]:
 def resolve_ru_name(tags: dict, local_table: dict[str, str] | None = None) -> tuple[str, str, str]:
     """Resolve the display Russian street name.
 
-    Priority: ``name:ru`` -> ``official_name:ru`` -> ``alt_name:ru`` -> verified
-    local table (keyed by original ``name``) -> otherwise no confirmed RU name.
+    Priority:
 
-    Returns ``(display, source, status)``. When no confirmed Russian name exists
-    the display falls back to the original ``name`` (shown as-is, never
-    transliterated) and the status is ``needs_ru_review``.
+    1. verified local override table (human-confirmed correction, authoritative);
+    2. ``name:ru``;
+    3. ``official_name:ru``;
+    4. ``alt_name:ru``;
+    5. otherwise: no confirmed Russian name.
+
+    The verified table wins over OSM tags because it is a curated human
+    correction (some OSM segments carry inconsistent or partial ``name:ru``). It
+    is used only for names explicitly listed there; every other street keeps the
+    OSM-tag priority. Returns ``(display, source, status)``. When no confirmed
+    Russian name exists the display falls back to the original ``name`` (shown
+    as-is, never transliterated) and the status is ``needs_ru_review``.
     """
     local_table = local_table or {}
-    for key in RU_TAG_PRIORITY:
-        value = tags.get(key)
-        if value and value.strip():
-            return value.strip(), key, STATUS_OK
-
     original = (tags.get("name") or "").strip()
+
     if original and original in local_table:
         override = local_table[original].strip()
         if override:
             return override, "local_table", STATUS_OK
+
+    for key in RU_TAG_PRIORITY:
+        value = tags.get(key)
+        if value and value.strip():
+            return value.strip(), key, STATUS_OK
 
     return original, "none", STATUS_NEEDS_REVIEW
 
 
 def street_record(osm_type: str, osm_id: int, tags: dict, settlement_key: str,
                   local_table: dict[str, str] | None = None) -> dict:
-    """Build one street record with resolved RU name and all preserved fields."""
+    """Build one street record: resolved RU name, road class, preserved fields."""
     display, source, status = resolve_ru_name(tags, local_table)
+    road_class, is_address_street, needs_class_review = classify_road(tags)
     record = {
         "osm_type": osm_type,
         "osm_id": osm_id,
@@ -154,6 +267,9 @@ def street_record(osm_type: str, osm_id: int, tags: dict, settlement_key: str,
         "ru_display": display,
         "ru_source": source,
         "ru_status": status,
+        "road_class": road_class,
+        "is_address_street": is_address_street,
+        "needs_name_classification_review": needs_class_review,
     }
     for field_name in STREET_FIELDS:
         record[field_name] = tags.get(field_name)

@@ -41,6 +41,7 @@ from bender_zones.service_area import (
     build_settlement_feature,
     load_local_ru_table,
     load_service_area,
+    resolve_ru_name,
     round_coords,
     street_record,
 )
@@ -48,7 +49,9 @@ from bender_zones.versions import tool_versions
 
 NOTICE_RU = "Это карта проверки данных. Финальные зоны доставки ещё не созданы."
 ROAD_PROP_KEYS = ["osm_id", "osm_type", "settlement", "highway",
+                  "road_class", "is_address_street", "needs_name_classification_review",
                   "ru_display", "ru_source", "ru_status", *STREET_FIELDS]
+_CLASS_PRIORITY = ["bridge", "intercity", "service", "informal", "track", "path", "other"]
 
 
 def _utc_now_iso() -> str:
@@ -87,9 +90,9 @@ def _node_lonlat(pbf: Path, workdir: Path, node_id: int) -> tuple[float, float] 
 
 
 def _process_city(city_pbf: Path, settlement_key: str, local_table: dict[str, str]):
-    """Single pass over a city extract: road features, street table, counts."""
+    """Single pass over a city extract: road features, per-name segments, counts."""
     road_features: list[dict] = []
-    street_by_name: dict[str, dict] = {}
+    segments_by_name: dict[str, list] = {}
     buildings = 0
     address_objects = 0
 
@@ -115,29 +118,75 @@ def _process_city(city_pbf: Path, settlement_key: str, local_table: dict[str, st
             continue
 
         rec = street_record("way", obj.id, tags, settlement_key, local_table)
-        props = {k: rec.get(k) for k in ("osm_id", "osm_type", "settlement",
-                                         "ru_display", "ru_source", "ru_status")}
-        props["highway"] = tags.get("highway")
-        for f in STREET_FIELDS:
-            props[f] = tags.get(f)
         road_features.append({
             "type": "Feature",
-            "properties": {k: props.get(k) for k in ROAD_PROP_KEYS},
+            "properties": {k: rec.get(k, tags.get(k)) for k in ROAD_PROP_KEYS},
             "geometry": {"type": "LineString", "coordinates": coords},
         })
+        segments_by_name.setdefault(tags["name"], []).append(
+            (obj.id, tags, rec["road_class"], rec["is_address_street"],
+             rec["needs_name_classification_review"]))
 
-        # One representative row per distinct original street name.
-        street_by_name.setdefault(tags["name"], rec)
-
-    return road_features, street_by_name, buildings, address_objects
+    return road_features, segments_by_name, buildings, address_objects
 
 
-def _street_stats(street_by_name: dict[str, dict]) -> dict:
-    unique = len(street_by_name)
-    with_ru = sum(1 for r in street_by_name.values() if r.get("name:ru"))
-    needs = sum(1 for r in street_by_name.values() if r["ru_status"] == "needs_ru_review")
-    return {"unique_streets": unique, "streets_with_name_ru": with_ru,
-            "streets_needs_ru_review": needs}
+def _merge_field(segments: list, field: str):
+    """Value from the lowest-osm-id segment that carries *field* (deterministic)."""
+    best, best_id = None, None
+    for osm_id, tags, *_ in segments:
+        value = tags.get(field)
+        if value and (best_id is None or osm_id < best_id):
+            best, best_id = value, osm_id
+    return best
+
+
+def _dominant_class(classes: list[str], is_address: bool) -> str:
+    if is_address:
+        return "address_street"
+    for candidate in _CLASS_PRIORITY:
+        if candidate in classes:
+            return candidate
+    return "other"
+
+
+def _build_street_rows(segments_by_name: dict[str, list], settlement: str,
+                       local_table: dict[str, str]) -> list[dict]:
+    """Aggregate segments into one deterministic row per distinct street name."""
+    rows: list[dict] = []
+    for name in sorted(segments_by_name):
+        segs = segments_by_name[name]
+        merged = {f: _merge_field(segs, f) for f in STREET_FIELDS}
+        merged["name"] = name
+        display, source, status = resolve_ru_name(merged, local_table)
+        is_address = any(s[3] for s in segs)
+        needs_class = any(s[4] for s in segs)
+        road_class = _dominant_class([s[2] for s in segs], is_address)
+        rows.append({
+            "settlement": settlement,
+            "osm_type": "way",
+            "osm_id": min(s[0] for s in segs),
+            "ru_display": display,
+            "ru_source": source,
+            "ru_status": status,
+            "road_class": road_class,
+            "is_address_street": is_address,
+            "needs_name_classification_review": needs_class,
+            **{f: merged.get(f) for f in STREET_FIELDS},
+        })
+    return rows
+
+
+def _street_stats(rows: list[dict]) -> dict:
+    address = [r for r in rows if r["is_address_street"]]
+    return {
+        "named_ways_total": len(rows),
+        "unique_streets": len(address),  # counts ONLY real address streets
+        "streets_with_name_ru": sum(1 for r in address if r.get("name:ru")),
+        "streets_needs_ru_review": sum(
+            1 for r in address if r["ru_status"] == "needs_ru_review"),
+        "streets_needs_name_classification_review": sum(
+            1 for r in rows if r["needs_name_classification_review"]),
+    }
 
 
 def build(pbf: Path, repo_root: Path) -> int:
@@ -179,17 +228,19 @@ def build(pbf: Path, repo_root: Path) -> int:
             if entry.place_node:
                 marker = _node_lonlat(pbf, workdir, entry.place_node)
             feature = build_settlement_feature(entry, tags, geometry=None, marker_lonlat=marker)
-            stats = {"unique_streets": 0, "streets_with_name_ru": 0,
-                     "streets_needs_ru_review": 0, "buildings": 0, "address_objects": 0}
+            stats = {"named_ways_total": 0, "unique_streets": 0, "streets_with_name_ru": 0,
+                     "streets_needs_ru_review": 0,
+                     "streets_needs_name_classification_review": 0,
+                     "buildings": 0, "address_objects": 0}
         else:
             boundaries_found += 1
             feature = build_settlement_feature(entry, tags, geometry=geometry)
-            roads, streets_by_name, buildings, addr = _process_city(
+            roads, segments_by_name, buildings, addr = _process_city(
                 city_pbf, entry.key, local_table)
             all_roads.extend(roads)
-            for name in sorted(streets_by_name):
-                all_streets.append(streets_by_name[name])
-            stats = {**_street_stats(streets_by_name),
+            rows = _build_street_rows(segments_by_name, entry.key, local_table)
+            all_streets.extend(rows)
+            stats = {**_street_stats(rows),
                      "buildings": buildings, "address_objects": addr}
 
         settlement_features.append(feature)
@@ -218,14 +269,19 @@ def build(pbf: Path, repo_root: Path) -> int:
     all_roads.sort(key=lambda f: (f["properties"]["settlement"], f["properties"]["osm_id"]))
     all_streets.sort(key=lambda r: (r["settlement"], r["name"] or "", r["osm_id"]))
 
+    def _sum(field):
+        return sum(p[field] for p in per_settlement.values())
+
     totals = {
         "settlements": len(sa.allowed),
         "boundaries_found": boundaries_found,
         "boundaries_missing": boundaries_missing,
-        "unique_streets": sum(p["unique_streets"] for p in per_settlement.values()),
-        "streets_with_name_ru": sum(p["streets_with_name_ru"] for p in per_settlement.values()),
-        "streets_needs_ru_review": sum(
-            p["streets_needs_ru_review"] for p in per_settlement.values()),
+        "named_ways_total": _sum("named_ways_total"),
+        "unique_streets": _sum("unique_streets"),
+        "streets_with_name_ru": _sum("streets_with_name_ru"),
+        "streets_needs_ru_review": _sum("streets_needs_ru_review"),
+        "streets_needs_name_classification_review": _sum(
+            "streets_needs_name_classification_review"),
     }
 
     # --- write map data ---
@@ -278,7 +334,13 @@ def build(pbf: Path, repo_root: Path) -> int:
             "Territories are shown as separate real OSM boundaries; they are NOT "
             "merged into a final service polygon at this stage.",
             "Varnița is intentionally excluded from the service area.",
-            "Street Russian names are resolved by strict priority; unconfirmed ones "
+            "The unique_streets statistic counts only real address streets "
+            "(is_address_street=true). Intercity roads, named bridge structures, "
+            "service/track ways and informal placeholder names are classified via "
+            "road_class and excluded from the count; ambiguous ones set "
+            "needs_name_classification_review for a human to confirm.",
+            "Street Russian names are resolved by priority (verified local override "
+            "first, then name:ru/official_name:ru/alt_name:ru); unconfirmed ones "
             "are flagged needs_ru_review and never transliterated.",
             "Address coverage in OpenStreetMap is community-contributed and NOT complete.",
         ],
@@ -300,7 +362,8 @@ def build(pbf: Path, repo_root: Path) -> int:
 def _write_street_csv(path: Path, streets: list[dict]) -> None:
     header = ["settlement", "osm_type", "osm_id", "name", "name_ru", "name_ro",
               "official_name", "alt_name", "old_name", "ru_display", "ru_source",
-              "ru_status"]
+              "ru_status", "road_class", "is_address_street",
+              "needs_name_classification_review"]
     with open(path, "w", encoding="utf-8", newline="") as fh:
         writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(header)
@@ -309,7 +372,8 @@ def _write_street_csv(path: Path, streets: list[dict]) -> None:
                 r["settlement"], r["osm_type"], r["osm_id"], r.get("name"),
                 r.get("name:ru"), r.get("name:ro"), r.get("official_name"),
                 r.get("alt_name"), r.get("old_name"), r["ru_display"],
-                r["ru_source"], r["ru_status"],
+                r["ru_source"], r["ru_status"], r["road_class"],
+                r["is_address_street"], r["needs_name_classification_review"],
             ])
 
 
@@ -326,9 +390,11 @@ def _render_report_md(report: dict, summary: dict) -> str:
                   f"- OSM object: **{d['osm_type']} {d['osm_id']}** · found: {d['found']}",
                   f"- Boundary status: **{d['boundary_status']}**",
                   f"- Members: {d['member_count']} `{d['member_type_counts']}`",
-                  f"- Streets: {d['unique_streets']} unique · "
+                  f"- Address streets: {d['unique_streets']} "
+                  f"(of {d['named_ways_total']} named ways) · "
                   f"{d['streets_with_name_ru']} with name:ru · "
-                  f"{d['streets_needs_ru_review']} need RU review",
+                  f"{d['streets_needs_ru_review']} need RU review · "
+                  f"{d['streets_needs_name_classification_review']} need class review",
                   f"- Buildings: {d['buildings']} · address objects: {d['address_objects']}",
                   "- Key tags: " + ", ".join(
                       f"`{k}={d['tags'].get(k)}`" for k in

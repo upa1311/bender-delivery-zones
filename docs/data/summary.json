@@ -6,7 +6,7 @@
       "reason": "Excluded from the delivery service area by owner decision."
     }
   ],
-  "generated_at": "2026-07-23T07:55:21Z",
+  "generated_at": "2026-07-23T08:24:02Z",
   "notice": "Это карта проверки данных. Финальные зоны доставки ещё не созданы.",
   "per_settlement": {
     "bender": {
@@ -14,20 +14,24 @@
       "boundary_status": "boundary_found",
       "buildings": 10336,
       "display_ru": "Бендеры",
+      "named_ways_total": 248,
       "osm_id": 12463379,
       "osm_type": "relation",
-      "streets_needs_ru_review": 1,
-      "streets_with_name_ru": 247,
-      "unique_streets": 248
+      "streets_needs_name_classification_review": 33,
+      "streets_needs_ru_review": 0,
+      "streets_with_name_ru": 229,
+      "unique_streets": 229
     },
     "giska": {
       "address_objects": 630,
       "boundary_status": "boundary_found",
       "buildings": 2419,
       "display_ru": "Гиска",
+      "named_ways_total": 32,
       "osm_id": 12215667,
       "osm_type": "relation",
-      "streets_needs_ru_review": 1,
+      "streets_needs_name_classification_review": 8,
+      "streets_needs_ru_review": 0,
       "streets_with_name_ru": 31,
       "unique_streets": 32
     },
@@ -36,22 +40,26 @@
       "boundary_status": "boundary_found",
       "buildings": 8858,
       "display_ru": "Парканы",
+      "named_ways_total": 47,
       "osm_id": 7431263,
       "osm_type": "relation",
+      "streets_needs_name_classification_review": 2,
       "streets_needs_ru_review": 0,
-      "streets_with_name_ru": 47,
-      "unique_streets": 47
+      "streets_with_name_ru": 41,
+      "unique_streets": 41
     },
     "protyagailovka": {
       "address_objects": 720,
       "boundary_status": "boundary_found",
       "buildings": 2036,
       "display_ru": "Протягайловка",
+      "named_ways_total": 41,
       "osm_id": 12463378,
       "osm_type": "relation",
+      "streets_needs_name_classification_review": 3,
       "streets_needs_ru_review": 5,
-      "streets_with_name_ru": 36,
-      "unique_streets": 41
+      "streets_with_name_ru": 33,
+      "unique_streets": 38
     }
   },
   "schema": "bender-service-area/2",
@@ -65,10 +73,12 @@
   "totals": {
     "boundaries_found": 4,
     "boundaries_missing": 0,
+    "named_ways_total": 368,
     "settlements": 4,
-    "streets_needs_ru_review": 7,
-    "streets_with_name_ru": 361,
-    "unique_streets": 368
+    "streets_needs_name_classification_review": 46,
+    "streets_needs_ru_review": 5,
+    "streets_with_name_ru": 334,
+    "unique_streets": 340
   },
   "zones_created": false
 }

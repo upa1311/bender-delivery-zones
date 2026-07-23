@@ -166,15 +166,46 @@ function addPermanentLabels(fc) {
   });
 }
 
-function renderStats(diff) {
+function tierCPopup(p) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(p.street_ru)} <span class="badge review">Tier C</span></div>
+    <table>
+      <tr><td class="k">территория</td><td>${esc(TERRITORY_LABEL[p.settlement] || p.settlement)}</td></tr>
+      <tr><td class="k">адресов</td><td>${p.confirmed_addresses}</td></tr>
+      <tr><td class="k">вероятных жилых</td><td>${p.probable_residential_buildings}</td></tr>
+      <tr><td class="k">связь с ядром</td><td>${p.connected_to_core ? "да" : "нет"}</td></tr>
+      <tr><td class="k">до ядра по дорогам</td><td>${p.distance_to_core_by_road_km ?? "—"} км</td></tr>
+      <tr><td class="k">причина</td><td><code>${esc(p.reason)}</code></td></tr>
+      <tr><td class="k">влияет на тарифы</td><td><b>нет</b></td></tr>
+    </table>
+    <p class="muted small">${esc(p.note)}</p></div>`;
+}
+
+function kPopup(p) {
+  return `<div class="popup">
+    <div class="popup-title">K=${p.k} · кластер ${p.cluster}</div>
+    <table>
+      <tr><td class="k">взвешенный спрос</td><td>${p.weighted_demand}</td></tr>
+      <tr><td class="k">улиц в кластере</td><td>${p.member_streets}</td></tr>
+      <tr><td class="k">статус</td><td><code>${esc(p.status)}</code></td></tr>
+    </table>
+    <p class="muted small">Черновик. Победитель K не выбран: нужны локальная
+    маршрутизация и тарифы такси.</p></div>`;
+}
+
+function renderStats(diff, demand) {
   const t = diff.totals;
+  const tiers = demand.streets_by_tier;
   const kpi = [
     ["Территорий", t.territories],
     ["Исходная площадь", t.source_area_km2 + " км²"],
     ["Рабочая площадь", t.candidate_area_km2 + " км²"],
-    ["Зданий включено", t.buildings_included],
-    ["Зданий исключено", t.buildings_excluded],
+    ["Улиц Tier A / B / C", `${tiers.A} / ${tiers.B} / ${tiers.C}`],
     ["Адресов внутри", t.addresses_inside],
+    ["Жилых «клиентов»", demand.residential_customers],
+    ["Исключено хозпостроек", demand.excluded_outbuildings],
+    ["Исключено нежилых", demand.excluded_nonresidential],
+    ["Заброшено / руины", demand.excluded_abandoned_or_ruin],
   ].map(([k, v]) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`).join("");
 
   let rows = "";
@@ -184,18 +215,19 @@ function renderStats(diff) {
       <td class="num">${d.source_area_km2}</td>
       <td class="num">${d.candidate_area_km2}</td>
       <td class="num"><b>${d.reduction_pct}%</b></td>
-      <td class="num">${d.buildings_included}</td>
-      <td class="num">${d.buildings_excluded}</td>
+      <td class="num">${d.streets_tier_a}/${d.streets_tier_b}/${d.streets_tier_c}</td>
       <td class="num">${d.addresses_inside}</td></tr>`;
   });
 
   document.getElementById("stats-body").innerHTML = `${kpi}
     <table>
       <thead><tr><th>Территория</th><th class="num">source км²</th>
-        <th class="num">раб. км²</th><th class="num">−%</th><th class="num">здан.+</th>
-        <th class="num">здан.−</th><th class="num">адр.</th></tr></thead>
+        <th class="num">раб. км²</th><th class="num">−%</th>
+        <th class="num">A/B/C</th><th class="num">адр.</th></tr></thead>
       <tbody>${rows}</tbody>
-    </table>`;
+    </table>
+    <p class="muted small">Tier A — полный вес, Tier B — низкий вес (0.3),
+    Tier C — только ручная проверка, на полигоны и тарифы не влияет.</p>`;
 }
 
 function setupSearch() {
@@ -223,17 +255,20 @@ function setupSearch() {
 
 async function init() {
   try {
-    const [source, candidate, excluded, sparse, questions, buildings, roads, diff] =
-      await Promise.all([
-        loadJSON("data/source-boundaries.geojson"),
-        loadJSON("data/candidate-service-area.geojson"),
-        loadJSON("data/excluded-large-areas.geojson"),
-        loadJSON("data/sparse-building-review.geojson"),
-        loadJSON("data/boundary-questions.geojson"),
-        loadJSON("data/buildings.geojson"),
-        loadJSON("data/roads.geojson"),
-        loadJSON("data/service-area-diff.json"),
-      ]);
+    const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
+           tierC, kCand, demand] = await Promise.all([
+      loadJSON("data/source-boundaries.geojson"),
+      loadJSON("data/candidate-service-area.geojson"),
+      loadJSON("data/excluded-large-areas.geojson"),
+      loadJSON("data/sparse-building-review.geojson"),
+      loadJSON("data/boundary-questions.geojson"),
+      loadJSON("data/buildings.geojson"),
+      loadJSON("data/roads.geojson"),
+      loadJSON("data/service-area-diff.json"),
+      loadJSON("data/tier-c-manual-review.geojson"),
+      loadJSON("data/k-candidates.geojson"),
+      loadJSON("data/demand-summary.json"),
+    ]);
 
     // Source OSM boundaries — dashed, reference only.
     overlays["Исходные границы OSM"] = L.geoJSON(source, {
@@ -293,8 +328,31 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(streetPopup(f.properties)),
     });
 
+    // Tier C: manual-review only. Never shapes polygons, zone centres or tariffs.
+    overlays["Tier C — ручная проверка"] = L.geoJSON(tierC, {
+      style: () => ({ color: "#b45309", weight: 5, dashArray: "4 5", opacity: 0.95 }),
+      onEachFeature: (f, l) => l.bindPopup(tierCPopup(f.properties)),
+    }).addTo(map);
+
+    // K=4 / K=5 centres — prepared drafts, no winner chosen.
+    [4, 5].forEach((k) => {
+      overlays[`Центры K=${k} (черновик)`] = L.geoJSON({
+        type: "FeatureCollection",
+        features: kCand.features.filter((f) => f.properties.k === k),
+      }, {
+        pointToLayer: (f, latlng) => L.marker(latlng, {
+          icon: L.divIcon({
+            className: "k-centre",
+            html: `<span>K${f.properties.k}·${f.properties.cluster}</span>`,
+            iconSize: [0, 0],
+          }),
+        }),
+        onEachFeature: (f, l) => l.bindPopup(kPopup(f.properties)),
+      });
+    });
+
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);
-    renderStats(diff);
+    renderStats(diff, demand);
     setupSearch();
   } catch (err) {
     document.getElementById("stats-body").textContent = "Ошибка загрузки данных: " + err.message;

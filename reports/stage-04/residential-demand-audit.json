@@ -1,0 +1,678 @@
+{
+  "building_classification": {
+    "never_anchors": [
+      "abandoned:*",
+      "barn",
+      "construction",
+      "disused:*",
+      "farm_auxiliary",
+      "garage",
+      "garages",
+      "greenhouse",
+      "industrial",
+      "ruins",
+      "shed",
+      "warehouse"
+    ],
+    "note": "Every building=* object is classified; only confirmed/probable residential may anchor geometry, and only confirmed residential counts as a customer."
+  },
+  "direct_integration": false,
+  "distance_note": "distance_to_core_by_road_km is measured with an in-memory Dijkstra over OSM street centrelines. No routing engine, no OSRM graph and no routing artifact were created.",
+  "external_evidence": {
+    "bender_lipcani": [
+      "Энгельс",
+      "Павлика Морозова"
+    ],
+    "giska": [
+      "Ленин",
+      "Госпитальн",
+      "Мира",
+      "Суворов",
+      "Гагарин",
+      "Киров",
+      "Молодёжн",
+      "Первомайск",
+      "Приднестровск",
+      "Студенческ",
+      "Октябрьск",
+      "Победы",
+      "Садов",
+      "Театральн",
+      "Ткаченко",
+      "Учительск",
+      "Школьн"
+    ],
+    "parkany": [
+      "Гогол",
+      "Пушкин",
+      "Романенко",
+      "Ленин",
+      "Фрунзе",
+      "Димитров",
+      "Комсомол",
+      "Тирасполь"
+    ],
+    "protyagailovka": [
+      "Первомайск",
+      "Гербовецк",
+      "Космонавт",
+      "Лугов",
+      "Славянск",
+      "Садов",
+      "Берга",
+      "Сериков",
+      "Мунтян"
+    ]
+  },
+  "external_evidence_note": "Validation metadata only. No scraping and no proprietary map coordinates were used; geometry comes from the local OSM extract.",
+  "generated_at": "2026-07-23T20:33:07Z",
+  "isolated_fringe_streets": [
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "giska",
+      "street_ru": "Гыска-Золотиевка"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Абрикосовая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Виноградная"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Вишневая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Полевая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Сливовая"
+    }
+  ],
+  "k_candidates": {
+    "blocked_on": [
+      "local routing",
+      "taxi tariffs"
+    ],
+    "candidates": {
+      "4": [
+        {
+          "centre_lat": 46.838088,
+          "centre_lon": 29.517627,
+          "cluster": 0,
+          "member_streets": 43,
+          "weighted_demand": 11852.3
+        },
+        {
+          "centre_lat": 46.785825,
+          "centre_lon": 29.434349,
+          "cluster": 1,
+          "member_streets": 27,
+          "weighted_demand": 1385.0
+        },
+        {
+          "centre_lat": 46.830071,
+          "centre_lon": 29.459467,
+          "cluster": 2,
+          "member_streets": 138,
+          "weighted_demand": 9560.5
+        },
+        {
+          "centre_lat": 46.810898,
+          "centre_lon": 29.478084,
+          "cluster": 3,
+          "member_streets": 114,
+          "weighted_demand": 12091.0
+        }
+      ],
+      "5": [
+        {
+          "centre_lat": 46.838088,
+          "centre_lon": 29.517627,
+          "cluster": 0,
+          "member_streets": 43,
+          "weighted_demand": 11852.3
+        },
+        {
+          "centre_lat": 46.783738,
+          "centre_lon": 29.425735,
+          "cluster": 1,
+          "member_streets": 18,
+          "weighted_demand": 1006.0
+        },
+        {
+          "centre_lat": 46.831241,
+          "centre_lon": 29.458128,
+          "cluster": 2,
+          "member_streets": 125,
+          "weighted_demand": 8340.5
+        },
+        {
+          "centre_lat": 46.794742,
+          "centre_lon": 29.477001,
+          "cluster": 3,
+          "member_streets": 43,
+          "weighted_demand": 2796.0
+        },
+        {
+          "centre_lat": 46.815616,
+          "centre_lon": 29.476576,
+          "cluster": 4,
+          "member_streets": 93,
+          "weighted_demand": 10894.0
+        }
+      ]
+    },
+    "generated_at": "2026-07-23T20:33:07Z",
+    "note": "K=4 и K=5 подготовлены как варианты. Победитель не выбран: нужны локальная маршрутизация и реальные тарифы такси.",
+    "schema": "bender-k-candidates/4",
+    "status": "prepared_not_selected",
+    "taxi_calibration": {
+      "base_fare": null,
+      "included_km": null,
+      "minimum_fare": null,
+      "per_km": null,
+      "waiting_or_time_rate": null
+    },
+    "taxi_calibration_supplied": false,
+    "winner": null
+  },
+  "limitations": [
+    "Tier C never shapes candidate polygons, zone centres or standard tariffs; it is published as a manual-review layer only.",
+    "Tier B is serviceable but carries low statistical weight (0.3); Tier A 1.0.",
+    "building=yes without an address is weak evidence: it may shape a dense block but is never counted as one customer.",
+    "K=4 and K=5 are PREPARED only. The winner cannot be chosen without local routing and real taxi tariffs, which are not part of this batch.",
+    "Taxi calibration values are null placeholders; no tariff was computed.",
+    "OSM building and address coverage is community-contributed and incomplete."
+  ],
+  "notes": [],
+  "osm_boundaries_modified": false,
+  "owner_limits": {
+    "protyagailovka": {
+      "applied": true,
+      "keep_rule": "сторона, на которой лежат другие названные владельцем предельные улицы (Мунтяна, Лесовая, Первомайская)",
+      "kept_side_sign": 1.0,
+      "left_limit_street": "Главная улица",
+      "line_lonlat": [
+        [
+          29.425917,
+          46.830605
+        ],
+        [
+          29.42658,
+          46.829805
+        ],
+        [
+          29.42807,
+          46.828815
+        ],
+        [
+          29.428868,
+          46.828188
+        ],
+        [
+          29.429629,
+          46.827568
+        ],
+        [
+          29.43077,
+          46.826548
+        ],
+        [
+          29.430946,
+          46.826314
+        ],
+        [
+          29.431082,
+          46.826092
+        ],
+        [
+          29.431354,
+          46.825808
+        ],
+        [
+          29.431635,
+          46.825534
+        ],
+        [
+          29.431708,
+          46.825476
+        ],
+        [
+          29.431843,
+          46.825367
+        ],
+        [
+          29.431937,
+          46.825308
+        ],
+        [
+          29.432306,
+          46.825129
+        ],
+        [
+          29.4324,
+          46.825079
+        ],
+        [
+          29.432516,
+          46.825007
+        ],
+        [
+          29.432732,
+          46.824849
+        ],
+        [
+          29.432919,
+          46.824731
+        ],
+        [
+          29.433174,
+          46.824568
+        ],
+        [
+          29.433451,
+          46.82439
+        ],
+        [
+          29.433995,
+          46.824036
+        ],
+        [
+          29.434096,
+          46.823981
+        ],
+        [
+          29.434216,
+          46.82391
+        ],
+        [
+          29.434366,
+          46.823826
+        ],
+        [
+          29.434474,
+          46.823784
+        ],
+        [
+          29.434558,
+          46.823758
+        ],
+        [
+          29.434655,
+          46.823748
+        ],
+        [
+          29.434789,
+          46.823738
+        ],
+        [
+          29.43498,
+          46.823736
+        ],
+        [
+          29.435258,
+          46.823755
+        ],
+        [
+          29.435411,
+          46.823768
+        ],
+        [
+          29.435514,
+          46.823767
+        ],
+        [
+          29.435631,
+          46.823766
+        ],
+        [
+          29.435737,
+          46.823756
+        ],
+        [
+          29.435861,
+          46.823731
+        ],
+        [
+          29.436066,
+          46.823674
+        ],
+        [
+          29.436375,
+          46.823578
+        ],
+        [
+          29.436715,
+          46.823474
+        ],
+        [
+          29.437074,
+          46.823388
+        ],
+        [
+          29.437803,
+          46.82322
+        ],
+        [
+          29.438279,
+          46.82309
+        ],
+        [
+          29.438689,
+          46.822963
+        ],
+        [
+          29.439172,
+          46.822798
+        ],
+        [
+          29.439551,
+          46.822649
+        ],
+        [
+          29.439862,
+          46.822528
+        ],
+        [
+          29.440597,
+          46.822217
+        ],
+        [
+          29.441343,
+          46.821919
+        ],
+        [
+          29.442002,
+          46.821644
+        ],
+        [
+          29.442724,
+          46.821328
+        ],
+        [
+          29.44359,
+          46.820906
+        ],
+        [
+          29.443823,
+          46.820768
+        ],
+        [
+          29.443927,
+          46.820704
+        ],
+        [
+          29.444454,
+          46.820376
+        ],
+        [
+          29.445134,
+          46.819867
+        ],
+        [
+          29.446289,
+          46.818923
+        ],
+        [
+          29.447299,
+          46.818075
+        ],
+        [
+          29.448535,
+          46.817122
+        ],
+        [
+          29.450324,
+          46.815899
+        ],
+        [
+          29.450468,
+          46.815788
+        ]
+      ]
+    }
+  },
+  "routing_graph_created": false,
+  "schema": "bender-residential-demand-audit/4",
+  "streets_with_1_2_probable_residences": [
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "giska",
+      "street_ru": "Гыска-Золотиевка"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 2,
+      "settlement": "protyagailovka",
+      "street_ru": "Абрикосовая"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "protyagailovka",
+      "street_ru": "Виноградная"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "protyagailovka",
+      "street_ru": "Сливовая"
+    }
+  ],
+  "summary": {
+    "addresses_included": 11837,
+    "excluded_abandoned_or_ruin": 18,
+    "excluded_construction": 5,
+    "excluded_nonresidential": 275,
+    "excluded_outbuildings": 135,
+    "residential_customers": 14473,
+    "streets_by_tier": {
+      "A": 319,
+      "B": 3,
+      "C": 6
+    },
+    "streets_by_tier_per_settlement": {
+      "bender_core": {
+        "A": 204,
+        "B": 1,
+        "C": 0
+      },
+      "bender_lipcani": {
+        "A": 19,
+        "B": 0,
+        "C": 0
+      },
+      "giska": {
+        "A": 29,
+        "B": 0,
+        "C": 1
+      },
+      "parkany": {
+        "A": 38,
+        "B": 2,
+        "C": 0
+      },
+      "protyagailovka": {
+        "A": 29,
+        "B": 0,
+        "C": 5
+      }
+    },
+    "unknown_buildings": 0
+  },
+  "supersedes": "reports/stage-03/service-area-trimming.json (candidate basis)",
+  "tariffs_created": false,
+  "territories": {
+    "bender_core": {
+      "addresses_inside": 5845,
+      "buildings_excluded": 21,
+      "buildings_included": 9407,
+      "candidate_area_km2": 13.0298,
+      "display_ru": "Бендеры",
+      "excluded_abandoned_or_ruin": 9,
+      "excluded_construction": 4,
+      "excluded_nonresidential": 184,
+      "excluded_outbuildings": 64,
+      "exclusion_reasons": [
+        "non_residential_buildings",
+        "outbuildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 27.53,
+      "residential_customers": 6429,
+      "source_area_km2": 17.9802,
+      "source_relation": 12463379,
+      "streets_tier_a": 204,
+      "streets_tier_b": 1,
+      "streets_tier_c": 0,
+      "unknown_buildings": 0
+    },
+    "bender_lipcani": {
+      "addresses_inside": 288,
+      "buildings_excluded": 4,
+      "buildings_included": 601,
+      "candidate_area_km2": 1.4031,
+      "display_ru": "Липканы",
+      "excluded_abandoned_or_ruin": 3,
+      "excluded_construction": 0,
+      "excluded_nonresidential": 12,
+      "excluded_outbuildings": 3,
+      "exclusion_reasons": [
+        "non_residential_buildings",
+        "outbuildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "residential_street"
+      ],
+      "reduction_pct": 54.26,
+      "residential_customers": 287,
+      "source_area_km2": 3.0678,
+      "source_relation": 12463379,
+      "streets_tier_a": 19,
+      "streets_tier_b": 0,
+      "streets_tier_c": 0,
+      "unknown_buildings": 0
+    },
+    "giska": {
+      "addresses_inside": 623,
+      "buildings_excluded": 23,
+      "buildings_included": 2352,
+      "candidate_area_km2": 2.8693,
+      "display_ru": "Гиска",
+      "excluded_abandoned_or_ruin": 3,
+      "excluded_construction": 1,
+      "excluded_nonresidential": 34,
+      "excluded_outbuildings": 5,
+      "exclusion_reasons": [
+        "non_residential_buildings",
+        "outbuildings",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "residential_street"
+      ],
+      "reduction_pct": 90.7,
+      "residential_customers": 574,
+      "source_area_km2": 30.8582,
+      "source_relation": 12215667,
+      "streets_tier_a": 29,
+      "streets_tier_b": 0,
+      "streets_tier_c": 1,
+      "unknown_buildings": 0
+    },
+    "parkany": {
+      "addresses_inside": 4508,
+      "buildings_excluded": 44,
+      "buildings_included": 8740,
+      "candidate_area_km2": 6.4859,
+      "display_ru": "Парканы",
+      "excluded_abandoned_or_ruin": 1,
+      "excluded_construction": 0,
+      "excluded_nonresidential": 11,
+      "excluded_outbuildings": 59,
+      "exclusion_reasons": [
+        "non_residential_buildings",
+        "outbuildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 92.13,
+      "residential_customers": 6531,
+      "source_area_km2": 82.4359,
+      "source_relation": 7431263,
+      "streets_tier_a": 38,
+      "streets_tier_b": 2,
+      "streets_tier_c": 0,
+      "unknown_buildings": 0
+    },
+    "protyagailovka": {
+      "addresses_inside": 573,
+      "buildings_excluded": 487,
+      "buildings_included": 1509,
+      "candidate_area_km2": 2.0596,
+      "display_ru": "Протягайловка",
+      "excluded_abandoned_or_ruin": 2,
+      "excluded_construction": 0,
+      "excluded_nonresidential": 34,
+      "excluded_outbuildings": 4,
+      "exclusion_reasons": [
+        "non_residential_buildings",
+        "outbuildings",
+        "outside_owner_named_limit",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "owner_named_boundary",
+        "residential_street"
+      ],
+      "reduction_pct": 87.65,
+      "residential_customers": 652,
+      "source_area_km2": 16.6775,
+      "source_relation": 12463378,
+      "streets_tier_a": 29,
+      "streets_tier_b": 0,
+      "streets_tier_c": 5,
+      "unknown_buildings": 0
+    }
+  },
+  "thresholds": {
+    "tier_a_confirmed_addresses": 5,
+    "tier_a_residential_buildings": 8,
+    "tier_b_max_residential": 7,
+    "tier_b_min_residential": 3,
+    "tier_c_max_residential": 2
+  },
+  "tool_versions": {
+    "libosmium": "2.23.1",
+    "osmium_tool": "osmium version 1.19.1",
+    "pyosmium": "4.3.1",
+    "python": "3.12.10"
+  },
+  "zones_created": false
+}

@@ -1,0 +1,88 @@
+{
+  "blocked_on": [
+    "local routing",
+    "taxi tariffs"
+  ],
+  "candidates": {
+    "4": [
+      {
+        "centre_lat": 46.838088,
+        "centre_lon": 29.517627,
+        "cluster": 0,
+        "member_streets": 43,
+        "weighted_demand": 11852.3
+      },
+      {
+        "centre_lat": 46.785825,
+        "centre_lon": 29.434349,
+        "cluster": 1,
+        "member_streets": 27,
+        "weighted_demand": 1385.0
+      },
+      {
+        "centre_lat": 46.830071,
+        "centre_lon": 29.459467,
+        "cluster": 2,
+        "member_streets": 138,
+        "weighted_demand": 9560.5
+      },
+      {
+        "centre_lat": 46.810898,
+        "centre_lon": 29.478084,
+        "cluster": 3,
+        "member_streets": 114,
+        "weighted_demand": 12091.0
+      }
+    ],
+    "5": [
+      {
+        "centre_lat": 46.838088,
+        "centre_lon": 29.517627,
+        "cluster": 0,
+        "member_streets": 43,
+        "weighted_demand": 11852.3
+      },
+      {
+        "centre_lat": 46.783738,
+        "centre_lon": 29.425735,
+        "cluster": 1,
+        "member_streets": 18,
+        "weighted_demand": 1006.0
+      },
+      {
+        "centre_lat": 46.831241,
+        "centre_lon": 29.458128,
+        "cluster": 2,
+        "member_streets": 125,
+        "weighted_demand": 8340.5
+      },
+      {
+        "centre_lat": 46.794742,
+        "centre_lon": 29.477001,
+        "cluster": 3,
+        "member_streets": 43,
+        "weighted_demand": 2796.0
+      },
+      {
+        "centre_lat": 46.815616,
+        "centre_lon": 29.476576,
+        "cluster": 4,
+        "member_streets": 93,
+        "weighted_demand": 10894.0
+      }
+    ]
+  },
+  "generated_at": "2026-07-23T20:33:07Z",
+  "note": "K=4 и K=5 подготовлены как варианты. Победитель не выбран: нужны локальная маршрутизация и реальные тарифы такси.",
+  "schema": "bender-k-candidates/4",
+  "status": "prepared_not_selected",
+  "taxi_calibration": {
+    "base_fare": null,
+    "included_km": null,
+    "minimum_fare": null,
+    "per_km": null,
+    "waiting_or_time_rate": null
+  },
+  "taxi_calibration_supplied": false,
+  "winner": null
+}

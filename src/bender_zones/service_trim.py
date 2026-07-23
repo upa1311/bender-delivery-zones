@@ -40,8 +40,27 @@ EXCL_FOREST_PARK = "forest_or_park"
 EXCL_EMPTY = "empty_land"
 EXCL_SPARSE = "sparse_buildings"
 EXCL_OWNER_LIMIT = "outside_owner_named_limit"
+# Stage-04 demand exclusions: buildings that exist but are not delivery demand.
+EXCL_NON_RESIDENTIAL = "non_residential_buildings"
+EXCL_OUTBUILDINGS = "outbuildings"
 EXCLUSION_REASONS = (EXCL_FARMLAND, EXCL_FOREST_PARK, EXCL_EMPTY,
-                     EXCL_SPARSE, EXCL_OWNER_LIMIT)
+                     EXCL_SPARSE, EXCL_OWNER_LIMIT,
+                     EXCL_NON_RESIDENTIAL, EXCL_OUTBUILDINGS)
+
+FARMLAND_TAGS = frozenset({"farmland", "farmyard", "orchard", "vineyard", "meadow",
+                           "greenhouse_horticulture", "allotments"})
+FOREST_TAGS = frozenset({"forest", "wood", "scrub", "grass", "park", "garden",
+                         "nature_reserve", "cemetery", "recreation_ground"})
+
+
+def exclusion_reason_for_tags(tags: dict) -> str:
+    """Why a large leftover patch is excluded, based on its OSM land tags."""
+    value = tags.get("landuse") or tags.get("natural") or tags.get("leisure") or ""
+    if value in FARMLAND_TAGS:
+        return EXCL_FARMLAND
+    if value in FOREST_TAGS:
+        return EXCL_FOREST_PARK
+    return EXCL_EMPTY
 
 
 @dataclass(frozen=True)

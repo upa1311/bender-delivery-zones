@@ -1,9 +1,106 @@
 {
-  "basis": "tier_a_b_residential_demand",
+  "addresses_included": 11837,
+  "direct_integration": false,
+  "excluded_abandoned_or_ruin": 18,
+  "excluded_construction": 5,
+  "excluded_nonresidential": 275,
+  "excluded_outbuildings": 135,
   "generated_at": "2026-07-23T20:33:07Z",
-  "merged_production_polygon": false,
-  "routing_created": false,
-  "schema": "bender-service-area-diff/4",
+  "isolated_fringe_streets": [
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "giska",
+      "street_ru": "Гыска-Золотиевка"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Абрикосовая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Виноградная"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Вишневая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Полевая"
+    },
+    {
+      "reason": "at_most_2_probable_residences",
+      "settlement": "protyagailovka",
+      "street_ru": "Сливовая"
+    }
+  ],
+  "residential_customers": 14473,
+  "routing_graph_created": false,
+  "schema": "bender-demand-summary/4",
+  "streets_by_tier": {
+    "A": 319,
+    "B": 3,
+    "C": 6
+  },
+  "streets_by_tier_per_settlement": {
+    "bender_core": {
+      "A": 204,
+      "B": 1,
+      "C": 0
+    },
+    "bender_lipcani": {
+      "A": 19,
+      "B": 0,
+      "C": 0
+    },
+    "giska": {
+      "A": 29,
+      "B": 0,
+      "C": 1
+    },
+    "parkany": {
+      "A": 38,
+      "B": 2,
+      "C": 0
+    },
+    "protyagailovka": {
+      "A": 29,
+      "B": 0,
+      "C": 5
+    }
+  },
+  "streets_with_1_2_probable_residences": [
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "giska",
+      "street_ru": "Гыска-Золотиевка"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 2,
+      "settlement": "protyagailovka",
+      "street_ru": "Абрикосовая"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "protyagailovka",
+      "street_ru": "Виноградная"
+    },
+    {
+      "demand_tier": "C",
+      "residences": 1,
+      "settlement": "protyagailovka",
+      "street_ru": "Сливовая"
+    }
+  ],
+  "tariffs_created": false,
+  "taxi_calibration_supplied": false,
   "territories": {
     "bender_core": {
       "addresses_inside": 5845,
@@ -152,14 +249,7 @@
       "unknown_buildings": 0
     }
   },
-  "totals": {
-    "addresses_inside": 11837,
-    "buildings_excluded": 579,
-    "buildings_included": 22609,
-    "candidate_area_km2": 25.8477,
-    "source_area_km2": 151.0196,
-    "territories": 5
-  },
+  "unknown_buildings": 0,
   "warning_ru": "Рабочая территория создана по жилой застройке (Tier A + Tier B) и указаниям владельца. Это ещё не четыре зоны доставки и не тарифы.",
   "zones_created": false
 }

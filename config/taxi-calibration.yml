@@ -1,0 +1,22 @@
+# Taxi calibration placeholders — Stage 04.
+#
+# These values are NOT known yet. They stay null until the owner supplies real
+# local taxi tariffs. Nothing in this repository may invent, estimate or
+# transliterate them, and no tariff or zone pricing may be computed while any
+# required field is null.
+#
+# Once supplied, these calibrate distance/time cost when the K=4 vs K=5 routing
+# candidates are finally compared — which also requires local routing, not run
+# in this batch.
+
+currency: null            # e.g. "MDL" / "PRB" — to be supplied by the owner
+
+taxi_calibration:
+  base_fare: null         # fixed fare charged at the start of a trip
+  included_km: null       # kilometres already covered by base_fare
+  per_km: null            # price per kilometre beyond included_km
+  waiting_or_time_rate: null   # price per minute of waiting / travel time
+  minimum_fare: null      # floor price for a trip
+
+# Guard flag read by tooling: while false, no tariff/zone pricing is computed.
+calibration_supplied: false

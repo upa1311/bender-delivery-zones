@@ -1,0 +1,69 @@
+# Stage 04 — residential demand audit.
+#
+# Building classes and demand tiers are defined in src/bender_zones/demand.py.
+# This file holds the tunable thresholds and the owner's VERIFIED external
+# core-street evidence. External evidence is validation metadata only: no map
+# scraping, no proprietary coordinates — it only marks a street as confirmed
+# core, and the geometry still comes from the local OSM extract.
+
+thresholds:
+  tier_a_residential_buildings: 8
+  tier_a_confirmed_addresses: 5
+  tier_b_min_residential: 3
+  tier_b_max_residential: 7
+  tier_c_max_residential: 2
+
+# Radius used to attribute buildings/addresses/POIs to a street centreline.
+street_corridor_m: 60
+
+# POI keys that count as an active civic/commercial presence.
+poi_keys: [amenity, shop, office, healthcare, tourism]
+
+# Verified core streets per territory, matched case-insensitively as stems
+# against the street's Russian display name. Matching a stem sets
+# official_web_evidence=true (Tier A evidence).
+external_evidence:
+  parkany:
+    - Гогол            # Gogol
+    - Пушкин           # Pushkin
+    - Романенко        # Romanenko
+    - Ленин            # Lenin
+    - Фрунзе           # Frunze
+    - Димитров         # Dimitrova
+    - Комсомол         # Komsomolskaya
+    - Тирасполь        # Tiraspol highway/access (intercity road, not an address street)
+  bender_lipcani:
+    - Энгельс          # Engels — confirmed principal axis
+    - Павлика Морозова # Pavlik Morozov — additional confirmed residential evidence
+  protyagailovka:
+    - Первомайск       # Pervomayskaya
+    - Гербовецк        # Gerbovetskaya
+    - Космонавт        # Kosmonavtov
+    - Лугов            # Lugovaya
+    - Славянск         # Slavyanskaya
+    - Садов            # Sadovaya
+    - Берга            # Akademika Berga
+    - Сериков          # Serikova
+    - Мунтян           # Munteanu
+  giska:
+    - Ленин            # Lenin
+    - Госпитальн       # Hospitalnaya
+    - Мира             # Mira
+    - Суворов          # Suvorova
+    - Гагарин          # Gagarina
+    - Киров            # Kirova
+    - Молодёжн         # Molodezhnaya
+    - Первомайск       # Pervomayskaya
+    - Приднестровск    # Pridnestrovskaya
+    - Студенческ       # Studencheskaya
+    - Октябрьск        # Oktyabrskaya
+    - Победы           # Pobedy
+    - Садов            # Sadovaya
+    - Театральн        # Teatralnaya
+    - Ткаченко         # Tkachenko
+    - Учительск        # Uchitelskaya
+    - Школьн           # Shkolnaya
+
+# Routing candidates to PREPARE (not to finalise). The winner cannot be chosen
+# without local routing and real taxi tariffs.
+k_candidates: [4, 5]

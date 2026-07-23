@@ -86,6 +86,39 @@ def deduplicate_address_nodes(building_units, address_node_units, building_polys
     return kept, merged
 
 
+def reject_addresses_in_nonresidential(address_units, nonresidential_polys):
+    """Drop address nodes that sit inside/on a confirmed NON-residential building.
+
+    A warehouse, industrial hall, shop, garage, school or hospital may legally
+    carry a house number, but that address is not a residential delivery unit.
+    Returns ``(kept, rejected)`` where each rejected entry records the class of
+    the building it fell inside.
+    """
+    if not address_units or not nonresidential_polys:
+        return list(address_units), []
+    from shapely.strtree import STRtree
+
+    polys = [p for p, _cls in nonresidential_polys]
+    classes = [cls for _p, cls in nonresidential_polys]
+    tree = STRtree(polys)
+    kept, rejected = [], []
+    for unit in address_units:
+        hit_cls = None
+        for idx in tree.query(unit.point):
+            i = int(idx)
+            if polys[i].covers(unit.point):
+                hit_cls = classes[i]
+                break
+        if hit_cls is None:
+            kept.append(unit)
+        else:
+            rejected.append({"uid": unit.uid, "osm_type": unit.osm_type,
+                             "osm_id": unit.osm_id, "lon": unit.lon, "lat": unit.lat,
+                             "building_class": hit_cls,
+                             "reason": "address_inside_nonresidential_building"})
+    return kept, rejected
+
+
 def unit_weight(unit: DemandUnit, tier_weight: float) -> float:
     """Demand weight = street tier weight x unit confidence."""
     return round(tier_weight * unit.confidence, 4)

@@ -1,0 +1,63 @@
+{
+  "commands": [
+    "osrm-extract -p car.lua moldova.osm.pbf",
+    "osrm-partition moldova",
+    "osrm-customize moldova",
+    "osrm-routed --algorithm mld --port 5000 --max-table-size 20000 moldova.osrm"
+  ],
+  "engine": {
+    "algorithm": "MLD",
+    "binary_sha256": "8c60df18caff7cd0be76cd06934631e9061dd72384559e73bc74fb1d04875867",
+    "binary_source": "Project-OSRM/osrm-backend release asset (win32-x64), no container",
+    "container_image_digest": null,
+    "name": "OSRM",
+    "version": "v26.7.3"
+  },
+  "generated_at": "2026-07-23T22:32:37Z",
+  "notes": [
+    "Deterministic: same PBF + same car.lua + same OSRM version reproduce the graph.",
+    "Creates no tariffs, no prices and no Direct integration."
+  ],
+  "profile": {
+    "path": "car.lua",
+    "sha256": "48bbb716c2b68ce6803a11a4151fcac050c6ea8240295e7dde111f15f8bd3984"
+  },
+  "schema": "bender-osrm-build/1",
+  "smoke_test": {
+    "bridge_crossing": {
+      "distance_km": 1.487,
+      "passed": true,
+      "why": "crossing ways must not fuse into a false junction"
+    },
+    "centre_to_giska": {
+      "distance_km": 6.102,
+      "duration_min": 6.81,
+      "expected_km_range": [
+        3.0,
+        15.0
+      ],
+      "passed": true
+    },
+    "centre_to_parkany": {
+      "distance_km": 4.029,
+      "duration_min": 5.28,
+      "expected_km_range": [
+        2.0,
+        12.0
+      ],
+      "passed": true
+    },
+    "directional": {
+      "forward_km": 0.723,
+      "passed": true,
+      "reverse_km": 1.523,
+      "why": "one-ways/turn restrictions must break symmetry"
+    },
+    "passed": true
+  },
+  "source_pbf": {
+    "path": "data/raw/moldova-latest.osm.pbf",
+    "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c"
+  },
+  "started_at": "2026-07-23T22:31:46Z"
+}

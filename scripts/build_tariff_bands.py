@@ -16,14 +16,22 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
 import osmium
 import yaml
-from shapely import set_precision
-from shapely.geometry import LineString, Point, Polygon, mapping, shape
+from shapely import set_precision, voronoi_polygons
+from shapely.geometry import (
+    LineString,
+    MultiPoint,
+    Point,
+    Polygon,
+    mapping,
+    shape,
+)
 from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
@@ -32,15 +40,18 @@ from bender_zones.bands import (
     assign_band,
     band_edges,
     dispersion,
+    housenumber_ranges,
     is_monotonic,
     make_bins,
     optimal_bands,
+    street_split_counts,
 )
 from bender_zones.config import load_audit, load_sources
 from bender_zones.demand import (
     CONFIRMED_RESIDENTIAL,
     PROBABLE_RESIDENTIAL,
     classify_building,
+    is_apartment_building,
     is_serviceable,
     tier_weight,
 )
@@ -50,6 +61,7 @@ from bender_zones.demand_units import (
     UNIT_UNADDRESSED_BUILDING,
     DemandUnit,
     deduplicate_address_nodes,
+    reject_addresses_in_nonresidential,
     summarise,
     unit_weight,
 )
@@ -62,8 +74,10 @@ from bender_zones.service_trim import (
     to_metres,
 )
 
-FOOD_AMENITIES = {"restaurant", "fast_food", "cafe", "food_court", "bar", "pub",
-                  "ice_cream"}
+# Always a delivery origin.
+STRONG_FOOD = {"restaurant", "fast_food", "cafe", "food_court"}
+# Only an origin when it actually does takeaway/delivery.
+CONDITIONAL_FOOD = {"bar", "pub", "ice_cream"}
 
 
 def _now():
@@ -86,7 +100,8 @@ def _feature(geom, props):
 
 def _load_units_and_streets(city_pbf, proj, tier_by_id, street_by_id):
     """Extract demand units (with OSM ids) plus serviceable/Tier-C streets."""
-    buildings, addr_nodes, b_polys = [], [], []
+    buildings, addr_nodes, b_polys, nonres_polys = [], [], [], []
+    apartments = []
     serviceable, tier_c = [], []
     raw_buildings = raw_addresses = 0
 
@@ -128,9 +143,20 @@ def _load_units_and_streets(city_pbf, proj, tier_by_id, street_by_id):
             raw_buildings += 1
             cls = classify_building(tags)
             if cls not in (CONFIRMED_RESIDENTIAL, PROBABLE_RESIDENTIAL):
+                # Keep the footprint: an address node inside a warehouse, garage,
+                # school, ruin... must never become a residential delivery unit.
+                if kind == "w":
+                    nonres_polys.append((poly, cls))
                 continue
             if kind == "w":
                 b_polys.append(poly)
+            if is_apartment_building(tags):
+                apartments.append({
+                    "uid": f"{kind}{obj.id}",
+                    "addr_flats": tags.get("addr:flats"),
+                    "building_levels": tags.get("building:levels"),
+                    "entrances": tags.get("building:entrances") or tags.get("entrance"),
+                })
             unit_type = (UNIT_ADDRESSED_BUILDING if has_addr
                          else UNIT_UNADDRESSED_BUILDING)
             buildings.append(DemandUnit(kind, obj.id, unit_type, pt, lon, lat,
@@ -141,8 +167,8 @@ def _load_units_and_streets(city_pbf, proj, tier_by_id, street_by_id):
                                          housenumber=tags.get("addr:housenumber")))
 
     raw_addresses += sum(1 for u in buildings if u.housenumber)
-    return (buildings, addr_nodes, b_polys, serviceable, tier_c,
-            raw_buildings, raw_addresses)
+    return (buildings, addr_nodes, b_polys, nonres_polys, apartments, serviceable,
+            tier_c, raw_buildings, raw_addresses)
 
 
 def _resolve_origins(bender_pbf, proj, dcfg):
@@ -168,11 +194,15 @@ def _resolve_origins(bender_pbf, proj, dcfg):
         if tags.get("name") == landmark_name:
             landmark = pt
         takeaway = tags.get("takeaway") in ("yes", "only") or tags.get("delivery") == "yes"
-        if amenity in FOOD_AMENITIES or (takeaway and amenity):
-            if (tags.get("name") or "").strip():
+        named = bool((tags.get("name") or "").strip())
+        if amenity in STRONG_FOOD or (takeaway and (amenity or tags.get("shop"))):
+            if named:
                 pois.append((pt, tags.get("name"), amenity))
             else:
                 excluded.append({"reason": "unnamed_venue", "amenity": amenity})
+        elif amenity in CONDITIONAL_FOOD:
+            excluded.append({"reason": "no_takeaway_or_delivery", "amenity": amenity,
+                             "name": tags.get("name")})
 
     pts = [p[0] for p in pois]
     remaining, groups = list(range(len(pts))), []
@@ -274,21 +304,24 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
                 tier_by_id[int(oid)] = row["demand_tier"]
                 street_by_id[int(oid)] = (row["settlement"], row["street_ru"])
 
-    all_buildings, all_addr, all_polys = [], [], []
+    all_buildings, all_addr, all_polys, all_nonres, all_apartments = [], [], [], [], []
     serviceable_streets, tier_c_streets = [], []
     raw_b = raw_a = 0
     for city in city_pbfs.values():
-        b, a, polys, sv, tc, rb, ra = _load_units_and_streets(
+        b, a, polys, nonres, apts, sv, tc, rb, ra = _load_units_and_streets(
             city, proj, tier_by_id, street_by_id)
         all_buildings += b
         all_addr += a
         all_polys += polys
+        all_nonres += nonres
+        all_apartments += apts
         serviceable_streets += sv
         tier_c_streets += tc
         raw_b += rb
         raw_a += ra
 
     kept_addr, merged = deduplicate_address_nodes(all_buildings, all_addr, all_polys)
+    kept_addr, nonres_addr = reject_addresses_in_nonresidential(kept_addr, all_nonres)
     units = all_buildings + kept_addr
     seen, unique_units = set(), []
     for u in units:
@@ -301,7 +334,7 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
     tc_geoms = [s[0] for s in tier_c_streets]
     sv_tree = STRtree(sv_geoms) if sv_geoms else None
     tc_tree = STRtree(tc_geoms) if tc_geoms else None
-    serviceable_units, tier_c_units, outside_units = [], [], []
+    serviceable_units, tier_c_units, outside_units, no_street_units = [], [], [], []
     for u in unique_units:
         d_sv, sv_i = float("inf"), None
         if sv_tree is not None:
@@ -317,17 +350,20 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         if not service_all.covers(u.point):
             outside_units.append(u)
             continue
-        if sv_i is not None and d_sv <= 150.0:
-            u.settlement, u.street = serviceable_streets[sv_i][1]
-            u.tier = serviceable_streets[sv_i][2]
-        else:
-            u.tier = "A"
+        threshold = float(bcfg["units"]["street_attach_threshold_m"])
+        if sv_i is None or d_sv > threshold:
+            # No automatic Tier A: an unattached unit is an explicit exception.
+            no_street_units.append(u)
+            continue
+        u.settlement, u.street = serviceable_streets[sv_i][1]
+        u.tier = serviceable_streets[sv_i][2]
         serviceable_units.append(u)
 
     print(f"units: raw_buildings={raw_b} raw_address_objects={raw_a} "
           f"merged_duplicates={merged} unique={len(unique_units)} "
           f"serviceable={len(serviceable_units)} tier_c={len(tier_c_units)} "
-          f"outside={len(outside_units)}")
+          f"outside={len(outside_units)} no_street={len(no_street_units)} "
+          f"addr_in_nonres={len(nonres_addr)}")
 
     bender_rel = next(t["source_relation"] for t in territories
                       if t["key"] == "bender_core")
@@ -374,17 +410,130 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
     print(f"routed units: {len(rows)} | unreachable: {len(unreachable)}")
 
     # --- ordered bands ---
+    bw = float(bcfg["bands"]["bin_width_km"])
+    min_share = float(bcfg["bands"]["min_weight_share"])
     values = [r["expected_km"] for r in rows]
-    weights = [r["weight"] for r in rows]
-    bins = make_bins(values, weights, float(bcfg["bands"]["bin_width_km"]))
+
+    apt_flats = {}
+    for a in all_apartments:
+        try:
+            apt_flats[a["uid"]] = int(str(a["addr_flats"]).strip())
+        except (TypeError, ValueError):
+            continue
+
+    def model_weights(unaddressed_factor, apartment_flats=False):
+        out = []
+        for r in rows:
+            w = tier_weight(r["tier"])
+            if r["unit_type"] == UNIT_UNADDRESSED_BUILDING:
+                w *= unaddressed_factor
+            elif apartment_flats and r["uid"] in apt_flats:
+                w *= apt_flats[r["uid"]]
+            out.append(w)
+        return out
+
+    def bins_for(weights):
+        bins = make_bins(values, weights, bw)
+        keys = sorted({int(math.floor(v / bw)) for v in values})
+        idx_of = {k: i for i, k in enumerate(keys)}
+        street_bins = {}
+        for r, w in zip(rows, weights, strict=False):
+            if w <= 0 or not r["street_ru"]:
+                continue
+            street_bins.setdefault((r["settlement"], r["street_ru"]), []).append(
+                idx_of[int(math.floor(r["expected_km"] / bw))])
+        return bins, street_split_counts(street_bins, len(bins))
+
+    def edges_for(weights, k, penalty):
+        bins, split_at = bins_for(weights)
+        bounds = optimal_bands(bins, k, min_share, split_at=split_at,
+                               split_penalty=penalty)
+        return band_edges(bins, bounds)
+
+    def count_splits(edges, k):
+        seen = {}
+        for r in rows:
+            if not r["street_ru"]:
+                continue
+            seen.setdefault((r["settlement"], r["street_ru"]), set()).add(
+                assign_band(r["expected_km"], edges))
+        return sum(1 for v in seen.values() if len(v) > 1)
+
+    strengths = bcfg["split_penalty"]["strengths"]
+    models = bcfg["sensitivity"]["models"]
+    pub_model = bcfg["sensitivity"]["published_model"]
+    pub_strength = bcfg["split_penalty"]["published_strength"]
+
+    # (1) split-penalty sweep, on the published weight model
+    pub_weights = model_weights(float(models[pub_model]))
+    penalty_sweep = {}
+    for name, penalty in strengths.items():
+        penalty_sweep[name] = {"penalty": penalty, "k": {}}
+        for k in bcfg["bands"]["k_values"]:
+            e = edges_for(pub_weights, k, float(penalty))
+            per_zone_vals = {}
+            for r, w in zip(rows, pub_weights, strict=False):
+                per_zone_vals.setdefault(assign_band(r["expected_km"], e),
+                                         [[], []])[0].append(r["expected_km"])
+                per_zone_vals[assign_band(r["expected_km"], e)][1].append(w)
+            disp = sum((dispersion(v[0], v[1]) or 0) * sum(v[1])
+                       for v in per_zone_vals.values())
+            disp /= max(sum(sum(v[1]) for v in per_zone_vals.values()), 1e-9)
+            penalty_sweep[name]["k"][str(k)] = {
+                "upper_edges_km": [round(x, 3) for x in e],
+                "split_streets": count_splits(e, k),
+                "weighted_km_dispersion": round(disp, 4),
+                "monotonic": True}
+
+    # (2) demand-weight sensitivity, at the published penalty
+    sensitivity = {}
+    for name, factor in models.items():
+        w = model_weights(float(factor))
+        sensitivity[name] = {"unaddressed_building_weight": factor, "k": {}}
+        for k in bcfg["bands"]["k_values"]:
+            e = edges_for(w, k, float(strengths[pub_strength]))
+            sensitivity[name]["k"][str(k)] = {"upper_edges_km": [round(x, 3) for x in e]}
+    apt_w = model_weights(float(models[pub_model]), apartment_flats=True)
+    sensitivity["apartment_flats_proxy"] = {
+        "proxy": "addr:flats where present; NO household count is invented when absent",
+        "apartment_units_total": len(all_apartments),
+        "with_addr_flats": len(apt_flats),
+        "with_building_levels": sum(1 for a in all_apartments if a["building_levels"]),
+        "with_entrances": sum(1 for a in all_apartments if a["entrances"]),
+        "k": {str(k): {"upper_edges_km": [round(x, 3)
+                                          for x in edges_for(apt_w, k,
+                                                             float(strengths[pub_strength]))]}
+              for k in bcfg["bands"]["k_values"]},
+    }
+    for name in sensitivity:
+        for k in bcfg["bands"]["k_values"]:
+            base = sensitivity[pub_model]["k"][str(k)]["upper_edges_km"]
+            cur = sensitivity[name]["k"][str(k)]["upper_edges_km"]
+            sensitivity[name]["k"][str(k)]["edge_shift_km"] = [
+                round(c - b, 3) for c, b in zip(cur, base, strict=False)]
+            sensitivity[name]["k"][str(k)]["max_abs_shift_km"] = max(
+                (abs(c - b) for c, b in zip(cur, base, strict=False)), default=0.0)
+
+    # --- published bands: chosen model + penalty, both documented ---
     results, band_features = {}, []
     for k in bcfg["bands"]["k_values"]:
-        bounds = optimal_bands(bins, k, float(bcfg["bands"]["min_weight_share"]))
-        edges = band_edges(bins, bounds)
-        for r in rows:
+        edges = edges_for(pub_weights, k, float(strengths[pub_strength]))
+        for r, w in zip(rows, pub_weights, strict=False):
             r[f"band_k{k}"] = assign_band(r["expected_km"], edges) + 1
-        results[str(k)] = _band_metrics(k, rows, edges, origins, bcfg)
+            r["model_weight"] = round(w, 4)
+        results[str(k)] = _band_metrics(k, rows, edges, origins, bcfg, pub_weights)
         _band_polygons(k, rows, proj, service_all, bcfg, band_features)
+
+    tuning = {
+        "published_weight_model": pub_model,
+        "published_split_penalty": pub_strength,
+        "note": ("Neither the confidence factor nor the penalty strength is chosen "
+                 "silently: every alternative is published above and the owner "
+                 "decides."),
+        "split_penalty_sweep": penalty_sweep,
+        "demand_weight_sensitivity": sensitivity,
+    }
+
     _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, bcfg,
            {"raw_building_objects": raw_b, "raw_address_objects": raw_a,
             "duplicates_merged": merged, "unique_units": len(unique_units),
@@ -392,12 +541,15 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
             "tier_c_units_excluded": len(tier_c_units),
             "outside_service_area": len(outside_units),
             "unreachable": len(unreachable),
+            "no_serviceable_street_within_threshold": len(no_street_units),
+            "address_nodes_in_nonresidential": len(nonres_addr),
             **summarise(serviceable_units)},
-           tier_c_units, outside_units, unreachable, client, o_coords, origins, proj)
+           tier_c_units, outside_units, unreachable, client, o_coords, origins, proj,
+           no_street_units, nonres_addr, tuning, service_all)
     return 0
 
 
-def _band_metrics(k, rows, edges, origins, bcfg):
+def _band_metrics(k, rows, edges, origins, bcfg, model_weights):
     zones = []
     per_band = {}
     for r in rows:
@@ -407,14 +559,28 @@ def _band_metrics(k, rows, edges, origins, bcfg):
         if r["street_ru"]:
             street_bands.setdefault((r["settlement"], r["street_ru"]), set()).add(
                 r[f"band_k{k}"])
-    split = sorted(f"{s[0]}: {s[1]}" for s, b in street_bands.items() if len(b) > 1)
+    split_keys = sorted(s for s, b in street_bands.items() if len(b) > 1)
+    split = [f"{a}: {b}" for a, b in split_keys]
+    split_detail = []
+    for key in split_keys:
+        per_zone = {}
+        for r in rows:
+            if (r["settlement"], r["street_ru"]) == key:
+                per_zone.setdefault(r[f"band_k{k}"], []).append(r["housenumber"])
+        split_detail.append({
+            "settlement": key[0], "street_ru": key[1],
+            "zones": {f"Zone {z}": {
+                "house_numbers": housenumber_ranges(per_zone[z]),
+                "units": len(per_zone[z]),
+                "with_housenumber": sum(1 for h in per_zone[z] if (h or "").strip()),
+            } for z in sorted(per_zone)}})
 
     ordered_values = []
     for zone in sorted(per_band):
         rs = per_band[zone]
         vals = [r["expected_km"] for r in rs]
         tms = [r["expected_min"] for r in rs]
-        ws = [r["weight"] for r in rs]
+        ws = [r.get("model_weight", r["weight"]) for r in rs]
         ordered_values.append(vals)
         vs = sorted(vals)
         pct_default = vs
@@ -447,32 +613,43 @@ def _band_metrics(k, rows, edges, origins, bcfg):
         })
     return {"k": k, "upper_edges_km": [round(e, 3) for e in edges], "zones": zones,
             "monotonic": is_monotonic(ordered_values), "split_streets": len(split),
-            "split_street_list": split,
+            "split_street_list": split, "split_street_house_ranges": split_detail,
             "weighted_dispersion": round(
                 sum(z["km_dispersion"] * z["demand_weight"] for z in zones)
                 / max(sum(z["demand_weight"] for z in zones), 1e-9), 4)}
 
 
 def _band_polygons(k, rows, proj, service_all, bcfg, out):
-    buf = float(bcfg["bands"]["polygon_buffer_m"])
+    """Draw each band as the union of its units' Voronoi cells, clipped.
+
+    A buffer-and-subtract drawing puts units near a boundary inside the
+    neighbouring band's polygon. A Voronoi partition of the units cannot: every
+    unit lies in its own cell, cells are disjoint, and clipping each cell to a
+    maximum radius keeps areas with no address data uncovered instead of
+    silently colouring them.
+    """
+    reach = float(bcfg["bands"]["polygon_reach_m"])
+    pts = [Point(*proj.to_m(r["lon"], r["lat"])) for r in rows]
+    bands = [r[f"band_k{k}"] for r in rows]
+
+    cells = voronoi_polygons(MultiPoint(pts), extend_to=service_all.envelope)
+    tree = STRtree(pts)
     per_band = {}
-    for r in rows:
-        per_band.setdefault(r[f"band_k{k}"], []).append(r["point"])
-    covered = None
+    for cell in cells.geoms:
+        idxs = [int(i) for i in tree.query(cell) if cell.covers(pts[int(i)])]
+        if not idxs:
+            continue
+        i = idxs[0]
+        clipped = cell.intersection(pts[i].buffer(reach)).intersection(service_all)
+        if clipped.is_empty:
+            continue
+        per_band.setdefault(bands[i], []).append(clipped)
+
     for zone in sorted(per_band):
-        geom = unary_union([p.buffer(buf) for p in per_band[zone]]).intersection(
-            service_all)
-        # Simplify FIRST: simplifying after the difference could push an edge back
-        # across a neighbour and reintroduce overlap.
-        geom = geom.simplify(3.0).buffer(0)
-        if covered is not None:
-            geom = geom.difference(covered)          # mutually exclusive by order
+        geom = unary_union(per_band[zone]).buffer(0)
         if geom.is_empty:
             continue
-        covered = geom if covered is None else unary_union([covered, geom]).buffer(0)
-        # Snap to the published 5-decimal grid so the geometry is valid AS WRITTEN;
-        # rounding afterwards could otherwise self-intersect.
-        geom_deg = set_precision(to_degrees(geom, proj), 1e-5)
+        geom_deg = set_precision(to_degrees(geom.simplify(2.0), proj), 1e-5)
         if geom_deg.is_empty:
             continue
         if not geom_deg.is_valid:
@@ -485,7 +662,7 @@ def _band_polygons(k, rows, proj, service_all, bcfg, out):
 
 def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, bcfg,
            counts, tier_c_units, outside_units, unreachable, client, o_coords,
-           origin_meta, proj):
+           origin_meta, proj, no_street_units, nonres_addr, tuning, service_all):
     data = repo_root / "docs/data"
     ks = sorted(results)
     fields = ["uid", "osm_type", "osm_id", "unit_type", "settlement", "street_ru",
@@ -511,6 +688,14 @@ def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, b
         for u in tier_c_units:
             w.writerow([u.uid, u.osm_type, u.osm_id, u.unit_type,
                         round(u.lon, 6), round(u.lat, 6), "tier_c_no_delivery"])
+        for u in no_street_units:
+            w.writerow([u.uid, u.osm_type, u.osm_id, u.unit_type,
+                        round(u.lon, 6), round(u.lat, 6),
+                        "no_serviceable_street_within_threshold"])
+        for e in nonres_addr:
+            w.writerow([e["uid"], e["osm_type"], e["osm_id"],
+                        f"address_in_{e['building_class']}",
+                        round(e["lon"], 6), round(e["lat"], 6), e["reason"]])
 
     exc_feats = []
     for group, reason in ((unreachable, "unreachable_by_osrm"),
@@ -523,12 +708,86 @@ def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, b
                               "geometry": {"type": "Point",
                                            "coordinates": [round(u.lon, 5),
                                                            round(u.lat, 5)]}})
+    for u in no_street_units:
+        exc_feats.append({"type": "Feature",
+                          "properties": {"uid": u.uid, "unit_type": u.unit_type,
+                                         "reason": "no_serviceable_street_within_threshold"},
+                          "geometry": {"type": "Point",
+                                       "coordinates": [round(u.lon, 5), round(u.lat, 5)]}})
+    for e in nonres_addr:
+        exc_feats.append({"type": "Feature",
+                          "properties": {"uid": e["uid"],
+                                         "unit_type": f"address_in_{e['building_class']}",
+                                         "reason": e["reason"]},
+                          "geometry": {"type": "Point",
+                                       "coordinates": [round(e["lon"], 5),
+                                                       round(e["lat"], 5)]}})
     exc_feats.sort(key=lambda f: (f["properties"]["reason"], f["properties"]["uid"]))
     jsonutil.write_compact(data / "delivery-exceptions.geojson",
                            {"type": "FeatureCollection", "features": exc_feats})
 
     jsonutil.write_compact(data / "tariff-bands.geojson",
                            {"type": "FeatureCollection", "features": band_features})
+
+    # --- unit points coloured by band (compact MultiPoint per k/zone) ---
+    ks = sorted(results)
+    point_feats = []
+    for k in ks:
+        groups = {}
+        for r in rows:
+            groups.setdefault(r[f"band_k{k}"], []).append([r["lon"], r["lat"]])
+        for zone in sorted(groups):
+            point_feats.append({
+                "type": "Feature",
+                "properties": {"k": int(k), "zone": zone, "name": f"Zone {zone}",
+                               "units": len(groups[zone])},
+                "geometry": {"type": "MultiPoint", "coordinates": groups[zone]}})
+    jsonutil.write_compact(data / "delivery-unit-points.geojson",
+                           {"type": "FeatureCollection", "features": point_feats})
+
+    # --- verify every unit is visually inside its own band, and nowhere else ---
+    coverage = {}
+    for k in ks:
+        polys = {f["properties"]["zone"]: shape(f["geometry"]) for f in band_features
+                 if f["properties"]["k"] == int(k)}
+        prepared = {z: g.buffer(0) for z, g in polys.items()}
+        wrong_only, uncovered = 0, 0
+        for r in rows:
+            pt = Point(r["lon"], r["lat"])
+            own = prepared.get(r[f"band_k{k}"])
+            if own is not None and own.covers(pt):
+                continue
+            others = [z for z, g in prepared.items()
+                      if z != r[f"band_k{k}"] and g.covers(pt)]
+            if others:
+                wrong_only += 1
+            else:
+                uncovered += 1
+        coverage[str(k)] = {
+            "units_checked": len(rows),
+            "units_outside_own_band_polygon": wrong_only + uncovered,
+            "units_only_inside_another_band": wrong_only,
+            "units_in_no_band_polygon": uncovered,
+        }
+
+    # --- service area with no assigned address data (shown, never silently filled) ---
+    covered = unary_union([shape(f["geometry"]) for f in band_features
+                           if f["properties"]["k"] == int(ks[0])]).buffer(0)
+    gap = to_degrees(service_all, proj).buffer(0).difference(covered)
+    gap = set_precision(gap, 1e-5)
+    gap_feats = []
+    if not gap.is_empty:
+        for comp in (gap.geoms if hasattr(gap, "geoms") else [gap]):
+            if comp.area * 8.48e9 < 2000:
+                continue
+            gap_feats.append({"type": "Feature", "properties": {
+                "status": "no_assigned_address_data",
+                "note": ("Внутри рабочей территории, но без назначенных адресных "
+                         "единиц — не окрашено ни в одну тарифную зону."),
+                "area_m2": round(comp.area * 8.48e9)},
+                "geometry": _round(mapping(comp))})
+    jsonutil.write_compact(data / "no-address-data.geojson",
+                           {"type": "FeatureCollection", "features": gap_feats})
     jsonutil.write(data / "restaurant-origins.geojson", {
         "type": "FeatureCollection", "selection": origin_doc,
         "features": [_feature(to_degrees(o["point"], proj), {
@@ -559,6 +818,9 @@ def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, b
         "recommendation_status": "owner_review_required",
         "recommendation": rec,
         "unit_counts": counts,
+        "tuning": tuning,
+        "map_coverage_check": coverage,
+        "no_address_data_areas": len(gap_feats),
         "origins": origin_doc,
         "candidates": results,
         "qa_routes": qa,
@@ -700,6 +962,54 @@ def _md(doc):
                          f"{z['unique_delivery_units']} | {z['demand_weight']} | "
                          f"{z['central_km_p50']} | {z['bam_km_p50']} |")
         lines += [""]
+    t = doc["tuning"]
+    lines += ["## Split-street penalty sweep", "",
+              f"Опубликовано: **{t['published_split_penalty']}** · модель веса "
+              f"**{t['published_weight_model']}**. {t['note']}", "",
+              "| штраф | K=4 splits | K=4 дисперсия | K=5 splits | K=5 дисперсия |",
+              "|---|---:|---:|---:|---:|"]
+    for name in ("baseline", "low", "medium", "high"):
+        v = t["split_penalty_sweep"].get(name)
+        if not v:
+            continue
+        k4, k5 = v["k"].get("4", {}), v["k"].get("5", {})
+        lines.append(f"| {name} ({v['penalty']}) | {k4.get('split_streets')} | "
+                     f"{k4.get('weighted_km_dispersion')} | {k5.get('split_streets')} | "
+                     f"{k5.get('weighted_km_dispersion')} |")
+    lines += ["", "## Demand-weight sensitivity (сдвиг границ к модели A)", "",
+              "| модель | K | границы, км | макс. сдвиг, км |", "|---|---|---|---:|"]
+    for name, v in t["demand_weight_sensitivity"].items():
+        for k, x in v["k"].items():
+            lines.append(f"| {name} | {k} | {x['upper_edges_km']} | "
+                         f"{round(x['max_abs_shift_km'], 3)} |")
+    apt = t["demand_weight_sensitivity"].get("apartment_flats_proxy", {})
+    lines += ["", f"Квартирный прокси: `addr:flats` у {apt.get('with_addr_flats')} из "
+              f"{apt.get('apartment_units_total')} многоквартирных, "
+              f"`building:levels` у {apt.get('with_building_levels')}, "
+              f"подъезды у {apt.get('with_entrances')}. "
+              "Точное число домохозяйств при отсутствии данных не выдумывается.", ""]
+    lines += ["## Split streets — точные диапазоны домов", ""]
+    for k, res in doc["candidates"].items():
+        detail = res.get("split_street_house_ranges", [])
+        lines += [f"### K={k} ({len(detail)} улиц)", ""]
+        for d in detail[:25]:
+            parts = "; ".join(f"{z}: {v['house_numbers'] or '—'}"
+                              for z, v in d["zones"].items())
+            lines.append(f"- **{d['settlement']}: {d['street_ru']}** — {parts}")
+        if len(detail) > 25:
+            lines.append(f"- … и ещё {len(detail) - 25} улиц (полный список в JSON)")
+        lines += [""]
+    cov = doc["map_coverage_check"]
+    lines += ["## Проверка карты", "",
+              "| K | единиц | вне своей зоны | только в чужой зоне | ни в одной |",
+              "|---|---:|---:|---:|---:|"]
+    for k, c in cov.items():
+        lines.append(f"| {k} | {c['units_checked']} | "
+                     f"{c['units_outside_own_band_polygon']} | "
+                     f"{c['units_only_inside_another_band']} | "
+                     f"{c['units_in_no_band_polygon']} |")
+    lines += ["", f"Участков «нет адресных данных»: {doc['no_address_data_areas']} "
+              "(показаны серым, не окрашены в зоны).", ""]
     lines += ["## QA routes (OSRM)", "", "| origin | target | км | мин |", "|---|---|---:|---:|"]
     for r in doc["qa_routes"]["routes"]:
         lines.append(f"| {r['origin']} | {r['target']} | {r['distance_km']} | "

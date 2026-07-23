@@ -3,15 +3,15 @@
     {
       "geometry": {
         "coordinates": [
-          29.48281,
-          46.82413
+          29.48313,
+          46.82388
         ],
         "type": "Point"
       },
       "properties": {
         "distance_to_bam_landmark_km": null,
         "key": "central_bender_origin",
-        "poi_count": 37,
+        "poi_count": 28,
         "role": "central",
         "weight": 0.85
       },
@@ -30,41 +30,7 @@
         "key": "bam_origin",
         "poi_count": 6,
         "role": "bam",
-        "weight": 0.06
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          29.47066,
-          46.81782
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "distance_to_bam_landmark_km": 3.229,
-        "key": "outer_origin_2",
-        "poi_count": 3,
-        "role": "outer_other",
-        "weight": 0.03
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          29.4679,
-          46.80454
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "distance_to_bam_landmark_km": 4.63,
-        "key": "outer_origin_3",
-        "poi_count": 3,
-        "role": "outer_other",
-        "weight": 0.03
+        "weight": 0.1
       },
       "type": "Feature"
     },
@@ -78,10 +44,10 @@
       },
       "properties": {
         "distance_to_bam_landmark_km": 2.536,
-        "key": "outer_origin_4",
+        "key": "outer_origin_2",
         "poi_count": 3,
         "role": "outer_other",
-        "weight": 0.03
+        "weight": 0.05
       },
       "type": "Feature"
     }
@@ -97,12 +63,43 @@
         "reason": "unnamed_venue"
       },
       {
+        "amenity": "bar",
+        "name": "Старинный погребок",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лептаря",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кавказ",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лаки Боулинг",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Аннушка",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бизар",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
         "amenity": "cafe",
         "reason": "unnamed_venue"
       },
       {
         "amenity": "bar",
-        "reason": "unnamed_venue"
+        "name": null,
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -115,6 +112,11 @@
       {
         "amenity": "cafe",
         "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "pub",
+        "name": "Пивной двор",
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -126,7 +128,8 @@
       },
       {
         "amenity": "bar",
-        "reason": "unnamed_venue"
+        "name": null,
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -143,16 +146,64 @@
       {
         "amenity": "fast_food",
         "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кафе-бар «У Татьяны»",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Хали Гали",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кёльн",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар «Ямал»",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бильярдная",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар Водник",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Калибри",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Black Rabiza",
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "pois": [
-          "Теремок"
+          "Старые Бендеры",
+          "Столовая консервного завода"
         ],
         "reason": "outer_cluster_too_small"
       },
       {
         "pois": [
-          "Кавказ"
+          "Космос",
+          "Cartel"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Теремок"
         ],
         "reason": "outer_cluster_too_small"
       },
@@ -164,25 +215,7 @@
       },
       {
         "pois": [
-          "Бизар"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
-          "Пивной двор"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
           "Банкетный зал"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
-          "Бар «Ямал»"
         ],
         "reason": "outer_cluster_too_small"
       },
@@ -211,10 +244,6 @@
         "name": "Фэт-Фрумос"
       },
       {
-        "amenity": "bar",
-        "name": "Старинный погребок"
-      },
-      {
         "amenity": "restaurant",
         "name": "La Vida"
       },
@@ -223,20 +252,8 @@
         "name": "Антикафе «Liberty»"
       },
       {
-        "amenity": "bar",
-        "name": "Лептаря"
-      },
-      {
         "amenity": "cafe",
         "name": "Славный Пекарь"
-      },
-      {
-        "amenity": "bar",
-        "name": "Кавказ"
-      },
-      {
-        "amenity": "bar",
-        "name": "Лаки Боулинг"
       },
       {
         "amenity": "restaurant",
@@ -253,10 +270,6 @@
       {
         "amenity": "restaurant",
         "name": "Столовая консервного завода"
-      },
-      {
-        "amenity": "bar",
-        "name": "Аннушка"
       },
       {
         "amenity": "cafe",
@@ -279,16 +292,8 @@
         "name": "Диминяца"
       },
       {
-        "amenity": "bar",
-        "name": "Бизар"
-      },
-      {
         "amenity": "cafe",
         "name": "Трактир"
-      },
-      {
-        "amenity": "pub",
-        "name": "Пивной двор"
       },
       {
         "amenity": "fast_food",
@@ -375,40 +380,12 @@
         "name": "Бриз"
       },
       {
-        "amenity": "bar",
-        "name": "Кафе-бар «У Татьяны»"
-      },
-      {
         "amenity": "restaurant",
         "name": "Ресторан «Тигина»"
       },
       {
-        "amenity": "bar",
-        "name": "Хали Гали"
-      },
-      {
         "amenity": "fast_food",
         "name": "Столовая"
-      },
-      {
-        "amenity": "bar",
-        "name": "Кёльн"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бар «Ямал»"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бильярдная"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бар Водник"
-      },
-      {
-        "amenity": "bar",
-        "name": "Калибри"
       },
       {
         "amenity": "restaurant",
@@ -425,10 +402,6 @@
       {
         "amenity": "restaurant",
         "name": "La Serafim"
-      },
-      {
-        "amenity": "bar",
-        "name": "Black Rabiza"
       },
       {
         "amenity": "cafe",

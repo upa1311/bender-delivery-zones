@@ -35,3 +35,9 @@ download:
 
 audit:
 	uv run python scripts/audit_osm.py --pbf data/raw/moldova-latest.osm.pbf
+
+.PHONY: osrm osrm-serve
+osrm:            ## Deterministic local OSRM MLD build + provenance record
+	bash scripts/build_osrm.sh --smoke
+osrm-serve:      ## Build and leave osrm-routed running on :5000
+	bash scripts/build_osrm.sh --serve --smoke

@@ -15,29 +15,29 @@
   },
   "routes": [
     {
-      "distance_km": 3.893,
-      "duration_min": 5.26,
+      "distance_km": 3.86,
+      "duration_min": 5.22,
       "origin": "central_bender_origin",
       "origin_role": "central",
       "target": "Parkany"
     },
     {
-      "distance_km": 6.11,
-      "duration_min": 6.81,
+      "distance_km": 6.143,
+      "duration_min": 6.86,
       "origin": "central_bender_origin",
       "origin_role": "central",
       "target": "Giska"
     },
     {
-      "distance_km": 6.411,
-      "duration_min": 8.18,
+      "distance_km": 6.444,
+      "duration_min": 8.22,
       "origin": "central_bender_origin",
       "origin_role": "central",
       "target": "Protyagailovka"
     },
     {
-      "distance_km": 3.546,
-      "duration_min": 5.36,
+      "distance_km": 3.513,
+      "duration_min": 5.32,
       "origin": "central_bender_origin",
       "origin_role": "central",
       "target": "Lipcani"

@@ -163,7 +163,9 @@ def test_exceptions_are_listed_explicitly(repo_root):
     assert rows, "exception list must be explicit, not silent"
     reasons = {r["reason"] for r in rows}
     assert reasons <= {"unreachable_by_osrm", "outside_service_area",
-                       "tier_c_no_delivery"}
+                       "tier_c_no_delivery",
+                       "no_serviceable_street_within_threshold",
+                       "address_inside_nonresidential_building"}
     for r in rows:
         assert r["uid"] and r["osm_id"]
 
@@ -356,3 +358,160 @@ def test_split_streets_are_reported(repo_root):
     for res in doc["candidates"].values():
         assert "split_streets" in res
         assert len(res["split_street_list"]) == res["split_streets"]
+
+
+# --- Stage-06 hardening -----------------------------------------------------
+
+def test_address_inside_nonresidential_building_is_rejected():
+    from shapely.geometry import Polygon as P
+
+    from bender_zones.demand_units import reject_addresses_in_nonresidential
+    warehouse = P([(0, 0), (10, 0), (10, 10), (0, 10)])
+    inside = _u("n", 1, UNIT_ADDRESS_NODE, 5, 5)
+    outside = _u("n", 2, UNIT_ADDRESS_NODE, 100, 100)
+    kept, rejected = reject_addresses_in_nonresidential(
+        [inside, outside], [(warehouse, "non_residential")])
+    assert [u.osm_id for u in kept] == [2]
+    assert rejected[0]["reason"] == "address_inside_nonresidential_building"
+    assert rejected[0]["building_class"] == "non_residential"
+
+
+def test_nonresidential_address_leakage_is_published(repo_root):
+    counts = _json(repo_root, "docs/data/tariff-band-metrics.json")["unit_counts"]
+    assert counts["address_nodes_in_nonresidential"] > 0
+    rows = list(csv.DictReader((repo_root / "docs/data/delivery-exceptions.csv")
+                               .read_text(encoding="utf-8").splitlines()))
+    assert any(r["reason"] == "address_inside_nonresidential_building" for r in rows)
+
+
+def test_no_automatic_tier_a_fallback(repo_root):
+    counts = _json(repo_root, "docs/data/tariff-band-metrics.json")["unit_counts"]
+    assert counts["no_serviceable_street_within_threshold"] > 0
+    rows = list(csv.DictReader((repo_root / "docs/data/delivery-exceptions.csv")
+                               .read_text(encoding="utf-8").splitlines()))
+    assert any(r["reason"] == "no_serviceable_street_within_threshold" for r in rows)
+    # every banded unit really is attached to a serviceable street
+    for r in _units(repo_root):
+        assert r["street_ru"], "a banded unit has no serviceable street"
+
+
+def test_split_penalty_reduces_splits_without_breaking_monotonicity(repo_root):
+    sweep = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "split_penalty_sweep"]
+    for k in ("4", "5"):
+        assert sweep["high"]["k"][k]["split_streets"] < \
+            sweep["baseline"]["k"][k]["split_streets"]
+        for name in sweep:
+            edges = sweep[name]["k"][k]["upper_edges_km"]
+            assert edges == sorted(edges), f"{name} K={k} lost monotonic ranges"
+
+
+def test_split_penalty_objective_moves_a_boundary():
+    from bender_zones.bands import street_split_counts
+    values = [1.0, 1.1, 1.2, 1.3, 2.0, 2.1]
+    weights = [1.0] * 6
+    bins = make_bins(values, weights, 0.05)
+    # one street spans the middle of the cost axis
+    street_bins = {"s": list(range(1, len(bins) - 1))}
+    split_at = street_split_counts(street_bins, len(bins))
+    plain = optimal_bands(bins, 2, 0.05)
+    penalised = optimal_bands(bins, 2, 0.05, split_at=split_at, split_penalty=1e6)
+    assert plain != penalised
+
+
+def test_house_number_ranges_are_compact_and_natural():
+    from bender_zones.bands import housenumber_ranges
+    assert housenumber_ranges(["1", "3", "5", "11"]) == "1-5, 11"
+    assert housenumber_ranges(["10", "2", "2A"]) == "2, 2A, 10"
+    assert housenumber_ranges([]) == ""
+
+
+def test_split_streets_publish_exact_house_ranges(repo_root):
+    doc = _json(repo_root, "docs/data/tariff-band-metrics.json")
+    for res in doc["candidates"].values():
+        detail = res["split_street_house_ranges"]
+        assert len(detail) == res["split_streets"]
+        for d in detail:
+            assert len(d["zones"]) > 1, "a split street must span >1 zone"
+            for name, z in d["zones"].items():
+                assert name.startswith("Zone ")
+                assert z["units"] > 0
+
+
+def test_demand_weight_sensitivity_is_published_not_chosen_silently(repo_root):
+    t = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"]
+    sens = t["demand_weight_sensitivity"]
+    assert {"A", "B", "C"} <= set(sens)
+    assert sens["B"]["unaddressed_building_weight"] == 0.25
+    assert sens["C"]["unaddressed_building_weight"] == 0.50
+    for k in ("4", "5"):
+        assert sens["B"]["k"][k]["max_abs_shift_km"] > 0     # boundaries do move
+    assert t["published_weight_model"] in sens
+
+
+def test_apartment_proxy_does_not_invent_household_counts(repo_root):
+    apt = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "demand_weight_sensitivity"]["apartment_flats_proxy"]
+    assert "addr:flats" in apt["proxy"]
+    assert apt["with_addr_flats"] <= apt["apartment_units_total"]
+    for field in ("with_building_levels", "with_entrances"):
+        assert field in apt
+
+
+def test_conditional_food_venues_need_takeaway(repo_root):
+    excluded = _json(repo_root, "docs/data/restaurant-origins.geojson")["selection"][
+        "excluded_pois"]
+    assert any(e["reason"] == "no_takeaway_or_delivery" for e in excluded), \
+        "bar/pub/ice_cream without takeaway must be excluded from origins"
+
+
+def test_every_unit_is_inside_its_own_band_polygon(repo_root):
+    cov = _json(repo_root, "docs/data/tariff-band-metrics.json")["map_coverage_check"]
+    for k, c in cov.items():
+        assert c["units_only_inside_another_band"] == 0, k
+        assert c["units_in_no_band_polygon"] == 0, k
+        assert c["units_outside_own_band_polygon"] == 0, k
+
+
+def test_areas_without_address_data_are_shown_not_coloured(repo_root):
+    fc = _json(repo_root, "docs/data/no-address-data.geojson")
+    assert fc["features"], "uncovered service area must be published explicitly"
+    for f in fc["features"]:
+        assert f["properties"]["status"] == "no_assigned_address_data"
+
+
+def test_unit_points_are_published_for_both_k(repo_root):
+    fc = _json(repo_root, "docs/data/delivery-unit-points.geojson")
+    for k in (4, 5):
+        zones = {f["properties"]["zone"] for f in fc["features"]
+                 if f["properties"]["k"] == k}
+        assert zones == set(range(1, k + 1))
+
+
+# --- reproducible OSRM build -------------------------------------------------
+
+def test_osrm_build_provenance_is_recorded(repo_root):
+    doc = json.loads((repo_root / "reports/stage-06/osrm-build.json")
+                     .read_text(encoding="utf-8"))
+    assert doc["engine"]["name"] == "OSRM"
+    assert doc["engine"]["algorithm"] == "MLD"
+    assert doc["engine"]["version"].startswith("v")
+    assert len(doc["engine"]["binary_sha256"]) == 64
+    assert len(doc["profile"]["sha256"]) == 64
+    assert len(doc["source_pbf"]["sha256"]) == 64
+    assert doc["generated_at"].endswith("Z")
+    joined = " ".join(doc["commands"])
+    for step in ("osrm-extract", "osrm-partition", "osrm-customize", "osrm-routed"):
+        assert step in joined, step
+    assert "--algorithm mld" in joined
+
+
+def test_osrm_clean_rebuild_smoke_test_passed(repo_root):
+    smoke = json.loads((repo_root / "reports/stage-06/osrm-build.json")
+                       .read_text(encoding="utf-8"))["smoke_test"]
+    assert smoke["passed"] is True
+    assert smoke["directional"]["passed"] is True
+    assert smoke["bridge_crossing"]["passed"] is True
+    for name in ("centre_to_parkany", "centre_to_giska"):
+        lo, hi = smoke[name]["expected_km_range"]
+        assert lo <= smoke[name]["distance_km"] <= hi

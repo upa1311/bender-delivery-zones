@@ -280,7 +280,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, demand, bands, origins, bandMetrics, exceptions] = await Promise.all([
+           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -295,6 +295,8 @@ async function init() {
       loadJSON("data/restaurant-origins.geojson"),
       loadJSON("data/tariff-band-metrics.json"),
       loadJSON("data/delivery-exceptions.geojson"),
+      loadJSON("data/delivery-unit-points.geojson"),
+      loadJSON("data/no-address-data.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -377,6 +379,29 @@ async function init() {
       });
       overlays[`Тарифные зоны K=${k} (Zone 1…${k})`] = layer;
       if (k === 4) layer.addTo(map);
+    });
+
+    // Address/unit points coloured by band — the CSV remains the source of truth.
+    [4, 5].forEach((k) => {
+      const feats = unitPoints.features.filter((f) => f.properties.k === k);
+      overlays[`Адреса по зонам K=${k}`] = L.geoJSON(
+        { type: "FeatureCollection", features: feats }, {
+          pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+            radius: 2, weight: 0, fillOpacity: 0.9,
+            fillColor: BAND_COLORS[(f.properties.zone - 1) % BAND_COLORS.length] }),
+          onEachFeature: (f, l) => l.bindPopup(
+            `<div class="popup"><b>${esc(f.properties.name)}</b> — K=${f.properties.k}<br>`
+            + `единиц доставки: ${f.properties.units}</div>`),
+        });
+    });
+
+    // Service area with no assigned address data — shown, never silently coloured.
+    overlays["Нет адресных данных"] = L.geoJSON(noAddress, {
+      style: () => ({ color: "#6b7280", weight: 1, fillColor: "#9ca3af",
+        fillOpacity: 0.35, dashArray: "2 3" }),
+      onEachFeature: (f, l) => l.bindPopup(
+        `<div class="popup"><b>Нет адресных данных</b><br>${esc(f.properties.note)}<br>`
+        + `площадь: ${(f.properties.area_m2 / 10000).toFixed(2)} га</div>`),
     });
 
     // Representative restaurant origins (85% central / 15% BAM + other outer).

@@ -8,8 +8,34 @@ bands:
   k_values: [4, 5]
   bin_width_km: 0.05        # cost-axis bin for the exact 1-D weighted DP
   min_weight_share: 0.05    # no economically meaningless sliver band
-  polygon_buffer_m: 80      # drawing only: buffer around units of a band
+  polygon_reach_m: 120      # max distance a band polygon extends from a unit
 
 osrm:
   url: "http://127.0.0.1:5000"
   table_chunk: 300          # destinations per /table request
+
+units:
+  # No automatic Tier A: a unit farther than this from any serviceable street
+  # becomes the explicit exception no_serviceable_street_within_threshold.
+  street_attach_threshold_m: 150
+
+# Split-street penalty sweep. The penalty is added to the DP objective for every
+# street a band boundary cuts, in the same units as the weighted squared
+# kilometre deviation. All strengths are published; the owner picks.
+split_penalty:
+  published_strength: high
+  strengths:
+    baseline: 0.0
+    low: 5.0
+    medium: 20.0
+    high: 80.0
+
+# Demand-weight sensitivity. No confidence factor is chosen silently: the
+# published bands use model A (confirmed addresses only); B and C are published
+# as sensitivity so the owner can see how far the edges move.
+sensitivity:
+  published_model: A
+  models:
+    A: 0.0     # confirmed address units only
+    B: 0.25    # + unaddressed residential buildings at 0.25
+    C: 0.50    # + unaddressed residential buildings at 0.50

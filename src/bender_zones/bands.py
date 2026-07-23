@@ -68,12 +68,36 @@ def _sse(i: int, j: int, w, wx, wxx) -> float:
     return max((wxx[j] - wxx[i]) - 2 * mean * (wx[j] - wx[i]) + mean * mean * weight, 0.0)
 
 
-def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05):
+def street_split_counts(street_bins: dict[object, list[int]], n_bins: int) -> list[float]:
+    """How many streets a cut placed *before* bin ``p`` would split.
+
+    ``street_bins`` maps a street key to the bin indices its units occupy. A cut
+    at ``p`` splits a street when the street has units both below and at/above
+    ``p``. Index ``p`` runs 0..n_bins; the ends are never internal cuts.
+    """
+    counts = [0.0] * (n_bins + 1)
+    for indices in street_bins.values():
+        if not indices:
+            continue
+        lo, hi = min(indices), max(indices)
+        for p in range(lo + 1, hi + 1):
+            counts[p] += 1.0
+    return counts
+
+
+def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
+                  split_at: list[float] | None = None,
+                  split_penalty: float = 0.0):
     """Exact 1-D weighted DP partition into *k* ordered bands.
 
-    ``min_weight_share`` forbids economically meaningless slivers: every band
-    must hold at least that share of total demand weight. Returns a list of
-    ``(start, end)`` bin index pairs (end exclusive), ascending by cost.
+    Objective = within-band weighted squared deviation **plus**
+    ``split_penalty`` for every street the cut runs through. A boundary that
+    slices many addresses on one street therefore costs more than a boundary
+    that falls between streets, while the bands stay ordered intervals on the
+    cost axis — so monotonic kilometre ranges are preserved by construction.
+
+    ``min_weight_share`` forbids economically meaningless slivers. Returns a
+    list of ``(start, end)`` bin index pairs (end exclusive), ascending by cost.
     """
     n = len(bins)
     if n == 0:
@@ -82,6 +106,12 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05):
     w, wx, wxx = _prefixes(bins)
     total = w[n]
     floor_weight = total * min_weight_share
+
+    def cut_cost(i: int) -> float:
+        """Penalty for an internal cut before bin *i* (0 and n are the ends)."""
+        if split_penalty <= 0 or not split_at or i <= 0 or i >= n:
+            return 0.0
+        return split_penalty * split_at[i]
 
     # dp[b][j] = best cost of splitting the first j bins into b bands
     dp = [[INF] * (n + 1) for _ in range(k + 1)]
@@ -95,7 +125,7 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05):
                     continue
                 if (w[j] - w[i]) < floor_weight:
                     continue
-                cost = dp[b - 1][i] + _sse(i, j, w, wx, wxx)
+                cost = dp[b - 1][i] + _sse(i, j, w, wx, wxx) + cut_cost(i)
                 if cost < best:
                     best, best_i = cost, i
             dp[b][j] = best
@@ -104,7 +134,8 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05):
     if dp[k][n] == INF:               # constraint infeasible -> relax the floor
         if min_weight_share <= 0:
             return [(0, n)]
-        return optimal_bands(bins, k, min_weight_share / 2.0)
+        return optimal_bands(bins, k, min_weight_share / 2.0,
+                             split_at=split_at, split_penalty=split_penalty)
 
     bounds, j = [], n
     for b in range(k, 0, -1):
@@ -113,6 +144,41 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05):
         j = i
     bounds.reverse()
     return bounds
+
+
+def housenumber_sort_key(value: str):
+    """Natural sort for house numbers: 2 < 2A < 10 < 10/1."""
+    text = (value or "").strip()
+    digits = ""
+    for ch in text:
+        if ch.isdigit():
+            digits += ch
+        elif digits:
+            break
+    return (int(digits) if digits else 10**9, text)
+
+
+def housenumber_ranges(values) -> str:
+    """Compact contiguous house-number ranges, e.g. ``1-15, 19, 21-25``."""
+    uniq = sorted({(v or "").strip() for v in values if (v or "").strip()},
+                  key=housenumber_sort_key)
+    if not uniq:
+        return ""
+    out, run = [], [uniq[0]]
+
+    def numeric(v):
+        key = housenumber_sort_key(v)
+        return key[0] if key[0] < 10**9 and v.strip().isdigit() else None
+
+    for value in uniq[1:]:
+        a, b = numeric(run[-1]), numeric(value)
+        if a is not None and b is not None and b - a in (1, 2):
+            run.append(value)
+        else:
+            out.append(run)
+            run = [value]
+    out.append(run)
+    return ", ".join(r[0] if len(r) == 1 else f"{r[0]}-{r[-1]}" for r in out)
 
 
 def band_edges(bins: list[Bin], bounds) -> list[float]:

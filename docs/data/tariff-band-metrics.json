@@ -3,357 +3,1692 @@
     "4": {
       "k": 4,
       "monotonic": true,
+      "split_street_house_ranges": [
+        {
+          "settlement": "bender_core",
+          "street_ru": "1-й Измаильский переулок",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "3-37, 56-60, 60А, 62-64, 151-155, 159, 167-175",
+              "units": 50,
+              "with_housenumber": 39
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Бельцкая улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "36/36а",
+              "units": 3,
+              "with_housenumber": 1
+            },
+            "Zone 3": {
+              "house_numbers": "1-33, 33б, 34-45, 49-51, 55-57, 92-94, 98-100, 104-106",
+              "units": 83,
+              "with_housenumber": 49
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Деповская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 4": {
+              "house_numbers": "5",
+              "units": 28,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Загородная улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-3, 3а, 4-14, 14а, 15-24, 43-50",
+              "units": 45,
+              "with_housenumber": 31
+            },
+            "Zone 3": {
+              "house_numbers": "19-36, 37а, 38, 38а, 40, 42а",
+              "units": 27,
+              "with_housenumber": 20
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Индустриальная улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-3, 4а, 4б, 4в, 4/1, 4д, 4г, 4д, 7-31, 68, 93",
+              "units": 31,
+              "with_housenumber": 22
+            },
+            "Zone 3": {
+              "house_numbers": "1-2, 5, 10-16, 16а, 18-22, 43, 47-51, 55-67, 69А, 81, 97, 97а, 101а, 103, 103а, 105-109, 109а, 111-123, 127/1, 145",
+              "units": 109,
+              "with_housenumber": 49
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Кишинёвская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 1б, 3-9, 54, 60, 76-78",
+              "units": 34,
+              "with_housenumber": 11
+            },
+            "Zone 4": {
+              "house_numbers": "4, 8, 8/1, 8/2, 10-12, 12/3, 14-16, 20, 24, 34/2",
+              "units": 31,
+              "with_housenumber": 12
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Коммунистическая улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-2, 2А, 3-7, 7/1, 8-58, 65-98, 98Б, 100-103, 103а, 104-115, 116а, 117-125, 125а, 125в, 126-132, 134а/1, 138",
+              "units": 221,
+              "with_housenumber": 111
+            },
+            "Zone 2": {
+              "house_numbers": "1-4, 62, 69, 141, 150, 153а, 155-160, 165, 168-180, 182а, 184-189, 189а, 191-192, 195-199",
+              "units": 51,
+              "with_housenumber": 33
+            },
+            "Zone 3": {
+              "house_numbers": "201-209",
+              "units": 10,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Новый проезд",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1а",
+              "units": 3,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "1/3, 1а, 3а, 4-5, 10, 40, 46",
+              "units": 45,
+              "with_housenumber": 8
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Одесская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 4-12, 27, 33-39, 67а",
+              "units": 16,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "3-5, 14",
+              "units": 3,
+              "with_housenumber": 3
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Первомайская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "45-49, 57-93, 97-99, 99а, 101, 105-141, 146-156, 156а, 158, 158а, 160-162, 162а, 164, 164а, 166-170, 176, 180-188",
+              "units": 152,
+              "with_housenumber": 94
+            },
+            "Zone 2": {
+              "house_numbers": "2, 2/А, 2/Б, 4-16, 18/18-а, 20, 20/2, 22-26, 26/4, 28-38, 42, 46, 50, 54-62, 73/1, 84, 89, 95, 126-128, 142-149, 164, 174",
+              "units": 63,
+              "with_housenumber": 51
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Первомайский переулок",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-8, 11-12, 16-22, 25-30, 63, 171",
+              "units": 37,
+              "with_housenumber": 18
+            },
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 3,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Песчанная улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "102-104, 143-155",
+              "units": 13,
+              "with_housenumber": 9
+            },
+            "Zone 2": {
+              "house_numbers": "1-3, 3а, 4-13, 13а, 14-15, 15а, 16-21, 27-31, 130-132, 132а, 134-140, 151-163",
+              "units": 76,
+              "with_housenumber": 41
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Пионерская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "3-9, 15",
+              "units": 15,
+              "with_housenumber": 8
+            },
+            "Zone 4": {
+              "house_numbers": "19-23, 27, 31-37",
+              "units": 17,
+              "with_housenumber": 11
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Путейская улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-15, 15a, 15б, 17, 20",
+              "units": 18,
+              "with_housenumber": 12
+            },
+            "Zone 3": {
+              "house_numbers": "1-6, 10, 10а, 12, 12а, 12б",
+              "units": 14,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Садовая улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-10, 10а, 11-44, 47-73, 73 A, 75, 75а, 172, 172а",
+              "units": 106,
+              "with_housenumber": 68
+            },
+            "Zone 2": {
+              "house_numbers": "13-15, 68-76, 81, 84-111",
+              "units": 53,
+              "with_housenumber": 30
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Херсонская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "10-24, 24а, 90а, 92-100, 137-141",
+              "units": 80,
+              "with_housenumber": 19
+            },
+            "Zone 2": {
+              "house_numbers": "2-8, 143, 147, 153",
+              "units": 14,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "переулок Мира",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 7",
+              "units": 7,
+              "with_housenumber": 2
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "переулок Мичурина",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "18-20",
+              "units": 2,
+              "with_housenumber": 2
+            },
+            "Zone 3": {
+              "house_numbers": "2-7, 22-26",
+              "units": 9,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "переулок Осипенко",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2",
+              "units": 4,
+              "with_housenumber": 4
+            },
+            "Zone 4": {
+              "house_numbers": "1-6, 9-11, 15",
+              "units": 12,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 12 Октября",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 9-10, 15-17, 21-31, 34, 52-53, 57-83, 83а, 83б, 85-86, 156, 160-164",
+              "units": 92,
+              "with_housenumber": 44
+            },
+            "Zone 4": {
+              "house_numbers": "33-51, 55",
+              "units": 25,
+              "with_housenumber": 18
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 28 Июня",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "3, 8, 18-26, 26а, 28, 32-36, 116, 120, 213-215",
+              "units": 34,
+              "with_housenumber": 20
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 4,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 50 лет ВЛКСМ",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 2а, 3-5, 5а/1, 5а/4, 6, 6а, 7а, 11-13, 19а, 21, 25-31, 50, 50а, 52б",
+              "units": 41,
+              "with_housenumber": 26
+            },
+            "Zone 4": {
+              "house_numbers": "7а",
+              "units": 2,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Баумана",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "3-11",
+              "units": 24,
+              "with_housenumber": 5
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Бориса Главана",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "1-5, 5а, 6-24, 24а, 26-30, 32а, 34, 40-52, 144",
+              "units": 93,
+              "with_housenumber": 42
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Герцена",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 6-9, 17",
+              "units": 32,
+              "with_housenumber": 5
+            },
+            "Zone 4": {
+              "house_numbers": "2-4",
+              "units": 5,
+              "with_housenumber": 2
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Глядковской",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-3, 7, 7а, 9, 9а, 9б, 11, 12а, 14",
+              "units": 42,
+              "with_housenumber": 13
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Горького",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "10, 14-20, 20а, 22-26",
+              "units": 26,
+              "with_housenumber": 9
+            },
+            "Zone 2": {
+              "house_numbers": "1-4, 7, 64",
+              "units": 9,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Дзержинского",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1, 1А, 1а, ПОСТ ЭЦ 1, 2А, 2Б, 3-17, 17А, 21-24, 26В, 27-39, 42, 42A, 45-48, 53-57, 58а, 59-60",
+              "units": 125,
+              "with_housenumber": 49
+            },
+            "Zone 2": {
+              "house_numbers": "61-67, 67б, 71",
+              "units": 25,
+              "with_housenumber": 7
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Димитрова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-18, 24-35, 206",
+              "units": 31,
+              "with_housenumber": 25
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Зои Космодемьянской",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "6",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 3": {
+              "house_numbers": "1, 4, 8-Б, 8а, 10, 10/1, 14-22, 26-30, 39-43, 53, 69-71, 81-87, 99",
+              "units": 57,
+              "with_housenumber": 31
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Интернационалистов",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 4": {
+              "house_numbers": "2-13, 13а, 13б, 15, 25",
+              "units": 26,
+              "with_housenumber": 15
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Кирова",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "2-10, 10а, 11-12, 12a, 14А, 14Б, 15-17, 17А, 18-19, 19А, 20-21, 21/1, 22-45, 49-52, 52/1, 53-55, 57/3, 65-67, 72-94, 97-119",
+              "units": 161,
+              "with_housenumber": 87
+            },
+            "Zone 2": {
+              "house_numbers": "7а, 21, 91а, 96, 121-123, 134а",
+              "units": 9,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Клары Цеткин",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-8, 8а, 10, 10/5, 10/6, 12, 30-32, 56",
+              "units": 38,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 4,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Космонавтов",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-17",
+              "units": 11,
+              "with_housenumber": 9
+            },
+            "Zone 3": {
+              "house_numbers": "1-14, 17-39",
+              "units": 26,
+              "with_housenumber": 23
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Маяковского",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "10-19, 20а, 21-87",
+              "units": 91,
+              "with_housenumber": 57
+            },
+            "Zone 2": {
+              "house_numbers": "76, 80-82, 89, 93",
+              "units": 5,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Мичурина",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-5, 5а, 6, 6а, 7-12, 26-36, 208",
+              "units": 28,
+              "with_housenumber": 23
+            },
+            "Zone 3": {
+              "house_numbers": "1, 7а, 9-21, 25-34, 38, 41, 44, 51-53",
+              "units": 30,
+              "with_housenumber": 20
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Некрасова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1/Б, 2/2, 2а, 3-7, 7а, 8-16, 16а, 17-29, 29а, 30-42, 42а, 44-67, 73-82, 82а, 83-85, 86а, 87-88, 88а, 89-94, 94а, 95, 96а, 97-98, 98а, 99-101, 102а, 103-116, 159-161, 164",
+              "units": 195,
+              "with_housenumber": 108
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Павлика Морозова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 3,
+              "with_housenumber": 0
+            },
+            "Zone 4": {
+              "house_numbers": "1-8, 12-19",
+              "units": 25,
+              "with_housenumber": 16
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Панфилова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 2-8, 12, 25",
+              "units": 21,
+              "with_housenumber": 9
+            },
+            "Zone 4": {
+              "house_numbers": "2-4, 4A, 6-9, 15-17",
+              "units": 13,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Петровского",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1, 3/1, 4-10, 17-39, 43",
+              "units": 40,
+              "with_housenumber": 23
+            },
+            "Zone 3": {
+              "house_numbers": "2-7, 24-26, 45-53, 61, 65",
+              "units": 21,
+              "with_housenumber": 14
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Пирогова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "1-8, 8а, 8б, 9-21",
+              "units": 24,
+              "with_housenumber": 20
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Победы",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1A",
+              "units": 2,
+              "with_housenumber": 1
+            },
+            "Zone 3": {
+              "house_numbers": "2, 2а, 3-4, 4а, 5-12, 17а",
+              "units": 19,
+              "with_housenumber": 13
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Полоза",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 2а, 3-20",
+              "units": 25,
+              "with_housenumber": 19
+            },
+            "Zone 4": {
+              "house_numbers": "10",
+              "units": 1,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Пушкина",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-14, 19-24, 24А, 25-52, 56-60, 66, 69-71, 75",
+              "units": 108,
+              "with_housenumber": 45
+            },
+            "Zone 2": {
+              "house_numbers": "58а, 62, 68, 89-91",
+              "units": 7,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Тамары Кручок",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "157",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 2": {
+              "house_numbers": "1-17, 20-24, 27-38, 45-83, 83а, 84-90, 90а, 92-96, 165-167, 177, 183",
+              "units": 101,
+              "with_housenumber": 62
+            },
+            "Zone 3": {
+              "house_numbers": "41, 41a, 89-93, 98-102, 110-138",
+              "units": 39,
+              "with_housenumber": 24
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Тимирязева",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-8, 12а, 19/2, 24, 24а, 26-28, 28а, 30, 34-36",
+              "units": 30,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Титова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "10, 10/2, 32-73",
+              "units": 47,
+              "with_housenumber": 29
+            },
+            "Zone 3": {
+              "house_numbers": "2, 2а, 3-10, 10а, 12-20, 24-26, 30, 37-43, 47-51, 55-57, 63-65, 69-71, 112-114, 118-130",
+              "units": 105,
+              "with_housenumber": 42
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Ткаченко",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1, 4, 4в, 5-18, 18 и 4\"в\", 19, 22-24, 27-28, 28А, 29а, 32, 87-92, 92А, 93-127, 128а, 129-169",
+              "units": 153,
+              "with_housenumber": 97
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Толбухина",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "2",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 2": {
+              "house_numbers": "1-9, 15, 18-20, 23, 23а, 25-33",
+              "units": 40,
+              "with_housenumber": 20
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Колхозный переулок",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1, 1а, 2-18",
+              "units": 25,
+              "with_housenumber": 13
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Красивая улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "2-4, 4а, 6-8, 18-19",
+              "units": 10,
+              "with_housenumber": 8
+            },
+            "Zone 3": {
+              "house_numbers": "9-18",
+              "units": 10,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Парканская улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 3,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "1-3, 3а, 5, 5а, 7-9, 10 А, 10а, 11-19",
+              "units": 25,
+              "with_housenumber": 17
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Пограничный переулок",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "6, 13-22, 24а",
+              "units": 18,
+              "with_housenumber": 8
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 5,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Подольская улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "2-8, 12-14",
+              "units": 9,
+              "with_housenumber": 7
+            },
+            "Zone 3": {
+              "house_numbers": "12",
+              "units": 20,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Подольский переулок",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "12-13",
+              "units": 3,
+              "with_housenumber": 2
+            },
+            "Zone 3": {
+              "house_numbers": "1, 2а, 3-11",
+              "units": 19,
+              "with_housenumber": 11
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Кутузова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "1-2, 2а, 3-5, 5а, 6, 9, 9а, 11-19, 19а, 20-30, 30а, 32-38",
+              "units": 55,
+              "with_housenumber": 28
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Титова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "3, 3/3, 78",
+              "units": 11,
+              "with_housenumber": 4
+            },
+            "Zone 3": {
+              "house_numbers": "80",
+              "units": 6,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Энгельса",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1, 1б, 3, 3а, 4-5, 5а, 6а, 7, 11, 11а, 12-15, 20",
+              "units": 19,
+              "with_housenumber": 15
+            },
+            "Zone 3": {
+              "house_numbers": "10, 16, 16\"А\", 16\"Б\" , 16\"В\", 22-38, 38а",
+              "units": 34,
+              "with_housenumber": 18
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "Молодёжная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 19-21, 48, 61",
+              "units": 53,
+              "with_housenumber": 6
+            },
+            "Zone 4": {
+              "house_numbers": "51",
+              "units": 30,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "переулок Суворова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 25, 28-29, 61",
+              "units": 29,
+              "with_housenumber": 6
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 5,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица 60 лет Октября",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-4",
+              "units": 3,
+              "with_housenumber": 3
+            },
+            "Zone 4": {
+              "house_numbers": "1-2, 28, 39",
+              "units": 65,
+              "with_housenumber": 4
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Гоголя",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 9-11, 16, 59",
+              "units": 54,
+              "with_housenumber": 6
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 8,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Ленина",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 2/A, 2б, 5, 13, 17, 21, 26-28, 47-49, 58-59, 71, 73/A, 75-77, 90а, 92, 101",
+              "units": 176,
+              "with_housenumber": 21
+            },
+            "Zone 4": {
+              "house_numbers": "1, 4, 15, 93, 100-103, 109, 111а, 121, 126, 131-133, 136, 144, 146а, 156, 166, 168а, 172-174, 178, 180 А, 188, 190 А, 199-201, 214-216, 230, 235, 242-244, 248-253, 253 А, 254 А, 257, 260, 266, 270, 273 А, 274-280, 285, 295-297, 313, 329",
+              "units": 425,
+              "with_housenumber": 59
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Мира",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 2, 2а, 3-5, 5а, 6-12, 12а, 13-44, 80-82, 93-95",
+              "units": 92,
+              "with_housenumber": 44
+            },
+            "Zone 4": {
+              "house_numbers": "26-30, 30а, 43, 51",
+              "units": 91,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Молодёжная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-34",
+              "units": 67,
+              "with_housenumber": 32
+            },
+            "Zone 4": {
+              "house_numbers": "31-101, 105-124",
+              "units": 160,
+              "with_housenumber": 94
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Садовая улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "1-5, 5а, 6-51, 51а, 52-77, 77а, 78-85, 85а, 86-87, 87а, 88-101, 101а, 103-121, 125-129",
+              "units": 299,
+              "with_housenumber": 121
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Солнечная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 11,
+              "with_housenumber": 0
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 13,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Степная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-38",
+              "units": 22,
+              "with_housenumber": 19
+            },
+            "Zone 4": {
+              "house_numbers": "40-96",
+              "units": 40,
+              "with_housenumber": 29
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Горького",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-48, 49;53, 50-188, 192",
+              "units": 380,
+              "with_housenumber": 167
+            },
+            "Zone 4": {
+              "house_numbers": "131-143, 158-168",
+              "units": 32,
+              "with_housenumber": 13
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Димитрова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "4-8, 8а, 10-18, 25-29, 29а, 31-44",
+              "units": 108,
+              "with_housenumber": 29
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Карла Маркса",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-25, 25a, 26-45, 45а, 46-75, 75а, 76-178, 178а, 180-212",
+              "units": 471,
+              "with_housenumber": 202
+            },
+            "Zone 4": {
+              "house_numbers": "151, 161-222, 222а, 223-290, 296-348",
+              "units": 263,
+              "with_housenumber": 123
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Ковалёва",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-16",
+              "units": 24,
+              "with_housenumber": 8
+            },
+            "Zone 4": {
+              "house_numbers": "18-22, 34, 88, 96",
+              "units": 21,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Ленина",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-21",
+              "units": 57,
+              "with_housenumber": 18
+            },
+            "Zone 3": {
+              "house_numbers": "2, 14-55, 55А, 56-83, 83а, 84-86, 86а, 87-133, 133а, 134-160, 200",
+              "units": 362,
+              "with_housenumber": 136
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 4,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Мичурина",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-30, 30а, 31-107",
+              "units": 201,
+              "with_housenumber": 102
+            },
+            "Zone 4": {
+              "house_numbers": "76-78, 81-83, 104-145, 145а, 146-156, 156а, 157-171, 171а, 172-201",
+              "units": 98,
+              "with_housenumber": 97
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Петра Николаева",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-103, 103а, 104-125, 125а, 127-133, 133а, 135, 135а, 137-162, 162а, 163-180, 180а, 182-188",
+              "units": 403,
+              "with_housenumber": 200
+            },
+            "Zone 4": {
+              "house_numbers": "110-137, 137 А, 138-167, 167а, 169-190, 190а, 191-210, 210а, 211-212, 212а, 213-216, 216а, 217, 217а, 218-221, 221а, 222-244",
+              "units": 246,
+              "with_housenumber": 196
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Пушкина",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-4",
+              "units": 9,
+              "with_housenumber": 4
+            },
+            "Zone 3": {
+              "house_numbers": "5-72, 72а, 73-110",
+              "units": 259,
+              "with_housenumber": 105
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Романенко",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-3, 3а, 4-35, 35а, 36-50, 50а, 51-60, 60а, 61-62, 62а, 63-70, 70а",
+              "units": 163,
+              "with_housenumber": 74
+            },
+            "Zone 4": {
+              "house_numbers": "67, 67а, 69-73, 73а, 74-101, 101а, 102-174",
+              "units": 112,
+              "with_housenumber": 112
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Русакова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-76",
+              "units": 168,
+              "with_housenumber": 69
+            },
+            "Zone 4": {
+              "house_numbers": "61-79, 88, 161, 169, 195",
+              "units": 46,
+              "with_housenumber": 14
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Суворова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 2а, 4-54, 54а, 55-118",
+              "units": 269,
+              "with_housenumber": 120
+            },
+            "Zone 4": {
+              "house_numbers": "107-117, 118а, 119-126, 127 сергей, 128-157, 161-162, 169, 172-174, 195, 200",
+              "units": 115,
+              "with_housenumber": 54
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Чапаева",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-9, 13-16, 16а, 16б, 17-20, 20а, 21-39, 39а, 40-57, 57а, 61-93, 93а,б, 95-115, 115а, 117-129",
+              "units": 255,
+              "with_housenumber": 111
+            },
+            "Zone 4": {
+              "house_numbers": "74-92, 96-98, 102-116, 126, 130, 131а, 132-135, 135а, 136-140, 143-155, 159-181, 185-241",
+              "units": 198,
+              "with_housenumber": 83
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Шевченко",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1а",
+              "units": 6,
+              "with_housenumber": 1
+            },
+            "Zone 3": {
+              "house_numbers": "1-15, 19-51, 59, 63-71, 75-81",
+              "units": 128,
+              "with_housenumber": 46
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Гербовецкая улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-3, 32-54",
+              "units": 46,
+              "with_housenumber": 14
+            },
+            "Zone 4": {
+              "house_numbers": "11, 15, 39-49, 55, 58-73, 76-78, 84-87, 96-98, 98а, 100, 103, 112, 115-121, 157, 173, 180, 198",
+              "units": 208,
+              "with_housenumber": 39
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Главная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 2а, 5, 24, 46, 49, 67-76",
+              "units": 110,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "1-7, 77-88, 93, 96-98, 111, 126, 157-159, 168, 171-172, 175, 178-180, 189, 195, 200-201, 204, 238, 263",
+              "units": 297,
+              "with_housenumber": 33
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Комсомольский переулок",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-4, 8-9, 13",
+              "units": 29,
+              "with_housenumber": 7
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 3,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Луговая улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "13-23, 35, 39, 43, 47-51",
+              "units": 17,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "1-3, 9-11",
+              "units": 5,
+              "with_housenumber": 4
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Первомайская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2, 56",
+              "units": 7,
+              "with_housenumber": 2
+            },
+            "Zone 4": {
+              "house_numbers": "4-10, 14-57, 62, 77, 85, 91-93, 102, 107, 110, 141, 154",
+              "units": 216,
+              "with_housenumber": 63
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Санаторная улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "18-40, 46-54",
+              "units": 19,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "6-17",
+              "units": 9,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "улица 50 лет Победы",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "16-23, 29, 33, 36, 45-53, 57-64, 68",
+              "units": 24,
+              "with_housenumber": 22
+            },
+            "Zone 4": {
+              "house_numbers": "1-8, 14, 66",
+              "units": 16,
+              "with_housenumber": 9
+            }
+          }
+        }
+      ],
       "split_street_list": [
         "bender_core: 1-й Измаильский переулок",
         "bender_core: Бельцкая улица",
-        "bender_core: Восточная улица",
-        "bender_core: Гвардейская улица",
         "bender_core: Деповская улица",
-        "bender_core: Железнодорожная улица",
         "bender_core: Загородная улица",
         "bender_core: Индустриальная улица",
-        "bender_core: Каховская улица",
-        "bender_core: Киркаештская улица",
         "bender_core: Кишинёвская улица",
-        "bender_core: Колодезная улица",
         "bender_core: Коммунистическая улица",
-        "bender_core: Красноармейская улица",
-        "bender_core: Ленинградская улица",
         "bender_core: Новый проезд",
         "bender_core: Одесская улица",
+        "bender_core: Первомайская улица",
+        "bender_core: Первомайский переулок",
+        "bender_core: Песчанная улица",
         "bender_core: Пионерская улица",
         "bender_core: Путейская улица",
-        "bender_core: Хотинская улица",
-        "bender_core: переулок 28 Июня",
-        "bender_core: переулок Лермонтова",
+        "bender_core: Садовая улица",
+        "bender_core: Херсонская улица",
+        "bender_core: переулок Мира",
+        "bender_core: переулок Мичурина",
         "bender_core: переулок Осипенко",
-        "bender_core: переулок Павлова",
         "bender_core: улица 12 Октября",
         "bender_core: улица 28 Июня",
-        "bender_core: улица 40 лет Победы",
+        "bender_core: улица 50 лет ВЛКСМ",
         "bender_core: улица Баумана",
         "bender_core: улица Бориса Главана",
-        "bender_core: улица Бородина",
+        "bender_core: улица Герцена",
         "bender_core: улица Глядковской",
+        "bender_core: улица Горького",
         "bender_core: улица Дзержинского",
         "bender_core: улица Димитрова",
-        "bender_core: улица Добродеева",
-        "bender_core: улица Дружбы",
         "bender_core: улица Зои Космодемьянской",
-        "bender_core: улица Ивана Федько",
         "bender_core: улица Интернационалистов",
-        "bender_core: улица Калашникова",
+        "bender_core: улица Кирова",
         "bender_core: улица Клары Цеткин",
-        "bender_core: улица Куйбышева",
-        "bender_core: улица Курило",
-        "bender_core: улица Мира",
+        "bender_core: улица Космонавтов",
+        "bender_core: улица Маяковского",
         "bender_core: улица Мичурина",
         "bender_core: улица Некрасова",
         "bender_core: улица Павлика Морозова",
-        "bender_core: улица Павлова",
         "bender_core: улица Панфилова",
-        "bender_core: улица Ползунова",
+        "bender_core: улица Петровского",
+        "bender_core: улица Пирогова",
+        "bender_core: улица Победы",
         "bender_core: улица Полоза",
-        "bender_core: улица Старого",
+        "bender_core: улица Пушкина",
         "bender_core: улица Тамары Кручок",
-        "bender_core: улица Тельмана",
+        "bender_core: улица Тимирязева",
+        "bender_core: улица Титова",
         "bender_core: улица Ткаченко",
-        "bender_core: улица Тургенева",
-        "bender_core: улица Халтурина",
-        "bender_core: улица Чайковского",
-        "bender_core: улица Чехова",
-        "bender_core: улица Чкалова",
-        "bender_lipcani: 1-й переулок Кутузова",
+        "bender_core: улица Толбухина",
+        "bender_lipcani: Колхозный переулок",
+        "bender_lipcani: Красивая улица",
+        "bender_lipcani: Парканская улица",
+        "bender_lipcani: Пограничный переулок",
+        "bender_lipcani: Подольская улица",
+        "bender_lipcani: Подольский переулок",
         "bender_lipcani: улица Кутузова",
-        "giska: Госпитальная улица",
-        "giska: Студенческая улица",
-        "giska: Школьная улица",
+        "bender_lipcani: улица Титова",
+        "bender_lipcani: улица Энгельса",
+        "giska: Молодёжная улица",
         "giska: переулок Суворова",
         "giska: улица 60 лет Октября",
-        "giska: улица Интернационалистов",
-        "giska: улица Курило",
+        "giska: улица Гоголя",
         "giska: улица Ленина",
         "giska: улица Мира",
-        "giska: улица Суворова",
-        "parkany: Коммунистическая улица",
-        "parkany: Комсомольская улица",
         "parkany: Молодёжная улица",
-        "parkany: Пионерская улица",
         "parkany: Садовая улица",
         "parkany: Солнечная улица",
         "parkany: Степная улица",
-        "parkany: улица Благоева",
-        "parkany: улица Ворошилова",
-        "parkany: улица Гоголя",
         "parkany: улица Горького",
+        "parkany: улица Димитрова",
         "parkany: улица Карла Маркса",
         "parkany: улица Ковалёва",
-        "parkany: улица Котовского",
         "parkany: улица Ленина",
         "parkany: улица Мичурина",
         "parkany: улица Петра Николаева",
+        "parkany: улица Пушкина",
         "parkany: улица Романенко",
         "parkany: улица Русакова",
-        "parkany: улица Сергея Лазо",
         "parkany: улица Суворова",
-        "parkany: улица Фрунзе",
         "parkany: улица Чапаева",
-        "parkany: улица Чехова",
-        "parkany: улица Чкалова",
         "parkany: улица Шевченко",
-        "parkany: улица Энгельса",
         "protyagailovka: Гербовецкая улица",
         "protyagailovka: Главная улица",
-        "protyagailovka: Комсомольская улица",
-        "protyagailovka: Молодёжная улица",
+        "protyagailovka: Комсомольский переулок",
+        "protyagailovka: Луговая улица",
         "protyagailovka: Первомайская улица",
         "protyagailovka: Санаторная улица",
-        "protyagailovka: улица Алеку Руссо",
-        "protyagailovka: улица Космонавтов",
-        "protyagailovka: улица Мира",
-        "protyagailovka: улица Штефан чел Маре"
+        "protyagailovka: улица 50 лет Победы"
       ],
-      "split_streets": 108,
+      "split_streets": 88,
       "upper_edges_km": [
-        2.973,
-        4.824,
-        6.277,
-        11.203
+        2.023,
+        3.373,
+        5.972,
+        9.692
       ],
-      "weighted_dispersion": 0.5193,
+      "weighted_dispersion": 0.5856,
       "zones": [
         {
-          "address_units": 2702,
-          "bam_km_p50": 4.091,
-          "bam_min_p50": 5.692,
-          "central_km_p50": 1.464,
-          "central_min_p50": 2.203,
-          "demand_weight": 3794.0,
+          "address_units": 1546,
+          "bam_km_p50": 3.688,
+          "bam_min_p50": 5.143,
+          "central_km_p50": 1.108,
+          "central_min_p50": 1.712,
+          "demand_weight": 1546.0,
           "km": {
-            "max": 2.973,
-            "min": 0.361,
-            "p50": 1.679,
-            "p75": 2.305,
-            "p90": 2.569
+            "max": 2.022,
+            "min": 0.375,
+            "p50": 1.377,
+            "p75": 1.668,
+            "p90": 1.859
           },
-          "km_dispersion": 0.5957,
+          "km_dispersion": 0.3397,
           "minutes": {
-            "max": 6.21,
-            "min": 0.55,
-            "p50": 2.532,
-            "p75": 3.157,
-            "p90": 3.632
+            "max": 5.12,
+            "min": 0.57,
+            "p50": 2.101,
+            "p75": 2.508,
+            "p90": 2.812
           },
           "name": "Zone 1",
           "streets": [
             "bender_core: 2-й Береговой переулок",
             "bender_core: 4-й Береговой переулок",
-            "bender_core: Донецкая улица",
-            "bender_core: Дубоссарская улица",
-            "bender_core: Загородная улица",
-            "bender_core: Индустриальная улица",
             "bender_core: Карпатская улица",
-            "bender_core: Кирпичная улица",
-            "bender_core: Кирпичный переулок",
-            "bender_core: Колодезная улица",
-            "bender_core: Колодезный переулок",
             "bender_core: Коммунистическая улица",
             "bender_core: Комсомольская улица",
             "bender_core: Мельничный переулок",
             "bender_core: Молдавская улица",
             "bender_core: Московская улица",
-            "bender_core: Октябрьская улица",
             "bender_core: Оргеевский переулок",
             "bender_core: Первомайская улица",
             "bender_core: Первомайский переулок",
             "bender_core: Песчанная улица",
-            "bender_core: Песчанный переулок",
             "bender_core: Пивоваренный переулок",
             "bender_core: Почтовый переулок",
-            "bender_core: Путейская улица",
-            "bender_core: Рыбницкая улица",
-            "bender_core: Рыбницкий переулок",
             "bender_core: Садовая улица",
             "bender_core: Садовый переулок",
             "bender_core: Советская улица",
             "bender_core: Тираспольская улица",
             "bender_core: Украинская улица",
-            "bender_core: Фруктовая улица",
             "bender_core: Херсонская улица",
             "bender_core: Херсонский проезд",
+            "bender_core: переулок Калинина",
+            "bender_core: переулок Суворова",
+            "bender_core: площадь Освобождения",
+            "bender_core: улица Академика Фёдорова",
+            "bender_core: улица Гагарина",
+            "bender_core: улица Горького",
+            "bender_core: улица Дзержинского",
+            "bender_core: улица Кавриаго",
+            "bender_core: улица Калинина",
+            "bender_core: улица Кирова",
+            "bender_core: улица Ленина",
+            "bender_core: улица Маяковского",
+            "bender_core: улица Пушкина",
+            "bender_core: улица Сергея Лазо",
+            "bender_core: улица Тамары Кручок",
+            "bender_core: улица Ткаченко",
+            "bender_core: улица Толбухина",
+            "bender_core: улица Шевченко",
+            "bender_core: улица Шестакова",
+            "bender_core: улица Щорса"
+          ],
+          "unique_delivery_units": 2925,
+          "zone": 1
+        },
+        {
+          "address_units": 1439,
+          "bam_km_p50": 4.903,
+          "bam_min_p50": 6.43,
+          "central_km_p50": 2.336,
+          "central_min_p50": 3.16,
+          "demand_weight": 1439.0,
+          "km": {
+            "max": 3.372,
+            "min": 2.023,
+            "p50": 2.67,
+            "p75": 3.001,
+            "p90": 3.232
+          },
+          "km_dispersion": 0.3568,
+          "minutes": {
+            "max": 6.05,
+            "min": 2.27,
+            "p50": 3.602,
+            "p75": 4.114,
+            "p90": 4.753
+          },
+          "name": "Zone 2",
+          "streets": [
+            "bender_core: Бельцкая улица",
+            "bender_core: Донецкая улица",
+            "bender_core: Дубоссарская улица",
+            "bender_core: Загородная улица",
+            "bender_core: Индустриальная улица",
+            "bender_core: Кирпичная улица",
+            "bender_core: Кирпичный переулок",
+            "bender_core: Колодезная улица",
+            "bender_core: Колодезный переулок",
+            "bender_core: Коммунистическая улица",
+            "bender_core: Октябрьская улица",
+            "bender_core: Первомайская улица",
+            "bender_core: Первомайский переулок",
+            "bender_core: Песчанная улица",
+            "bender_core: Песчанный переулок",
+            "bender_core: Путейская улица",
+            "bender_core: Рыбницкая улица",
+            "bender_core: Рыбницкий переулок",
+            "bender_core: Садовая улица",
+            "bender_core: Фруктовая улица",
+            "bender_core: Херсонская улица",
             "bender_core: Школьный переулок",
             "bender_core: переулок 28 Июня",
             "bender_core: переулок 5 Декабря",
             "bender_core: переулок Баумана",
-            "bender_core: переулок Калинина",
+            "bender_core: переулок Мичурина",
             "bender_core: переулок Некрасова",
             "bender_core: переулок Павлова",
             "bender_core: переулок Разина",
-            "bender_core: переулок Суворова",
-            "bender_core: площадь Освобождения",
             "bender_core: тупик Некрасова",
             "bender_core: улица 28 Июня",
             "bender_core: улица 5 Декабря",
             "bender_core: улица 7 Ноября",
-            "bender_core: улица Академика Фёдорова",
             "bender_core: улица Баумана",
             "bender_core: улица Бориса Главана",
-            "bender_core: улица Гагарина",
             "bender_core: улица Георге Асаке",
             "bender_core: улица Горького",
             "bender_core: улица Дзержинского",
             "bender_core: улица Димитрова",
             "bender_core: улица Дружбы",
-            "bender_core: улица Кавриаго",
-            "bender_core: улица Калинина",
+            "bender_core: улица Зои Космодемьянской",
             "bender_core: улица Карбышева",
             "bender_core: улица Кирова",
-            "bender_core: улица Ленина",
+            "bender_core: улица Космонавтов",
             "bender_core: улица Маяковского",
             "bender_core: улица Мира",
             "bender_core: улица Мичурина",
             "bender_core: улица Некрасова",
             "bender_core: улица Няги",
             "bender_core: улица Павлова",
+            "bender_core: улица Петровского",
+            "bender_core: улица Пирогова",
+            "bender_core: улица Победы",
             "bender_core: улица Правды",
             "bender_core: улица Пушкина",
             "bender_core: улица Разина",
-            "bender_core: улица Сергея Лазо",
             "bender_core: улица Советской Армии",
             "bender_core: улица Тамары Кручок",
             "bender_core: улица Тельмана",
-            "bender_core: улица Ткаченко",
+            "bender_core: улица Титова",
             "bender_core: улица Толбухина",
             "bender_core: улица Урицкого",
             "bender_core: улица Чапаева",
             "bender_core: улица Чкалова",
-            "bender_core: улица Шевченко",
-            "bender_core: улица Шестакова",
-            "bender_core: улица Щорса"
-          ],
-          "unique_delivery_units": 4886,
-          "zone": 1
-        },
-        {
-          "address_units": 3177,
-          "bam_km_p50": 4.739,
-          "bam_min_p50": 6.333,
-          "central_km_p50": 4.227,
-          "central_min_p50": 5.41,
-          "demand_weight": 4989.0,
-          "km": {
-            "max": 4.823,
-            "min": 2.974,
-            "p50": 4.274,
-            "p75": 4.56,
-            "p90": 4.72
-          },
-          "km_dispersion": 0.459,
-          "minutes": {
-            "max": 8.97,
-            "min": 3.19,
-            "p50": 5.521,
-            "p75": 6.08,
-            "p90": 6.503
-          },
-          "name": "Zone 2",
-          "streets": [
-            "bender_core: 1-й Братский переулок",
-            "bender_core: 1-й Измаильский переулок",
-            "bender_core: 1-й переулок Петровского",
-            "bender_core: 2-й Братский переулок",
-            "bender_core: 2-й переулок Петровского",
-            "bender_core: 3-й Индустриальный переулок",
-            "bender_core: Бельцкая улица",
-            "bender_core: Братская улица",
-            "bender_core: Варницкий переулок",
-            "bender_core: Варницкий тупик",
-            "bender_core: Восточная улица",
-            "bender_core: Восточный переулок",
-            "bender_core: Гвардейская улица",
-            "bender_core: Главная улица",
-            "bender_core: Дачная улица",
-            "bender_core: Железнодорожная улица",
-            "bender_core: Загородная улица",
-            "bender_core: Индустриальная улица",
-            "bender_core: Каховская улица",
-            "bender_core: Киевская улица",
-            "bender_core: Киркаештская улица",
-            "bender_core: Кицканская улица",
-            "bender_core: Кицканский переулок",
-            "bender_core: Кишинёвская улица",
-            "bender_core: Кишинёвский тупик",
-            "bender_core: Колодезная улица",
-            "bender_core: Коммунистическая улица",
-            "bender_core: Кооперативный тупик",
-            "bender_core: Красноармейская улица",
-            "bender_core: Красноармейский переулок",
-            "bender_core: Ленинградская улица",
-            "bender_core: Новый проезд",
-            "bender_core: Одесская улица",
-            "bender_core: Протягайловская улица",
-            "bender_core: Путейская улица",
-            "bender_core: Севастопольская улица",
-            "bender_core: Спортивная улица",
-            "bender_core: Хотинская улица",
-            "bender_core: Школьная улица",
-            "bender_core: Южная улица",
-            "bender_core: переулок 28 Июня",
-            "bender_core: переулок Емилиана Букова",
-            "bender_core: переулок Лермонтова",
-            "bender_core: переулок Менделеева",
-            "bender_core: переулок Мичурина",
-            "bender_core: переулок Павлова",
-            "bender_core: переулок Пирогова",
-            "bender_core: переулок Строителей",
-            "bender_core: переулок Текстильщиков",
-            "bender_core: тупик Пирогова",
-            "bender_core: улица 12 Октября",
-            "bender_core: улица 28 Июня",
-            "bender_core: улица 40 лет Победы",
-            "bender_core: улица Асаке",
-            "bender_core: улица Баумана",
-            "bender_core: улица Бориса Главана",
-            "bender_core: улица Бородина",
-            "bender_core: улица Гастелло",
-            "bender_core: улица Глядковской",
-            "bender_core: улица Димитрова",
-            "bender_core: улица Добродеева",
-            "bender_core: улица Дружбы",
-            "bender_core: улица Емилиана Букова",
-            "bender_core: улица Зои Космодемьянской",
-            "bender_core: улица Ивана Федько",
-            "bender_core: улица Калашникова",
-            "bender_core: улица Клары Цеткин",
-            "bender_core: улица Космонавтов",
-            "bender_core: улица Куйбышева",
-            "bender_core: улица Курило",
-            "bender_core: улица Менделеева",
-            "bender_core: улица Мира",
-            "bender_core: улица Мичурина",
-            "bender_core: улица Некрасова",
-            "bender_core: улица Островского",
-            "bender_core: улица Павлова",
-            "bender_core: улица Петровского",
-            "bender_core: улица Пирогова",
-            "bender_core: улица Победы",
-            "bender_core: улица Ползунова",
-            "bender_core: улица Старого",
-            "bender_core: улица Строителей",
-            "bender_core: улица Тамары Кручок",
-            "bender_core: улица Тельмана",
-            "bender_core: улица Титова",
-            "bender_core: улица Ткаченко",
-            "bender_core: улица Тургенева",
-            "bender_core: улица Франко",
-            "bender_core: улица Фрунзе",
-            "bender_core: улица Халтурина",
-            "bender_core: улица Чайковского",
-            "bender_core: улица Чернышевского",
-            "bender_core: улица Чехова",
-            "bender_core: улица Чкалова",
-            "bender_lipcani: 1-й переулок Кутузова",
-            "bender_lipcani: 2-й переулок Кутузова",
             "bender_lipcani: Колхозная улица",
             "bender_lipcani: Колхозный переулок",
             "bender_lipcani: Красивая улица",
@@ -361,125 +1696,137 @@
             "bender_lipcani: Пограничный переулок",
             "bender_lipcani: Подольская улица",
             "bender_lipcani: Подольский переулок",
-            "bender_lipcani: переулок Грибоедова",
             "bender_lipcani: переулок Иона Солтыса",
-            "bender_lipcani: переулок Энгельса",
-            "bender_lipcani: улица Гайдара",
             "bender_lipcani: улица Иона Солтыса",
             "bender_lipcani: улица Кутузова",
             "bender_lipcani: улица Титова",
             "bender_lipcani: улица Шмидта",
             "bender_lipcani: улица Энгельса",
-            "giska: Первомайская улица",
-            "giska: Приднестровская улица",
-            "giska: Студенческая улица",
-            "giska: улица Интернационалистов",
-            "giska: улица Кирова",
-            "giska: улица Ленина",
-            "giska: улица Мира",
-            "giska: улица Суворова",
-            "parkany: Коммунистическая улица",
-            "parkany: Комсомольская улица",
-            "parkany: Пионерская улица",
             "parkany: Садовая улица",
-            "parkany: улица Благоева",
-            "parkany: улица Ворошилова",
-            "parkany: улица Гоголя",
-            "parkany: улица Горького",
             "parkany: улица Димитрова",
-            "parkany: улица Карла Маркса",
-            "parkany: улица Котовского",
             "parkany: улица Ленина",
-            "parkany: улица Петра Николаева",
             "parkany: улица Пушкина",
-            "parkany: улица Сергея Лазо",
-            "parkany: улица Фрунзе",
-            "parkany: улица Чехова",
-            "parkany: улица Чкалова",
-            "parkany: улица Шевченко",
-            "parkany: улица Энгельса",
-            "protyagailovka: Главная улица",
-            "protyagailovka: Комсомольская улица",
-            "protyagailovka: переулок Куйбышева",
-            "protyagailovka: улица Мира"
+            "parkany: улица Шевченко"
           ],
-          "unique_delivery_units": 6801,
+          "unique_delivery_units": 2366,
           "zone": 2
         },
         {
-          "address_units": 3396,
-          "bam_km_p50": 5.829,
-          "bam_min_p50": 7.89,
-          "central_km_p50": 5.446,
-          "central_min_p50": 6.822,
-          "demand_weight": 5584.25,
+          "address_units": 5776,
+          "bam_km_p50": 5.154,
+          "bam_min_p50": 6.987,
+          "central_km_p50": 4.824,
+          "central_min_p50": 6.205,
+          "demand_weight": 5771.1,
           "km": {
-            "max": 6.276,
-            "min": 4.824,
-            "p50": 5.469,
-            "p75": 5.819,
-            "p90": 6.057
+            "max": 5.972,
+            "min": 3.373,
+            "p50": 4.84,
+            "p75": 5.351,
+            "p90": 5.704
           },
-          "km_dispersion": 0.408,
+          "km_dispersion": 0.6761,
           "minutes": {
-            "max": 9.45,
-            "min": 4.84,
-            "p50": 6.911,
-            "p75": 7.46,
-            "p90": 8.02
+            "max": 8.98,
+            "min": 3.52,
+            "p50": 6.189,
+            "p75": 6.807,
+            "p90": 7.458
           },
           "name": "Zone 3",
           "streets": [
+            "bender_core: 1-й Братский переулок",
             "bender_core: 1-й Измаильский переулок",
+            "bender_core: 1-й переулок Петровского",
+            "bender_core: 2-й Братский переулок",
             "bender_core: 2-й Измаильский переулок",
+            "bender_core: 2-й переулок Петровского",
+            "bender_core: 3-й Индустриальный переулок",
             "bender_core: Безымянный переулок",
             "bender_core: Бельцкая улица",
+            "bender_core: Братская улица",
+            "bender_core: Варницкий переулок",
+            "bender_core: Варницкий тупик",
             "bender_core: Восточная улица",
+            "bender_core: Восточный переулок",
             "bender_core: Гвардейская улица",
             "bender_core: Гербовецкая улица",
+            "bender_core: Главная улица",
             "bender_core: Глинная улица",
+            "bender_core: Дачная улица",
             "bender_core: Деповская улица",
             "bender_core: Железнодорожная улица",
             "bender_core: Железнодорожный тупик",
+            "bender_core: Загородная улица",
             "bender_core: Индустриальная улица",
             "bender_core: Кагульская улица",
             "bender_core: Каховская улица",
             "bender_core: Каховский тупик",
+            "bender_core: Киевская улица",
             "bender_core: Киркаештская улица",
+            "bender_core: Кицканская улица",
+            "bender_core: Кицканский переулок",
             "bender_core: Кишинёвская улица",
+            "bender_core: Кишинёвский тупик",
+            "bender_core: Коммунистическая улица",
+            "bender_core: Кооперативный тупик",
             "bender_core: Красноармейская улица",
+            "bender_core: Красноармейский переулок",
             "bender_core: Ленинградская улица",
             "bender_core: Лесовой переулок",
             "bender_core: Молодёжная улица",
+            "bender_core: Новый проезд",
             "bender_core: Одесская улица",
             "bender_core: Пионерская улица",
             "bender_core: Пионерский переулок",
+            "bender_core: Протягайловская улица",
             "bender_core: Путейская улица",
             "bender_core: Санаторная улица",
+            "bender_core: Севастопольская улица",
+            "bender_core: Спортивная улица",
             "bender_core: Треугольный переулок",
             "bender_core: Фонтанная улица",
             "bender_core: Хотинская улица",
+            "bender_core: Школьная улица",
+            "bender_core: Южная улица",
             "bender_core: переулок Бородина",
+            "bender_core: переулок Емилиана Букова",
             "bender_core: переулок Лермонтова",
+            "bender_core: переулок Менделеева",
             "bender_core: переулок Мира",
+            "bender_core: переулок Мичурина",
             "bender_core: переулок Осипенко",
+            "bender_core: переулок Пирогова",
             "bender_core: переулок Полоза",
+            "bender_core: переулок Строителей",
+            "bender_core: переулок Текстильщиков",
+            "bender_core: тупик Пирогова",
             "bender_core: улица 12 Октября",
             "bender_core: улица 23 Августа",
+            "bender_core: улица 28 Июня",
             "bender_core: улица 40 лет ВЛКСМ",
             "bender_core: улица 40 лет Победы",
             "bender_core: улица 40 лет Советской Пионерии",
             "bender_core: улица 50 лет ВЛКСМ",
+            "bender_core: улица Асаке",
+            "bender_core: улица Баумана",
             "bender_core: улица Богдана Хмельницкого",
+            "bender_core: улица Бориса Главана",
             "bender_core: улица Бородина",
+            "bender_core: улица Гастелло",
             "bender_core: улица Герцена",
+            "bender_core: улица Глядковской",
             "bender_core: улица Гоголя",
+            "bender_core: улица Димитрова",
             "bender_core: улица Добродеева",
+            "bender_core: улица Емилиана Букова",
             "bender_core: улица Зои Космодемьянской",
             "bender_core: улица Ивана Федько",
             "bender_core: улица Ивана Шимкова",
             "bender_core: улица Интернационалистов",
             "bender_core: улица Калашникова",
+            "bender_core: улица Клары Цеткин",
+            "bender_core: улица Космонавтов",
             "bender_core: улица Кошевого",
             "bender_core: улица Крупской",
             "bender_core: улица Крянгэ",
@@ -490,35 +1837,59 @@
             "bender_core: улица Луначарского",
             "bender_core: улица Матросова",
             "bender_core: улица Мацнева",
+            "bender_core: улица Менделеева",
+            "bender_core: улица Мичурина",
+            "bender_core: улица Некрасова",
             "bender_core: улица Осипенко",
+            "bender_core: улица Островского",
             "bender_core: улица Павлика Морозова",
             "bender_core: улица Панфилова",
+            "bender_core: улица Петровского",
+            "bender_core: улица Пирогова",
+            "bender_core: улица Победы",
             "bender_core: улица Ползунова",
             "bender_core: улица Полоза",
             "bender_core: улица Пугачёва",
             "bender_core: улица Сергея Ревенялэ",
             "bender_core: улица Спартака",
             "bender_core: улица Старого",
+            "bender_core: улица Строителей",
+            "bender_core: улица Тамары Кручок",
             "bender_core: улица Тимирязева",
+            "bender_core: улица Титова",
+            "bender_core: улица Ткаченко",
             "bender_core: улица Толстого",
             "bender_core: улица Тургенева",
+            "bender_core: улица Франко",
+            "bender_core: улица Фрунзе",
             "bender_core: улица Халтурина",
             "bender_core: улица Чайковского",
+            "bender_core: улица Чернышевского",
             "bender_core: улица Чехова",
             "bender_lipcani: 1-й переулок Кутузова",
+            "bender_lipcani: 2-й переулок Кутузова",
+            "bender_lipcani: Колхозный переулок",
+            "bender_lipcani: Красивая улица",
+            "bender_lipcani: Парканская улица",
+            "bender_lipcani: Пограничный переулок",
+            "bender_lipcani: Подольская улица",
+            "bender_lipcani: Подольский переулок",
+            "bender_lipcani: переулок Грибоедова",
+            "bender_lipcani: переулок Энгельса",
+            "bender_lipcani: улица Гайдара",
             "bender_lipcani: улица Кутузова",
-            "giska: Госпитальная улица",
+            "bender_lipcani: улица Титова",
+            "bender_lipcani: улица Энгельса",
             "giska: Молодёжная улица",
+            "giska: Первомайская улица",
+            "giska: Приднестровская улица",
             "giska: Студенческая улица",
-            "giska: Учительская улица",
-            "giska: Школьная улица",
             "giska: переулок Суворова",
             "giska: улица 40 лет МССР",
             "giska: улица 60 лет Октября",
-            "giska: улица Бориса Главана",
             "giska: улица Гоголя",
             "giska: улица Интернационалистов",
-            "giska: улица Курило",
+            "giska: улица Кирова",
             "giska: улица Ленина",
             "giska: улица Мира",
             "giska: улица Суворова",
@@ -538,6 +1909,7 @@
             "parkany: улица Гагарина",
             "parkany: улица Гоголя",
             "parkany: улица Горького",
+            "parkany: улица Димитрова",
             "parkany: улица Калинина",
             "parkany: улица Карла Маркса",
             "parkany: улица Кирова",
@@ -547,6 +1919,7 @@
             "parkany: улица Маяковского",
             "parkany: улица Мичурина",
             "parkany: улица Петра Николаева",
+            "parkany: улица Пушкина",
             "parkany: улица Романенко",
             "parkany: улица Русакова",
             "parkany: улица Сергея Лазо",
@@ -560,43 +1933,39 @@
             "protyagailovka: Гербовецкая улица",
             "protyagailovka: Гербовецкий переулок",
             "protyagailovka: Главная улица",
-            "protyagailovka: Главный переулок",
             "protyagailovka: Комсомольская улица",
             "protyagailovka: Комсомольский переулок",
             "protyagailovka: Луговая улица",
-            "protyagailovka: Молодёжная улица",
             "protyagailovka: Первомайская улица",
             "protyagailovka: Санаторная улица",
+            "protyagailovka: переулок Куйбышева",
             "protyagailovka: улица 50 лет Победы",
-            "protyagailovka: улица Алеку Руссо",
-            "protyagailovka: улица Космонавтов",
-            "protyagailovka: улица Мира",
-            "protyagailovka: улица Штефан чел Маре"
+            "protyagailovka: улица Мира"
           ],
-          "unique_delivery_units": 7790,
+          "unique_delivery_units": 12636,
           "zone": 3
         },
         {
-          "address_units": 1336,
-          "bam_km_p50": 7.079,
-          "bam_min_p50": 9.44,
-          "central_km_p50": 6.968,
-          "central_min_p50": 8.762,
-          "demand_weight": 2624.6,
+          "address_units": 1676,
+          "bam_km_p50": 7.059,
+          "bam_min_p50": 9.432,
+          "central_km_p50": 6.702,
+          "central_min_p50": 8.495,
+          "demand_weight": 1673.9,
           "km": {
-            "max": 11.203,
-            "min": 6.277,
-            "p50": 6.885,
-            "p75": 7.663,
-            "p90": 8.302
+            "max": 9.693,
+            "min": 5.973,
+            "p50": 6.641,
+            "p75": 7.469,
+            "p90": 8.315
           },
-          "km_dispersion": 0.7603,
+          "km_dispersion": 0.6973,
           "minutes": {
-            "max": 17.95,
-            "min": 6.88,
-            "p50": 8.844,
-            "p75": 9.654,
-            "p90": 10.509
+            "max": 18.22,
+            "min": 6.56,
+            "p50": 8.563,
+            "p75": 9.415,
+            "p90": 10.347
           },
           "name": "Zone 4",
           "streets": [
@@ -605,9 +1974,13 @@
             "bender_core: Кишинёвская улица",
             "bender_core: Кишинёвский переулок",
             "bender_core: Новый проезд",
+            "bender_core: Одесская улица",
             "bender_core: Пионерская улица",
+            "bender_core: переулок Мира",
             "bender_core: переулок Осипенко",
             "bender_core: улица 12 Октября",
+            "bender_core: улица 50 лет ВЛКСМ",
+            "bender_core: улица Герцена",
             "bender_core: улица Глядковской",
             "bender_core: улица Дзержинского",
             "bender_core: улица Интернационалистов",
@@ -615,18 +1988,23 @@
             "bender_core: улица Павлика Морозова",
             "bender_core: улица Панфилова",
             "bender_core: улица Полоза",
+            "bender_core: улица Тимирязева",
             "giska: Госпитальная улица",
             "giska: Заречная улица",
+            "giska: Молодёжная улица",
             "giska: Октябрьская улица",
             "giska: Октябрьский переулок",
             "giska: Садовая улица",
             "giska: Театральная улица",
+            "giska: Учительская улица",
             "giska: Школьная улица",
             "giska: Школьный переулок",
             "giska: переулок Мира",
             "giska: переулок Суворова",
             "giska: улица 60 лет Октября",
+            "giska: улица Бориса Главана",
             "giska: улица Гагарина",
+            "giska: улица Гоголя",
             "giska: улица Курило",
             "giska: улица Ленина",
             "giska: улица Мира",
@@ -637,6 +2015,7 @@
             "parkany: Молодёжная улица",
             "parkany: Солнечная улица",
             "parkany: Степная улица",
+            "parkany: улица Горького",
             "parkany: улица Дружбы",
             "parkany: улица Карла Маркса",
             "parkany: улица Ковалёва",
@@ -651,7 +2030,10 @@
             "protyagailovka: Банный переулок",
             "protyagailovka: Гербовецкая улица",
             "protyagailovka: Главная улица",
+            "protyagailovka: Главный переулок",
+            "protyagailovka: Комсомольский переулок",
             "protyagailovka: Лесовая улица",
+            "protyagailovka: Луговая улица",
             "protyagailovka: Мирная улица",
             "protyagailovka: Молодёжная улица",
             "protyagailovka: Молодёжный переулок",
@@ -662,6 +2044,7 @@
             "protyagailovka: Санаторная улица",
             "protyagailovka: Славянская улица",
             "protyagailovka: Совхозная улица",
+            "protyagailovka: улица 50 лет Победы",
             "protyagailovka: улица Академика Берга",
             "protyagailovka: улица Алеку Руссо",
             "protyagailovka: улица Космонавтов",
@@ -670,7 +2053,7 @@
             "protyagailovka: улица Серикова",
             "protyagailovka: улица Штефан чел Маре"
           ],
-          "unique_delivery_units": 3923,
+          "unique_delivery_units": 4853,
           "zone": 4
         }
       ]
@@ -678,197 +2061,1855 @@
     "5": {
       "k": 5,
       "monotonic": true,
+      "split_street_house_ranges": [
+        {
+          "settlement": "bender_core",
+          "street_ru": "1-й Измаильский переулок",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "3-37, 56-60, 60А, 62-64, 151-155, 159, 167-175",
+              "units": 50,
+              "with_housenumber": 39
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Бельцкая улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-28, 31-33, 33б, 34-35, 36/36а, 37-45, 49-51, 55-57, 92-94, 98-100, 104-106",
+              "units": 69,
+              "with_housenumber": 43
+            },
+            "Zone 4": {
+              "house_numbers": "10, 14, 21-29",
+              "units": 17,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Варницкий переулок",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-5, 57, 158",
+              "units": 10,
+              "with_housenumber": 7
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Варницкий тупик",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 9",
+              "units": 9,
+              "with_housenumber": 2
+            },
+            "Zone 4": {
+              "house_numbers": "13-16",
+              "units": 8,
+              "with_housenumber": 3
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Деповская улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 4,
+              "with_housenumber": 0
+            },
+            "Zone 5": {
+              "house_numbers": "5",
+              "units": 25,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Загородная улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-3, 3а, 4-18",
+              "units": 27,
+              "with_housenumber": 17
+            },
+            "Zone 3": {
+              "house_numbers": "12-14, 14а, 16-36, 37а, 38, 38а, 40, 42а, 43-50",
+              "units": 45,
+              "with_housenumber": 34
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Индустриальная улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-3, 68, 93",
+              "units": 4,
+              "with_housenumber": 4
+            },
+            "Zone 3": {
+              "house_numbers": "2, 4а, 4б, 4в, 4/1, 4д, 4г, 4д, 7-31, 43, 47-51, 55-67, 69А, 81, 105-107, 109а",
+              "units": 80,
+              "with_housenumber": 37
+            },
+            "Zone 4": {
+              "house_numbers": "1, 5, 12-16, 16а, 18-22, 97, 97а, 101а, 103, 103а, 107-123, 127/1, 145",
+              "units": 56,
+              "with_housenumber": 30
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Кицканская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "13",
+              "units": 3,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 10,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Кицканский переулок",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-4, 9-11, 14-20",
+              "units": 23,
+              "with_housenumber": 9
+            },
+            "Zone 4": {
+              "house_numbers": "3-12",
+              "units": 13,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Кишинёвская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "54",
+              "units": 6,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "1, 1а, 1б, 3-8, 8/1, 8/2, 9-12, 12/3, 14-16, 20, 24, 34/2, 60, 76-78",
+              "units": 59,
+              "with_housenumber": 22
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Колодезная улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "2-5, 9-13, 17",
+              "units": 16,
+              "with_housenumber": 7
+            },
+            "Zone 3": {
+              "house_numbers": "21-29",
+              "units": 5,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Коммунистическая улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-2, 2А, 3-7, 7/1, 8-58, 65-98, 98Б, 100-103, 103а, 104-115, 116а, 117-125, 125а, 125в, 126-132, 134а/1, 138",
+              "units": 219,
+              "with_housenumber": 111
+            },
+            "Zone 2": {
+              "house_numbers": "2, 62, 69, 141, 150, 153а, 155-160, 165, 168-180, 182а, 184-188, 192",
+              "units": 44,
+              "with_housenumber": 24
+            },
+            "Zone 3": {
+              "house_numbers": "1, 4, 187-189, 189а, 191, 195-205, 209",
+              "units": 18,
+              "with_housenumber": 13
+            },
+            "Zone 4": {
+              "house_numbers": "207",
+              "units": 1,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Комсомольская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-2, 2б, 4-6, 7A, 8-16, 19-21, 24, 24/5, 26, 26а, 28-36, 37a, 38-42, 42а, 43-58, 58А, 59-78, 81-101, 106-107",
+              "units": 181,
+              "with_housenumber": 100
+            },
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 3,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Ленинградская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "14-18, 22-32, 42, 42a",
+              "units": 26,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "36-38, 44, 52-72, 76",
+              "units": 29,
+              "with_housenumber": 16
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Новый проезд",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1а",
+              "units": 3,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "1/3, 1а, 3а, 4-5, 10, 40, 46",
+              "units": 45,
+              "with_housenumber": 8
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Одесская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 4, 10, 33-39, 67а",
+              "units": 10,
+              "with_housenumber": 8
+            },
+            "Zone 4": {
+              "house_numbers": "3-8, 12-14, 27",
+              "units": 9,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Первомайская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "45-49, 57-85, 90-92, 97-99, 99а, 101, 106-141, 146-156, 156а, 158, 158а, 164-170, 184-188",
+              "units": 125,
+              "with_housenumber": 78
+            },
+            "Zone 2": {
+              "house_numbers": "2, 2/А, 2/Б, 4-16, 18/18-а, 20, 20/2, 22-26, 26/4, 28-38, 42, 46, 50, 54-68, 73/1, 84, 87-95, 105-107, 126-128, 142-149, 160-162, 162а, 164, 164а, 174-176, 180-182",
+              "units": 90,
+              "with_housenumber": 67
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Первомайский переулок",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-8, 11-12, 16-22, 25, 63, 171",
+              "units": 34,
+              "with_housenumber": 15
+            },
+            "Zone 2": {
+              "house_numbers": "26-30",
+              "units": 6,
+              "with_housenumber": 3
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Песчанная улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "102-104, 143-155",
+              "units": 13,
+              "with_housenumber": 9
+            },
+            "Zone 2": {
+              "house_numbers": "1-3, 3а, 4-13, 13а, 14-15, 15а, 16-21, 27-31, 130-132, 132а, 134-140, 151-163",
+              "units": 76,
+              "with_housenumber": 41
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Протягайловская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 5",
+              "units": 29,
+              "with_housenumber": 2
+            },
+            "Zone 4": {
+              "house_numbers": "2, 2/1, 2/2, 7, 7a, 9-13, 16-22",
+              "units": 33,
+              "with_housenumber": 15
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Путейская улица",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-15, 20",
+              "units": 15,
+              "with_housenumber": 9
+            },
+            "Zone 3": {
+              "house_numbers": "15a, 15б, 17",
+              "units": 3,
+              "with_housenumber": 3
+            },
+            "Zone 4": {
+              "house_numbers": "1-6, 10, 10а, 12, 12а, 12б",
+              "units": 14,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Садовая улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-10, 10а, 11-44, 47-73, 73 A, 75, 75а, 172, 172а",
+              "units": 104,
+              "with_housenumber": 67
+            },
+            "Zone 2": {
+              "house_numbers": "13-15, 66-76, 81, 84-111",
+              "units": 55,
+              "with_housenumber": 31
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Тираспольская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1, 1А, 2, 2А, 3, 3А, 4-5, 8-10, 10В, 11-22",
+              "units": 71,
+              "with_housenumber": 28
+            },
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Херсонская улица",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "16-24, 24а, 90а, 92-100, 137-141",
+              "units": 71,
+              "with_housenumber": 16
+            },
+            "Zone 2": {
+              "house_numbers": "2-14, 143, 147, 153",
+              "units": 23,
+              "with_housenumber": 10
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "Хотинская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "4-6, 49-55, 73",
+              "units": 9,
+              "with_housenumber": 7
+            },
+            "Zone 4": {
+              "house_numbers": "4а, 4б, 18, 77, 144-152",
+              "units": 14,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "переулок 28 Июня",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "2, 44",
+              "units": 20,
+              "with_housenumber": 2
+            },
+            "Zone 3": {
+              "house_numbers": "6",
+              "units": 1,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "переулок Калинина",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-6",
+              "units": 6,
+              "with_housenumber": 6
+            },
+            "Zone 2": {
+              "house_numbers": "7-8",
+              "units": 2,
+              "with_housenumber": 2
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 12 Октября",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 4": {
+              "house_numbers": "2, 9-10, 15-17, 21-83, 83а, 83б, 85-86, 156, 160-164",
+              "units": 116,
+              "with_housenumber": 62
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 28 Июня",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "3, 26, 26а, 28, 32-36, 116, 120, 213-215",
+              "units": 28,
+              "with_housenumber": 15
+            },
+            "Zone 3": {
+              "house_numbers": "8, 18-24",
+              "units": 10,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица 40 лет Победы",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-12",
+              "units": 15,
+              "with_housenumber": 10
+            },
+            "Zone 4": {
+              "house_numbers": "7, 11, 14-26, 26\\1, 27-28, 28/1, 29, 29/1, 30-31, 31/1, 31/4, 32-44, 44а, 46, 50",
+              "units": 61,
+              "with_housenumber": 41
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Баумана",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "3-11",
+              "units": 23,
+              "with_housenumber": 5
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Бориса Главана",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 3": {
+              "house_numbers": "5а",
+              "units": 5,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "1-24, 24а, 26-30, 32а, 34, 40-52, 144",
+              "units": 88,
+              "with_housenumber": 41
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Гастелло",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-21",
+              "units": 24,
+              "with_housenumber": 20
+            },
+            "Zone 4": {
+              "house_numbers": "23",
+              "units": 1,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Глядковской",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-3, 7, 7а, 9, 9а, 9б, 11, 12а, 14",
+              "units": 42,
+              "with_housenumber": 13
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Горького",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "14-20, 20а, 22-26",
+              "units": 25,
+              "with_housenumber": 8
+            },
+            "Zone 2": {
+              "house_numbers": "1-4, 7, 10, 64",
+              "units": 10,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Дзержинского",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1, 1А, 1а, ПОСТ ЭЦ 1, 2А, 2Б, 3-17, 17А, 21-24, 26В, 27-39, 42, 42A, 45-48, 53-57",
+              "units": 116,
+              "with_housenumber": 46
+            },
+            "Zone 2": {
+              "house_numbers": "58а, 59-67, 67б, 71",
+              "units": 34,
+              "with_housenumber": 10
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Димитрова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-9, 206",
+              "units": 12,
+              "with_housenumber": 9
+            },
+            "Zone 3": {
+              "house_numbers": "10-18, 24-35",
+              "units": 20,
+              "with_housenumber": 16
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Зои Космодемьянской",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 4-6, 8-Б, 8а, 10, 10/1, 14-22, 26-30, 39-43, 53, 69-71, 81-87",
+              "units": 53,
+              "with_housenumber": 31
+            },
+            "Zone 4": {
+              "house_numbers": "99",
+              "units": 5,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Ивана Федько",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-16, 19, 26-32, 35-37",
+              "units": 43,
+              "with_housenumber": 22
+            },
+            "Zone 4": {
+              "house_numbers": "18-24",
+              "units": 18,
+              "with_housenumber": 4
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Интернационалистов",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-4, 8-10, 13а, 13б, 15, 25",
+              "units": 19,
+              "with_housenumber": 10
+            },
+            "Zone 5": {
+              "house_numbers": "5-13",
+              "units": 8,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Кирова",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "2-12, 12a, 14А, 14Б, 15-17, 17А, 18-19, 19А, 20-21, 21/1, 22-45, 49-52, 52/1, 53-55, 57/3, 65-67, 72-94, 97-115",
+              "units": 158,
+              "with_housenumber": 84
+            },
+            "Zone 2": {
+              "house_numbers": "7а, 10а, 21, 91а, 96, 117-123, 134а",
+              "units": 12,
+              "with_housenumber": 10
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Клары Цеткин",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-8, 8а, 10, 10/5, 10/6, 12, 30-32, 56",
+              "units": 38,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 4,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Космонавтов",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-39",
+              "units": 31,
+              "with_housenumber": 26
+            },
+            "Zone 4": {
+              "house_numbers": "1-9, 13",
+              "units": 6,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Маяковского",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "10-19, 20а, 21-87",
+              "units": 91,
+              "with_housenumber": 57
+            },
+            "Zone 2": {
+              "house_numbers": "76, 80-82, 89, 93",
+              "units": 5,
+              "with_housenumber": 5
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Мира",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-4, 4а/1, 4а/2, 6-16, 16а, 17-21, 27-29, 114, 207, 207/1, 209-211",
+              "units": 55,
+              "with_housenumber": 33
+            },
+            "Zone 3": {
+              "house_numbers": "22",
+              "units": 4,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Мичурина",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "2-12, 208",
+              "units": 8,
+              "with_housenumber": 7
+            },
+            "Zone 3": {
+              "house_numbers": "1-5, 5а, 6, 6а, 7, 7а, 8-21, 25-38, 41, 44, 51-53",
+              "units": 50,
+              "with_housenumber": 36
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Некрасова",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1/Б, 2/2, 2а, 3-7, 7а, 8-16, 16а, 17-29, 29а, 30-42, 42а, 44-67, 73-82, 82а, 83-85, 86а, 87-88, 88а, 89-94, 94а, 95, 96а, 97-98, 98а, 99-101, 102а, 103-116, 159-161, 164",
+              "units": 195,
+              "with_housenumber": 108
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Павлика Морозова",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-8, 13-19",
+              "units": 26,
+              "with_housenumber": 15
+            },
+            "Zone 5": {
+              "house_numbers": "12",
+              "units": 2,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Полоза",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2, 2а, 3-20",
+              "units": 25,
+              "with_housenumber": 19
+            },
+            "Zone 5": {
+              "house_numbers": "10",
+              "units": 1,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Правды",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-15, 19-29, 29а, 31-53",
+              "units": 42,
+              "with_housenumber": 27
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 2,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Пушкина",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1-14, 19-24, 24А, 25-52, 56-60, 69-71, 75",
+              "units": 107,
+              "with_housenumber": 44
+            },
+            "Zone 2": {
+              "house_numbers": "58а, 62, 66-68, 89-91",
+              "units": 8,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Советской Армии",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1-3, 4а, 5-16, 30, 32в",
+              "units": 32,
+              "with_housenumber": 19
+            },
+            "Zone 3": {
+              "house_numbers": "10-12, 16",
+              "units": 4,
+              "with_housenumber": 3
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Тамары Кручок",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "157",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 2": {
+              "house_numbers": "1-17, 20-24, 27-38, 45-57, 165-167, 177, 183",
+              "units": 66,
+              "with_housenumber": 37
+            },
+            "Zone 3": {
+              "house_numbers": "41, 41a, 59-83, 83а, 84-90, 90а, 91-102, 110-138",
+              "units": 74,
+              "with_housenumber": 49
+            }
+          }
+        },
+        {
+          "settlement": "bender_core",
+          "street_ru": "улица Ткаченко",
+          "zones": {
+            "Zone 1": {
+              "house_numbers": "1, 4, 4в, 5-18, 18 и 4\"в\", 19, 22-24, 27-28, 28А, 29а, 32, 87-92, 92А, 93-127, 128а, 129-169",
+              "units": 153,
+              "with_housenumber": 97
+            },
+            "Zone 3": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "1-й переулок Кутузова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 2а, 2б, 3-15, 15а, 30, 30а",
+              "units": 24,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "19",
+              "units": 13,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "Пограничный переулок",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "6",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 3": {
+              "house_numbers": "13-22, 24а",
+              "units": 22,
+              "with_housenumber": 7
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Иона Солтыса",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1, 1а, 3-14, 20",
+              "units": 15,
+              "with_housenumber": 10
+            },
+            "Zone 3": {
+              "house_numbers": "15-17, 22-28",
+              "units": 8,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Кутузова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 2а, 3-5, 5а, 6, 9, 9а, 11-28",
+              "units": 40,
+              "with_housenumber": 20
+            },
+            "Zone 4": {
+              "house_numbers": "19, 19а, 30, 30а, 32-38",
+              "units": 16,
+              "with_housenumber": 8
+            }
+          }
+        },
+        {
+          "settlement": "bender_lipcani",
+          "street_ru": "улица Энгельса",
+          "zones": {
+            "Zone 2": {
+              "house_numbers": "1б, 20",
+              "units": 4,
+              "with_housenumber": 2
+            },
+            "Zone 3": {
+              "house_numbers": "1-3, 3а, 4-5, 5а, 6а, 7, 10-11, 11а, 12-16, 16\"А\", 16\"Б\" , 16\"В\", 22-38, 38а",
+              "units": 49,
+              "with_housenumber": 31
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "Госпитальная улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "12, 12 В, 14а, 16, 24, 31, 52-56, 63, 78, 87-89, 105",
+              "units": 127,
+              "with_housenumber": 16
+            },
+            "Zone 5": {
+              "house_numbers": "8, 10а, 20, 35-39, 45-47",
+              "units": 61,
+              "with_housenumber": 8
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "Школьная улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            },
+            "Zone 5": {
+              "house_numbers": "15-39",
+              "units": 61,
+              "with_housenumber": 17
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "Школьный переулок",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "3-4",
+              "units": 6,
+              "with_housenumber": 2
+            },
+            "Zone 5": {
+              "house_numbers": "1-5, 15-16",
+              "units": 37,
+              "with_housenumber": 8
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "переулок Суворова",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-2, 25, 28-29, 61",
+              "units": 33,
+              "with_housenumber": 6
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица 60 лет Октября",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-4, 39",
+              "units": 58,
+              "with_housenumber": 6
+            },
+            "Zone 5": {
+              "house_numbers": "28",
+              "units": 10,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Курило",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-2, 13, 20",
+              "units": 29,
+              "with_housenumber": 4
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Ленина",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 4": {
+              "house_numbers": "2, 2/A, 2б, 5, 13-17, 21, 26-28, 47-49, 58-59, 71, 73/A, 75-77, 90а, 92-93, 100-103, 109, 111а, 126",
+              "units": 248,
+              "with_housenumber": 28
+            },
+            "Zone 5": {
+              "house_numbers": "1, 4, 121, 131-133, 136, 144, 146а, 156, 166, 168а, 172-174, 178, 180 А, 188, 190 А, 199-201, 214-216, 230, 235, 242-244, 248-253, 253 А, 254 А, 257, 260, 266, 270, 273 А, 274-280, 285, 295-297, 313, 329",
+              "units": 352,
+              "with_housenumber": 51
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Мира",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "26-28",
+              "units": 3,
+              "with_housenumber": 2
+            },
+            "Zone 4": {
+              "house_numbers": "1, 1а, 2, 2а, 3-5, 5а, 6-12, 12а, 13-30, 30а, 32-44, 51, 80-82, 93-95",
+              "units": 176,
+              "with_housenumber": 47
+            },
+            "Zone 5": {
+              "house_numbers": "43",
+              "units": 4,
+              "with_housenumber": 1
+            }
+          }
+        },
+        {
+          "settlement": "giska",
+          "street_ru": "улица Суворова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 2-16, 16а, 18, 18а, 20-24, 79-83, 83а, 85-103",
+              "units": 42,
+              "with_housenumber": 32
+            },
+            "Zone 4": {
+              "house_numbers": "5-23, 34, 46, 62, 75",
+              "units": 99,
+              "with_housenumber": 26
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Комсомольская улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-18, 18а, 20-65",
+              "units": 177,
+              "with_housenumber": 64
+            },
+            "Zone 4": {
+              "house_numbers": "2, 24, 40, 66-121, 124-175",
+              "units": 257,
+              "with_housenumber": 105
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Молодёжная улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-42, 49-100",
+              "units": 182,
+              "with_housenumber": 97
+            },
+            "Zone 5": {
+              "house_numbers": "43-50, 101, 105-124",
+              "units": 45,
+              "with_housenumber": 29
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Садовая улица",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-5, 5а, 6-51, 51а, 52-77, 77а, 79-85, 85а, 87, 87а, 89-91",
+              "units": 214,
+              "with_housenumber": 87
+            },
+            "Zone 4": {
+              "house_numbers": "68-88, 92-101, 101а, 103-121, 125-129",
+              "units": 87,
+              "with_housenumber": 34
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "Степная улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-60, 80-96",
+              "units": 48,
+              "with_housenumber": 39
+            },
+            "Zone 5": {
+              "house_numbers": "62-78",
+              "units": 14,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Благоева",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-62",
+              "units": 213,
+              "with_housenumber": 84
+            },
+            "Zone 4": {
+              "house_numbers": "35-47, 47а, 64-72",
+              "units": 36,
+              "with_housenumber": 15
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Ворошилова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-2, 5-30, 32а",
+              "units": 83,
+              "with_housenumber": 32
+            },
+            "Zone 4": {
+              "house_numbers": "31-61, 61а, 62-88, 89;91, 90-137, 137а, 138-163, 166",
+              "units": 347,
+              "with_housenumber": 133
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Гоголя",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-42, 46-52, 56-58, 62, 64А, 64Б",
+              "units": 119,
+              "with_housenumber": 47
+            },
+            "Zone 4": {
+              "house_numbers": "11, 66-68",
+              "units": 31,
+              "with_housenumber": 3
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Карла Маркса",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-14, 25a, 26-28",
+              "units": 22,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "5-45, 45а, 46-75, 75а, 76-178, 178а, 179-222, 222а, 223-290",
+              "units": 640,
+              "with_housenumber": 274
+            },
+            "Zone 5": {
+              "house_numbers": "231-233, 241-243, 261-271, 296-348",
+              "units": 72,
+              "with_housenumber": 39
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Ковалёва",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-22, 34, 88, 96",
+              "units": 44,
+              "with_housenumber": 14
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Котовского",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-6, 6а, 7-44",
+              "units": 144,
+              "with_housenumber": 68
+            },
+            "Zone 4": {
+              "house_numbers": "40-57, 57 А, 58-64, 64а, 65-67, 67а, 68-91, 91 А, 92-98, 101-175",
+              "units": 344,
+              "with_housenumber": 163
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Ленина",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-55, 55А, 56-83, 83а, 84-86, 86а, 87-110",
+              "units": 274,
+              "with_housenumber": 108
+            },
+            "Zone 4": {
+              "house_numbers": "2, 99-101, 105-133, 133а, 134-160, 200",
+              "units": 149,
+              "with_housenumber": 46
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Мичурина",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-30, 30а, 31-145, 145а, 146-161",
+              "units": 258,
+              "with_housenumber": 159
+            },
+            "Zone 5": {
+              "house_numbers": "148-150, 154-156, 156а, 158-171, 171а, 172-201",
+              "units": 41,
+              "with_housenumber": 40
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Петра Николаева",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-10",
+              "units": 19,
+              "with_housenumber": 9
+            },
+            "Zone 4": {
+              "house_numbers": "9-103, 103а, 104-125, 125а, 126-133, 133а, 134-135, 135а, 136-137, 137 А, 138-162, 162а, 163-167, 167а, 168-180, 180а, 181-190, 190а, 191-210, 210а, 211-212, 212а, 213-216, 216а, 217, 217а, 218-236",
+              "units": 550,
+              "with_housenumber": 350
+            },
+            "Zone 5": {
+              "house_numbers": "150, 156-158, 195-221, 221а, 223-235, 238-244",
+              "units": 80,
+              "with_housenumber": 37
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Пушкина",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-72, 72а, 73-92",
+              "units": 232,
+              "with_housenumber": 94
+            },
+            "Zone 4": {
+              "house_numbers": "91-110",
+              "units": 36,
+              "with_housenumber": 15
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Романенко",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-3, 3а, 4-35, 35а, 36-50, 50а, 51-60, 60а, 61-62, 62а, 63-67, 67а, 68-70, 70а, 71-73, 73а, 74-101, 101а, 102-122",
+              "units": 224,
+              "with_housenumber": 135
+            },
+            "Zone 5": {
+              "house_numbers": "123-174",
+              "units": 51,
+              "with_housenumber": 51
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Свердлова",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1, 1а, 2-18, 18а, 20-24, 30-44",
+              "units": 33,
+              "with_housenumber": 32
+            },
+            "Zone 5": {
+              "house_numbers": "19-114, 118-136",
+              "units": 87,
+              "with_housenumber": 85
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Сергея Лазо",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "2-22, 28-36",
+              "units": 69,
+              "with_housenumber": 29
+            },
+            "Zone 4": {
+              "house_numbers": "23-71",
+              "units": 116,
+              "with_housenumber": 63
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Суворова",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1, 2а, 4-54, 54а, 55-118, 118а, 119-126, 127 сергей, 128-157, 161-162, 169, 172-174, 195, 200",
+              "units": 383,
+              "with_housenumber": 174
+            },
+            "Zone 5": {
+              "house_numbers": "",
+              "units": 1,
+              "with_housenumber": 0
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Фрунзе",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-12, 24, 24б, 25, 28-30",
+              "units": 24,
+              "with_housenumber": 17
+            },
+            "Zone 4": {
+              "house_numbers": "11-61, 61а, 62-111, 111а, 112-143",
+              "units": 220,
+              "with_housenumber": 126
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Чапаева",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-9, 13-16, 16а, 16б, 17-20, 20а, 21-39, 39а, 40-57, 57а, 61-93, 93а,б, 95-115, 115а, 116-130, 131а, 132-135, 135а, 136-140, 143-155, 159-181, 185-241",
+              "units": 443,
+              "with_housenumber": 192
+            },
+            "Zone 5": {
+              "house_numbers": "227, 241",
+              "units": 10,
+              "with_housenumber": 2
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Чехова",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 2-15",
+              "units": 31,
+              "with_housenumber": 12
+            },
+            "Zone 4": {
+              "house_numbers": "1, 10, 17-39, 51-78, 95-97",
+              "units": 101,
+              "with_housenumber": 46
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Шевченко",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1, 1а, 3-15, 19-51, 59, 63-71",
+              "units": 117,
+              "with_housenumber": 41
+            },
+            "Zone 4": {
+              "house_numbers": "2, 8, 75-81",
+              "units": 17,
+              "with_housenumber": 6
+            }
+          }
+        },
+        {
+          "settlement": "parkany",
+          "street_ru": "улица Энгельса",
+          "zones": {
+            "Zone 3": {
+              "house_numbers": "1-10",
+              "units": 24,
+              "with_housenumber": 7
+            },
+            "Zone 4": {
+              "house_numbers": "5-46, 46а, 47-71, 71а, 72-74, 74а, 76-88, 88а",
+              "units": 210,
+              "with_housenumber": 80
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Гербовецкая улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-3, 11, 15, 32-55, 58-73, 76-78, 84-87, 96-98, 98а, 100",
+              "units": 132,
+              "with_housenumber": 43
+            },
+            "Zone 5": {
+              "house_numbers": "103, 112, 115-121, 157, 173, 180, 198",
+              "units": 122,
+              "with_housenumber": 10
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Главная улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2, 2а, 5, 24, 46, 49, 67-88, 93, 96-98, 111, 126",
+              "units": 207,
+              "with_housenumber": 25
+            },
+            "Zone 5": {
+              "house_numbers": "1-7, 157-159, 168, 171-172, 175, 178-180, 189, 195, 200-201, 204, 238, 263",
+              "units": 200,
+              "with_housenumber": 20
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Первомайская улица",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "2-10, 14-57, 62",
+              "units": 85,
+              "with_housenumber": 51
+            },
+            "Zone 5": {
+              "house_numbers": "22, 31-33, 37, 77, 85, 91-93, 102, 107, 110, 141, 154",
+              "units": 138,
+              "with_housenumber": 14
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "Первомайский переулок",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "5-10, 10а, 27-29",
+              "units": 15,
+              "with_housenumber": 9
+            },
+            "Zone 5": {
+              "house_numbers": "1-6",
+              "units": 13,
+              "with_housenumber": 4
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "улица Алеку Руссо",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-27",
+              "units": 36,
+              "with_housenumber": 27
+            },
+            "Zone 5": {
+              "house_numbers": "28-38",
+              "units": 12,
+              "with_housenumber": 9
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "улица Мунтяна",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "98",
+              "units": 1,
+              "with_housenumber": 1
+            },
+            "Zone 5": {
+              "house_numbers": "1-17, 17а, 18, 21, 57-60, 64, 77, 80, 84-86, 91-93, 105-111, 126-130, 153",
+              "units": 138,
+              "with_housenumber": 42
+            }
+          }
+        },
+        {
+          "settlement": "protyagailovka",
+          "street_ru": "улица Штефан чел Маре",
+          "zones": {
+            "Zone 4": {
+              "house_numbers": "1-16, 22",
+              "units": 24,
+              "with_housenumber": 14
+            },
+            "Zone 5": {
+              "house_numbers": "31-33",
+              "units": 2,
+              "with_housenumber": 2
+            }
+          }
+        }
+      ],
       "split_street_list": [
         "bender_core: 1-й Измаильский переулок",
-        "bender_core: 3-й Индустриальный переулок",
-        "bender_core: Безымянный переулок",
         "bender_core: Бельцкая улица",
         "bender_core: Варницкий переулок",
         "bender_core: Варницкий тупик",
-        "bender_core: Восточная улица",
-        "bender_core: Гвардейская улица",
         "bender_core: Деповская улица",
-        "bender_core: Железнодорожная улица",
         "bender_core: Загородная улица",
         "bender_core: Индустриальная улица",
-        "bender_core: Кагульская улица",
-        "bender_core: Киевская улица",
         "bender_core: Кицканская улица",
+        "bender_core: Кицканский переулок",
         "bender_core: Кишинёвская улица",
         "bender_core: Колодезная улица",
         "bender_core: Коммунистическая улица",
+        "bender_core: Комсомольская улица",
         "bender_core: Ленинградская улица",
         "bender_core: Новый проезд",
         "bender_core: Одесская улица",
+        "bender_core: Первомайская улица",
+        "bender_core: Первомайский переулок",
+        "bender_core: Песчанная улица",
         "bender_core: Протягайловская улица",
         "bender_core: Путейская улица",
-        "bender_core: Санаторная улица",
-        "bender_core: Севастопольская улица",
+        "bender_core: Садовая улица",
+        "bender_core: Тираспольская улица",
+        "bender_core: Херсонская улица",
         "bender_core: Хотинская улица",
-        "bender_core: Школьная улица",
-        "bender_core: Южная улица",
         "bender_core: переулок 28 Июня",
+        "bender_core: переулок Калинина",
         "bender_core: улица 12 Октября",
         "bender_core: улица 28 Июня",
-        "bender_core: улица 40 лет ВЛКСМ",
         "bender_core: улица 40 лет Победы",
-        "bender_core: улица 50 лет ВЛКСМ",
         "bender_core: улица Баумана",
         "bender_core: улица Бориса Главана",
         "bender_core: улица Гастелло",
         "bender_core: улица Глядковской",
-        "bender_core: улица Гоголя",
+        "bender_core: улица Горького",
         "bender_core: улица Дзержинского",
         "bender_core: улица Димитрова",
-        "bender_core: улица Дружбы",
         "bender_core: улица Зои Космодемьянской",
         "bender_core: улица Ивана Федько",
-        "bender_core: улица Калашникова",
+        "bender_core: улица Интернационалистов",
+        "bender_core: улица Кирова",
         "bender_core: улица Клары Цеткин",
-        "bender_core: улица Крянгэ",
-        "bender_core: улица Лермонтова",
-        "bender_core: улица Ломоносова",
-        "bender_core: улица Матросова",
-        "bender_core: улица Мацнева",
+        "bender_core: улица Космонавтов",
+        "bender_core: улица Маяковского",
         "bender_core: улица Мира",
         "bender_core: улица Мичурина",
         "bender_core: улица Некрасова",
-        "bender_core: улица Осипенко",
-        "bender_core: улица Островского",
-        "bender_core: улица Павлова",
+        "bender_core: улица Павлика Морозова",
         "bender_core: улица Полоза",
+        "bender_core: улица Правды",
+        "bender_core: улица Пушкина",
         "bender_core: улица Советской Армии",
-        "bender_core: улица Строителей",
         "bender_core: улица Тамары Кручок",
-        "bender_core: улица Тимирязева",
-        "bender_core: улица Титова",
         "bender_core: улица Ткаченко",
-        "bender_core: улица Тургенева",
-        "bender_core: улица Чехова",
-        "bender_core: улица Чкалова",
         "bender_lipcani: 1-й переулок Кутузова",
+        "bender_lipcani: Пограничный переулок",
+        "bender_lipcani: улица Иона Солтыса",
         "bender_lipcani: улица Кутузова",
+        "bender_lipcani: улица Энгельса",
         "giska: Госпитальная улица",
-        "giska: Заречная улица",
-        "giska: Молодёжная улица",
-        "giska: Первомайская улица",
-        "giska: Приднестровская улица",
-        "giska: Студенческая улица",
-        "giska: Театральная улица",
         "giska: Школьная улица",
+        "giska: Школьный переулок",
         "giska: переулок Суворова",
-        "giska: улица Гоголя",
-        "giska: улица Кирова",
+        "giska: улица 60 лет Октября",
+        "giska: улица Курило",
         "giska: улица Ленина",
         "giska: улица Мира",
         "giska: улица Суворова",
-        "giska: улица Ткаченко",
         "parkany: Комсомольская улица",
+        "parkany: Молодёжная улица",
         "parkany: Садовая улица",
-        "parkany: улица Анатолия Макалича",
+        "parkany: Степная улица",
         "parkany: улица Благоева",
-        "parkany: улица Будённого",
         "parkany: улица Ворошилова",
-        "parkany: улица Гагарина",
         "parkany: улица Гоголя",
-        "parkany: улица Горького",
-        "parkany: улица Дружбы",
         "parkany: улица Карла Маркса",
-        "parkany: улица Кирова",
+        "parkany: улица Ковалёва",
         "parkany: улица Котовского",
         "parkany: улица Ленина",
-        "parkany: улица Маяковского",
         "parkany: улица Мичурина",
         "parkany: улица Петра Николаева",
         "parkany: улица Пушкина",
         "parkany: улица Романенко",
-        "parkany: улица Русакова",
         "parkany: улица Свердлова",
         "parkany: улица Сергея Лазо",
         "parkany: улица Суворова",
         "parkany: улица Фрунзе",
         "parkany: улица Чапаева",
         "parkany: улица Чехова",
-        "parkany: улица Чкалова",
         "parkany: улица Шевченко",
         "parkany: улица Энгельса",
         "protyagailovka: Гербовецкая улица",
         "protyagailovka: Главная улица",
-        "protyagailovka: Комсомольская улица",
         "protyagailovka: Первомайская улица",
-        "protyagailovka: Санаторная улица",
-        "protyagailovka: улица Мира",
-        "protyagailovka: улица Мунтяна"
+        "protyagailovka: Первомайский переулок",
+        "protyagailovka: улица Алеку Руссо",
+        "protyagailovka: улица Мунтяна",
+        "protyagailovka: улица Штефан чел Маре"
       ],
-      "split_streets": 120,
+      "split_streets": 98,
       "upper_edges_km": [
-        2.824,
-        4.425,
-        5.576,
-        7.023,
-        11.203
+        1.978,
+        2.977,
+        4.273,
+        6.574,
+        9.692
       ],
-      "weighted_dispersion": 0.4295,
+      "weighted_dispersion": 0.5062,
       "zones": [
         {
-          "address_units": 2629,
-          "bam_km_p50": 4.071,
-          "bam_min_p50": 5.667,
-          "central_km_p50": 1.444,
-          "central_min_p50": 2.18,
-          "demand_weight": 3705.0,
+          "address_units": 1512,
+          "bam_km_p50": 3.675,
+          "bam_min_p50": 5.132,
+          "central_km_p50": 1.094,
+          "central_min_p50": 1.698,
+          "demand_weight": 1512.0,
           "km": {
-            "max": 2.824,
-            "min": 0.361,
-            "p50": 1.658,
-            "p75": 2.263,
-            "p90": 2.537
+            "max": 1.977,
+            "min": 0.375,
+            "p50": 1.368,
+            "p75": 1.647,
+            "p90": 1.835
           },
-          "km_dispersion": 0.5761,
+          "km_dispersion": 0.3314,
           "minutes": {
-            "max": 5.6,
-            "min": 0.55,
-            "p50": 2.514,
-            "p75": 3.115,
-            "p90": 3.565
+            "max": 4.93,
+            "min": 0.57,
+            "p50": 2.086,
+            "p75": 2.487,
+            "p90": 2.769
           },
           "name": "Zone 1",
           "streets": [
             "bender_core: 2-й Береговой переулок",
             "bender_core: 4-й Береговой переулок",
+            "bender_core: Карпатская улица",
+            "bender_core: Коммунистическая улица",
+            "bender_core: Комсомольская улица",
+            "bender_core: Мельничный переулок",
+            "bender_core: Молдавская улица",
+            "bender_core: Московская улица",
+            "bender_core: Оргеевский переулок",
+            "bender_core: Первомайская улица",
+            "bender_core: Первомайский переулок",
+            "bender_core: Песчанная улица",
+            "bender_core: Пивоваренный переулок",
+            "bender_core: Почтовый переулок",
+            "bender_core: Садовая улица",
+            "bender_core: Садовый переулок",
+            "bender_core: Советская улица",
+            "bender_core: Тираспольская улица",
+            "bender_core: Украинская улица",
+            "bender_core: Херсонская улица",
+            "bender_core: Херсонский проезд",
+            "bender_core: переулок Калинина",
+            "bender_core: переулок Суворова",
+            "bender_core: площадь Освобождения",
+            "bender_core: улица Академика Фёдорова",
+            "bender_core: улица Гагарина",
+            "bender_core: улица Горького",
+            "bender_core: улица Дзержинского",
+            "bender_core: улица Кавриаго",
+            "bender_core: улица Калинина",
+            "bender_core: улица Кирова",
+            "bender_core: улица Ленина",
+            "bender_core: улица Маяковского",
+            "bender_core: улица Пушкина",
+            "bender_core: улица Сергея Лазо",
+            "bender_core: улица Тамары Кручок",
+            "bender_core: улица Ткаченко",
+            "bender_core: улица Шевченко",
+            "bender_core: улица Шестакова",
+            "bender_core: улица Щорса"
+          ],
+          "unique_delivery_units": 2860,
+          "zone": 1
+        },
+        {
+          "address_units": 1088,
+          "bam_km_p50": 4.923,
+          "bam_min_p50": 6.503,
+          "central_km_p50": 2.216,
+          "central_min_p50": 2.932,
+          "demand_weight": 1088.0,
+          "km": {
+            "max": 2.976,
+            "min": 1.978,
+            "p50": 2.548,
+            "p75": 2.714,
+            "p90": 2.836
+          },
+          "km_dispersion": 0.2534,
+          "minutes": {
+            "max": 5.28,
+            "min": 2.27,
+            "p50": 3.379,
+            "p75": 3.722,
+            "p90": 4.157
+          },
+          "name": "Zone 2",
+          "streets": [
             "bender_core: Донецкая улица",
             "bender_core: Дубоссарская улица",
             "bender_core: Загородная улица",
             "bender_core: Индустриальная улица",
-            "bender_core: Карпатская улица",
             "bender_core: Кирпичная улица",
             "bender_core: Кирпичный переулок",
             "bender_core: Колодезная улица",
             "bender_core: Колодезный переулок",
             "bender_core: Коммунистическая улица",
             "bender_core: Комсомольская улица",
-            "bender_core: Мельничный переулок",
-            "bender_core: Молдавская улица",
-            "bender_core: Московская улица",
             "bender_core: Октябрьская улица",
-            "bender_core: Оргеевский переулок",
             "bender_core: Первомайская улица",
             "bender_core: Первомайский переулок",
             "bender_core: Песчанная улица",
             "bender_core: Песчанный переулок",
-            "bender_core: Пивоваренный переулок",
-            "bender_core: Почтовый переулок",
             "bender_core: Путейская улица",
             "bender_core: Рыбницкая улица",
             "bender_core: Рыбницкий переулок",
             "bender_core: Садовая улица",
-            "bender_core: Садовый переулок",
-            "bender_core: Советская улица",
             "bender_core: Тираспольская улица",
-            "bender_core: Украинская улица",
             "bender_core: Фруктовая улица",
             "bender_core: Херсонская улица",
-            "bender_core: Херсонский проезд",
             "bender_core: Школьный переулок",
             "bender_core: переулок 28 Июня",
             "bender_core: переулок 5 Декабря",
@@ -876,91 +3917,72 @@
             "bender_core: переулок Калинина",
             "bender_core: переулок Некрасова",
             "bender_core: переулок Разина",
-            "bender_core: переулок Суворова",
-            "bender_core: площадь Освобождения",
             "bender_core: тупик Некрасова",
             "bender_core: улица 28 Июня",
             "bender_core: улица 5 Декабря",
             "bender_core: улица 7 Ноября",
-            "bender_core: улица Академика Фёдорова",
             "bender_core: улица Баумана",
             "bender_core: улица Бориса Главана",
-            "bender_core: улица Гагарина",
             "bender_core: улица Георге Асаке",
             "bender_core: улица Горького",
             "bender_core: улица Дзержинского",
             "bender_core: улица Димитрова",
-            "bender_core: улица Дружбы",
-            "bender_core: улица Кавриаго",
-            "bender_core: улица Калинина",
             "bender_core: улица Карбышева",
             "bender_core: улица Кирова",
-            "bender_core: улица Ленина",
             "bender_core: улица Маяковского",
             "bender_core: улица Мира",
             "bender_core: улица Мичурина",
             "bender_core: улица Некрасова",
             "bender_core: улица Няги",
-            "bender_core: улица Павлова",
             "bender_core: улица Правды",
             "bender_core: улица Пушкина",
             "bender_core: улица Разина",
-            "bender_core: улица Сергея Лазо",
             "bender_core: улица Советской Армии",
             "bender_core: улица Тамары Кручок",
-            "bender_core: улица Ткаченко",
             "bender_core: улица Толбухина",
             "bender_core: улица Урицкого",
             "bender_core: улица Чапаева",
-            "bender_core: улица Чкалова",
-            "bender_core: улица Шевченко",
-            "bender_core: улица Шестакова",
-            "bender_core: улица Щорса"
+            "bender_lipcani: Пограничный переулок",
+            "bender_lipcani: улица Иона Солтыса",
+            "bender_lipcani: улица Энгельса"
           ],
-          "unique_delivery_units": 4781,
-          "zone": 1
+          "unique_delivery_units": 1826,
+          "zone": 2
         },
         {
-          "address_units": 2087,
-          "bam_km_p50": 4.574,
-          "bam_min_p50": 6.043,
-          "central_km_p50": 3.929,
-          "central_min_p50": 5.067,
-          "demand_weight": 3234.5,
+          "address_units": 1795,
+          "bam_km_p50": 4.517,
+          "bam_min_p50": 5.952,
+          "central_km_p50": 3.868,
+          "central_min_p50": 5.093,
+          "demand_weight": 1795.0,
           "km": {
-            "max": 4.425,
-            "min": 2.825,
-            "p50": 3.999,
-            "p75": 4.228,
-            "p90": 4.351
+            "max": 4.273,
+            "min": 2.977,
+            "p50": 3.824,
+            "p75": 4.058,
+            "p90": 4.196
           },
-          "km_dispersion": 0.4049,
+          "km_dispersion": 0.3647,
           "minutes": {
-            "max": 8.97,
-            "min": 3.05,
-            "p50": 5.188,
-            "p75": 5.767,
-            "p90": 6.393
+            "max": 7.88,
+            "min": 3.26,
+            "p50": 5.105,
+            "p75": 5.643,
+            "p90": 6.199
           },
-          "name": "Zone 2",
+          "name": "Zone 3",
           "streets": [
             "bender_core: 1-й Братский переулок",
             "bender_core: 1-й переулок Петровского",
             "bender_core: 2-й Братский переулок",
             "bender_core: 2-й переулок Петровского",
-            "bender_core: 3-й Индустриальный переулок",
             "bender_core: Бельцкая улица",
             "bender_core: Братская улица",
             "bender_core: Варницкий переулок",
             "bender_core: Варницкий тупик",
-            "bender_core: Восточная улица",
-            "bender_core: Гвардейская улица",
-            "bender_core: Главная улица",
-            "bender_core: Дачная улица",
-            "bender_core: Железнодорожная улица",
             "bender_core: Загородная улица",
             "bender_core: Индустриальная улица",
-            "bender_core: Киевская улица",
             "bender_core: Кицканская улица",
             "bender_core: Кицканский переулок",
             "bender_core: Кишинёвская улица",
@@ -972,17 +3994,16 @@
             "bender_core: Новый проезд",
             "bender_core: Одесская улица",
             "bender_core: Протягайловская улица",
-            "bender_core: Севастопольская улица",
+            "bender_core: Путейская улица",
             "bender_core: Спортивная улица",
             "bender_core: Хотинская улица",
-            "bender_core: Школьная улица",
-            "bender_core: Южная улица",
             "bender_core: переулок 28 Июня",
             "bender_core: переулок Менделеева",
             "bender_core: переулок Мичурина",
             "bender_core: переулок Павлова",
             "bender_core: переулок Пирогова",
             "bender_core: тупик Пирогова",
+            "bender_core: улица 12 Октября",
             "bender_core: улица 28 Июня",
             "bender_core: улица 40 лет Победы",
             "bender_core: улица Асаке",
@@ -1000,22 +4021,18 @@
             "bender_core: улица Мира",
             "bender_core: улица Мичурина",
             "bender_core: улица Некрасова",
-            "bender_core: улица Островского",
             "bender_core: улица Павлова",
             "bender_core: улица Петровского",
             "bender_core: улица Пирогова",
             "bender_core: улица Победы",
+            "bender_core: улица Правды",
             "bender_core: улица Советской Армии",
-            "bender_core: улица Строителей",
             "bender_core: улица Тамары Кручок",
             "bender_core: улица Тельмана",
             "bender_core: улица Титова",
             "bender_core: улица Ткаченко",
-            "bender_core: улица Тургенева",
             "bender_core: улица Франко",
             "bender_core: улица Фрунзе",
-            "bender_core: улица Чернышевского",
-            "bender_core: улица Чехова",
             "bender_core: улица Чкалова",
             "bender_lipcani: 1-й переулок Кутузова",
             "bender_lipcani: 2-й переулок Кутузова",
@@ -1035,10 +4052,6 @@
             "bender_lipcani: улица Титова",
             "bender_lipcani: улица Шмидта",
             "bender_lipcani: улица Энгельса",
-            "giska: Первомайская улица",
-            "giska: Приднестровская улица",
-            "giska: Студенческая улица",
-            "giska: улица Кирова",
             "giska: улица Ленина",
             "giska: улица Мира",
             "giska: улица Суворова",
@@ -1056,37 +4069,35 @@
             "parkany: улица Сергея Лазо",
             "parkany: улица Фрунзе",
             "parkany: улица Чехова",
-            "parkany: улица Чкалова",
             "parkany: улица Шевченко",
-            "parkany: улица Энгельса",
-            "protyagailovka: Главная улица"
+            "parkany: улица Энгельса"
           ],
-          "unique_delivery_units": 4382,
-          "zone": 2
+          "unique_delivery_units": 3744,
+          "zone": 3
         },
         {
-          "address_units": 3129,
-          "bam_km_p50": 5.428,
-          "bam_min_p50": 7.333,
-          "central_km_p50": 4.945,
-          "central_min_p50": 6.237,
-          "demand_weight": 5053.35,
+          "address_units": 5359,
+          "bam_km_p50": 5.677,
+          "bam_min_p50": 7.692,
+          "central_km_p50": 5.295,
+          "central_min_p50": 6.667,
+          "demand_weight": 5354.1,
           "km": {
-            "max": 5.576,
-            "min": 4.426,
-            "p50": 4.969,
-            "p75": 5.255,
-            "p90": 5.448
+            "max": 6.572,
+            "min": 4.274,
+            "p50": 5.266,
+            "p75": 5.823,
+            "p90": 6.271
           },
-          "km_dispersion": 0.3239,
+          "km_dispersion": 0.6277,
           "minutes": {
-            "max": 9.14,
-            "min": 4.49,
-            "p50": 6.33,
-            "p75": 6.821,
-            "p90": 7.343
+            "max": 9.45,
+            "min": 4.35,
+            "p50": 6.691,
+            "p75": 7.435,
+            "p90": 8.135
           },
-          "name": "Zone 3",
+          "name": "Zone 4",
           "streets": [
             "bender_core: 1-й Измаильский переулок",
             "bender_core: 2-й Измаильский переулок",
@@ -1099,7 +4110,9 @@
             "bender_core: Восточный переулок",
             "bender_core: Гвардейская улица",
             "bender_core: Гербовецкая улица",
+            "bender_core: Главная улица",
             "bender_core: Глинная улица",
+            "bender_core: Дачная улица",
             "bender_core: Деповская улица",
             "bender_core: Железнодорожная улица",
             "bender_core: Железнодорожный тупик",
@@ -1110,22 +4123,34 @@
             "bender_core: Киевская улица",
             "bender_core: Киркаештская улица",
             "bender_core: Кицканская улица",
+            "bender_core: Кицканский переулок",
+            "bender_core: Кишинёвская улица",
+            "bender_core: Кишинёвский переулок",
+            "bender_core: Коммунистическая улица",
             "bender_core: Красноармейская улица",
             "bender_core: Красноармейский переулок",
             "bender_core: Ленинградская улица",
+            "bender_core: Лесовой переулок",
             "bender_core: Молодёжная улица",
+            "bender_core: Новый проезд",
             "bender_core: Одесская улица",
+            "bender_core: Пионерская улица",
+            "bender_core: Пионерский переулок",
             "bender_core: Протягайловская улица",
             "bender_core: Путейская улица",
             "bender_core: Санаторная улица",
             "bender_core: Севастопольская улица",
             "bender_core: Треугольный переулок",
+            "bender_core: Фонтанная улица",
             "bender_core: Хотинская улица",
             "bender_core: Школьная улица",
             "bender_core: Южная улица",
             "bender_core: переулок Бородина",
             "bender_core: переулок Емилиана Букова",
             "bender_core: переулок Лермонтова",
+            "bender_core: переулок Мира",
+            "bender_core: переулок Осипенко",
+            "bender_core: переулок Полоза",
             "bender_core: переулок Строителей",
             "bender_core: переулок Текстильщиков",
             "bender_core: улица 12 Октября",
@@ -1134,15 +4159,23 @@
             "bender_core: улица 40 лет Победы",
             "bender_core: улица 40 лет Советской Пионерии",
             "bender_core: улица 50 лет ВЛКСМ",
+            "bender_core: улица Богдана Хмельницкого",
             "bender_core: улица Бориса Главана",
             "bender_core: улица Бородина",
             "bender_core: улица Гастелло",
+            "bender_core: улица Герцена",
+            "bender_core: улица Глядковской",
             "bender_core: улица Гоголя",
             "bender_core: улица Добродеева",
             "bender_core: улица Емилиана Букова",
             "bender_core: улица Зои Космодемьянской",
             "bender_core: улица Ивана Федько",
+            "bender_core: улица Ивана Шимкова",
+            "bender_core: улица Интернационалистов",
             "bender_core: улица Калашникова",
+            "bender_core: улица Клары Цеткин",
+            "bender_core: улица Космонавтов",
+            "bender_core: улица Кошевого",
             "bender_core: улица Крупской",
             "bender_core: улица Крянгэ",
             "bender_core: улица Куйбышева",
@@ -1154,6 +4187,8 @@
             "bender_core: улица Мацнева",
             "bender_core: улица Осипенко",
             "bender_core: улица Островского",
+            "bender_core: улица Павлика Морозова",
+            "bender_core: улица Панфилова",
             "bender_core: улица Ползунова",
             "bender_core: улица Полоза",
             "bender_core: улица Пугачёва",
@@ -1162,31 +4197,42 @@
             "bender_core: улица Старого",
             "bender_core: улица Строителей",
             "bender_core: улица Тимирязева",
-            "bender_core: улица Титова",
             "bender_core: улица Толстого",
             "bender_core: улица Тургенева",
             "bender_core: улица Халтурина",
             "bender_core: улица Чайковского",
+            "bender_core: улица Чернышевского",
             "bender_core: улица Чехова",
             "bender_lipcani: 1-й переулок Кутузова",
             "bender_lipcani: улица Кутузова",
+            "giska: Госпитальная улица",
             "giska: Молодёжная улица",
             "giska: Первомайская улица",
             "giska: Приднестровская улица",
             "giska: Студенческая улица",
+            "giska: Учительская улица",
+            "giska: Школьная улица",
+            "giska: Школьный переулок",
             "giska: переулок Суворова",
             "giska: улица 40 лет МССР",
+            "giska: улица 60 лет Октября",
+            "giska: улица Бориса Главана",
             "giska: улица Гоголя",
             "giska: улица Интернационалистов",
             "giska: улица Кирова",
+            "giska: улица Курило",
             "giska: улица Ленина",
             "giska: улица Мира",
             "giska: улица Суворова",
             "parkany: Коммунистическая улица",
             "parkany: Комсомольская улица",
             "parkany: Красный переулок",
+            "parkany: Молодёжная улица",
             "parkany: Пионерская улица",
             "parkany: Садовая улица",
+            "parkany: Светлая улица",
+            "parkany: Солнечная улица",
+            "parkany: Степная улица",
             "parkany: улица Анатолия Макалича",
             "parkany: улица Благоева",
             "parkany: улица Будённого",
@@ -1197,6 +4243,7 @@
             "parkany: улица Калинина",
             "parkany: улица Карла Маркса",
             "parkany: улица Кирова",
+            "parkany: улица Ковалёва",
             "parkany: улица Котовского",
             "parkany: улица Ленина",
             "parkany: улица Маяковского",
@@ -1205,6 +4252,7 @@
             "parkany: улица Пушкина",
             "parkany: улица Романенко",
             "parkany: улица Русакова",
+            "parkany: улица Свердлова",
             "parkany: улица Сергея Лазо",
             "parkany: улица Суворова",
             "parkany: улица Фрунзе",
@@ -1213,122 +4261,6 @@
             "parkany: улица Чкалова",
             "parkany: улица Шевченко",
             "parkany: улица Энгельса",
-            "protyagailovka: Главная улица",
-            "protyagailovka: Комсомольская улица",
-            "protyagailovka: Санаторная улица",
-            "protyagailovka: переулок Куйбышева",
-            "protyagailovka: улица Мира"
-          ],
-          "unique_delivery_units": 6984,
-          "zone": 3
-        },
-        {
-          "address_units": 2401,
-          "bam_km_p50": 6.476,
-          "bam_min_p50": 8.743,
-          "central_km_p50": 6.185,
-          "central_min_p50": 7.673,
-          "demand_weight": 3967.9,
-          "km": {
-            "max": 7.023,
-            "min": 5.577,
-            "p50": 6.106,
-            "p75": 6.484,
-            "p90": 6.754
-          },
-          "km_dispersion": 0.3937,
-          "minutes": {
-            "max": 11.72,
-            "min": 5.83,
-            "p50": 7.756,
-            "p75": 8.425,
-            "p90": 8.896
-          },
-          "name": "Zone 4",
-          "streets": [
-            "bender_core: Безымянный переулок",
-            "bender_core: Бельцкая улица",
-            "bender_core: Деповская улица",
-            "bender_core: Железнодорожная улица",
-            "bender_core: Кагульская улица",
-            "bender_core: Кишинёвская улица",
-            "bender_core: Кишинёвский переулок",
-            "bender_core: Ленинградская улица",
-            "bender_core: Лесовой переулок",
-            "bender_core: Новый проезд",
-            "bender_core: Одесская улица",
-            "bender_core: Пионерская улица",
-            "bender_core: Пионерский переулок",
-            "bender_core: Санаторная улица",
-            "bender_core: Фонтанная улица",
-            "bender_core: переулок Мира",
-            "bender_core: переулок Осипенко",
-            "bender_core: переулок Полоза",
-            "bender_core: улица 12 Октября",
-            "bender_core: улица 40 лет ВЛКСМ",
-            "bender_core: улица 50 лет ВЛКСМ",
-            "bender_core: улица Богдана Хмельницкого",
-            "bender_core: улица Герцена",
-            "bender_core: улица Глядковской",
-            "bender_core: улица Гоголя",
-            "bender_core: улица Дзержинского",
-            "bender_core: улица Ивана Федько",
-            "bender_core: улица Ивана Шимкова",
-            "bender_core: улица Интернационалистов",
-            "bender_core: улица Калашникова",
-            "bender_core: улица Клары Цеткин",
-            "bender_core: улица Кошевого",
-            "bender_core: улица Крянгэ",
-            "bender_core: улица Лермонтова",
-            "bender_core: улица Ломоносова",
-            "bender_core: улица Матросова",
-            "bender_core: улица Мацнева",
-            "bender_core: улица Осипенко",
-            "bender_core: улица Павлика Морозова",
-            "bender_core: улица Панфилова",
-            "bender_core: улица Полоза",
-            "bender_core: улица Тимирязева",
-            "giska: Госпитальная улица",
-            "giska: Заречная улица",
-            "giska: Молодёжная улица",
-            "giska: Театральная улица",
-            "giska: Учительская улица",
-            "giska: Школьная улица",
-            "giska: Школьный переулок",
-            "giska: переулок Мира",
-            "giska: переулок Суворова",
-            "giska: улица 60 лет Октября",
-            "giska: улица Бориса Главана",
-            "giska: улица Гоголя",
-            "giska: улица Курило",
-            "giska: улица Ленина",
-            "giska: улица Мира",
-            "giska: улица Ткаченко",
-            "parkany: Комсомольская улица",
-            "parkany: Молодёжная улица",
-            "parkany: Светлая улица",
-            "parkany: Солнечная улица",
-            "parkany: Степная улица",
-            "parkany: улица Анатолия Макалича",
-            "parkany: улица Будённого",
-            "parkany: улица Ворошилова",
-            "parkany: улица Гагарина",
-            "parkany: улица Горького",
-            "parkany: улица Дружбы",
-            "parkany: улица Карла Маркса",
-            "parkany: улица Кирова",
-            "parkany: улица Ковалёва",
-            "parkany: улица Ленина",
-            "parkany: улица Маяковского",
-            "parkany: улица Мичурина",
-            "parkany: улица Петра Николаева",
-            "parkany: улица Романенко",
-            "parkany: улица Русакова",
-            "parkany: улица Свердлова",
-            "parkany: улица Суворова",
-            "parkany: улица Фрунзе",
-            "parkany: улица Чапаева",
-            "protyagailovka: Банный переулок",
             "protyagailovka: Гербовецкая улица",
             "protyagailovka: Гербовецкий переулок",
             "protyagailovka: Главная улица",
@@ -1341,6 +4273,7 @@
             "protyagailovka: Первомайская улица",
             "protyagailovka: Первомайский переулок",
             "protyagailovka: Санаторная улица",
+            "protyagailovka: переулок Куйбышева",
             "protyagailovka: улица 50 лет Победы",
             "protyagailovka: улица Алеку Руссо",
             "protyagailovka: улица Космонавтов",
@@ -1348,35 +4281,39 @@
             "protyagailovka: улица Мунтяна",
             "protyagailovka: улица Штефан чел Маре"
           ],
-          "unique_delivery_units": 5546,
+          "unique_delivery_units": 11749,
           "zone": 4
         },
         {
-          "address_units": 365,
-          "bam_km_p50": 8.184,
-          "bam_min_p50": 10.507,
-          "central_km_p50": 7.867,
-          "central_min_p50": 9.747,
-          "demand_weight": 1031.1,
+          "address_units": 683,
+          "bam_km_p50": 7.479,
+          "bam_min_p50": 10.0,
+          "central_km_p50": 7.416,
+          "central_min_p50": 9.215,
+          "demand_weight": 680.9,
           "km": {
-            "max": 11.203,
-            "min": 7.024,
-            "p50": 7.783,
-            "p75": 8.274,
-            "p90": 8.708
+            "max": 9.693,
+            "min": 6.574,
+            "p50": 7.395,
+            "p75": 8.141,
+            "p90": 8.631
           },
-          "km_dispersion": 0.6356,
+          "km_dispersion": 0.7157,
           "minutes": {
-            "max": 17.95,
-            "min": 7.86,
-            "p50": 9.741,
-            "p75": 10.376,
-            "p90": 10.991
+            "max": 18.22,
+            "min": 7.2,
+            "p50": 9.327,
+            "p75": 10.11,
+            "p90": 10.876
           },
           "name": "Zone 5",
           "streets": [
             "bender_core: 1-й Измаильский переулок",
             "bender_core: Деповская улица",
+            "bender_core: улица Дзержинского",
+            "bender_core: улица Интернационалистов",
+            "bender_core: улица Павлика Морозова",
+            "bender_core: улица Полоза",
             "giska: Госпитальная улица",
             "giska: Заречная улица",
             "giska: Октябрьская улица",
@@ -1384,46 +4321,77 @@
             "giska: Садовая улица",
             "giska: Театральная улица",
             "giska: Школьная улица",
+            "giska: Школьный переулок",
+            "giska: переулок Мира",
+            "giska: переулок Суворова",
+            "giska: улица 60 лет Октября",
             "giska: улица Гагарина",
+            "giska: улица Курило",
             "giska: улица Ленина",
+            "giska: улица Мира",
             "giska: улица Мичурина",
             "giska: улица Победы",
             "giska: улица Ткаченко",
             "parkany: Заводская улица",
+            "parkany: Молодёжная улица",
+            "parkany: Степная улица",
             "parkany: улица Дружбы",
             "parkany: улица Карла Маркса",
+            "parkany: улица Ковалёва",
             "parkany: улица Мичурина",
+            "parkany: улица Петра Николаева",
             "parkany: улица Романенко",
             "parkany: улица Свердлова",
+            "parkany: улица Суворова",
+            "parkany: улица Чапаева",
+            "protyagailovka: Банный переулок",
             "protyagailovka: Гербовецкая улица",
             "protyagailovka: Главная улица",
             "protyagailovka: Лесовая улица",
             "protyagailovka: Мирная улица",
             "protyagailovka: Первомайская улица",
+            "protyagailovka: Первомайский переулок",
             "protyagailovka: Полевой переулок",
             "protyagailovka: Садовая улица",
             "protyagailovka: Славянская улица",
             "protyagailovka: Совхозная улица",
             "protyagailovka: улица Академика Берга",
+            "protyagailovka: улица Алеку Руссо",
             "protyagailovka: улица Мунтяна",
             "protyagailovka: улица Николая Белана",
-            "protyagailovka: улица Серикова"
+            "protyagailovka: улица Серикова",
+            "protyagailovka: улица Штефан чел Маре"
           ],
-          "unique_delivery_units": 1707,
+          "unique_delivery_units": 2601,
           "zone": 5
         }
       ]
     }
   },
   "direct_integration": false,
-  "generated_at": "2026-07-23T21:50:43Z",
+  "generated_at": "2026-07-23T22:50:34Z",
   "limitations": [
     "Bands are cost ranges, not geographic clusters; a band polygon is only a drawing of which units fall in that price range.",
     "Tier C units are no_delivery and appear in no band or matrix.",
     "Travel times come from the OSRM car profile without live traffic.",
     "No money is assigned; taxi calibration fields remain null."
   ],
+  "map_coverage_check": {
+    "4": {
+      "units_checked": 22780,
+      "units_in_no_band_polygon": 0,
+      "units_only_inside_another_band": 0,
+      "units_outside_own_band_polygon": 0
+    },
+    "5": {
+      "units_checked": 22780,
+      "units_in_no_band_polygon": 0,
+      "units_only_inside_another_band": 0,
+      "units_outside_own_band_polygon": 0
+    }
+  },
   "model": "ordered_cost_bands_over_osrm_road_km",
+  "no_address_data_areas": 40,
   "not_used": [
     "network Voronoi",
     "spatial K-means",
@@ -1441,12 +4409,43 @@
         "reason": "unnamed_venue"
       },
       {
+        "amenity": "bar",
+        "name": "Старинный погребок",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лептаря",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кавказ",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лаки Боулинг",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Аннушка",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бизар",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
         "amenity": "cafe",
         "reason": "unnamed_venue"
       },
       {
         "amenity": "bar",
-        "reason": "unnamed_venue"
+        "name": null,
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -1459,6 +4458,11 @@
       {
         "amenity": "cafe",
         "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "pub",
+        "name": "Пивной двор",
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -1470,7 +4474,8 @@
       },
       {
         "amenity": "bar",
-        "reason": "unnamed_venue"
+        "name": null,
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "amenity": "cafe",
@@ -1487,16 +4492,64 @@
       {
         "amenity": "fast_food",
         "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кафе-бар «У Татьяны»",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Хали Гали",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кёльн",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар «Ямал»",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бильярдная",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар Водник",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Калибри",
+        "reason": "no_takeaway_or_delivery"
+      },
+      {
+        "amenity": "bar",
+        "name": "Black Rabiza",
+        "reason": "no_takeaway_or_delivery"
       },
       {
         "pois": [
-          "Теремок"
+          "Старые Бендеры",
+          "Столовая консервного завода"
         ],
         "reason": "outer_cluster_too_small"
       },
       {
         "pois": [
-          "Кавказ"
+          "Космос",
+          "Cartel"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Теремок"
         ],
         "reason": "outer_cluster_too_small"
       },
@@ -1508,25 +4561,7 @@
       },
       {
         "pois": [
-          "Бизар"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
-          "Пивной двор"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
           "Банкетный зал"
-        ],
-        "reason": "outer_cluster_too_small"
-      },
-      {
-        "pois": [
-          "Бар «Ямал»"
         ],
         "reason": "outer_cluster_too_small"
       },
@@ -1555,10 +4590,6 @@
         "name": "Фэт-Фрумос"
       },
       {
-        "amenity": "bar",
-        "name": "Старинный погребок"
-      },
-      {
         "amenity": "restaurant",
         "name": "La Vida"
       },
@@ -1567,20 +4598,8 @@
         "name": "Антикафе «Liberty»"
       },
       {
-        "amenity": "bar",
-        "name": "Лептаря"
-      },
-      {
         "amenity": "cafe",
         "name": "Славный Пекарь"
-      },
-      {
-        "amenity": "bar",
-        "name": "Кавказ"
-      },
-      {
-        "amenity": "bar",
-        "name": "Лаки Боулинг"
       },
       {
         "amenity": "restaurant",
@@ -1597,10 +4616,6 @@
       {
         "amenity": "restaurant",
         "name": "Столовая консервного завода"
-      },
-      {
-        "amenity": "bar",
-        "name": "Аннушка"
       },
       {
         "amenity": "cafe",
@@ -1623,16 +4638,8 @@
         "name": "Диминяца"
       },
       {
-        "amenity": "bar",
-        "name": "Бизар"
-      },
-      {
         "amenity": "cafe",
         "name": "Трактир"
-      },
-      {
-        "amenity": "pub",
-        "name": "Пивной двор"
       },
       {
         "amenity": "fast_food",
@@ -1719,40 +4726,12 @@
         "name": "Бриз"
       },
       {
-        "amenity": "bar",
-        "name": "Кафе-бар «У Татьяны»"
-      },
-      {
         "amenity": "restaurant",
         "name": "Ресторан «Тигина»"
       },
       {
-        "amenity": "bar",
-        "name": "Хали Гали"
-      },
-      {
         "amenity": "fast_food",
         "name": "Столовая"
-      },
-      {
-        "amenity": "bar",
-        "name": "Кёльн"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бар «Ямал»"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бильярдная"
-      },
-      {
-        "amenity": "bar",
-        "name": "Бар Водник"
-      },
-      {
-        "amenity": "bar",
-        "name": "Калибри"
       },
       {
         "amenity": "restaurant",
@@ -1769,10 +4748,6 @@
       {
         "amenity": "restaurant",
         "name": "La Serafim"
-      },
-      {
-        "amenity": "bar",
-        "name": "Black Rabiza"
       },
       {
         "amenity": "cafe",
@@ -1800,29 +4775,29 @@
     },
     "routes": [
       {
-        "distance_km": 3.893,
-        "duration_min": 5.26,
+        "distance_km": 3.86,
+        "duration_min": 5.22,
         "origin": "central_bender_origin",
         "origin_role": "central",
         "target": "Parkany"
       },
       {
-        "distance_km": 6.11,
-        "duration_min": 6.81,
+        "distance_km": 6.143,
+        "duration_min": 6.86,
         "origin": "central_bender_origin",
         "origin_role": "central",
         "target": "Giska"
       },
       {
-        "distance_km": 6.411,
-        "duration_min": 8.18,
+        "distance_km": 6.444,
+        "duration_min": 8.22,
         "origin": "central_bender_origin",
         "origin_role": "central",
         "target": "Protyagailovka"
       },
       {
-        "distance_km": 3.546,
-        "duration_min": 5.36,
+        "distance_km": 3.513,
+        "duration_min": 5.32,
         "origin": "central_bender_origin",
         "origin_role": "central",
         "target": "Lipcani"
@@ -1861,21 +4836,21 @@
     "comparison": {
       "4": {
         "composite_score": 0.6,
-        "demand_balance_min_over_max": 0.47,
+        "demand_balance_min_over_max": 0.249,
         "monotonic": true,
-        "smallest_zone_unit_share": 0.168,
-        "smallest_zone_units": 3923,
-        "split_streets": 108,
-        "weighted_km_dispersion": 0.5193
+        "smallest_zone_unit_share": 0.104,
+        "smallest_zone_units": 2366,
+        "split_streets": 88,
+        "weighted_km_dispersion": 0.5856
       },
       "5": {
         "composite_score": 0.4,
-        "demand_balance_min_over_max": 0.204,
+        "demand_balance_min_over_max": 0.127,
         "monotonic": true,
-        "smallest_zone_unit_share": 0.073,
-        "smallest_zone_units": 1707,
-        "split_streets": 120,
-        "weighted_km_dispersion": 0.4295
+        "smallest_zone_unit_share": 0.08,
+        "smallest_zone_units": 1826,
+        "split_streets": 98,
+        "weighted_km_dispersion": 0.5062
       }
     },
     "criteria_weights": {
@@ -1914,21 +4889,296 @@
     "waiting_or_time_rate": null
   },
   "taxi_calibration_supplied": false,
+  "tuning": {
+    "demand_weight_sensitivity": {
+      "A": {
+        "k": {
+          "4": {
+            "edge_shift_km": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_shift_km": 0.0,
+            "upper_edges_km": [
+              2.023,
+              3.373,
+              5.972,
+              9.692
+            ]
+          },
+          "5": {
+            "edge_shift_km": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_shift_km": 0.0,
+            "upper_edges_km": [
+              1.978,
+              2.977,
+              4.273,
+              6.574,
+              9.692
+            ]
+          }
+        },
+        "unaddressed_building_weight": 0.0
+      },
+      "B": {
+        "k": {
+          "4": {
+            "edge_shift_km": [
+              0.103,
+              0.802,
+              1.054,
+              -0.004
+            ],
+            "max_abs_shift_km": 1.0539999999999994,
+            "upper_edges_km": [
+              2.126,
+              4.175,
+              7.026,
+              9.688
+            ]
+          },
+          "5": {
+            "edge_shift_km": [
+              0.045,
+              -0.052,
+              -0.098,
+              0.452,
+              -0.004
+            ],
+            "max_abs_shift_km": 0.45199999999999996,
+            "upper_edges_km": [
+              2.023,
+              2.925,
+              4.175,
+              7.026,
+              9.688
+            ]
+          }
+        },
+        "unaddressed_building_weight": 0.25
+      },
+      "C": {
+        "k": {
+          "4": {
+            "edge_shift_km": [
+              0.302,
+              0.802,
+              0.851,
+              -0.006
+            ],
+            "max_abs_shift_km": 0.851,
+            "upper_edges_km": [
+              2.325,
+              4.175,
+              6.823,
+              9.686
+            ]
+          },
+          "5": {
+            "edge_shift_km": [
+              0.045,
+              -0.053,
+              0.953,
+              0.45,
+              -0.006
+            ],
+            "max_abs_shift_km": 0.9530000000000003,
+            "upper_edges_km": [
+              2.023,
+              2.924,
+              5.226,
+              7.024,
+              9.686
+            ]
+          }
+        },
+        "unaddressed_building_weight": 0.5
+      },
+      "apartment_flats_proxy": {
+        "apartment_units_total": 91,
+        "k": {
+          "4": {
+            "edge_shift_km": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_shift_km": 0.0,
+            "upper_edges_km": [
+              2.023,
+              3.373,
+              5.972,
+              9.692
+            ]
+          },
+          "5": {
+            "edge_shift_km": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_shift_km": 0.0,
+            "upper_edges_km": [
+              1.978,
+              2.977,
+              4.273,
+              6.574,
+              9.692
+            ]
+          }
+        },
+        "proxy": "addr:flats where present; NO household count is invented when absent",
+        "with_addr_flats": 0,
+        "with_building_levels": 88,
+        "with_entrances": 0
+      }
+    },
+    "note": "Neither the confidence factor nor the penalty strength is chosen silently: every alternative is published above and the owner decides.",
+    "published_split_penalty": "high",
+    "published_weight_model": "A",
+    "split_penalty_sweep": {
+      "baseline": {
+        "k": {
+          "4": {
+            "monotonic": true,
+            "split_streets": 103,
+            "upper_edges_km": [
+              2.424,
+              4.124,
+              5.675,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.5122
+          },
+          "5": {
+            "monotonic": true,
+            "split_streets": 132,
+            "upper_edges_km": [
+              2.174,
+              3.674,
+              4.973,
+              6.176,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.4142
+          }
+        },
+        "penalty": 0.0
+      },
+      "high": {
+        "k": {
+          "4": {
+            "monotonic": true,
+            "split_streets": 88,
+            "upper_edges_km": [
+              2.023,
+              3.373,
+              5.972,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.5856
+          },
+          "5": {
+            "monotonic": true,
+            "split_streets": 98,
+            "upper_edges_km": [
+              1.978,
+              2.977,
+              4.273,
+              6.574,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.5062
+          }
+        },
+        "penalty": 80.0
+      },
+      "low": {
+        "k": {
+          "4": {
+            "monotonic": true,
+            "split_streets": 104,
+            "upper_edges_km": [
+              2.475,
+              4.175,
+              5.774,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.5154
+          },
+          "5": {
+            "monotonic": true,
+            "split_streets": 121,
+            "upper_edges_km": [
+              2.126,
+              3.824,
+              5.226,
+              6.574,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.4226
+          }
+        },
+        "penalty": 5.0
+      },
+      "medium": {
+        "k": {
+          "4": {
+            "monotonic": true,
+            "split_streets": 99,
+            "upper_edges_km": [
+              2.475,
+              4.175,
+              5.972,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.5279
+          },
+          "5": {
+            "monotonic": true,
+            "split_streets": 122,
+            "upper_edges_km": [
+              2.023,
+              3.373,
+              5.074,
+              6.574,
+              9.692
+            ],
+            "weighted_km_dispersion": 0.4374
+          }
+        },
+        "penalty": 20.0
+      }
+    }
+  },
   "unit_counts": {
-    "address_units": 10611,
+    "address_nodes_in_nonresidential": 36,
+    "address_units": 10437,
     "by_type": {
-      "addressed_residential_building": 10282,
-      "standalone_address_node": 329,
-      "unaddressed_residential_building": 12789
+      "addressed_residential_building": 10145,
+      "standalone_address_node": 292,
+      "unaddressed_residential_building": 12343
     },
     "duplicates_merged": 1241,
-    "outside_service_area": 119,
+    "no_serviceable_street_within_threshold": 588,
+    "outside_service_area": 115,
     "raw_address_objects": 11885,
     "raw_building_objects": 23643,
-    "residential_building_objects_without_address": 12789,
-    "serviceable_units": 23400,
+    "residential_building_objects_without_address": 12343,
+    "serviceable_units": 22780,
     "tier_c_units_excluded": 18,
-    "unique_units": 23400,
+    "unique_units": 22780,
     "unreachable": 0
   }
 }

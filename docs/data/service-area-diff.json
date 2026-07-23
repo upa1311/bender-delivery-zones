@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-07-23T20:01:21Z",
+  "merged_production_polygon": false,
+  "routing_created": false,
+  "schema": "bender-service-area-diff/3",
+  "territories": {
+    "bender_core": {
+      "addresses_inside": 5872,
+      "buildings_excluded": 17,
+      "buildings_included": 9672,
+      "candidate_area_km2": 13.8178,
+      "display_ru": "Бендеры",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "outside_owner_named_limit",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 23.15,
+      "source_area_km2": 17.9802,
+      "source_relation": 12463379
+    },
+    "bender_lipcani": {
+      "addresses_inside": 290,
+      "buildings_excluded": 3,
+      "buildings_included": 620,
+      "candidate_area_km2": 1.4918,
+      "display_ru": "Липканы",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "owner_named_boundary",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 51.37,
+      "source_area_km2": 3.0678,
+      "source_relation": 12463379
+    },
+    "giska": {
+      "addresses_inside": 625,
+      "buildings_excluded": 20,
+      "buildings_included": 2398,
+      "candidate_area_km2": 3.0492,
+      "display_ru": "Гиска",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 90.12,
+      "source_area_km2": 30.8582,
+      "source_relation": 12215667
+    },
+    "parkany": {
+      "addresses_inside": 4508,
+      "buildings_excluded": 48,
+      "buildings_included": 8807,
+      "candidate_area_km2": 6.543,
+      "display_ru": "Парканы",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "residential_street"
+      ],
+      "reduction_pct": 92.06,
+      "source_area_km2": 82.4359,
+      "source_relation": 7431263
+    },
+    "protyagailovka": {
+      "addresses_inside": 573,
+      "buildings_excluded": 524,
+      "buildings_included": 1512,
+      "candidate_area_km2": 2.0667,
+      "display_ru": "Протягайловка",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "outside_owner_named_limit",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "owner_named_boundary",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 87.61,
+      "source_area_km2": 16.6775,
+      "source_relation": 12463378
+    }
+  },
+  "totals": {
+    "addresses_inside": 11868,
+    "buildings_excluded": 612,
+    "buildings_included": 23009,
+    "candidate_area_km2": 26.9685,
+    "source_area_km2": 151.0196,
+    "territories": 5
+  },
+  "warning_ru": "Рабочая территория создана по плотности жилой застройки и указаниям владельца. Это ещё не четыре зоны доставки.",
+  "zones_created": false
+}

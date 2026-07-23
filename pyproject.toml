@@ -10,6 +10,9 @@ dependencies = [
     "httpx>=0.27",
     "pyyaml>=6.0",
     "osmium>=4.0",
+    # Needed for the Stage-03 housing-density trimming: buffering, dissolve,
+    # morphological closing, connected components and polygon splitting.
+    "shapely>=2.0",
 ]
 
 [dependency-groups]

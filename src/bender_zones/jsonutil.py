@@ -21,7 +21,24 @@ def dumps(obj: Any) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 
 
+def dumps_compact(obj: Any) -> str:
+    """Deterministic but space-efficient JSON (no indentation).
+
+    Used for the large Stage-03 geometry layers, where indenting every
+    coordinate pair would multiply the file size several times over. Still
+    deterministic: keys sorted, fixed separators, single trailing newline.
+    """
+    return json.dumps(obj, ensure_ascii=False, sort_keys=True,
+                      separators=(",", ":")) + "\n"
+
+
 def write(path, obj) -> None:
     """Write *obj* as deterministic JSON to *path* (UTF-8, LF newlines)."""
     with open(path, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(dumps(obj))
+
+
+def write_compact(path, obj) -> None:
+    """Write *obj* as deterministic compact JSON to *path*."""
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(dumps_compact(obj))

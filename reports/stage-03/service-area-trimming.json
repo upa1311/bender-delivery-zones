@@ -1,0 +1,487 @@
+{
+  "boundary_questions": [
+    {
+      "kind": "interpretation",
+      "layer": "protyagailovka_boundary_questions",
+      "question": "«Левее» улицы «Главная улица» невозможно свести к стороне света: улица идёт с юго-запада на северо-восток, а названные владельцем предельные улицы Мунтяна и Лесовая лежат западнее неё. Оставлена сторона, на которой лежат другие названные владельцем предельные улицы (Мунтяна, Лесовая, Первомайская); отсечение применено. Подтвердите сторону."
+    },
+    {
+      "kind": "limit_street",
+      "layer": "protyagailovka_boundary_questions",
+      "question": "Левый предел по указанию владельца.",
+      "role": "left_limit",
+      "street": "Главная улица"
+    },
+    {
+      "kind": "limit_street",
+      "layer": "protyagailovka_boundary_questions",
+      "question": "Улица «улица Мунтяна» названа владельцем как предел. Какая именно сторона («с одной стороны» / «с другой стороны») имелась в виду — не задано однозначно; застройка вдоль улицы включена.",
+      "role": "side_limit",
+      "street": "улица Мунтяна"
+    },
+    {
+      "kind": "limit_street",
+      "layer": "protyagailovka_boundary_questions",
+      "question": "Улица «Лесовая улица» названа владельцем как предел. Какая именно сторона («с одной стороны» / «с другой стороны») имелась в виду — не задано однозначно; застройка вдоль улицы включена.",
+      "role": "side_limit",
+      "street": "Лесовая улица"
+    },
+    {
+      "kind": "limit_street",
+      "layer": "protyagailovka_boundary_questions",
+      "question": "Улица «Первомайская улица» названа владельцем как предел. Какая именно сторона («с одной стороны» / «с другой стороны») имелась в виду — не задано однозначно; застройка вдоль улицы включена.",
+      "role": "side_limit",
+      "street": "Первомайская улица"
+    }
+  ],
+  "direct_integration": false,
+  "excluded_area_count": 327,
+  "generated_at": "2026-07-23T20:01:21Z",
+  "kavkaz_landmark": {
+    "candidates": [
+      {
+        "field": "name",
+        "lat": 46.807871,
+        "lon": 29.48297,
+        "name": "Кавказ",
+        "osm_id": 3256422813,
+        "place": null,
+        "tags": {
+          "amenity": "bar",
+          "name": "Кавказ",
+          "name:ru": "Кавказ"
+        }
+      },
+      {
+        "field": "name",
+        "lat": 46.80655,
+        "lon": 29.484333,
+        "name": "Кавказ",
+        "osm_id": 3585559297,
+        "place": "suburb",
+        "tags": {
+          "name": "Кавказ",
+          "name:ru": "Кавказ",
+          "place": "suburb"
+        }
+      },
+      {
+        "field": "name",
+        "lat": 46.804937,
+        "lon": 29.486056,
+        "name": "Теплопункт «Кавказ»",
+        "osm_id": 4353892805,
+        "place": null,
+        "tags": {
+          "name": "Теплопункт «Кавказ»",
+          "name:ru": "Теплопункт «Кавказ»"
+        }
+      }
+    ],
+    "chosen": {
+      "field": "name",
+      "lat": 46.80655,
+      "lon": 29.484333,
+      "name": "Кавказ",
+      "osm_id": 3585559297,
+      "place": "suburb",
+      "tags": {
+        "name": "Кавказ",
+        "name:ru": "Кавказ",
+        "place": "suburb"
+      }
+    },
+    "direction": "east",
+    "lat": 46.80655,
+    "lon": 29.484333,
+    "message": null,
+    "resolved": true,
+    "territory": "bender_core"
+  },
+  "limitations": [
+    "The candidate working area is NOT an official boundary and does not replace the OSM administrative boundaries, which are unmodified.",
+    "No popularity/traffic data exists; street relevance is proxied by residential fabric (buildings and addresses near the street).",
+    "The five candidates are deliberately NOT merged into one production polygon, and no delivery zones, tariffs or routing were created.",
+    "Lipcani has no separate OSM boundary; it is separated from the rest of Bender by the Voronoi cell of its place=suburb node — an approximation to confirm with the owner.",
+    "OSM building/address coverage is community-contributed and incomplete."
+  ],
+  "notes": [],
+  "osm_boundaries_modified": false,
+  "owner_limits": {
+    "protyagailovka": {
+      "applied": true,
+      "keep_rule": "сторона, на которой лежат другие названные владельцем предельные улицы (Мунтяна, Лесовая, Первомайская)",
+      "kept_side_sign": 1.0,
+      "left_limit_street": "Главная улица",
+      "line_lonlat": [
+        [
+          29.425917,
+          46.830605
+        ],
+        [
+          29.42658,
+          46.829805
+        ],
+        [
+          29.42807,
+          46.828815
+        ],
+        [
+          29.428868,
+          46.828188
+        ],
+        [
+          29.429629,
+          46.827568
+        ],
+        [
+          29.43077,
+          46.826548
+        ],
+        [
+          29.430946,
+          46.826314
+        ],
+        [
+          29.431082,
+          46.826092
+        ],
+        [
+          29.431354,
+          46.825808
+        ],
+        [
+          29.431635,
+          46.825534
+        ],
+        [
+          29.431708,
+          46.825476
+        ],
+        [
+          29.431843,
+          46.825367
+        ],
+        [
+          29.431937,
+          46.825308
+        ],
+        [
+          29.432306,
+          46.825129
+        ],
+        [
+          29.4324,
+          46.825079
+        ],
+        [
+          29.432516,
+          46.825007
+        ],
+        [
+          29.432732,
+          46.824849
+        ],
+        [
+          29.432919,
+          46.824731
+        ],
+        [
+          29.433174,
+          46.824568
+        ],
+        [
+          29.433451,
+          46.82439
+        ],
+        [
+          29.433995,
+          46.824036
+        ],
+        [
+          29.434096,
+          46.823981
+        ],
+        [
+          29.434216,
+          46.82391
+        ],
+        [
+          29.434366,
+          46.823826
+        ],
+        [
+          29.434474,
+          46.823784
+        ],
+        [
+          29.434558,
+          46.823758
+        ],
+        [
+          29.434655,
+          46.823748
+        ],
+        [
+          29.434789,
+          46.823738
+        ],
+        [
+          29.43498,
+          46.823736
+        ],
+        [
+          29.435258,
+          46.823755
+        ],
+        [
+          29.435411,
+          46.823768
+        ],
+        [
+          29.435514,
+          46.823767
+        ],
+        [
+          29.435631,
+          46.823766
+        ],
+        [
+          29.435737,
+          46.823756
+        ],
+        [
+          29.435861,
+          46.823731
+        ],
+        [
+          29.436066,
+          46.823674
+        ],
+        [
+          29.436375,
+          46.823578
+        ],
+        [
+          29.436715,
+          46.823474
+        ],
+        [
+          29.437074,
+          46.823388
+        ],
+        [
+          29.437803,
+          46.82322
+        ],
+        [
+          29.438279,
+          46.82309
+        ],
+        [
+          29.438689,
+          46.822963
+        ],
+        [
+          29.439172,
+          46.822798
+        ],
+        [
+          29.439551,
+          46.822649
+        ],
+        [
+          29.439862,
+          46.822528
+        ],
+        [
+          29.440597,
+          46.822217
+        ],
+        [
+          29.441343,
+          46.821919
+        ],
+        [
+          29.442002,
+          46.821644
+        ],
+        [
+          29.442724,
+          46.821328
+        ],
+        [
+          29.44359,
+          46.820906
+        ],
+        [
+          29.443823,
+          46.820768
+        ],
+        [
+          29.443927,
+          46.820704
+        ],
+        [
+          29.444454,
+          46.820376
+        ],
+        [
+          29.445134,
+          46.819867
+        ],
+        [
+          29.446289,
+          46.818923
+        ],
+        [
+          29.447299,
+          46.818075
+        ],
+        [
+          29.448535,
+          46.817122
+        ],
+        [
+          29.450324,
+          46.815899
+        ],
+        [
+          29.450468,
+          46.815788
+        ]
+      ]
+    }
+  },
+  "parameters": {
+    "building_buffer_m": 25,
+    "closing_gap_m": 25,
+    "min_addressed_buildings_near_street": 3,
+    "min_buildings_near_street": 6,
+    "min_component_buildings": 5,
+    "min_empty_land_area_m2": 50000,
+    "min_excluded_area_m2": 20000,
+    "simplify_tolerance_m": 2,
+    "street_buffer_m": 18,
+    "street_building_radius_m": 60
+  },
+  "routing_created": false,
+  "schema": "bender-service-area-trimming/3",
+  "sparse_building_review_count": 65,
+  "territories": {
+    "bender_core": {
+      "addresses_inside": 5872,
+      "buildings_excluded": 17,
+      "buildings_included": 9672,
+      "candidate_area_km2": 13.8178,
+      "display_ru": "Бендеры",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "outside_owner_named_limit",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 23.15,
+      "source_area_km2": 17.9802,
+      "source_relation": 12463379
+    },
+    "bender_lipcani": {
+      "addresses_inside": 290,
+      "buildings_excluded": 3,
+      "buildings_included": 620,
+      "candidate_area_km2": 1.4918,
+      "display_ru": "Липканы",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "owner_named_boundary",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 51.37,
+      "source_area_km2": 3.0678,
+      "source_relation": 12463379
+    },
+    "giska": {
+      "addresses_inside": 625,
+      "buildings_excluded": 20,
+      "buildings_included": 2398,
+      "candidate_area_km2": 3.0492,
+      "display_ru": "Гиска",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 90.12,
+      "source_area_km2": 30.8582,
+      "source_relation": 12215667
+    },
+    "parkany": {
+      "addresses_inside": 4508,
+      "buildings_excluded": 48,
+      "buildings_included": 8807,
+      "candidate_area_km2": 6.543,
+      "display_ru": "Парканы",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "residential_street"
+      ],
+      "reduction_pct": 92.06,
+      "source_area_km2": 82.4359,
+      "source_relation": 7431263
+    },
+    "protyagailovka": {
+      "addresses_inside": 573,
+      "buildings_excluded": 524,
+      "buildings_included": 1512,
+      "candidate_area_km2": 2.0667,
+      "display_ru": "Протягайловка",
+      "exclusion_reasons": [
+        "empty_land",
+        "farmland",
+        "forest_or_park",
+        "outside_owner_named_limit",
+        "sparse_buildings"
+      ],
+      "inclusion_reasons": [
+        "addressed_buildings",
+        "dense_residential_buildings",
+        "owner_named_boundary",
+        "required_access_road",
+        "residential_street"
+      ],
+      "reduction_pct": 87.61,
+      "source_area_km2": 16.6775,
+      "source_relation": 12463378
+    }
+  },
+  "zones_created": false
+}

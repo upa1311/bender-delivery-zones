@@ -14,6 +14,10 @@
   <div id="notice" role="alert">
     Это карта проверки данных. Финальные зоны доставки ещё не созданы.
   </div>
+  <div id="notice-trim" role="alert">
+    Рабочая территория создана по плотности жилой застройки и указаниям владельца.
+    Это ещё не четыре зоны доставки.
+  </div>
 
   <div id="layout">
     <aside id="sidebar">
@@ -37,8 +41,10 @@
       <section id="legend">
         <h2>Легенда</h2>
         <ul class="legend-list">
-          <li><span class="swatch found"></span> граница найдена в OSM</li>
-          <li><span class="swatch missing"></span> граница отсутствует (маркер)</li>
+          <li><span class="swatch dashed"></span> исходная граница OSM (не изменялась)</li>
+          <li><span class="swatch found"></span> рабочая территория (кандидат)</li>
+          <li><span class="swatch farm"></span> исключённые поля / пустые территории</li>
+          <li><span class="swatch missing"></span> редкие дома — проверить</li>
           <li><span class="swatch road"></span> улица</li>
           <li><span class="swatch review"></span> улица без русского названия</li>
         </ul>
@@ -46,7 +52,8 @@
 
       <p class="muted small">
         Разрешённые территории: Бендеры (включая микрорайоны), Протягайловка, Гиска, Парканы.
-        Варница исключена. Зоны доставки, тарифы и маршрутизация ещё не создаются.
+        Варница исключена. Зоны доставки, тарифы и маршрутизация ещё не создаются;
+        рабочие полигоны намеренно не объединены в один production-полигон.
       </p>
     </aside>
 

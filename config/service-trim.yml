@@ -1,0 +1,57 @@
+# Stage 03 — candidate working service area derived from housing density.
+#
+# The source OSM administrative boundaries are NEVER modified; they stay a
+# separate reference layer. Nothing here creates delivery zones, tariffs or
+# routing, and the candidate polygons are deliberately NOT merged into one
+# production polygon.
+
+parameters:
+  building_buffer_m: 25            # technical tolerance around building footprints
+  street_buffer_m: 18              # tolerance around relevant residential streets
+  closing_gap_m: 25                # morphological closing between adjacent blocks
+  street_building_radius_m: 60     # "buildings near a street" radius
+  min_buildings_near_street: 6     # owner's baseline automatic criterion
+  min_addressed_buildings_near_street: 3
+  min_component_buildings: 5       # isolated groups below this -> sparse review
+  min_excluded_area_m2: 20000      # report excluded landuse patches from 2 ha
+  min_empty_land_area_m2: 50000    # report unexplained empty land from 5 ha
+  simplify_tolerance_m: 2
+
+territories:
+  - key: bender_core
+    display_ru: Бендеры
+    source_relation: 12463379
+    role: bender_rest              # everything in Bender that is not Lipcani
+
+  - key: bender_lipcani
+    display_ru: Липканы
+    source_relation: 12463379      # part of Bender; no separate OSM boundary
+    role: bender_suburb
+    suburb_place_node: 2989167913  # place=suburb Липканы
+    must_connect_to: bender_core
+
+  - key: protyagailovka
+    display_ru: Протягайловка
+    source_relation: 12463378
+    owner_limits:
+      # Owner wording: one side ends at Munteanu / Lesovaya, the other at
+      # Pervomayskaya, the left edge runs along Glavnaya; everything left of
+      # Glavnaya is excluded. Ambiguous sides are published as map questions.
+      limit_streets: ["улица Мунтяна", "Лесовая улица", "Первомайская улица"]
+      left_limit_street: "Главная улица"
+      left_direction: west
+
+  - key: giska
+    display_ru: Гиска
+    source_relation: 12215667
+
+  - key: parkany
+    display_ru: Парканы
+    source_relation: 7431263       # village-council boundary: reference ONLY,
+                                   # the working area follows the built-up village
+
+landmarks:
+  kavkaz:
+    search_names: ["Кавказ", "Кавказы", "Кавказский", "Caucaz"]
+    exclude_direction: east        # owner: exclude the fields to the right of Kavkaz
+    territory: bender_core

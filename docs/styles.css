@@ -31,9 +31,33 @@ html, body {
   font-size: 15px;
 }
 
+#notice-trim {
+  background: #eef4ff;
+  border-bottom: 2px solid #2f6fed;
+  color: #16337a;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
 #layout {
   display: flex;
-  height: calc(100% - 44px);
+  height: calc(100% - 88px);
+}
+
+/* Permanent settlement labels drawn over the map. */
+.area-label span {
+  position: relative;
+  left: -50%;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--c, #1e2430);
+  text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #fff;
+  pointer-events: none;
+  letter-spacing: .01em;
 }
 
 #sidebar {
@@ -74,7 +98,9 @@ h2 { font-size: 14px; margin: 18px 0 8px; text-transform: uppercase; letter-spac
 .legend-list li { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
 .swatch { width: 16px; height: 16px; border-radius: 4px; display: inline-block; }
 .swatch.found { background: rgba(47,111,237,.25); border: 2px solid var(--found); }
-.swatch.missing { background: var(--missing); border-radius: 50%; }
+.swatch.dashed { background: transparent; border: 2px dashed var(--found); }
+.swatch.farm { background: rgba(201,162,39,.35); border: 1px dashed #c9a227; }
+.swatch.missing { background: rgba(245,158,11,.5); border: 2px solid #b45309; }
 .swatch.road { background: var(--road); height: 4px; border-radius: 2px; }
 .swatch.review { background: var(--review); height: 4px; border-radius: 2px; }
 

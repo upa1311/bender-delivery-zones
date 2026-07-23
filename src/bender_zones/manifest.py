@@ -7,7 +7,10 @@ and auditable without keeping the (git-ignored) PBF in version control.
 
 from __future__ import annotations
 
+import glob
+import json
 from dataclasses import dataclass
+from pathlib import Path
 
 from . import jsonutil
 
@@ -55,3 +58,25 @@ class DownloadManifest:
     def to_json(self) -> str:
         """Serialize deterministically."""
         return jsonutil.dumps(self.to_dict())
+
+
+def _normalize(path: str) -> str:
+    return str(path).replace("\\", "/")
+
+
+def find_latest_manifest(manifests_dir: str | Path, local_path: str) -> dict | None:
+    """Return the newest manifest dict describing *local_path*, or ``None``.
+
+    Manifest filenames are timestamped, so lexical sort ascending means the last
+    match is the most recent. Unreadable files are skipped.
+    """
+    target = _normalize(local_path)
+    best: dict | None = None
+    for candidate in sorted(glob.glob(str(Path(manifests_dir) / "*.json"))):
+        try:
+            data = json.loads(Path(candidate).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(data, dict) and _normalize(data.get("local_path", "")) == target:
+            best = data
+    return best

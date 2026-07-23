@@ -15,6 +15,15 @@ class MissingRelationError(BenderZonesError):
     """Raised when a required candidate relation is absent from the PBF."""
 
 
+class ProvenanceError(BenderZonesError):
+    """Raised when an existing file cannot be trusted against its manifest.
+
+    Covers a missing manifest, or a SHA-256 mismatch between the file on disk
+    and the manifest that claims to describe it. The caller is told to pass
+    ``--force`` to deliberately re-download.
+    """
+
+
 class SpatialAuditUnavailableError(BenderZonesError):
     """Raised when an *exact* boundary extraction cannot be performed.
 

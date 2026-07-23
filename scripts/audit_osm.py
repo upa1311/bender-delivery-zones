@@ -17,8 +17,6 @@ Usage::
 from __future__ import annotations
 
 import argparse
-import glob
-import json
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -32,6 +30,7 @@ from bender_zones.config import (
 )
 from bender_zones.errors import SpatialAuditUnavailableError
 from bender_zones.extract import extract_boundary
+from bender_zones.manifest import find_latest_manifest
 from bender_zones.metrics import compute_metrics
 from bender_zones.relations import find_relations, validate_relation
 from bender_zones.versions import tool_versions
@@ -72,16 +71,7 @@ def _resolve_candidates(args: argparse.Namespace) -> list[CandidateConfig]:
 
 def _load_pbf_manifest(repo_root: Path, pbf_rel: str) -> dict | None:
     """Return the most recent manifest whose local_path matches *pbf_rel*."""
-    manifest_dir = repo_root / "data" / "manifests"
-    best: dict | None = None
-    for path in sorted(glob.glob(str(manifest_dir / "*.json"))):
-        try:
-            data = json.loads(Path(path).read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-        if str(data.get("local_path", "")).replace("\\", "/") == pbf_rel.replace("\\", "/"):
-            best = data  # sorted() → last match is newest by timestamped filename
-    return best
+    return find_latest_manifest(repo_root / "data" / "manifests", pbf_rel)
 
 
 def main(argv: list[str] | None = None) -> int:

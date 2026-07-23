@@ -1,0 +1,10 @@
+{
+  "content_length": 100293069,
+  "downloaded_at": "2026-07-23T07:22:59Z",
+  "etag": "\"5fa59cd-6573d50c62a60\"",
+  "last_modified": "Thu, 23 Jul 2026 01:38:40 GMT",
+  "local_path": "data/raw/moldova-latest.osm.pbf",
+  "resolved_url": "https://download.geofabrik.de/europe/moldova-260722.osm.pbf",
+  "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+  "source_url": "https://download.geofabrik.de/europe/moldova-latest.osm.pbf"
+}

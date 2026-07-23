@@ -30,3 +30,14 @@ def test_gitignore_keeps_folders_but_allows_manifests(repo_root):
     text = (repo_root / ".gitignore").read_text(encoding="utf-8")
     assert "!data/**/.gitkeep" in text
     assert "!data/manifests/*.json" in text
+
+
+def test_gitignore_allowlists_only_the_two_reports(repo_root):
+    text = (repo_root / ".gitignore").read_text(encoding="utf-8")
+    lines = {line.strip() for line in text.splitlines()}
+    assert "reports/stage-01/*" in lines
+    assert "!reports/stage-01/source-audit.json" in lines
+    assert "!reports/stage-01/source-audit.md" in lines
+    # interim/city extracts and boundary geojson must stay ignored
+    assert "data/interim/*" in lines
+    assert "*.geojson" in lines

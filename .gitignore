@@ -41,6 +41,9 @@ data/manifests/*
 # --- Reports: keep the folder; generated audit outputs stay local ----------
 reports/stage-01/*
 !reports/**/.gitkeep
+# Exception: the two published stage-01 audit deliverables ARE committed.
+!reports/stage-01/source-audit.json
+!reports/stage-01/source-audit.md
 
 # --- Test fixtures: allow the tiny hand-written OSM XML fixture -------------
 !tests/fixtures/*.osm

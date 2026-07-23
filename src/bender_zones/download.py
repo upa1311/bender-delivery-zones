@@ -10,6 +10,12 @@ Safety properties:
 * compute SHA-256 while streaming (no second read);
 * rename atomically with :func:`os.replace` only after a complete download;
 * never overwrite an existing destination unless ``force=True``.
+
+Provenance rule for an existing file (no ``--force``): the file is only accepted
+if a manifest for its path exists **and** the file's SHA-256 matches it. A
+missing manifest or a mismatch is a :class:`ProvenanceError`, not a silent pass.
+We never mint a fresh manifest (with a fresh ``downloaded_at``) for a file that
+was not actually downloaded in this run.
 """
 
 from __future__ import annotations
@@ -21,7 +27,8 @@ from pathlib import Path
 import httpx
 
 from .config import SourceConfig
-from .manifest import DownloadManifest
+from .errors import ProvenanceError
+from .manifest import DownloadManifest, find_latest_manifest
 
 _CHUNK = 1 << 20  # 1 MiB
 
@@ -63,19 +70,27 @@ def run_download(
     dest.parent.mkdir(parents=True, exist_ok=True)
 
     if dest.exists() and not force:
-        # Keep the existing file; report it (hash it so the manifest is truthful).
-        sha256 = _sha256_file(dest)
-        manifest = DownloadManifest(
-            source_url=source.source_url,
-            resolved_url=source.source_url,
-            downloaded_at=downloaded_at,
-            content_length=dest.stat().st_size,
-            sha256=sha256,
-            etag=None,
-            last_modified=None,
-            local_path=source.destination,
-        )
-        return manifest, False
+        # Do NOT trust the file blindly and do NOT fabricate a new manifest.
+        # Verify it against the manifest that recorded its original download.
+        manifests_dir = root / "data" / "manifests"
+        recorded = find_latest_manifest(manifests_dir, source.destination)
+        if recorded is None:
+            raise ProvenanceError(
+                f"{source.destination} exists but no manifest describes it in "
+                f"{manifests_dir}; cannot verify provenance. Re-download with "
+                "--force, or remove the untrusted file."
+            )
+        actual_sha = _sha256_file(dest)
+        recorded_sha = str(recorded.get("sha256", ""))
+        if actual_sha != recorded_sha:
+            raise ProvenanceError(
+                f"{source.destination} SHA-256 does not match its manifest "
+                f"(file={actual_sha}, manifest={recorded_sha}); the file may be "
+                "stale or corrupt. Re-download with --force to replace it."
+            )
+        # Trusted existing file: reuse its ORIGINAL manifest unchanged (its real
+        # downloaded_at), and signal that nothing was downloaded this run.
+        return DownloadManifest.from_dict(recorded), False
 
     tmp_path = dest.with_name(dest.name + ".part")
     if tmp_path.exists():

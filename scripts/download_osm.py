@@ -23,6 +23,7 @@ import httpx
 from bender_zones import jsonutil
 from bender_zones.config import load_sources
 from bender_zones.download import run_download
+from bender_zones.errors import ProvenanceError
 
 
 def _utc_now_iso() -> str:
@@ -73,6 +74,9 @@ def main(argv: list[str] | None = None) -> int:
                     force=args.force,
                 )
                 break
+            except ProvenanceError as exc:  # existing file cannot be trusted
+                print(f"error: {exc}", file=sys.stderr)
+                return 2
             except httpx.HTTPError as exc:  # network / status errors
                 last_error = exc
                 print(f"attempt {attempt} failed: {exc}", file=sys.stderr)
@@ -80,16 +84,22 @@ def main(argv: list[str] | None = None) -> int:
             print(f"error: download failed after retries: {last_error}", file=sys.stderr)
             return 1
 
-    manifest_dir = Path(args.repo_root) / "data" / "manifests"
-    manifest_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = manifest_dir / _manifest_filename(source.name, downloaded_at)
-    jsonutil.write(manifest_path, manifest.to_dict())
-
-    action = "downloaded" if downloaded else "kept existing (use --force to refresh)"
-    print(f"{action}: {manifest.local_path}")
-    print(f"  sha256: {manifest.sha256}")
-    print(f"  bytes:  {manifest.content_length}")
-    print(f"  manifest: {manifest_path}")
+    if downloaded:
+        # Only a real download gets a fresh manifest (with this run's timestamp).
+        manifest_dir = Path(args.repo_root) / "data" / "manifests"
+        manifest_dir.mkdir(parents=True, exist_ok=True)
+        manifest_path = manifest_dir / _manifest_filename(source.name, downloaded_at)
+        jsonutil.write(manifest_path, manifest.to_dict())
+        print(f"downloaded: {manifest.local_path}")
+        print(f"  sha256: {manifest.sha256}")
+        print(f"  bytes:  {manifest.content_length}")
+        print(f"  manifest: {manifest_path}")
+    else:
+        # Verified existing file: reuse the original manifest; write nothing new.
+        print(f"kept existing (verified against manifest): {manifest.local_path}")
+        print(f"  sha256: {manifest.sha256}")
+        print(f"  original downloaded_at: {manifest.downloaded_at}")
+        print("  (no new manifest written; pass --force to re-download)")
     return 0
 
 

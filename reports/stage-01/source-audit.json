@@ -1,0 +1,275 @@
+{
+  "boundary_selected": false,
+  "candidates": [
+    {
+      "id": 9581354,
+      "label": "Municipiul Bender / MD-BD (official municipal boundary, per brief)",
+      "metrics": {
+        "address_nodes": 793,
+        "address_objects_without_housenumber": 190,
+        "buildings": 12356,
+        "buildings_with_housenumber": 6026,
+        "car_highway_ways": 1840,
+        "duplicate_address_groups": 409,
+        "duplicate_address_objects": 480,
+        "highway_ways": 2762,
+        "housenumber_without_street_or_place": 291,
+        "named_highway_ways": 565,
+        "objects_with_addr_place": 0,
+        "objects_with_addr_street": 6744,
+        "objects_with_alt_name": 21,
+        "objects_with_name_ro": 1227,
+        "objects_with_name_ru": 1652,
+        "objects_with_old_name": 55,
+        "unique_road_names": 272
+      },
+      "note": "Brief describes this as the official Municipiul Bender boundary. Verify tags against the PBF before trusting this description.",
+      "relation": {
+        "found": true,
+        "id": 9581354,
+        "member_count": 30,
+        "member_type_counts": {
+          "n": 1,
+          "r": 2,
+          "w": 27
+        },
+        "tags": {
+          "ISO3166-2": "MD-BD",
+          "admin_level": "4",
+          "alt_name": "Municipiul Tighina",
+          "boundary": "administrative",
+          "name": "Municipiul Bender",
+          "name:de": "Munizip Bender",
+          "name:en": "Bender Municipality",
+          "name:es": "Municipio de Bender",
+          "name:ro": "Municipiul Bender",
+          "name:ru": "Муниципий Бендеры",
+          "name:uk": "Муніципій Бендер",
+          "note": "This is the official border of Bender municipality in conformity with Republic of Moldova laws. Don't mess this relation with the Bender City Council border in conformity with PMR's laws ( https://www.openstreetmap.org/relation/944727)!",
+          "place": "municipality",
+          "place:ro": "municipiu",
+          "ref": "BD",
+          "ref:cuatm:codstatistic": "0500000",
+          "ref:cuatm:codunic": "0500",
+          "ref:cuatm:statut": "5",
+          "ref:nuts:1": "MD1",
+          "ref:nuts:2": "MD12",
+          "ref:nuts:3": "MD121",
+          "type": "boundary",
+          "wikidata": "Q18088065",
+          "wikipedia": "ro:municipiul Bender"
+        },
+        "warnings": []
+      },
+      "spatial_audit": {
+        "reason": null,
+        "status": "ok"
+      }
+    },
+    {
+      "id": 944727,
+      "label": "Bender City Council (de-facto city boundary, per brief)",
+      "metrics": {
+        "address_nodes": 1037,
+        "address_objects_without_housenumber": 379,
+        "buildings": 14919,
+        "buildings_with_housenumber": 6466,
+        "car_highway_ways": 2140,
+        "duplicate_address_groups": 498,
+        "duplicate_address_objects": 599,
+        "highway_ways": 3239,
+        "housenumber_without_street_or_place": 558,
+        "named_highway_ways": 656,
+        "objects_with_addr_place": 0,
+        "objects_with_addr_street": 7343,
+        "objects_with_alt_name": 22,
+        "objects_with_name_ro": 1388,
+        "objects_with_name_ru": 1847,
+        "objects_with_old_name": 61,
+        "unique_road_names": 288
+      },
+      "note": "Brief describes this as the de-facto Bender City Council boundary. Verify tags against the PBF before trusting this description.",
+      "relation": {
+        "found": true,
+        "id": 944727,
+        "member_count": 33,
+        "member_type_counts": {
+          "n": 1,
+          "r": 3,
+          "w": 29
+        },
+        "tags": {
+          "admin_level": "5",
+          "alt_name": "Бендеры",
+          "alt_name:en": "Bendery",
+          "boundary": "administrative",
+          "name": "Tighina",
+          "name:de": "Tighina",
+          "name:en": "Tighina",
+          "name:pl": "Tighina",
+          "name:ro": "Tighina",
+          "name:ru": "Бендеры",
+          "name:uk": "Бендери",
+          "note": "This is the area of Bender, which is under control of the unrecognised PMR. This is the factually existing border.",
+          "old_name:ro": "Bender",
+          "place": "municipality",
+          "type": "boundary",
+          "wikidata": "Q192176",
+          "wikipedia": "ro:Tighina"
+        },
+        "warnings": []
+      },
+      "spatial_audit": {
+        "reason": null,
+        "status": "ok"
+      }
+    }
+  ],
+  "differences": {
+    "address_nodes": {
+      "by_candidate": {
+        "944727": 1037,
+        "9581354": 793
+      },
+      "delta": 244
+    },
+    "address_objects_without_housenumber": {
+      "by_candidate": {
+        "944727": 379,
+        "9581354": 190
+      },
+      "delta": 189
+    },
+    "buildings": {
+      "by_candidate": {
+        "944727": 14919,
+        "9581354": 12356
+      },
+      "delta": 2563
+    },
+    "buildings_with_housenumber": {
+      "by_candidate": {
+        "944727": 6466,
+        "9581354": 6026
+      },
+      "delta": 440
+    },
+    "car_highway_ways": {
+      "by_candidate": {
+        "944727": 2140,
+        "9581354": 1840
+      },
+      "delta": 300
+    },
+    "duplicate_address_groups": {
+      "by_candidate": {
+        "944727": 498,
+        "9581354": 409
+      },
+      "delta": 89
+    },
+    "duplicate_address_objects": {
+      "by_candidate": {
+        "944727": 599,
+        "9581354": 480
+      },
+      "delta": 119
+    },
+    "highway_ways": {
+      "by_candidate": {
+        "944727": 3239,
+        "9581354": 2762
+      },
+      "delta": 477
+    },
+    "housenumber_without_street_or_place": {
+      "by_candidate": {
+        "944727": 558,
+        "9581354": 291
+      },
+      "delta": 267
+    },
+    "named_highway_ways": {
+      "by_candidate": {
+        "944727": 656,
+        "9581354": 565
+      },
+      "delta": 91
+    },
+    "objects_with_addr_place": {
+      "by_candidate": {
+        "944727": 0,
+        "9581354": 0
+      },
+      "delta": 0
+    },
+    "objects_with_addr_street": {
+      "by_candidate": {
+        "944727": 7343,
+        "9581354": 6744
+      },
+      "delta": 599
+    },
+    "objects_with_alt_name": {
+      "by_candidate": {
+        "944727": 22,
+        "9581354": 21
+      },
+      "delta": 1
+    },
+    "objects_with_name_ro": {
+      "by_candidate": {
+        "944727": 1388,
+        "9581354": 1227
+      },
+      "delta": 161
+    },
+    "objects_with_name_ru": {
+      "by_candidate": {
+        "944727": 1847,
+        "9581354": 1652
+      },
+      "delta": 195
+    },
+    "objects_with_old_name": {
+      "by_candidate": {
+        "944727": 61,
+        "9581354": 55
+      },
+      "delta": 6
+    },
+    "unique_road_names": {
+      "by_candidate": {
+        "944727": 288,
+        "9581354": 272
+      },
+      "delta": 16
+    }
+  },
+  "generated_at": "2026-07-23T07:26:48Z",
+  "limitations": [
+    "Address coverage in OpenStreetMap is community-contributed and is NOT complete.",
+    "No working boundary has been selected; both candidates are reported side by side.",
+    "Duplicate metric is a preliminary signal only (NFKC/trim/collapse/casefold); no transliteration or fuzzy matching is applied.",
+    "Metrics are counts of raw OSM objects, not validated postal addresses.",
+    "This stage produces no delivery zones, tariffs, routing graph, or address database."
+  ],
+  "pbf_manifest": {
+    "content_length": 100293069,
+    "downloaded_at": "2026-07-23T07:22:59Z",
+    "etag": "\"5fa59cd-6573d50c62a60\"",
+    "last_modified": "Thu, 23 Jul 2026 01:38:40 GMT",
+    "local_path": "data/raw/moldova-latest.osm.pbf",
+    "resolved_url": "https://download.geofabrik.de/europe/moldova-260722.osm.pbf",
+    "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+    "source_url": "https://download.geofabrik.de/europe/moldova-latest.osm.pbf"
+  },
+  "schema": "bender-source-audit/1",
+  "tool_versions": {
+    "libosmium": "2.23.1",
+    "osmium_tool": "osmium version 1.19.1",
+    "pyosmium": "4.3.1",
+    "python": "3.12.10"
+  },
+  "warnings": []
+}

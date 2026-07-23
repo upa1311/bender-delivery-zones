@@ -17,7 +17,6 @@ Local-only pipeline (needs the Moldova PBF + osmium-tool). Produces:
 * docs/data/buildings.geojson               classified buildings (MultiPoint)
 * docs/data/street-demand-audit.csv         the street-level demand table
 * docs/data/demand-summary.json             before/after counts
-* docs/data/k-candidates.{json,geojson}     K=4 / K=5 PREPARED, not chosen
 * docs/data/service-area-diff.json          areas, reduction %, building counts
 * reports/stage-04/residential-demand-audit.{json,md}
 
@@ -108,9 +107,20 @@ class CityFeatures:
         self.pois = []            # metric Points of civic/commercial POIs
 
 
-def load_city_features(city_pbf: Path, proj, poi_keys) -> CityFeatures:
+def _is_whitelisted_poi(tags: dict, whitelist: dict, require_name: bool) -> bool:
+    """Strict named-value whitelist; generic/technical/unnamed objects excluded."""
+    if require_name and not (tags.get("name") or "").strip():
+        return False
+    for key, values in whitelist.items():
+        if tags.get(key) in values:
+            return True
+    return False
+
+
+def load_city_features(city_pbf: Path, proj, poi_cfg) -> CityFeatures:
     feats = CityFeatures()
-    poi_keys = set(poi_keys)
+    whitelist = {k: set(v) for k, v in poi_cfg["whitelist"].items()}
+    require_name = bool(poi_cfg.get("require_name", True))
     for obj in osmium.FileProcessor(str(city_pbf)).with_locations():
         tags = {k: v for k, v in obj.tags}
         kind = obj.type_str()
@@ -124,7 +134,7 @@ def load_city_features(city_pbf: Path, proj, poi_keys) -> CityFeatures:
                 feats.address_points.append(pt)
             if tags.get("place") is not None or tags.get("name"):
                 feats.places.append((obj.id, tags, pt))
-            if any(tags.get(k) for k in poi_keys):
+            if _is_whitelisted_poi(tags, whitelist, require_name):
                 feats.pois.append(pt)
             continue
 
@@ -156,7 +166,7 @@ def load_city_features(city_pbf: Path, proj, poi_keys) -> CityFeatures:
                                     "cls": classify_building(tags), "tags": tags})
             if tags.get("addr:housenumber") is not None:
                 feats.address_points.append(centroid)
-            if any(tags.get(k) for k in poi_keys):
+            if _is_whitelisted_poi(tags, whitelist, require_name):
                 feats.pois.append(centroid)
             continue
 
@@ -413,7 +423,8 @@ def build(pbf: Path, repo_root: Path) -> int:
     params = TrimParams(**trim_cfg["parameters"])
     thresholds = TierThresholds(**demand_cfg["thresholds"])
     corridor_m = float(demand_cfg["street_corridor_m"])
-    poi_keys = demand_cfg["poi_keys"]
+    poi_cfg = {"whitelist": demand_cfg["poi_whitelist"],
+               "require_name": demand_cfg.get("poi_require_name", True)}
     audit_cfg = load_audit(repo_root / "config" / "audit.yml")
     local_table = load_local_ru_table(repo_root / "config" / "street-names-ru.yml")
     workdir = repo_root / audit_cfg.workdir
@@ -434,7 +445,7 @@ def build(pbf: Path, repo_root: Path) -> int:
         proj = local_projection(c.y, c.x)
         sources[rel] = {"boundary_deg": boundary_deg, "proj": proj,
                         "boundary_m": to_metres(boundary_deg, proj),
-                        "features": load_city_features(result.city_pbf, proj, poi_keys)}
+                        "features": load_city_features(result.city_pbf, proj, poi_cfg)}
 
     lipcani_node = next((t.get("suburb_place_node") for t in territories
                          if t.get("role") == "bender_suburb"), None)
@@ -851,18 +862,6 @@ def _write_outputs(repo_root, trim_cfg, demand_cfg, taxi_cfg, params,
                  "нужны локальная маршрутизация и реальные тарифы такси."),
         "candidates": k_results,
     }
-    jsonutil.write(data / "k-candidates.json", k_doc)
-    k_feats = []
-    for k, clusters in k_results.items():
-        for c in clusters:
-            k_feats.append({"type": "Feature",
-                            "properties": {"k": int(k), "cluster": c["cluster"],
-                                           "weighted_demand": c["weighted_demand"],
-                                           "member_streets": c["member_streets"],
-                                           "status": "prepared_not_selected"},
-                            "geometry": {"type": "Point",
-                                         "coordinates": [c["centre_lon"], c["centre_lat"]]}})
-    jsonutil.write(data / "k-candidates.geojson", fc(k_feats))
 
     diff_doc = {
         "schema": "bender-service-area-diff/4",

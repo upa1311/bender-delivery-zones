@@ -182,24 +182,6 @@ function tierCPopup(p) {
     <p class="muted small">${esc(p.note)}</p></div>`;
 }
 
-const ZONE_COLORS = ["#2f6fed", "#e8730c", "#1f9d55", "#7c3aed", "#d1461f"];
-
-function zonePopup(p) {
-  return `<div class="popup">
-    <div class="popup-title">K=${p.k} · зона ${p.zone}
-      <span class="badge review">черновик</span></div>
-    <table>
-      <tr><td class="k">адресов</td><td>${p.addresses}</td></tr>
-      <tr><td class="k">вес спроса</td><td>${p.demand_weight}</td></tr>
-      <tr><td class="k">медиана</td><td>${p.median_km} км · ${p.median_min} мин</td></tr>
-      <tr><td class="k">p90 время</td><td>${p.p90_min} мин</td></tr>
-      <tr><td class="k">компактность</td><td>${p.compactness}</td></tr>
-      <tr><td class="k">площадь</td><td>${p.area_km2} км²</td></tr>
-    </table>
-    <p class="muted small">Время по свободному потоку (без пробок) — нижняя граница.
-    Победитель K не выбран, цены не назначались.</p></div>`;
-}
-
 function originPopup(p) {
   return `<div class="popup">
     <div class="popup-title">${esc(p.key)}</div>
@@ -207,20 +189,32 @@ function originPopup(p) {
       <tr><td class="k">роль</td><td>${esc(p.role)}</td></tr>
       <tr><td class="k">доля заказов</td><td>${p.weight}</td></tr>
       <tr><td class="k">заведений в кластере</td><td>${p.poi_count}</td></tr>
+      ${p.distance_to_bam_landmark_km != null
+        ? `<tr><td class="k">до ориентира БАМ</td><td>${p.distance_to_bam_landmark_km} км</td></tr>` : ""}
     </table>
-    <p class="muted small">${esc(p.note)}</p></div>`;
+    <p class="muted small">Представительный источник заказов (кластер заведений),
+    не один POI.</p></div>`;
 }
 
-function kPopup(p) {
+function bandPopup(p, metrics, k) {
+  const res = metrics.candidates[String(k)];
+  const z = res ? res.zones.find((x) => x.zone === p.zone) : null;
+  const km = z ? z.km : null;
   return `<div class="popup">
-    <div class="popup-title">K=${p.k} · кластер ${p.cluster}</div>
+    <div class="popup-title">${esc(p.name)} — K=${p.k}
+      <span class="badge review">тариф не назначен</span></div>
     <table>
-      <tr><td class="k">взвешенный спрос</td><td>${p.weighted_demand}</td></tr>
-      <tr><td class="k">улиц в кластере</td><td>${p.member_streets}</td></tr>
-      <tr><td class="k">статус</td><td><code>${esc(p.status)}</code></td></tr>
+      ${km ? `<tr><td class="k">диапазон км</td><td>${km.min} – ${km.max}</td></tr>
+      <tr><td class="k">p50 / p90 км</td><td>${km.p50} / ${km.p90}</td></tr>
+      <tr><td class="k">p50 мин</td><td>${z.minutes.p50}</td></tr>
+      <tr><td class="k">единиц доставки</td><td>${z.unique_delivery_units}</td></tr>
+      <tr><td class="k">из них адресных</td><td>${z.address_units}</td></tr>
+      <tr><td class="k">вес спроса</td><td>${z.demand_weight}</td></tr>
+      <tr><td class="k">центр / БАМ км</td><td>${z.central_km_p50} / ${z.bam_km_p50}</td></tr>` : ""}
+      <tr><td class="k">площадь</td><td>${p.area_km2} км²</td></tr>
     </table>
-    <p class="muted small">Черновик. Победитель K не выбран: нужны локальная
-    маршрутизация и тарифы такси.</p></div>`;
+    <p class="muted small">Зоны — упорядоченные диапазоны стоимости по дорожным
+    километрам OSRM, а не географические кластеры. Деньги не назначены.</p></div>`;
 }
 
 function renderStats(diff, demand) {
@@ -286,7 +280,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, kCand, demand, zoneCand, origins] = await Promise.all([
+           tierC, demand, bands, origins, bandMetrics, exceptions] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -296,10 +290,11 @@ async function init() {
       loadJSON("data/roads.geojson"),
       loadJSON("data/service-area-diff.json"),
       loadJSON("data/tier-c-manual-review.geojson"),
-      loadJSON("data/k-candidates.geojson"),
       loadJSON("data/demand-summary.json"),
-      loadJSON("data/zone-candidates.geojson"),
+      loadJSON("data/tariff-bands.geojson"),
       loadJSON("data/restaurant-origins.geojson"),
+      loadJSON("data/tariff-band-metrics.json"),
+      loadJSON("data/delivery-exceptions.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -367,44 +362,42 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(tierCPopup(f.properties)),
     }).addTo(map);
 
-    // K=4 / K=5 centres — prepared drafts, no winner chosen.
+    // Ordered TARIFF BANDS (Zone 1 = cheapest routes ... Zone N = farthest).
+    // Mutually exclusive by construction; both K published, neither chosen.
+    const BAND_COLORS = ["#1a9850", "#a6d96a", "#fdae61", "#f46d43", "#d73027"];
     [4, 5].forEach((k) => {
-      overlays[`Центры K=${k} (черновик)`] = L.geoJSON({
-        type: "FeatureCollection",
-        features: kCand.features.filter((f) => f.properties.k === k),
-      }, {
-        pointToLayer: (f, latlng) => L.marker(latlng, {
-          icon: L.divIcon({
-            className: "k-centre",
-            html: `<span>K${f.properties.k}·${f.properties.cluster}</span>`,
-            iconSize: [0, 0],
-          }),
-        }),
-        onEachFeature: (f, l) => l.bindPopup(kPopup(f.properties)),
+      const feats = bands.features.filter((f) => f.properties.k === k);
+      const layer = L.geoJSON({ type: "FeatureCollection", features: feats }, {
+        style: (f) => ({
+          color: BAND_COLORS[(f.properties.zone - 1) % BAND_COLORS.length],
+          weight: 1.5,
+          fillColor: BAND_COLORS[(f.properties.zone - 1) % BAND_COLORS.length],
+          fillOpacity: 0.45 }),
+        onEachFeature: (f, l) => l.bindPopup(bandPopup(f.properties, bandMetrics, k)),
       });
+      overlays[`Тарифные зоны K=${k} (Zone 1…${k})`] = layer;
+      if (k === 4) layer.addTo(map);
     });
 
-    // Routing-based candidate zones: both K published, neither chosen.
-    [4, 5].forEach((k) => {
-      overlays[`Зоны K=${k} (черновик)`] = L.geoJSON({
-        type: "FeatureCollection",
-        features: zoneCand.features.filter((f) => f.properties.k === k),
-      }, {
-        style: (f) => ({ color: ZONE_COLORS[f.properties.zone % ZONE_COLORS.length],
-          weight: 2, fillColor: ZONE_COLORS[f.properties.zone % ZONE_COLORS.length],
-          fillOpacity: 0.25 }),
-        onEachFeature: (f, l) => l.bindPopup(zonePopup(f.properties)),
-      });
-    });
-
-    // Representative restaurant origins (85% central / 15% BAM + outer).
+    // Representative restaurant origins (85% central / 15% BAM + other outer).
     overlays["Источники заказов (рестораны)"] = L.geoJSON(origins, {
       pointToLayer: (f, latlng) => L.circleMarker(latlng, {
         radius: 6 + 14 * f.properties.weight, color: "#111827", weight: 2,
-        fillColor: f.properties.role === "central" ? "#dc2626" : "#f59e0b",
+        fillColor: f.properties.role === "central" ? "#dc2626"
+          : (f.properties.role === "bam" ? "#f59e0b" : "#fcd34d"),
         fillOpacity: 0.9 }),
       onEachFeature: (f, l) => l.bindPopup(originPopup(f.properties)),
     }).addTo(map);
+
+    // Explicit exception list (never silently dropped).
+    overlays["Исключения (не в зонах)"] = L.geoJSON(exceptions, {
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+        radius: 4, color: "#7f1d1d", weight: 1, fillColor: "#ef4444",
+        fillOpacity: 0.85 }),
+      onEachFeature: (f, l) => l.bindPopup(
+        `<div class="popup"><b>Исключение</b><br>${esc(f.properties.uid)}<br>` +
+        `<code>${esc(f.properties.reason)}</code></div>`),
+    });
 
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);
     renderStats(diff, demand);

@@ -269,13 +269,15 @@ def test_before_after_lists_are_published(repo_root):
 # --- K candidates and taxi calibration --------------------------------------
 
 def test_k4_and_k5_are_prepared_but_not_selected(repo_root):
-    k = _json(repo_root, "k-candidates.json")
-    assert set(k["candidates"]) == {"4", "5"}
-    assert len(k["candidates"]["4"]) == 4
-    assert len(k["candidates"]["5"]) == 5
-    assert k["status"] == "prepared_not_selected"
-    assert k["winner"] is None
-    assert "local routing" in k["blocked_on"]
+    """K preparation now lives in Stage 06 as ordered OSRM tariff bands.
+
+    The Stage-04/05 spatial k-means centres were rejected as a zoning model and
+    are no longer published.
+    """
+    assert not (repo_root / "docs/data/k-candidates.json").exists()
+    doc = _json(repo_root, "tariff-band-metrics.json")
+    assert set(doc["candidates"]) == {"4", "5"}
+    assert doc["recommendation_status"] == "owner_review_required"
 
 
 def test_taxi_calibration_placeholders_are_null(repo_root):
@@ -310,7 +312,7 @@ def test_stage04_outputs_are_canonical(repo_root):
                  "buildings.geojson"):
         text = (repo_root / "docs/data" / name).read_text(encoding="utf-8")
         assert jsonutil.dumps_compact(json.loads(text)) == text, name
-    for name in ("demand-summary.json", "k-candidates.json"):
+    for name in ("demand-summary.json",):
         text = (repo_root / "docs/data" / name).read_text(encoding="utf-8")
         assert jsonutil.dumps(json.loads(text)) == text, name
 

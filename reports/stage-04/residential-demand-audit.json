@@ -65,8 +65,13 @@
     ]
   },
   "external_evidence_note": "Validation metadata only. No scraping and no proprietary map coordinates were used; geometry comes from the local OSM extract.",
-  "generated_at": "2026-07-23T20:51:42Z",
+  "generated_at": "2026-07-23T21:35:04Z",
   "isolated_fringe_streets": [
+    {
+      "reason": "uncertain_or_disconnected_evidence",
+      "settlement": "bender_lipcani",
+      "street_ru": "улица Панина"
+    },
     {
       "reason": "at_most_2_probable_residences",
       "settlement": "giska",
@@ -120,11 +125,11 @@
           "weighted_demand": 1385.0
         },
         {
-          "centre_lat": 46.830071,
-          "centre_lon": 29.459467,
+          "centre_lat": 46.830063,
+          "centre_lon": 29.459451,
           "cluster": 2,
-          "member_streets": 138,
-          "weighted_demand": 9560.5
+          "member_streets": 137,
+          "weighted_demand": 9553.5
         },
         {
           "centre_lat": 46.810898,
@@ -150,11 +155,11 @@
           "weighted_demand": 1006.0
         },
         {
-          "centre_lat": 46.831241,
-          "centre_lon": 29.458128,
+          "centre_lat": 46.831233,
+          "centre_lon": 29.458108,
           "cluster": 2,
-          "member_streets": 125,
-          "weighted_demand": 8340.5
+          "member_streets": 124,
+          "weighted_demand": 8333.5
         },
         {
           "centre_lat": 46.794742,
@@ -172,7 +177,7 @@
         }
       ]
     },
-    "generated_at": "2026-07-23T20:51:42Z",
+    "generated_at": "2026-07-23T21:35:04Z",
     "note": "K=4 и K=5 подготовлены как варианты. Победитель не выбран: нужны локальная маршрутизация и реальные тарифы такси.",
     "schema": "bender-k-candidates/4",
     "status": "prepared_not_selected",
@@ -246,9 +251,9 @@
     "excluded_outbuildings": 135,
     "residential_customers": 14473,
     "streets_by_tier": {
-      "A": 319,
+      "A": 318,
       "B": 3,
-      "C": 6
+      "C": 7
     },
     "streets_by_tier_per_settlement": {
       "bender_core": {
@@ -257,9 +262,9 @@
         "C": 0
       },
       "bender_lipcani": {
-        "A": 19,
+        "A": 18,
         "B": 0,
-        "C": 0
+        "C": 1
       },
       "giska": {
         "A": 29,
@@ -315,7 +320,7 @@
       "addresses_inside": 288,
       "buildings_excluded": 4,
       "buildings_included": 601,
-      "candidate_area_km2": 1.4031,
+      "candidate_area_km2": 1.4006,
       "display_ru": "Липканы",
       "excluded_abandoned_or_ruin": 3,
       "excluded_construction": 0,
@@ -323,20 +328,21 @@
       "excluded_outbuildings": 3,
       "exclusion_reasons": [
         "non_residential_buildings",
-        "outbuildings"
+        "outbuildings",
+        "sparse_buildings"
       ],
       "inclusion_reasons": [
         "addressed_buildings",
         "dense_residential_buildings",
         "residential_street"
       ],
-      "reduction_pct": 54.26,
+      "reduction_pct": 54.34,
       "residential_customers": 287,
       "source_area_km2": 3.0678,
       "source_relation": 12463379,
-      "streets_tier_a": 19,
+      "streets_tier_a": 18,
       "streets_tier_b": 0,
-      "streets_tier_c": 0,
+      "streets_tier_c": 1,
       "unknown_buildings": 0
     },
     "giska": {

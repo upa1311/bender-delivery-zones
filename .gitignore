@@ -67,3 +67,7 @@ build/
 dist/
 .coverage
 htmlcov/
+
+# Local OSRM build artifacts (multi-GB, rebuildable from the PBF)
+data/interim/osrm/
+*.osrm*

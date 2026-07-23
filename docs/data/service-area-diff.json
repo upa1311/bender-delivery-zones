@@ -1,6 +1,6 @@
 {
   "basis": "tier_a_b_residential_demand",
-  "generated_at": "2026-07-23T20:51:42Z",
+  "generated_at": "2026-07-23T21:35:04Z",
   "merged_production_polygon": false,
   "routing_created": false,
   "schema": "bender-service-area-diff/4",
@@ -38,7 +38,7 @@
       "addresses_inside": 288,
       "buildings_excluded": 4,
       "buildings_included": 601,
-      "candidate_area_km2": 1.4031,
+      "candidate_area_km2": 1.4006,
       "display_ru": "Липканы",
       "excluded_abandoned_or_ruin": 3,
       "excluded_construction": 0,
@@ -46,20 +46,21 @@
       "excluded_outbuildings": 3,
       "exclusion_reasons": [
         "non_residential_buildings",
-        "outbuildings"
+        "outbuildings",
+        "sparse_buildings"
       ],
       "inclusion_reasons": [
         "addressed_buildings",
         "dense_residential_buildings",
         "residential_street"
       ],
-      "reduction_pct": 54.26,
+      "reduction_pct": 54.34,
       "residential_customers": 287,
       "source_area_km2": 3.0678,
       "source_relation": 12463379,
-      "streets_tier_a": 19,
+      "streets_tier_a": 18,
       "streets_tier_b": 0,
-      "streets_tier_c": 0,
+      "streets_tier_c": 1,
       "unknown_buildings": 0
     },
     "giska": {
@@ -155,7 +156,7 @@
     "addresses_inside": 11979,
     "buildings_excluded": 104,
     "buildings_included": 23084,
-    "candidate_area_km2": 26.3034,
+    "candidate_area_km2": 26.3009,
     "source_area_km2": 151.0196,
     "territories": 5
   },

@@ -1,18 +1,18 @@
 # Stage 04 — residential delivery-demand audit
 
-- Generated (UTC): `2026-07-23T20:51:42Z`
+- Generated (UTC): `2026-07-23T21:35:04Z`
 - zones: **False** · tariffs: **False** · routing graph: **False** · Direct: **False**
 
 > Рабочая территория создана по жилой застройке (Tier A + Tier B) и указаниям владельца. Это ещё не четыре зоны доставки и не тарифы.
 
 ## Streets by demand tier
 
-- **A (standard)**: 319 · **B (low density)**: 3 · **C (manual/fringe)**: 6
+- **A (standard)**: 318 · **B (low density)**: 3 · **C (manual/fringe)**: 7
 
 | Территория | A | B | C | адреса | Δплощадь |
 |---|---:|---:|---:|---:|---:|
 | Бендеры (`bender_core`) | 204 | 1 | 0 | 5845 | 17.9802 → 13.0298 км² (−27.53%) |
-| Липканы (`bender_lipcani`) | 19 | 0 | 0 | 288 | 3.0678 → 1.4031 км² (−54.26%) |
+| Липканы (`bender_lipcani`) | 18 | 0 | 1 | 288 | 3.0678 → 1.4006 км² (−54.34%) |
 | Протягайловка (`protyagailovka`) | 29 | 0 | 5 | 715 | 16.6775 → 2.5153 км² (−84.92%) |
 | Гиска (`giska`) | 29 | 0 | 1 | 623 | 30.8582 → 2.8693 км² (−90.7%) |
 | Парканы (`parkany`) | 38 | 2 | 0 | 4508 | 82.4359 → 6.4859 км² (−92.13%) |
@@ -26,6 +26,7 @@
 
 ## Isolated fringe streets (Tier C, not connected to core)
 
+- bender_lipcani: улица Панина — `uncertain_or_disconnected_evidence`
 - giska: Гыска-Золотиевка — `at_most_2_probable_residences`
 - protyagailovka: Абрикосовая — `at_most_2_probable_residences`
 - protyagailovka: Виноградная — `at_most_2_probable_residences`
@@ -50,14 +51,14 @@
 
 - cluster 0: центр 46.838088/29.517627, вес 11852.3, улиц 43
 - cluster 1: центр 46.785825/29.434349, вес 1385.0, улиц 27
-- cluster 2: центр 46.830071/29.459467, вес 9560.5, улиц 138
+- cluster 2: центр 46.830063/29.459451, вес 9553.5, улиц 137
 - cluster 3: центр 46.810898/29.478084, вес 12091.0, улиц 114
 
 ### K=5
 
 - cluster 0: центр 46.838088/29.517627, вес 11852.3, улиц 43
 - cluster 1: центр 46.783738/29.425735, вес 1006.0, улиц 18
-- cluster 2: центр 46.831241/29.458128, вес 8340.5, улиц 125
+- cluster 2: центр 46.831233/29.458108, вес 8333.5, улиц 124
 - cluster 3: центр 46.794742/29.477001, вес 2796.0, улиц 43
 - cluster 4: центр 46.815616/29.476576, вес 10894.0, улиц 93
 

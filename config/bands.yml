@@ -1,0 +1,15 @@
+# Stage 06 — ordered tariff distance bands.
+#
+# Zones are cost ranges over origin-weighted OSRM road kilometres, NOT spatial
+# clusters. Bands are intervals on the sorted cost axis, so they are monotonic,
+# mutually exclusive and exhaustive by construction.
+
+bands:
+  k_values: [4, 5]
+  bin_width_km: 0.05        # cost-axis bin for the exact 1-D weighted DP
+  min_weight_share: 0.05    # no economically meaningless sliver band
+  polygon_buffer_m: 80      # drawing only: buffer around units of a band
+
+osrm:
+  url: "http://127.0.0.1:5000"
+  table_chunk: 300          # destinations per /table request

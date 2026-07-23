@@ -16,8 +16,22 @@ thresholds:
 # Radius used to attribute buildings/addresses/POIs to a street centreline.
 street_corridor_m: 60
 
-# POI keys that count as an active civic/commercial presence.
-poi_keys: [amenity, shop, office, healthcare, tourism]
+# STRICT whitelist of active civic/commercial POIs. Only these named values count
+# as demand evidence. Generic street furniture and technical objects (parking,
+# bench, toilets, shelter, waste_basket, vending_machine, ...) are excluded, and
+# an object must also carry a name to count.
+poi_whitelist:
+  amenity: [restaurant, cafe, fast_food, food_court, school, kindergarten,
+            hospital, clinic, doctors, pharmacy, marketplace, post_office, bank,
+            townhall, community_centre, library, college, university, veterinary]
+  shop: [supermarket, convenience, bakery, butcher, greengrocer, general,
+         department_store, mall, kiosk]
+  tourism: [hotel, guest_house, hostel, motel]
+poi_require_name: true
+# Explicitly never counted, even if named (documented for the audit report).
+poi_excluded_examples: [parking, bench, toilets, shelter, waste_basket,
+                        vending_machine, bicycle_parking, drinking_water,
+                        recycling, fuel, car_wash]
 
 # Verified core streets per territory, matched case-insensitively as stems
 # against the street's Russian display name. Matching a stem sets

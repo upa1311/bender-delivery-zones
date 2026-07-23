@@ -1,0 +1,74 @@
+{
+  "probes": {
+    "bridge_crossing": {
+      "distance_km": 1.487,
+      "duration_min": 3.66,
+      "note": "route across the Dniester bridge area; distance must be a real road distance, not a straight-line jump between crossing ways",
+      "plausible": true
+    },
+    "directionality": {
+      "asymmetric": true,
+      "forward_km": 0.723,
+      "note": "forward and reverse road distance between the same pair; a difference proves one-way/turn handling, identical values would suggest an undirected graph",
+      "reverse_km": 1.523
+    }
+  },
+  "routes": [
+    {
+      "distance_km": 3.893,
+      "duration_min": 5.26,
+      "origin": "central_bender_origin",
+      "origin_role": "central",
+      "target": "Parkany"
+    },
+    {
+      "distance_km": 6.11,
+      "duration_min": 6.81,
+      "origin": "central_bender_origin",
+      "origin_role": "central",
+      "target": "Giska"
+    },
+    {
+      "distance_km": 6.411,
+      "duration_min": 8.18,
+      "origin": "central_bender_origin",
+      "origin_role": "central",
+      "target": "Protyagailovka"
+    },
+    {
+      "distance_km": 3.546,
+      "duration_min": 5.36,
+      "origin": "central_bender_origin",
+      "origin_role": "central",
+      "target": "Lipcani"
+    },
+    {
+      "distance_km": 4.591,
+      "duration_min": 6.51,
+      "origin": "bam_origin",
+      "origin_role": "bam",
+      "target": "Parkany"
+    },
+    {
+      "distance_km": 8.724,
+      "duration_min": 9.56,
+      "origin": "bam_origin",
+      "origin_role": "bam",
+      "target": "Giska"
+    },
+    {
+      "distance_km": 4.705,
+      "duration_min": 6.79,
+      "origin": "bam_origin",
+      "origin_role": "bam",
+      "target": "Protyagailovka"
+    },
+    {
+      "distance_km": 1.242,
+      "duration_min": 2.13,
+      "origin": "bam_origin",
+      "origin_role": "bam",
+      "target": "Lipcani"
+    }
+  ]
+}

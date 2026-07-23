@@ -3,15 +3,15 @@
     {
       "geometry": {
         "coordinates": [
-          29.48277,
-          46.82423
+          29.48281,
+          46.82413
         ],
         "type": "Point"
       },
       "properties": {
+        "distance_to_bam_landmark_km": null,
         "key": "central_bender_origin",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
-        "poi_count": 44,
+        "poi_count": 37,
         "role": "central",
         "weight": 0.85
       },
@@ -20,51 +20,34 @@
     {
       "geometry": {
         "coordinates": [
-          29.47195,
-          46.84192
+          29.47296,
+          46.84167
         ],
         "type": "Point"
       },
       "properties": {
-        "key": "bam_outer_origin_1",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
-        "poi_count": 7,
-        "role": "bam_outer",
-        "weight": 0.05
+        "distance_to_bam_landmark_km": 1.119,
+        "key": "bam_origin",
+        "poi_count": 6,
+        "role": "bam",
+        "weight": 0.06
       },
       "type": "Feature"
     },
     {
       "geometry": {
         "coordinates": [
-          29.4706,
-          46.81785
+          29.47066,
+          46.81782
         ],
         "type": "Point"
       },
       "properties": {
-        "key": "bam_outer_origin_2",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
-        "poi_count": 5,
-        "role": "bam_outer",
-        "weight": 0.035714
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          29.48047,
-          46.80403
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "key": "bam_outer_origin_3",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "distance_to_bam_landmark_km": 3.229,
+        "key": "outer_origin_2",
         "poi_count": 3,
-        "role": "bam_outer",
-        "weight": 0.021429
+        "role": "outer_other",
+        "weight": 0.03
       },
       "type": "Feature"
     },
@@ -77,11 +60,11 @@
         "type": "Point"
       },
       "properties": {
-        "key": "bam_outer_origin_4",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "distance_to_bam_landmark_km": 4.63,
+        "key": "outer_origin_3",
         "poi_count": 3,
-        "role": "bam_outer",
-        "weight": 0.021429
+        "role": "outer_other",
+        "weight": 0.03
       },
       "type": "Feature"
     },
@@ -94,37 +77,366 @@
         "type": "Point"
       },
       "properties": {
-        "key": "bam_outer_origin_5",
-        "note": "Представительный источник заказов (кластер заведений), не один POI.",
+        "distance_to_bam_landmark_km": 2.536,
+        "key": "outer_origin_4",
         "poi_count": 3,
-        "role": "bam_outer",
-        "weight": 0.021429
+        "role": "outer_other",
+        "weight": 0.03
       },
       "type": "Feature"
     }
   ],
   "selection": {
-    "bam_landmark_note": "BAM has no place=* object in OSM; the northern outer cluster nearest 'Бамовское озеро' represents it. Confirm with the owner.",
-    "central_cluster_pois": 44,
+    "bam_landmark": "Бамовское озеро",
+    "bam_landmark_found": true,
+    "bam_resolution": "the outer cluster nearest the configured BAM landmark is labelled bam_origin; the others are outer_other and are NOT called BAM",
     "central_weight": 0.85,
-    "method": "Food-service POIs (amenity=restaurant/fast_food/cafe/bar/pub plus takeaway/delivery venues) were read from the LOCAL Bender extract and single-link clustered at 600 m. The largest cluster is the central origin; remaining clusters with >= 3 POIs represent BAM and other outer Bender districts.",
-    "outer_clusters": [
-      7,
-      5,
-      3,
-      3,
-      3
+    "excluded_pois": [
+      {
+        "amenity": "fast_food",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "bar",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "fast_food",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "bar",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "cafe",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "fast_food",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "fast_food",
+        "reason": "unnamed_venue"
+      },
+      {
+        "amenity": "fast_food",
+        "reason": "unnamed_venue"
+      },
+      {
+        "pois": [
+          "Теремок"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Кавказ"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Закусочная"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Бизар"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Пивной двор"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Банкетный зал"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "Бар «Ямал»"
+        ],
+        "reason": "outer_cluster_too_small"
+      },
+      {
+        "pois": [
+          "La Serafim"
+        ],
+        "reason": "outer_cluster_too_small"
+      }
+    ],
+    "included_pois": [
+      {
+        "amenity": "restaurant",
+        "name": "La Vida"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Авеню"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Теремок"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Фэт-Фрумос"
+      },
+      {
+        "amenity": "bar",
+        "name": "Старинный погребок"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "La Vida"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Антикафе «Liberty»"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лептаря"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Славный Пекарь"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кавказ"
+      },
+      {
+        "amenity": "bar",
+        "name": "Лаки Боулинг"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Ешька"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Старые Бендеры"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Космос"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Столовая консервного завода"
+      },
+      {
+        "amenity": "bar",
+        "name": "Аннушка"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Трек"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Долгострой"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Гастропаб «CRAFT»"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Закусочная"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Диминяца"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бизар"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Трактир"
+      },
+      {
+        "amenity": "pub",
+        "name": "Пивной двор"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "HotDodShop13"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Столовка СССР"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Кассандра"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Старый бастион"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Magic Coffee"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Фуд-Мих"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Lavazza"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Streetfood PMR"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Family Land"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Шаверма"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Cartel"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Lovesushi"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Kasta"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Еда.ДА"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Банкетный зал"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Крепостная Лавка"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Doner Hit"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Оазис"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Bro_Shawerma"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Юбилейный"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Бриз"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кафе-бар «У Татьяны»"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Ресторан «Тигина»"
+      },
+      {
+        "amenity": "bar",
+        "name": "Хали Гали"
+      },
+      {
+        "amenity": "fast_food",
+        "name": "Столовая"
+      },
+      {
+        "amenity": "bar",
+        "name": "Кёльн"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар «Ямал»"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бильярдная"
+      },
+      {
+        "amenity": "bar",
+        "name": "Бар Водник"
+      },
+      {
+        "amenity": "bar",
+        "name": "Калибри"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Смак"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "Санторини"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Розана"
+      },
+      {
+        "amenity": "restaurant",
+        "name": "La Serafim"
+      },
+      {
+        "amenity": "bar",
+        "name": "Black Rabiza"
+      },
+      {
+        "amenity": "cafe",
+        "name": "Крепостная лавка"
+      }
     ],
     "outer_total_weight": 0.15,
-    "source": "local Geofabrik Moldova extract (no Nominatim, no Overpass)",
-    "total_food_pois_bender": 73,
-    "village_food_poi_counts": {
-      "12215667": 2,
-      "12463378": 1,
-      "7431263": 2
-    },
-    "villages_excluded": "Villages are NOT restaurant origins: too little actual restaurant evidence in the local extract.",
-    "why_representative": "OSM venue coverage is incomplete, so clusters are used as representative origins instead of treating each POI as complete truth."
+    "source": "local Moldova extract (no Nominatim, no Overpass)"
   },
   "type": "FeatureCollection"
 }

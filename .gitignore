@@ -52,6 +52,11 @@ reports/stage-01/*
 !docs/data/*.json
 !docs/data/*.csv
 
+# --- Immutable versioned zone release: fully tracked -----------------------
+!releases/**/*.geojson
+!releases/**/*.json
+!releases/**/*.csv
+
 # --- Test fixtures: allow the tiny hand-written OSM XML fixture -------------
 !tests/fixtures/*.osm
 

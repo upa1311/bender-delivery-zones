@@ -107,7 +107,8 @@ def street_split_demand(street_units: dict[object, list[tuple[int, float]]],
 
 def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
                   split_at: list[float] | None = None,
-                  split_penalty: float = 0.0):
+                  split_penalty: float = 0.0,
+                  max_weight_share: float = 1.0):
     """Exact 1-D weighted DP partition into *k* ordered bands.
 
     Objective = within-band weighted squared deviation **plus**
@@ -116,8 +117,12 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
     that falls between streets, while the bands stay ordered intervals on the
     cost axis — so monotonic kilometre ranges are preserved by construction.
 
-    ``min_weight_share`` forbids economically meaningless slivers. Returns a
-    list of ``(start, end)`` bin index pairs (end exclusive), ascending by cost.
+    ``min_weight_share`` forbids economically meaningless slivers and
+    ``max_weight_share`` forbids one giant catch-all band, so every zone keeps an
+    economically meaningful volume of demand. ``split_at`` must be normalised to
+    a demand FRACTION (0..0.5) and is scaled by the total weight inside, so the
+    penalty stays comparable to the distance objective no matter how many
+    addresses exist. Returns ``(start, end)`` bin index pairs, ascending by cost.
     """
     n = len(bins)
     if n == 0:
@@ -126,12 +131,18 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
     w, wx, wxx = _prefixes(bins)
     total = w[n]
     floor_weight = total * min_weight_share
+    ceil_weight = total * max_weight_share
 
     def cut_cost(i: int) -> float:
-        """Penalty for an internal cut before bin *i* (0 and n are the ends)."""
+        """Penalty for an internal cut before bin *i* (0 and n are the ends).
+
+        Scaled by the total weight so a penalty of 0.05 means "a cut that tears
+        apart all address demand costs 5% of the total weight" — comparable to
+        the squared-deviation term regardless of dataset size.
+        """
         if split_penalty <= 0 or not split_at or i <= 0 or i >= n:
             return 0.0
-        return split_penalty * split_at[i]
+        return split_penalty * split_at[i] * total
 
     # dp[b][j] = best cost of splitting the first j bins into b bands
     dp = [[INF] * (n + 1) for _ in range(k + 1)]
@@ -143,7 +154,8 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
             for i in range(b - 1, j):
                 if dp[b - 1][i] == INF:
                     continue
-                if (w[j] - w[i]) < floor_weight:
+                band_weight = w[j] - w[i]
+                if band_weight < floor_weight or band_weight > ceil_weight:
                     continue
                 cost = dp[b - 1][i] + _sse(i, j, w, wx, wxx) + cut_cost(i)
                 if cost < best:
@@ -151,11 +163,17 @@ def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,
             dp[b][j] = best
             back[b][j] = best_i
 
-    if dp[k][n] == INF:               # constraint infeasible -> relax the floor
-        if min_weight_share <= 0:
-            return [(0, n)]
-        return optimal_bands(bins, k, min_weight_share / 2.0,
-                             split_at=split_at, split_penalty=split_penalty)
+    if dp[k][n] == INF:
+        # Infeasible: relax the sliver floor first, then the balance ceiling.
+        if min_weight_share > 0.005:
+            return optimal_bands(bins, k, min_weight_share / 2.0, split_at=split_at,
+                                 split_penalty=split_penalty,
+                                 max_weight_share=max_weight_share)
+        if max_weight_share < 1.0:
+            return optimal_bands(bins, k, min_weight_share, split_at=split_at,
+                                 split_penalty=split_penalty,
+                                 max_weight_share=min(1.0, max_weight_share * 1.25))
+        return [(0, n)]
 
     bounds, j = [], n
     for b in range(k, 0, -1):

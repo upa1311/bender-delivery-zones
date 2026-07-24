@@ -509,12 +509,16 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
             addr_w = w if r["unit_type"] != UNIT_UNADDRESSED_BUILDING else 0.0
             street_units.setdefault((r["settlement"], r["street_ru"]), []).append(
                 (idx_of[int(math.floor(r["expected_km"] / bw))], addr_w))
-        return bins, street_split_demand(street_units, len(bins))
+        raw = street_split_demand(street_units, len(bins))
+        total_addr = sum(w for units in street_units.values() for _b, w in units) or 1.0
+        return bins, [x / total_addr for x in raw]
+
+    max_share = float(bcfg["bands"].get("max_weight_share", 1.0))
 
     def edges_for(weights, k, penalty):
         bins, split_at = bins_for(weights)
         bounds = optimal_bands(bins, k, min_share, split_at=split_at,
-                               split_penalty=penalty)
+                               split_penalty=penalty, max_weight_share=max_share)
         return band_edges(bins, bounds)
 
     def split_stats(edges):
@@ -560,11 +564,27 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
             disp = sum((dispersion(v[0], v[1]) or 0) * sum(v[1])
                        for v in per_zone_vals.values())
             disp /= max(sum(sum(v[1]) for v in per_zone_vals.values()), 1e-9)
+            counts, wts = {}, {}
+            for r, w in zip(rows, pub_weights, strict=False):
+                z = assign_band(r["expected_km"], e)
+                counts[z] = counts.get(z, 0) + 1
+                wts[z] = wts.get(z, 0.0) + w
+            tot_u = sum(counts.values()) or 1
+            tot_w = sum(wts.values()) or 1.0
+            shares = [wts.get(z, 0.0) / tot_w for z in range(len(e))]
             penalty_sweep[name]["k"][str(k)] = {
                 "upper_edges_km": [round(x, 3) for x in e],
                 **split_stats(e),
                 "weighted_km_dispersion": round(disp, 4),
-                "monotonic": True}
+                "monotonic": True,
+                "units_per_zone": [counts.get(z, 0) for z in range(len(e))],
+                "unit_share_per_zone": [round(counts.get(z, 0) / tot_u, 3)
+                                        for z in range(len(e))],
+                "weight_share_per_zone": [round(x, 3) for x in shares],
+                "largest_zone_share": round(max(shares) if shares else 0, 3),
+                "smallest_zone_share": round(min(shares) if shares else 0, 3),
+                "balance_min_over_max": round(
+                    (min(shares) / max(shares)) if shares and max(shares) else 0, 3)}
 
     # (2) demand-weight sensitivity, at the published penalty
     sensitivity = {}
@@ -1264,10 +1284,15 @@ def _recommend(results):
             + splits[k] * weights_used["split_streets"]
             + balance[k] * weights_used["demand_balance"]
             + smallest[k] * weights_used["smallest_zone_share"], 4)
-    best = max(ks, key=lambda k: (scored[k]["composite_score"], -int(k)))
+    decided = 4  # owner decision: four zones. Not re-litigated by the optimiser.
     return {
         "status": "owner_review_required",
-        "suggested_k": int(best),
+        "decided_k": decided,
+        "k_decision": "fixed_by_owner",
+        "suggested_k": decided,
+        "note_on_k": ("K=4 is an accepted owner decision; the comparison below is "
+                      "published for reference only and never overrides it. What "
+                      "still needs owner review is the split-penalty variant."),
         "criteria_weights": weights_used,
         "why": ("composite of kilometre dispersion, split streets, demand balance and "
                 "smallest-zone share. Finer bands always lower dispersion, so balance "

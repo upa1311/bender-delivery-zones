@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upa1311.github.io/bender-delivery-zones/schemas/zone-tariff-matrix.schema.json",
+  "title": "Zone → zone tariff matrix (K=4)",
+  "description": "Schema ONLY. A restaurant and a customer can sit in different zones, so the matrix is directional origin_zone_id → destination_zone_id, giving 4 × 4 = 16 rows for the approved K=4 zone set. Customer delivery fee and courier payout are stored SEPARATELY and are intentionally left null: no monetary values are assigned until the owner supplies tariffs.",
+  "type": "object",
+  "required": ["zone_set", "currency", "rows"],
+  "properties": {
+    "zone_set": {
+      "type": "object",
+      "required": ["k", "zone_dataset_version"],
+      "properties": {
+        "k": { "const": 4, "description": "Approved zone count; not changed here." },
+        "zone_dataset_version": { "type": "string" },
+        "zones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "zone_id": { "type": "integer", "minimum": 1, "maximum": 4 },
+              "zone_name": { "type": "string", "examples": ["Zone 1"] },
+              "band_min_km": { "type": "number" },
+              "band_max_km": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "currency": { "type": ["string", "null"], "default": null, "description": "Left null until the owner supplies tariffs." },
+    "rows": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": { "$ref": "#/$defs/tariffRow" }
+    }
+  },
+  "$defs": {
+    "tariffRow": {
+      "type": "object",
+      "required": ["origin_zone_id", "destination_zone_id", "status", "version"],
+      "properties": {
+        "origin_zone_id": { "type": "integer", "minimum": 1, "maximum": 4, "description": "Zone of the restaurant." },
+        "destination_zone_id": { "type": "integer", "minimum": 1, "maximum": 4, "description": "Zone of the customer." },
+        "customer_delivery_fee": { "type": ["number", "null"], "default": null, "description": "What the customer pays. Stored and displayed separately from the courier payout." },
+        "courier_base_payout": { "type": ["number", "null"], "default": null },
+        "courier_distance_adjustment": { "type": ["number", "null"], "default": null },
+        "currency": { "type": ["string", "null"], "default": null },
+        "effective_from": { "type": ["string", "null"], "format": "date-time" },
+        "effective_to": { "type": ["string", "null"], "format": "date-time", "description": "Null means open-ended." },
+        "status": { "enum": ["draft", "pending_owner_approval", "active", "superseded", "archived"], "default": "draft" },
+        "version": { "type": "integer", "minimum": 1 },
+        "changed_by": { "type": ["string", "null"] },
+        "change_reason": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "examples": [
+    {
+      "zone_set": { "k": 4, "zone_dataset_version": "stage06-2026-07-23" },
+      "currency": null,
+      "rows": [
+        {
+          "origin_zone_id": 1, "destination_zone_id": 3,
+          "customer_delivery_fee": null, "courier_base_payout": null,
+          "courier_distance_adjustment": null, "currency": null,
+          "effective_from": null, "effective_to": null,
+          "status": "draft", "version": 1,
+          "changed_by": null, "change_reason": "schema placeholder, no price assigned"
+        }
+      ]
+    }
+  ]
+}

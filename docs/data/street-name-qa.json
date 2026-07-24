@@ -1,0 +1,4348 @@
+{
+  "addresses_without_settlement": 0,
+  "addresses_without_settlement_sample": [],
+  "coordinate_conflicts": [
+    {
+      "canonical_address": "парканы||комсомольская улица|2",
+      "coordinate_spread_m": 1644,
+      "display_address_ru": "Комсомольская улица (Парканы)",
+      "full_address_ru": "Парканы, Комсомольская улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152067",
+        "n2323152071",
+        "n2323152093"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица будённого|164",
+      "coordinate_spread_m": 201,
+      "display_address_ru": "улица Будённого",
+      "full_address_ru": "Парканы, улица Будённого, дом 164",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152074",
+        "n2323152079"
+      ]
+    },
+    {
+      "canonical_address": "парканы||комсомольская улица|18",
+      "coordinate_spread_m": 159,
+      "display_address_ru": "Комсомольская улица (Парканы)",
+      "full_address_ru": "Парканы, Комсомольская улица, дом 18",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152092",
+        "n2456772560"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица фрунзе|28",
+      "coordinate_spread_m": 240,
+      "display_address_ru": "улица Фрунзе (Парканы)",
+      "full_address_ru": "Парканы, улица Фрунзе, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152102",
+        "w285191965"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чкалова|34",
+      "coordinate_spread_m": 255,
+      "display_address_ru": "улица Чкалова (Парканы)",
+      "full_address_ru": "Парканы, улица Чкалова, дом 34",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152103",
+        "n2451248436"
+      ]
+    },
+    {
+      "canonical_address": "парканы||комсомольская улица|40",
+      "coordinate_spread_m": 837,
+      "display_address_ru": "Комсомольская улица (Парканы)",
+      "full_address_ru": "Парканы, Комсомольская улица, дом 40",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152153",
+        "n2323152158"
+      ]
+    },
+    {
+      "canonical_address": "парканы||комсомольская улица|24",
+      "coordinate_spread_m": 823,
+      "display_address_ru": "Комсомольская улица (Парканы)",
+      "full_address_ru": "Парканы, Комсомольская улица, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323152156",
+        "n2456772563"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ленина|2",
+      "coordinate_spread_m": 1263,
+      "display_address_ru": "улица Ленина (Парканы)",
+      "full_address_ru": "Парканы, улица Ленина, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323343686",
+        "n2323343712"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица шевченко|1",
+      "coordinate_spread_m": 349,
+      "display_address_ru": "улица Шевченко (Парканы)",
+      "full_address_ru": "Парканы, улица Шевченко, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323352003",
+        "n2457615990",
+        "w284651642"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица карла маркса|83",
+      "coordinate_spread_m": 961,
+      "display_address_ru": "улица Карла Маркса",
+      "full_address_ru": "Парканы, улица Карла Маркса, дом 83",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323352004",
+        "n2458660239",
+        "w320431710"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|2",
+      "coordinate_spread_m": 440,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323352008",
+        "n6861215978",
+        "n6861288076",
+        "w284652546"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица гоголя|11",
+      "coordinate_spread_m": 685,
+      "display_address_ru": "улица Гоголя (Парканы)",
+      "full_address_ru": "Парканы, улица Гоголя, дом 11",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323352010",
+        "n2323674219"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица гоголя|1",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "улица Гоголя (Парканы)",
+      "full_address_ru": "Парканы, улица Гоголя, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323407168",
+        "w284659755"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чехова|1",
+      "coordinate_spread_m": 419,
+      "display_address_ru": "улица Чехова (Парканы)",
+      "full_address_ru": "Парканы, улица Чехова, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323407287",
+        "n2323407296",
+        "n2323407297"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чехова|25",
+      "coordinate_spread_m": 619,
+      "display_address_ru": "улица Чехова (Парканы)",
+      "full_address_ru": "Парканы, улица Чехова, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323588978",
+        "n2459760173"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|133",
+      "coordinate_spread_m": 168,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 133",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323589074",
+        "n2459722038",
+        "n4818943346"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|135",
+      "coordinate_spread_m": 172,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 135",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323589080",
+        "n2459722041",
+        "n4818943278"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|167",
+      "coordinate_spread_m": 154,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 167",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323589093",
+        "n2459722094",
+        "n4818943265",
+        "n5130968321"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|4",
+      "coordinate_spread_m": 157,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2344905452",
+        "n2460744713",
+        "w284652438",
+        "w428539146"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чапаева|16",
+      "coordinate_spread_m": 445,
+      "display_address_ru": "улица Чапаева (Парканы)",
+      "full_address_ru": "Парканы, улица Чапаева, дом 16",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2345390823",
+        "n2459051271"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чкалова|26",
+      "coordinate_spread_m": 226,
+      "display_address_ru": "улица Чкалова (Парканы)",
+      "full_address_ru": "Парканы, улица Чкалова, дом 26",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2451248432",
+        "n2459417281"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чкалова|28",
+      "coordinate_spread_m": 245,
+      "display_address_ru": "улица Чкалова (Парканы)",
+      "full_address_ru": "Парканы, улица Чкалова, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2451248433",
+        "n2459417285"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чкалова|32",
+      "coordinate_spread_m": 241,
+      "display_address_ru": "улица Чкалова (Парканы)",
+      "full_address_ru": "Парканы, улица Чкалова, дом 32",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2451248435",
+        "n2459417171"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чкалова|93",
+      "coordinate_spread_m": 236,
+      "display_address_ru": "улица Чкалова (Парканы)",
+      "full_address_ru": "Парканы, улица Чкалова, дом 93",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2452549562",
+        "w306084790"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ворошилова|19",
+      "coordinate_spread_m": 223,
+      "display_address_ru": "улица Ворошилова",
+      "full_address_ru": "Парканы, улица Ворошилова, дом 19",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2453643624",
+        "w284650841"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ворошилова|21",
+      "coordinate_spread_m": 242,
+      "display_address_ru": "улица Ворошилова",
+      "full_address_ru": "Парканы, улица Ворошилова, дом 21",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2453643625",
+        "w284650840"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ворошилова|23",
+      "coordinate_spread_m": 252,
+      "display_address_ru": "улица Ворошилова",
+      "full_address_ru": "Парканы, улица Ворошилова, дом 23",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2453643626",
+        "w284650842"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица котовского|15",
+      "coordinate_spread_m": 228,
+      "display_address_ru": "улица Котовского",
+      "full_address_ru": "Парканы, улица Котовского, дом 15",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2454871406",
+        "n5653835185",
+        "w284650836"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица котовского|17",
+      "coordinate_spread_m": 242,
+      "display_address_ru": "улица Котовского",
+      "full_address_ru": "Парканы, улица Котовского, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2454871407",
+        "n5653834960",
+        "w284650839"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица котовского|22",
+      "coordinate_spread_m": 255,
+      "display_address_ru": "улица Котовского",
+      "full_address_ru": "Парканы, улица Котовского, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2454871423",
+        "n2459417156"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица котовского|24",
+      "coordinate_spread_m": 280,
+      "display_address_ru": "улица Котовского",
+      "full_address_ru": "Парканы, улица Котовского, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2454871424",
+        "n2459417160"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица калинина|6",
+      "coordinate_spread_m": 151,
+      "display_address_ru": "улица Калинина (Парканы)",
+      "full_address_ru": "Парканы, улица Калинина, дом 6",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457583289",
+        "n2457583299"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ленина|41",
+      "coordinate_spread_m": 198,
+      "display_address_ru": "улица Ленина (Парканы)",
+      "full_address_ru": "Парканы, улица Ленина, дом 41",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457586654",
+        "n2457589698"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица ленина|43",
+      "coordinate_spread_m": 198,
+      "display_address_ru": "улица Ленина (Парканы)",
+      "full_address_ru": "Парканы, улица Ленина, дом 43",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457586655",
+        "n2457589699"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица шевченко|3",
+      "coordinate_spread_m": 303,
+      "display_address_ru": "улица Шевченко (Парканы)",
+      "full_address_ru": "Парканы, улица Шевченко, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457615991",
+        "w284651644"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица шевченко|5",
+      "coordinate_spread_m": 304,
+      "display_address_ru": "улица Шевченко (Парканы)",
+      "full_address_ru": "Парканы, улица Шевченко, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457615992",
+        "w284651643"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица карла маркса|26",
+      "coordinate_spread_m": 355,
+      "display_address_ru": "улица Карла Маркса",
+      "full_address_ru": "Парканы, улица Карла Маркса, дом 26",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457626527",
+        "w284650889"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица карла маркса|28",
+      "coordinate_spread_m": 388,
+      "display_address_ru": "улица Карла Маркса",
+      "full_address_ru": "Парканы, улица Карла Маркса, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457626530",
+        "w284650890"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|29",
+      "coordinate_spread_m": 168,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 29",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739757",
+        "n2458454737"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|36",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 36",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739758",
+        "n5653834958",
+        "w284829109"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|48",
+      "coordinate_spread_m": 154,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 48",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739769",
+        "w284829111"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|46",
+      "coordinate_spread_m": 157,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 46",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739770",
+        "w294956281"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|44",
+      "coordinate_spread_m": 158,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 44",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739771",
+        "w294956283"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|42",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 42",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739772",
+        "w294956269"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|40",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 40",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739773",
+        "w294944244"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|38",
+      "coordinate_spread_m": 163,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 38",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739774",
+        "w284829105"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|34",
+      "coordinate_spread_m": 168,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 34",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457739775",
+        "w284829114"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|32",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 32",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457746121",
+        "w284829095"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|30",
+      "coordinate_spread_m": 169,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457746124",
+        "w284829104"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица сергея лазо|28",
+      "coordinate_spread_m": 170,
+      "display_address_ru": "улица Сергея Лазо (Парканы)",
+      "full_address_ru": "Парканы, улица Сергея Лазо, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457746127",
+        "w287016199"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица гоголя|12",
+      "coordinate_spread_m": 189,
+      "display_address_ru": "улица Гоголя (Парканы)",
+      "full_address_ru": "Парканы, улица Гоголя, дом 12",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457746137",
+        "n2460744728"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица гоголя|10",
+      "coordinate_spread_m": 179,
+      "display_address_ru": "улица Гоголя (Парканы)",
+      "full_address_ru": "Парканы, улица Гоголя, дом 10",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457746138",
+        "n2460744725",
+        "w284659740"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|11",
+      "coordinate_spread_m": 163,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 11",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786465",
+        "n2458446897"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|13",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786466",
+        "n2458446901"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|19",
+      "coordinate_spread_m": 164,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 19",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786467",
+        "n2458454732"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|21",
+      "coordinate_spread_m": 161,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 21",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786468",
+        "n2458454733"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|15",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 15",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786469",
+        "n2458446905",
+        "n4552707593"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|17",
+      "coordinate_spread_m": 161,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786470",
+        "n2458446910"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|23",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 23",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786471",
+        "n2458454734",
+        "n5653833917"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|25",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786472",
+        "n2458454735"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|27",
+      "coordinate_spread_m": 168,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 27",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786473",
+        "n2458454736"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|31",
+      "coordinate_spread_m": 170,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 31",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786474",
+        "n2458454738",
+        "n5653832470"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|33",
+      "coordinate_spread_m": 179,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 33",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786475",
+        "n2458454739",
+        "n5653835182"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|35",
+      "coordinate_spread_m": 177,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 35",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786476",
+        "n2458454740"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|37",
+      "coordinate_spread_m": 179,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 37",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786477",
+        "n2458454741"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|39",
+      "coordinate_spread_m": 177,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 39",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786478",
+        "n2458454742"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|41",
+      "coordinate_spread_m": 175,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 41",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786479",
+        "n2458454743"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|43",
+      "coordinate_spread_m": 176,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 43",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786480",
+        "n2458454744"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|45",
+      "coordinate_spread_m": 182,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 45",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457786481",
+        "n2458454745"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|99",
+      "coordinate_spread_m": 295,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 99",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994837",
+        "n2459721985",
+        "n5653834430"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|101",
+      "coordinate_spread_m": 261,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 101",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994842",
+        "n2459721988"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|103",
+      "coordinate_spread_m": 258,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 103",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994847",
+        "n2459721991"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|105",
+      "coordinate_spread_m": 232,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 105",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994857",
+        "n2459721995"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|107",
+      "coordinate_spread_m": 233,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 107",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994863",
+        "n2459721998"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|109",
+      "coordinate_spread_m": 230,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 109",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994870",
+        "n2459722001"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|111",
+      "coordinate_spread_m": 274,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 111",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994876",
+        "n2459722004",
+        "n4466335885"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|113",
+      "coordinate_spread_m": 229,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 113",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994882",
+        "n2459722007"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|115",
+      "coordinate_spread_m": 230,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 115",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994887",
+        "n2459722010"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|117",
+      "coordinate_spread_m": 273,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 117",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994892",
+        "n2459722013",
+        "n4818943352"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|119",
+      "coordinate_spread_m": 271,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 119",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994897",
+        "n2459722017",
+        "n4818943283"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|121",
+      "coordinate_spread_m": 272,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 121",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994903",
+        "n2459722020",
+        "n4466336279",
+        "n4818943349"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|123",
+      "coordinate_spread_m": 260,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 123",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994907",
+        "n2459722022",
+        "n4818943282"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|131",
+      "coordinate_spread_m": 201,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 131",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994917",
+        "n2459722035",
+        "n4466336278",
+        "n4818943280"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|129",
+      "coordinate_spread_m": 208,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 129",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994922",
+        "n2459722031",
+        "n4818938124"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|127",
+      "coordinate_spread_m": 221,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 127",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994927",
+        "n2459722028",
+        "n4818943281"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|125",
+      "coordinate_spread_m": 250,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 125",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2457994936",
+        "n2459722025",
+        "n4466335364",
+        "n4818943348"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|137",
+      "coordinate_spread_m": 183,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 137",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002327",
+        "n2459722044",
+        "n4466336277",
+        "n4818943277"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|139",
+      "coordinate_spread_m": 185,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 139",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002328",
+        "n2459722050",
+        "n4818943274"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|141",
+      "coordinate_spread_m": 176,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 141",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002329",
+        "n2459722053",
+        "n4466335362",
+        "n4818943340"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|143",
+      "coordinate_spread_m": 175,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 143",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002330",
+        "n2459722056",
+        "n4818943272"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|145",
+      "coordinate_spread_m": 175,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 145",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002331",
+        "n2459722059",
+        "n4466335361",
+        "n4818943338"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|153",
+      "coordinate_spread_m": 153,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 153",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458002335",
+        "n2459722067",
+        "n4466336274"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|177",
+      "coordinate_spread_m": 150,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 177",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458005803",
+        "n2459722112",
+        "n4818943328"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|195",
+      "coordinate_spread_m": 152,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 195",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458009121",
+        "n2459722155",
+        "n4818938934"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица благоева|3",
+      "coordinate_spread_m": 168,
+      "display_address_ru": "улица Благоева",
+      "full_address_ru": "Парканы, улица Благоева, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2458446857",
+        "n6861252013"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чапаева|18",
+      "coordinate_spread_m": 440,
+      "display_address_ru": "улица Чапаева (Парканы)",
+      "full_address_ru": "Парканы, улица Чапаева, дом 18",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459051275",
+        "n2459051356"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица чапаева|20",
+      "coordinate_spread_m": 433,
+      "display_address_ru": "улица Чапаева (Парканы)",
+      "full_address_ru": "Парканы, улица Чапаева, дом 20",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459051278",
+        "n2459051357"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица фрунзе|30",
+      "coordinate_spread_m": 258,
+      "display_address_ru": "улица Фрунзе (Парканы)",
+      "full_address_ru": "Парканы, улица Фрунзе, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459417169",
+        "w285193316"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица фрунзе|24",
+      "coordinate_spread_m": 228,
+      "display_address_ru": "улица Фрунзе (Парканы)",
+      "full_address_ru": "Парканы, улица Фрунзе, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459417233",
+        "w284982257"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|95",
+      "coordinate_spread_m": 297,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 95",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459721980",
+        "n5653832467",
+        "n5653834954"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица петра николаева|97",
+      "coordinate_spread_m": 282,
+      "display_address_ru": "улица Петра Николаева",
+      "full_address_ru": "Парканы, улица Петра Николаева, дом 97",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2459721982",
+        "n5653832468"
+      ]
+    },
+    {
+      "canonical_address": "парканы||улица фрунзе|25",
+      "coordinate_spread_m": 270,
+      "display_address_ru": "улица Фрунзе (Парканы)",
+      "full_address_ru": "Парканы, улица Фрунзе, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w223417682",
+        "w284982263"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица мира|26",
+      "coordinate_spread_m": 1564,
+      "display_address_ru": "улица Мира (Гиска)",
+      "full_address_ru": "Гиска, улица Мира, дом 26",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2321749449",
+        "w367553687"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица мира|30",
+      "coordinate_spread_m": 1551,
+      "display_address_ru": "улица Мира (Гиска)",
+      "full_address_ru": "Гиска, улица Мира, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2321749450",
+        "w367553683"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица мира|1",
+      "coordinate_spread_m": 2044,
+      "display_address_ru": "улица Мира (Гиска)",
+      "full_address_ru": "Гиска, улица Мира, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2321749455",
+        "w367553689"
+      ]
+    },
+    {
+      "canonical_address": "гиска||школьный переулок|3",
+      "coordinate_spread_m": 242,
+      "display_address_ru": "Школьный переулок (Гиска)",
+      "full_address_ru": "Гиска, Школьный переулок, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2341956540",
+        "n2341956571"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица ленина|174",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Ленина (Гиска)",
+      "full_address_ru": "Гиска, улица Ленина, дом 174",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2341956691",
+        "w299376078"
+      ]
+    },
+    {
+      "canonical_address": "гиска||садовая улица|3",
+      "coordinate_spread_m": 585,
+      "display_address_ru": "Садовая улица (Гиска)",
+      "full_address_ru": "Гиска, Садовая улица, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2341956727",
+        "n2341956739"
+      ]
+    },
+    {
+      "canonical_address": "гиска||садовая улица|36",
+      "coordinate_spread_m": 417,
+      "display_address_ru": "Садовая улица (Гиска)",
+      "full_address_ru": "Гиска, Садовая улица, дом 36",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2341956728",
+        "n2341956780"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица ленина|2",
+      "coordinate_spread_m": 169,
+      "display_address_ru": "улица Ленина (Гиска)",
+      "full_address_ru": "Гиска, улица Ленина, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222864357",
+        "w222864360"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|13",
+      "coordinate_spread_m": 1626,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w255960444",
+        "w353389131"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|12",
+      "coordinate_spread_m": 158,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 12",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353388715",
+        "w353619676"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|14",
+      "coordinate_spread_m": 179,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 14",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353388717",
+        "w446100565"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|16",
+      "coordinate_spread_m": 179,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 16",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353388718",
+        "w353619681"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|18",
+      "coordinate_spread_m": 214,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 18",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353389122",
+        "w353822504"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица суворова|20",
+      "coordinate_spread_m": 216,
+      "display_address_ru": "улица Суворова (Гиска)",
+      "full_address_ru": "Гиска, улица Суворова, дом 20",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353389123",
+        "w353822505"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица кирова|21",
+      "coordinate_spread_m": 377,
+      "display_address_ru": "улица Кирова (Гиска)",
+      "full_address_ru": "Гиска, улица Кирова, дом 21",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353389127",
+        "w353610690",
+        "w402777362"
+      ]
+    },
+    {
+      "canonical_address": "гиска||улица мира|28",
+      "coordinate_spread_m": 1560,
+      "display_address_ru": "улица Мира (Гиска)",
+      "full_address_ru": "Гиска, улица Мира, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w367553688",
+        "n4905411596"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||южная улица|46",
+      "coordinate_spread_m": 243,
+      "display_address_ru": "Южная улица",
+      "full_address_ru": "Бендеры, Южная улица, дом 46",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w405169677",
+        "w325664975"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||южная улица|48",
+      "coordinate_spread_m": 262,
+      "display_address_ru": "Южная улица",
+      "full_address_ru": "Бендеры, Южная улица, дом 48",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w405169679",
+        "w325664976"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||садовая улица|1",
+      "coordinate_spread_m": 1495,
+      "display_address_ru": "Садовая улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Садовая улица, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2337900321",
+        "n2337904424",
+        "n2337904426"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||садовая улица|2",
+      "coordinate_spread_m": 1431,
+      "display_address_ru": "Садовая улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Садовая улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2337900325",
+        "n2337904425"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||главная улица|2",
+      "coordinate_spread_m": 1364,
+      "display_address_ru": "Главная улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Главная улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2337938415",
+        "n2337985529"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||первомайская улица|31",
+      "coordinate_spread_m": 1122,
+      "display_address_ru": "Первомайская улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Первомайская улица, дом 31",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352042588",
+        "n5108197319"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||первомайская улица|56",
+      "coordinate_spread_m": 507,
+      "display_address_ru": "Первомайская улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Первомайская улица, дом 56",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352156648",
+        "w352346385"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||первомайская улица|22",
+      "coordinate_spread_m": 1320,
+      "display_address_ru": "Первомайская улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Первомайская улица, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352160028",
+        "w525027265"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица куйбышева|38",
+      "coordinate_spread_m": 324,
+      "display_address_ru": "улица Куйбышева",
+      "full_address_ru": "Бендеры, улица Куйбышева, дом 38",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352285319",
+        "w320440060"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||первомайская улица|33",
+      "coordinate_spread_m": 1118,
+      "display_address_ru": "Первомайская улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Первомайская улица, дом 33",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352342442",
+        "n5108197521"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||первомайская улица|37",
+      "coordinate_spread_m": 1146,
+      "display_address_ru": "Первомайская улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Первомайская улица, дом 37",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352342449",
+        "n5108197523"
+      ]
+    },
+    {
+      "canonical_address": "протягайловка||главная улица|5",
+      "coordinate_spread_m": 1380,
+      "display_address_ru": "Главная улица (Протягайловка)",
+      "full_address_ru": "Протягайловка, Главная улица, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w353974347",
+        "w450204070"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|135",
+      "coordinate_spread_m": 170,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 135",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2323072594",
+        "w295335645"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||2-й переулок кутузова|10а",
+      "coordinate_spread_m": 173,
+      "display_address_ru": "2-й переулок Кутузова",
+      "full_address_ru": "Бендеры, Липканы, 2-й переулок Кутузова, дом 10а",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n2325809645",
+        "w404774419"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица петровского|4",
+      "coordinate_spread_m": 544,
+      "display_address_ru": "улица Петровского",
+      "full_address_ru": "Бендеры, улица Петровского, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "n4393903809",
+        "w116073006",
+        "w165763750",
+        "w223676849"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|25",
+      "coordinate_spread_m": 504,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467966",
+        "w353619669"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|11",
+      "coordinate_spread_m": 928,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 11",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467968",
+        "w353619652"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|17",
+      "coordinate_spread_m": 771,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467970",
+        "w353619664"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|3",
+      "coordinate_spread_m": 1015,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467974",
+        "w318122822"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|21",
+      "coordinate_spread_m": 673,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 21",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467975",
+        "w353619666"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|7",
+      "coordinate_spread_m": 968,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 7",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467976",
+        "w318122826"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|19",
+      "coordinate_spread_m": 723,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 19",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467977",
+        "w353619665"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|5",
+      "coordinate_spread_m": 1026,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467978",
+        "w318122824"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|13",
+      "coordinate_spread_m": 932,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467979",
+        "w353619655"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|9",
+      "coordinate_spread_m": 967,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 9",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47467980",
+        "w320187931"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица космонавтов|1",
+      "coordinate_spread_m": 1088,
+      "display_address_ru": "улица Космонавтов (Бендеры)",
+      "full_address_ru": "Бендеры, улица Космонавтов, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47475151",
+        "w318122820"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||коммунистическая улица|1",
+      "coordinate_spread_m": 3065,
+      "display_address_ru": "Коммунистическая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Коммунистическая улица, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47475159",
+        "w164987463"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица зои космодемьянской|10",
+      "coordinate_spread_m": 438,
+      "display_address_ru": "улица Зои Космодемьянской",
+      "full_address_ru": "Бендеры, улица Зои Космодемьянской, дом 10",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w47475968",
+        "w165763753",
+        "n4017877011"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||ленинградская улица|52",
+      "coordinate_spread_m": 214,
+      "display_address_ru": "Ленинградская улица",
+      "full_address_ru": "Бендеры, Ленинградская улица, дом 52",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w91847105",
+        "w103771204"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица 12 октября|83",
+      "coordinate_spread_m": 232,
+      "display_address_ru": "улица 12 Октября",
+      "full_address_ru": "Бендеры, улица 12 Октября, дом 83",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w91848270",
+        "w320492333"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица 12 октября|2",
+      "coordinate_spread_m": 842,
+      "display_address_ru": "улица 12 Октября",
+      "full_address_ru": "Бендеры, улица 12 Октября, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w91848802",
+        "w209273572",
+        "w209273625",
+        "w209273629"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица панфилова|6",
+      "coordinate_spread_m": 349,
+      "display_address_ru": "улица Панфилова",
+      "full_address_ru": "Бендеры, улица Панфилова, дом 6",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w91848813",
+        "w209267178"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица полоза|19",
+      "coordinate_spread_m": 228,
+      "display_address_ru": "улица Полоза",
+      "full_address_ru": "Бендеры, улица Полоза, дом 19",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w91850347",
+        "w352263819"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица калинина|17",
+      "coordinate_spread_m": 872,
+      "display_address_ru": "улица Калинина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Калинина, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w96821669",
+        "w290334251"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|10",
+      "coordinate_spread_m": 448,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 10",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w96821716",
+        "w319139365"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|8",
+      "coordinate_spread_m": 394,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 8",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w96821747",
+        "w319139361"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица щорса|12",
+      "coordinate_spread_m": 175,
+      "display_address_ru": "улица Щорса",
+      "full_address_ru": "Бендеры, улица Щорса, дом 12",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w96821761",
+        "w295029587",
+        "w295193356",
+        "n6787534385"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица гагарина|10",
+      "coordinate_spread_m": 201,
+      "display_address_ru": "улица Гагарина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Гагарина, дом 10",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w107683770",
+        "w291432268"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|107",
+      "coordinate_spread_m": 1238,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 107",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w115331363",
+        "w353825067"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|111",
+      "coordinate_spread_m": 781,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 111",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w115331370",
+        "w352679842"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|109",
+      "coordinate_spread_m": 1285,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 109",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w115331377",
+        "w353825069"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|113",
+      "coordinate_spread_m": 758,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 113",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w115331422",
+        "w405169681"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|115",
+      "coordinate_spread_m": 755,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 115",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w115331465",
+        "w405169683"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица петровского|6",
+      "coordinate_spread_m": 524,
+      "display_address_ru": "улица Петровского",
+      "full_address_ru": "Бендеры, улица Петровского, дом 6",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w116073001",
+        "w136387826",
+        "w297047298"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||парканская улица|13",
+      "coordinate_spread_m": 313,
+      "display_address_ru": "Парканская улица",
+      "full_address_ru": "Бендеры, Липканы, Парканская улица, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w159914380",
+        "w399048968"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица ленина|50",
+      "coordinate_spread_m": 365,
+      "display_address_ru": "улица Ленина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Ленина, дом 50",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w160140426",
+        "w164987767"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица гагарина|14",
+      "coordinate_spread_m": 252,
+      "display_address_ru": "улица Гагарина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Гагарина, дом 14",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w160143064",
+        "w291432270"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||коммунистическая улица|4",
+      "coordinate_spread_m": 2807,
+      "display_address_ru": "Коммунистическая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Коммунистическая улица, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161048741",
+        "w299339813"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица гагарина|22",
+      "coordinate_spread_m": 195,
+      "display_address_ru": "улица Гагарина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Гагарина, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161058095",
+        "w295029600"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица академика фёдорова|1",
+      "coordinate_spread_m": 232,
+      "display_address_ru": "улица Академика Фёдорова",
+      "full_address_ru": "Бендеры, улица Академика Фёдорова, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161058099",
+        "w161058109"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||севастопольская улица|8",
+      "coordinate_spread_m": 163,
+      "display_address_ru": "Севастопольская улица",
+      "full_address_ru": "Бендеры, Севастопольская улица, дом 8",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161058113",
+        "w302066904"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица ленина|15",
+      "coordinate_spread_m": 652,
+      "display_address_ru": "улица Ленина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Ленина, дом 15",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161068053",
+        "w295057543"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица сергея лазо|16",
+      "coordinate_spread_m": 242,
+      "display_address_ru": "улица Сергея Лазо (Бендеры)",
+      "full_address_ru": "Бендеры, улица Сергея Лазо, дом 16",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161068054",
+        "n7077586452"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кирова|9",
+      "coordinate_spread_m": 508,
+      "display_address_ru": "улица Кирова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Кирова, дом 9",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w161100438",
+        "w295081108"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|69",
+      "coordinate_spread_m": 820,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 69",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w164986734",
+        "w295028212"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица калинина|24",
+      "coordinate_spread_m": 648,
+      "display_address_ru": "улица Калинина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Калинина, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w164987469",
+        "w285073252"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||тираспольская улица|3",
+      "coordinate_spread_m": 743,
+      "display_address_ru": "Тираспольская улица",
+      "full_address_ru": "Бендеры, Тираспольская улица, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w164987471",
+        "w164987489",
+        "w224924637",
+        "w256222424",
+        "w295026702"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица дзержинского|7",
+      "coordinate_spread_m": 366,
+      "display_address_ru": "улица Дзержинского",
+      "full_address_ru": "Бендеры, улица Дзержинского, дом 7",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w164987488",
+        "w302370523"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|45",
+      "coordinate_spread_m": 508,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 45",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w164987766",
+        "w295028201",
+        "w295028203"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица 40 лет победы|34",
+      "coordinate_spread_m": 574,
+      "display_address_ru": "улица 40 лет Победы",
+      "full_address_ru": "Бендеры, улица 40 лет Победы, дом 34",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w165439301",
+        "w225186331"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица шестакова|22",
+      "coordinate_spread_m": 947,
+      "display_address_ru": "улица Шестакова",
+      "full_address_ru": "Бендеры, улица Шестакова, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w165625178",
+        "w224685219"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||тираспольская улица|4",
+      "coordinate_spread_m": 691,
+      "display_address_ru": "Тираспольская улица",
+      "full_address_ru": "Бендеры, Тираспольская улица, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w165627813",
+        "w165631112",
+        "w295081489"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица дзержинского|1а",
+      "coordinate_spread_m": 1252,
+      "display_address_ru": "улица Дзержинского",
+      "full_address_ru": "Бендеры, улица Дзержинского, дом 1А",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w165631089",
+        "w211496788"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица клары цеткин|1",
+      "coordinate_spread_m": 281,
+      "display_address_ru": "улица Клары Цеткин",
+      "full_address_ru": "Бендеры, улица Клары Цеткин, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w184989542",
+        "w316027888",
+        "w532689768"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица спартака|7",
+      "coordinate_spread_m": 468,
+      "display_address_ru": "улица Спартака",
+      "full_address_ru": "Бендеры, улица Спартака, дом 7",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w184989558",
+        "w317053521"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица панфилова|8",
+      "coordinate_spread_m": 328,
+      "display_address_ru": "улица Панфилова",
+      "full_address_ru": "Бендеры, улица Панфилова, дом 8",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267124",
+        "w209267185"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица богдана хмельницкого|32",
+      "coordinate_spread_m": 269,
+      "display_address_ru": "улица Богдана Хмельницкого",
+      "full_address_ru": "Бендеры, улица Богдана Хмельницкого, дом 32",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267133",
+        "w319223035"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица панфилова|2",
+      "coordinate_spread_m": 256,
+      "display_address_ru": "улица Панфилова",
+      "full_address_ru": "Бендеры, улица Панфилова, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267137",
+        "w209267182"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица богдана хмельницкого|30",
+      "coordinate_spread_m": 255,
+      "display_address_ru": "улица Богдана Хмельницкого",
+      "full_address_ru": "Бендеры, улица Богдана Хмельницкого, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267143",
+        "w319226813"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица панфилова|4",
+      "coordinate_spread_m": 302,
+      "display_address_ru": "улица Панфилова",
+      "full_address_ru": "Бендеры, улица Панфилова, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267145",
+        "w209267168",
+        "w209267176"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||бельцкая улица|31",
+      "coordinate_spread_m": 436,
+      "display_address_ru": "Бельцкая улица",
+      "full_address_ru": "Бендеры, Бельцкая улица, дом 31",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209267187",
+        "w317148290"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица 50 лет влксм|3",
+      "coordinate_spread_m": 154,
+      "display_address_ru": "улица 50 лет ВЛКСМ",
+      "full_address_ru": "Бендеры, улица 50 лет ВЛКСМ, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209273581",
+        "w209273636",
+        "w318070644"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица 50 лет влксм|2а",
+      "coordinate_spread_m": 407,
+      "display_address_ru": "улица 50 лет ВЛКСМ",
+      "full_address_ru": "Бендеры, улица 50 лет ВЛКСМ, дом 2а",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209273605",
+        "w317149171",
+        "n4919309105"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||железнодорожная улица|25",
+      "coordinate_spread_m": 808,
+      "display_address_ru": "Железнодорожная улица",
+      "full_address_ru": "Бендеры, Железнодорожная улица, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209287694",
+        "w316645119"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|8",
+      "coordinate_spread_m": 150,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 8",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209654277",
+        "w337742108"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|1",
+      "coordinate_spread_m": 363,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209654355",
+        "w352468388"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|10",
+      "coordinate_spread_m": 194,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 10",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209654380",
+        "w333962870"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||коммунистическая улица|2",
+      "coordinate_spread_m": 2663,
+      "display_address_ru": "Коммунистическая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Коммунистическая улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w209654420",
+        "w299339819"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кавриаго|54",
+      "coordinate_spread_m": 1519,
+      "display_address_ru": "улица Кавриаго",
+      "full_address_ru": "Бендеры, улица Кавриаго, дом 54",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w211496745",
+        "w291721556",
+        "w295422057"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|12",
+      "coordinate_spread_m": 1559,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 12",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w211496767",
+        "w295079341"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||переулок суворова|119",
+      "coordinate_spread_m": 158,
+      "display_address_ru": "переулок Суворова (Бендеры)",
+      "full_address_ru": "Бендеры, переулок Суворова, дом 119",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222755371",
+        "w295115432"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|84",
+      "coordinate_spread_m": 939,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 84",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222787499",
+        "w295401084"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|56",
+      "coordinate_spread_m": 670,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 56",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222794981",
+        "w295073325"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|38",
+      "coordinate_spread_m": 223,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 38",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222823679",
+        "w291296563"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|74",
+      "coordinate_spread_m": 678,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 74",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w222830312",
+        "w295080208"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||железнодорожная улица|15",
+      "coordinate_spread_m": 624,
+      "display_address_ru": "Железнодорожная улица",
+      "full_address_ru": "Бендеры, Железнодорожная улица, дом 15",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w224336145",
+        "w317051426"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||тираспольская улица|2",
+      "coordinate_spread_m": 166,
+      "display_address_ru": "Тираспольская улица",
+      "full_address_ru": "Бендеры, Тираспольская улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w256220908",
+        "w256222009"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|85",
+      "coordinate_spread_m": 161,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 85",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w288717194",
+        "w295004050"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|87",
+      "coordinate_spread_m": 153,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 87",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w288717196",
+        "w295004048"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|54",
+      "coordinate_spread_m": 602,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 54",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w288717216",
+        "w327779742"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|95",
+      "coordinate_spread_m": 520,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 95",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w289022016",
+        "w290336192",
+        "w293713539"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||коммунистическая улица|69",
+      "coordinate_spread_m": 1139,
+      "display_address_ru": "Коммунистическая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Коммунистическая улица, дом 69",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w289102412",
+        "w302537736"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||советская улица|52",
+      "coordinate_spread_m": 210,
+      "display_address_ru": "Советская улица",
+      "full_address_ru": "Бендеры, Советская улица, дом 52",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w289102551",
+        "w291721554"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кирова|17",
+      "coordinate_spread_m": 860,
+      "display_address_ru": "улица Кирова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Кирова, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290295822",
+        "w295022294"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|40",
+      "coordinate_spread_m": 304,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 40",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290295828",
+        "w291294912"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|72",
+      "coordinate_spread_m": 1040,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 72",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290295836",
+        "w290851727",
+        "w295080207"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|70",
+      "coordinate_spread_m": 559,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 70",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290295837",
+        "w295079340"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кирова|109",
+      "coordinate_spread_m": 272,
+      "display_address_ru": "улица Кирова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Кирова, дом 109",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290326326",
+        "w295009571"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|64",
+      "coordinate_spread_m": 404,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 64",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w290334298",
+        "w295079339"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|36",
+      "coordinate_spread_m": 198,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 36",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291294917",
+        "w291296561"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||московская улица|34",
+      "coordinate_spread_m": 972,
+      "display_address_ru": "Московская улица",
+      "full_address_ru": "Бендеры, Московская улица, дом 34",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291296572",
+        "w291423992"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица калинина|79",
+      "coordinate_spread_m": 323,
+      "display_address_ru": "улица Калинина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Калинина, дом 79",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291377831",
+        "w351853851"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|46",
+      "coordinate_spread_m": 336,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 46",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291431959",
+        "w295025856"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|48",
+      "coordinate_spread_m": 369,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 48",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291431960",
+        "w295025859"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кавриаго|27",
+      "coordinate_spread_m": 463,
+      "display_address_ru": "улица Кавриаго",
+      "full_address_ru": "Бендеры, улица Кавриаго, дом 27",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291721561",
+        "w292041230",
+        "w295126203"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кавриаго|25",
+      "coordinate_spread_m": 492,
+      "display_address_ru": "улица Кавриаго",
+      "full_address_ru": "Бендеры, улица Кавриаго, дом 25",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w291721566",
+        "w295028200"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица сергея лазо|57",
+      "coordinate_spread_m": 670,
+      "display_address_ru": "улица Сергея Лазо (Бендеры)",
+      "full_address_ru": "Бендеры, улица Сергея Лазо, дом 57",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w293173103",
+        "w806228938"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица кирова|21",
+      "coordinate_spread_m": 1467,
+      "display_address_ru": "улица Кирова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Кирова, дом 21",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w293715063",
+        "w295423299"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица шестакова|41",
+      "coordinate_spread_m": 431,
+      "display_address_ru": "улица Шестакова",
+      "full_address_ru": "Бендеры, улица Шестакова, дом 41",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295003789",
+        "w295028205"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||комсомольская улица|50",
+      "coordinate_spread_m": 400,
+      "display_address_ru": "Комсомольская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Комсомольская улица, дом 50",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295025860",
+        "w319157782"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||тираспольская улица|1",
+      "coordinate_spread_m": 641,
+      "display_address_ru": "Тираспольская улица",
+      "full_address_ru": "Бендеры, Тираспольская улица, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295026701",
+        "w295081112"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||молдавская улица|17",
+      "coordinate_spread_m": 258,
+      "display_address_ru": "Молдавская улица",
+      "full_address_ru": "Бендеры, Молдавская улица, дом 17",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295028197",
+        "w295080196"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица маяковского|79",
+      "coordinate_spread_m": 611,
+      "display_address_ru": "улица Маяковского (Бендеры)",
+      "full_address_ru": "Бендеры, улица Маяковского, дом 79",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295028217",
+        "w295401027"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица шестакова|24",
+      "coordinate_spread_m": 871,
+      "display_address_ru": "улица Шестакова",
+      "full_address_ru": "Бендеры, улица Шестакова, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295028356",
+        "w295029779"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||садовая улица|44",
+      "coordinate_spread_m": 531,
+      "display_address_ru": "Садовая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Садовая улица, дом 44",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295055228",
+        "w295334435"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||молдавская улица|15",
+      "coordinate_spread_m": 191,
+      "display_address_ru": "Молдавская улица",
+      "full_address_ru": "Бендеры, Молдавская улица, дом 15",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295055762",
+        "w295073858"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||садовая улица|13",
+      "coordinate_spread_m": 956,
+      "display_address_ru": "Садовая улица (Бендеры)",
+      "full_address_ru": "Бендеры, Садовая улица, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295055764",
+        "w317089134"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||молдавская улица|2",
+      "coordinate_spread_m": 372,
+      "display_address_ru": "Молдавская улица",
+      "full_address_ru": "Бендеры, Молдавская улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295057161",
+        "w295117480"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица шевченко|4",
+      "coordinate_spread_m": 286,
+      "display_address_ru": "улица Шевченко (Бендеры)",
+      "full_address_ru": "Бендеры, улица Шевченко, дом 4",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295076081",
+        "w295117481"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||переулок суворова|121",
+      "coordinate_spread_m": 169,
+      "display_address_ru": "переулок Суворова (Бендеры)",
+      "full_address_ru": "Бендеры, переулок Суворова, дом 121",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295078238",
+        "w295115433"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица шевченко|24",
+      "coordinate_spread_m": 243,
+      "display_address_ru": "улица Шевченко (Бендеры)",
+      "full_address_ru": "Бендеры, улица Шевченко, дом 24",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295088576",
+        "w295421428"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|110",
+      "coordinate_spread_m": 328,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 110",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295088590",
+        "w295620273"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|112",
+      "coordinate_spread_m": 298,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 112",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295088591",
+        "w295620274"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||переулок суворова|115",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "переулок Суворова (Бендеры)",
+      "full_address_ru": "Бендеры, переулок Суворова, дом 115",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295115430",
+        "w319155789"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|114",
+      "coordinate_spread_m": 278,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 114",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295151366",
+        "w295620275"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|116",
+      "coordinate_spread_m": 274,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 116",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295151367",
+        "w295620276"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица щорса|5",
+      "coordinate_spread_m": 160,
+      "display_address_ru": "улица Щорса",
+      "full_address_ru": "Бендеры, улица Щорса, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295193351",
+        "w295196029"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|89",
+      "coordinate_spread_m": 964,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 89",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295341628",
+        "w298266609"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|56",
+      "coordinate_spread_m": 971,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 56",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295341636",
+        "w295707133"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|164",
+      "coordinate_spread_m": 302,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 164",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295401055",
+        "w301226101"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|124",
+      "coordinate_spread_m": 198,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 124",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295638545",
+        "n2322909471"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|126",
+      "coordinate_spread_m": 173,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 126",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w295638546",
+        "w298266539"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица тургенева|5",
+      "coordinate_spread_m": 220,
+      "display_address_ru": "улица Тургенева",
+      "full_address_ru": "Бендеры, улица Тургенева, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w298266295",
+        "w301982092",
+        "w303915688"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||первомайская улица|166",
+      "coordinate_spread_m": 299,
+      "display_address_ru": "Первомайская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Первомайская улица, дом 166",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w301226102",
+        "w301442649"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица толбухина|1",
+      "coordinate_spread_m": 337,
+      "display_address_ru": "улица Толбухина",
+      "full_address_ru": "Бендеры, улица Толбухина, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w301630549",
+        "w320187946"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||путейская улица|1",
+      "coordinate_spread_m": 256,
+      "display_address_ru": "Путейская улица",
+      "full_address_ru": "Бендеры, Путейская улица, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w301982101",
+        "w303915712"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||киевская улица|2",
+      "coordinate_spread_m": 440,
+      "display_address_ru": "Киевская улица",
+      "full_address_ru": "Бендеры, Киевская улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w301982103",
+        "w318406777"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||киевская улица|14",
+      "coordinate_spread_m": 344,
+      "display_address_ru": "Киевская улица",
+      "full_address_ru": "Бендеры, Киевская улица, дом 14",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w301982114",
+        "w302066938"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица чехова|37",
+      "coordinate_spread_m": 473,
+      "display_address_ru": "улица Чехова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Чехова, дом 37",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302066898",
+        "w319366993"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица чехова|33",
+      "coordinate_spread_m": 447,
+      "display_address_ru": "улица Чехова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Чехова, дом 33",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302066899",
+        "w319366989"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица чехова|35",
+      "coordinate_spread_m": 459,
+      "display_address_ru": "улица Чехова (Бендеры)",
+      "full_address_ru": "Бендеры, улица Чехова, дом 35",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302066900",
+        "w319366992"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||киевская улица|16",
+      "coordinate_spread_m": 379,
+      "display_address_ru": "Киевская улица",
+      "full_address_ru": "Бендеры, Киевская улица, дом 16",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302066939",
+        "w302368273"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||киевская улица|18",
+      "coordinate_spread_m": 365,
+      "display_address_ru": "Киевская улица",
+      "full_address_ru": "Бендеры, Киевская улица, дом 18",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302066942",
+        "w303915692"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||железнодорожная улица|2",
+      "coordinate_spread_m": 1221,
+      "display_address_ru": "Железнодорожная улица",
+      "full_address_ru": "Бендеры, Железнодорожная улица, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302067669",
+        "w317149172"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица няги|13",
+      "coordinate_spread_m": 273,
+      "display_address_ru": "улица Няги",
+      "full_address_ru": "Бендеры, улица Няги, дом 13",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302364397",
+        "w302364404"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица няги|7",
+      "coordinate_spread_m": 276,
+      "display_address_ru": "улица Няги",
+      "full_address_ru": "Бендеры, улица Няги, дом 7",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302364402",
+        "w302364511"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица толбухина|20",
+      "coordinate_spread_m": 304,
+      "display_address_ru": "улица Толбухина",
+      "full_address_ru": "Бендеры, улица Толбухина, дом 20",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w302364515",
+        "w319381966"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||школьный переулок|6",
+      "coordinate_spread_m": 195,
+      "display_address_ru": "Школьный переулок (Бендеры)",
+      "full_address_ru": "Бендеры, Школьный переулок, дом 6",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w303849095",
+        "w304087547"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица бориса главана|26",
+      "coordinate_spread_m": 470,
+      "display_address_ru": "улица Бориса Главана (Бендеры)",
+      "full_address_ru": "Бендеры, улица Бориса Главана, дом 26",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w303915707",
+        "w318406786"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица бориса главана|28",
+      "coordinate_spread_m": 484,
+      "display_address_ru": "улица Бориса Главана (Бендеры)",
+      "full_address_ru": "Бендеры, улица Бориса Главана, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w303915710",
+        "w318406785"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица бориса главана|30",
+      "coordinate_spread_m": 492,
+      "display_address_ru": "улица Бориса Главана (Бендеры)",
+      "full_address_ru": "Бендеры, улица Бориса Главана, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w303915711",
+        "w318406784"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||загородная улица|16",
+      "coordinate_spread_m": 428,
+      "display_address_ru": "Загородная улица",
+      "full_address_ru": "Бендеры, Загородная улица, дом 16",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w304687294",
+        "w352468408"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||октябрьская улица|7",
+      "coordinate_spread_m": 151,
+      "display_address_ru": "Октябрьская улица (Бендеры)",
+      "full_address_ru": "Бендеры, Октябрьская улица, дом 7",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w305767364",
+        "w320275311"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|22",
+      "coordinate_spread_m": 858,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w315035702",
+        "w400824554"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица бориса главана|1",
+      "coordinate_spread_m": 282,
+      "display_address_ru": "улица Бориса Главана (Бендеры)",
+      "full_address_ru": "Бендеры, улица Бориса Главана, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w315109550",
+        "w319366969"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||переулок лермонтова|61",
+      "coordinate_spread_m": 152,
+      "display_address_ru": "переулок Лермонтова",
+      "full_address_ru": "Бендеры, переулок Лермонтова, дом 61",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w315193172",
+        "w315851309"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||железнодорожная улица|32",
+      "coordinate_spread_m": 1025,
+      "display_address_ru": "Железнодорожная улица",
+      "full_address_ru": "Бендеры, Железнодорожная улица, дом 32",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w316785288",
+        "w318406794"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица осипенко|2",
+      "coordinate_spread_m": 255,
+      "display_address_ru": "улица Осипенко",
+      "full_address_ru": "Бендеры, улица Осипенко, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w317053499",
+        "w317053534",
+        "w317053544"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||индустриальная улица|1",
+      "coordinate_spread_m": 1485,
+      "display_address_ru": "Индустриальная улица",
+      "full_address_ru": "Бендеры, Индустриальная улица, дом 1",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w317058935",
+        "w406640930"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||бельцкая улица|39",
+      "coordinate_spread_m": 349,
+      "display_address_ru": "Бельцкая улица",
+      "full_address_ru": "Бендеры, Бельцкая улица, дом 39",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w318185746",
+        "w318701794"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|2",
+      "coordinate_spread_m": 317,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 2",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w318701772",
+        "w319139371"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица зои космодемьянской|22",
+      "coordinate_spread_m": 754,
+      "display_address_ru": "улица Зои Космодемьянской",
+      "full_address_ru": "Бендеры, улица Зои Космодемьянской, дом 22",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w318701774",
+        "w352332821"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|63",
+      "coordinate_spread_m": 666,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 63",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w319144139",
+        "w352148091"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|65",
+      "coordinate_spread_m": 697,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 65",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w319144140",
+        "w352148092"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|71",
+      "coordinate_spread_m": 801,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 71",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w319144197",
+        "w352153735"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||колхозная улица|11",
+      "coordinate_spread_m": 245,
+      "display_address_ru": "Колхозная улица",
+      "full_address_ru": "Бендеры, Липканы, Колхозная улица, дом 11",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w319616186",
+        "w404859436"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||колхозная улица|9",
+      "coordinate_spread_m": 188,
+      "display_address_ru": "Колхозная улица",
+      "full_address_ru": "Бендеры, Липканы, Колхозная улица, дом 9",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w319617223",
+        "w404859438"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица куйбышева|36",
+      "coordinate_spread_m": 311,
+      "display_address_ru": "улица Куйбышева",
+      "full_address_ru": "Бендеры, улица Куйбышева, дом 36",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w320343107",
+        "w320437618"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||переулок строителей|5",
+      "coordinate_spread_m": 161,
+      "display_address_ru": "переулок Строителей",
+      "full_address_ru": "Бендеры, переулок Строителей, дом 5",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w342059484",
+        "w405292560"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица титова|69",
+      "coordinate_spread_m": 780,
+      "display_address_ru": "улица Титова (Бендеры, другой район)",
+      "full_address_ru": "Бендеры, улица Титова, дом 69",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352153737",
+        "w682003272"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|34",
+      "coordinate_spread_m": 356,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 34",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352306059",
+        "w352469709"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|32",
+      "coordinate_spread_m": 363,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 32",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352306060",
+        "w352469708"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|30",
+      "coordinate_spread_m": 366,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 30",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352306061",
+        "w352469706"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица мичурина|28",
+      "coordinate_spread_m": 375,
+      "display_address_ru": "улица Мичурина (Бендеры)",
+      "full_address_ru": "Бендеры, улица Мичурина, дом 28",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352306062",
+        "w352469705"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||улица менделеева|3",
+      "coordinate_spread_m": 204,
+      "display_address_ru": "улица Менделеева",
+      "full_address_ru": "Бендеры, улица Менделеева, дом 3",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w352309771",
+        "w352470473"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||красивая улица|18",
+      "coordinate_spread_m": 186,
+      "display_address_ru": "Красивая улица",
+      "full_address_ru": "Бендеры, Липканы, Красивая улица, дом 18",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w399048974",
+        "w404771114"
+      ]
+    },
+    {
+      "canonical_address": "бендеры||подольская улица|12",
+      "coordinate_spread_m": 272,
+      "display_address_ru": "Подольская улица",
+      "full_address_ru": "Бендеры, Липканы, Подольская улица, дом 12",
+      "note": "same address, objects far apart — verify on the ground",
+      "objects": [
+        "w404771110",
+        "w404776030"
+      ]
+    }
+  ],
+  "duplicate_street_names": 42,
+  "duplicates": [
+    {
+      "normalized_street": "гербовецкая улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 18,
+          "display_address_ru": "Гербовецкая улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Гербовецкая улица",
+          "unaddressed_units": 12
+        },
+        {
+          "address_count": 53,
+          "display_address_ru": "Гербовецкая улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Гербовецкая улица",
+          "unaddressed_units": 201
+        }
+      ]
+    },
+    {
+      "normalized_street": "главная улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 2,
+          "display_address_ru": "Главная улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Главная улица",
+          "unaddressed_units": 5
+        },
+        {
+          "address_count": 45,
+          "display_address_ru": "Главная улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Главная улица",
+          "unaddressed_units": 362
+        }
+      ]
+    },
+    {
+      "normalized_street": "коммунистическая улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 149,
+          "display_address_ru": "Коммунистическая улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Коммунистическая улица",
+          "unaddressed_units": 133
+        },
+        {
+          "address_count": 38,
+          "display_address_ru": "Коммунистическая улица (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "Коммунистическая улица",
+          "unaddressed_units": 69
+        }
+      ]
+    },
+    {
+      "normalized_street": "комсомольская улица",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 100,
+          "display_address_ru": "Комсомольская улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Комсомольская улица",
+          "unaddressed_units": 84
+        },
+        {
+          "address_count": 169,
+          "display_address_ru": "Комсомольская улица (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "Комсомольская улица",
+          "unaddressed_units": 265
+        },
+        {
+          "address_count": 16,
+          "display_address_ru": "Комсомольская улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Комсомольская улица",
+          "unaddressed_units": 78
+        }
+      ]
+    },
+    {
+      "normalized_street": "молодёжная улица",
+      "variant_count": 4,
+      "variants": [
+        {
+          "address_count": 9,
+          "display_address_ru": "Молодёжная улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Молодёжная улица",
+          "unaddressed_units": 12
+        },
+        {
+          "address_count": 7,
+          "display_address_ru": "Молодёжная улица (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Молодёжная улица",
+          "unaddressed_units": 76
+        },
+        {
+          "address_count": 126,
+          "display_address_ru": "Молодёжная улица (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "Молодёжная улица",
+          "unaddressed_units": 101
+        },
+        {
+          "address_count": 3,
+          "display_address_ru": "Молодёжная улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Молодёжная улица",
+          "unaddressed_units": 8
+        }
+      ]
+    },
+    {
+      "normalized_street": "октябрьская улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 20,
+          "display_address_ru": "Октябрьская улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Октябрьская улица",
+          "unaddressed_units": 9
+        },
+        {
+          "address_count": 6,
+          "display_address_ru": "Октябрьская улица (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Октябрьская улица",
+          "unaddressed_units": 35
+        }
+      ]
+    },
+    {
+      "normalized_street": "первомайская улица",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 145,
+          "display_address_ru": "Первомайская улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Первомайская улица",
+          "unaddressed_units": 70
+        },
+        {
+          "address_count": 6,
+          "display_address_ru": "Первомайская улица (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Первомайская улица",
+          "unaddressed_units": 15
+        },
+        {
+          "address_count": 65,
+          "display_address_ru": "Первомайская улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Первомайская улица",
+          "unaddressed_units": 158
+        }
+      ]
+    },
+    {
+      "normalized_street": "первомайский переулок",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 18,
+          "display_address_ru": "Первомайский переулок (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Первомайский переулок",
+          "unaddressed_units": 22
+        },
+        {
+          "address_count": 13,
+          "display_address_ru": "Первомайский переулок (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Первомайский переулок",
+          "unaddressed_units": 15
+        }
+      ]
+    },
+    {
+      "normalized_street": "переулок мира",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 2,
+          "display_address_ru": "переулок Мира (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "переулок Мира",
+          "unaddressed_units": 6
+        },
+        {
+          "address_count": 4,
+          "display_address_ru": "переулок Мира (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "переулок Мира",
+          "unaddressed_units": 4
+        }
+      ]
+    },
+    {
+      "normalized_street": "переулок суворова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 32,
+          "display_address_ru": "переулок Суворова (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "переулок Суворова",
+          "unaddressed_units": 36
+        },
+        {
+          "address_count": 6,
+          "display_address_ru": "переулок Суворова (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "переулок Суворова",
+          "unaddressed_units": 28
+        }
+      ]
+    },
+    {
+      "normalized_street": "пионерская улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 19,
+          "display_address_ru": "Пионерская улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Пионерская улица",
+          "unaddressed_units": 13
+        },
+        {
+          "address_count": 27,
+          "display_address_ru": "Пионерская улица (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "Пионерская улица",
+          "unaddressed_units": 75
+        }
+      ]
+    },
+    {
+      "normalized_street": "садовая улица",
+      "variant_count": 4,
+      "variants": [
+        {
+          "address_count": 98,
+          "display_address_ru": "Садовая улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Садовая улица",
+          "unaddressed_units": 61
+        },
+        {
+          "address_count": 16,
+          "display_address_ru": "Садовая улица (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Садовая улица",
+          "unaddressed_units": 65
+        },
+        {
+          "address_count": 121,
+          "display_address_ru": "Садовая улица (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "Садовая улица",
+          "unaddressed_units": 180
+        },
+        {
+          "address_count": 24,
+          "display_address_ru": "Садовая улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Садовая улица",
+          "unaddressed_units": 33
+        }
+      ]
+    },
+    {
+      "normalized_street": "санаторная улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 6,
+          "display_address_ru": "Санаторная улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Санаторная улица",
+          "unaddressed_units": 5
+        },
+        {
+          "address_count": 24,
+          "display_address_ru": "Санаторная улица (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "Санаторная улица",
+          "unaddressed_units": 4
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица бориса главана",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 42,
+          "display_address_ru": "улица Бориса Главана (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Бориса Главана",
+          "unaddressed_units": 52
+        },
+        {
+          "address_count": 8,
+          "display_address_ru": "улица Бориса Главана (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Бориса Главана",
+          "unaddressed_units": 37
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица гагарина",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 41,
+          "display_address_ru": "улица Гагарина (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Гагарина",
+          "unaddressed_units": 31
+        },
+        {
+          "address_count": 13,
+          "display_address_ru": "улица Гагарина (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Гагарина",
+          "unaddressed_units": 78
+        },
+        {
+          "address_count": 44,
+          "display_address_ru": "улица Гагарина (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Гагарина",
+          "unaddressed_units": 62
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица гоголя",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 60,
+          "display_address_ru": "улица Гоголя (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Гоголя",
+          "unaddressed_units": 34
+        },
+        {
+          "address_count": 6,
+          "display_address_ru": "улица Гоголя (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Гоголя",
+          "unaddressed_units": 56
+        },
+        {
+          "address_count": 50,
+          "display_address_ru": "улица Гоголя (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Гоголя",
+          "unaddressed_units": 100
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица горького",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 15,
+          "display_address_ru": "улица Горького (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Горького",
+          "unaddressed_units": 20
+        },
+        {
+          "address_count": 180,
+          "display_address_ru": "улица Горького (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Горького",
+          "unaddressed_units": 232
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица димитрова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 25,
+          "display_address_ru": "улица Димитрова (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Димитрова",
+          "unaddressed_units": 7
+        },
+        {
+          "address_count": 29,
+          "display_address_ru": "улица Димитрова (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Димитрова",
+          "unaddressed_units": 80
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица дружбы",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 2,
+          "display_address_ru": "улица Дружбы (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Дружбы",
+          "unaddressed_units": 4
+        },
+        {
+          "address_count": 17,
+          "display_address_ru": "улица Дружбы (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Дружбы",
+          "unaddressed_units": 9
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица интернационалистов",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 15,
+          "display_address_ru": "улица Интернационалистов (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Интернационалистов",
+          "unaddressed_units": 12
+        },
+        {
+          "address_count": 2,
+          "display_address_ru": "улица Интернационалистов (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Интернационалистов",
+          "unaddressed_units": 8
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица калинина",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 77,
+          "display_address_ru": "улица Калинина (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Калинина",
+          "unaddressed_units": 62
+        },
+        {
+          "address_count": 25,
+          "display_address_ru": "улица Калинина (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Калинина",
+          "unaddressed_units": 40
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица кирова",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 94,
+          "display_address_ru": "улица Кирова (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Кирова",
+          "unaddressed_units": 76
+        },
+        {
+          "address_count": 40,
+          "display_address_ru": "улица Кирова (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Кирова",
+          "unaddressed_units": 30
+        },
+        {
+          "address_count": 102,
+          "display_address_ru": "улица Кирова (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Кирова",
+          "unaddressed_units": 131
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица космонавтов",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 32,
+          "display_address_ru": "улица Космонавтов (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Космонавтов",
+          "unaddressed_units": 5
+        },
+        {
+          "address_count": 10,
+          "display_address_ru": "улица Космонавтов (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "улица Космонавтов",
+          "unaddressed_units": 41
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица курило",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 11,
+          "display_address_ru": "улица Курило (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Курило",
+          "unaddressed_units": 2
+        },
+        {
+          "address_count": 4,
+          "display_address_ru": "улица Курило (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Курило",
+          "unaddressed_units": 26
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица ленина",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 34,
+          "display_address_ru": "улица Ленина (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Ленина",
+          "unaddressed_units": 19
+        },
+        {
+          "address_count": 80,
+          "display_address_ru": "улица Ленина (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Ленина",
+          "unaddressed_units": 521
+        },
+        {
+          "address_count": 154,
+          "display_address_ru": "улица Ленина (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Ленина",
+          "unaddressed_units": 269
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица маяковского",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 62,
+          "display_address_ru": "улица Маяковского (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Маяковского",
+          "unaddressed_units": 34
+        },
+        {
+          "address_count": 27,
+          "display_address_ru": "улица Маяковского (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Маяковского",
+          "unaddressed_units": 57
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица мира",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 34,
+          "display_address_ru": "улица Мира (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Мира",
+          "unaddressed_units": 25
+        },
+        {
+          "address_count": 50,
+          "display_address_ru": "улица Мира (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Мира",
+          "unaddressed_units": 133
+        },
+        {
+          "address_count": 39,
+          "display_address_ru": "улица Мира (Протягайловка)",
+          "district_ru": null,
+          "settlement_ru": "Протягайловка",
+          "street_ru": "улица Мира",
+          "unaddressed_units": 19
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица мичурина",
+      "variant_count": 3,
+      "variants": [
+        {
+          "address_count": 43,
+          "display_address_ru": "улица Мичурина (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Мичурина",
+          "unaddressed_units": 15
+        },
+        {
+          "address_count": 10,
+          "display_address_ru": "улица Мичурина (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Мичурина",
+          "unaddressed_units": 41
+        },
+        {
+          "address_count": 199,
+          "display_address_ru": "улица Мичурина (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Мичурина",
+          "unaddressed_units": 100
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица победы",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 14,
+          "display_address_ru": "улица Победы (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Победы",
+          "unaddressed_units": 7
+        },
+        {
+          "address_count": 18,
+          "display_address_ru": "улица Победы (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Победы",
+          "unaddressed_units": 140
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица пушкина",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 50,
+          "display_address_ru": "улица Пушкина (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Пушкина",
+          "unaddressed_units": 65
+        },
+        {
+          "address_count": 109,
+          "display_address_ru": "улица Пушкина (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Пушкина",
+          "unaddressed_units": 159
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица сергея лазо",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 33,
+          "display_address_ru": "улица Сергея Лазо (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Сергея Лазо",
+          "unaddressed_units": 40
+        },
+        {
+          "address_count": 92,
+          "display_address_ru": "улица Сергея Лазо (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Сергея Лазо",
+          "unaddressed_units": 93
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица суворова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 58,
+          "display_address_ru": "улица Суворова (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Суворова",
+          "unaddressed_units": 83
+        },
+        {
+          "address_count": 174,
+          "display_address_ru": "улица Суворова (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Суворова",
+          "unaddressed_units": 210
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица титова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 71,
+          "display_address_ru": "улица Титова (Бендеры, другой район)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Титова",
+          "unaddressed_units": 81
+        },
+        {
+          "address_count": 5,
+          "display_address_ru": "улица Титова (Липканы)",
+          "district_ru": "Липканы",
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Титова",
+          "unaddressed_units": 12
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица ткаченко",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 97,
+          "display_address_ru": "улица Ткаченко (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Ткаченко",
+          "unaddressed_units": 57
+        },
+        {
+          "address_count": 6,
+          "display_address_ru": "улица Ткаченко (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "улица Ткаченко",
+          "unaddressed_units": 45
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица фрунзе",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 9,
+          "display_address_ru": "улица Фрунзе (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Фрунзе",
+          "unaddressed_units": 3
+        },
+        {
+          "address_count": 143,
+          "display_address_ru": "улица Фрунзе (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Фрунзе",
+          "unaddressed_units": 101
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица чапаева",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 31,
+          "display_address_ru": "улица Чапаева (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Чапаева",
+          "unaddressed_units": 25
+        },
+        {
+          "address_count": 194,
+          "display_address_ru": "улица Чапаева (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Чапаева",
+          "unaddressed_units": 259
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица чехова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 21,
+          "display_address_ru": "улица Чехова (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Чехова",
+          "unaddressed_units": 6
+        },
+        {
+          "address_count": 58,
+          "display_address_ru": "улица Чехова (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Чехова",
+          "unaddressed_units": 74
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица чкалова",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 10,
+          "display_address_ru": "улица Чкалова (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Чкалова",
+          "unaddressed_units": 1
+        },
+        {
+          "address_count": 107,
+          "display_address_ru": "улица Чкалова (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Чкалова",
+          "unaddressed_units": 136
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица шевченко",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 56,
+          "display_address_ru": "улица Шевченко (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Шевченко",
+          "unaddressed_units": 25
+        },
+        {
+          "address_count": 47,
+          "display_address_ru": "улица Шевченко (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Шевченко",
+          "unaddressed_units": 87
+        }
+      ]
+    },
+    {
+      "normalized_street": "улица энгельса",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 33,
+          "display_address_ru": "улица Энгельса (Бендеры)",
+          "district_ru": "Липканы",
+          "settlement_ru": "Бендеры",
+          "street_ru": "улица Энгельса",
+          "unaddressed_units": 20
+        },
+        {
+          "address_count": 87,
+          "display_address_ru": "улица Энгельса (Парканы)",
+          "district_ru": null,
+          "settlement_ru": "Парканы",
+          "street_ru": "улица Энгельса",
+          "unaddressed_units": 147
+        }
+      ]
+    },
+    {
+      "normalized_street": "школьная улица",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 21,
+          "display_address_ru": "Школьная улица (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Школьная улица",
+          "unaddressed_units": 15
+        },
+        {
+          "address_count": 17,
+          "display_address_ru": "Школьная улица (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Школьная улица",
+          "unaddressed_units": 45
+        }
+      ]
+    },
+    {
+      "normalized_street": "школьный переулок",
+      "variant_count": 2,
+      "variants": [
+        {
+          "address_count": 22,
+          "display_address_ru": "Школьный переулок (Бендеры)",
+          "district_ru": null,
+          "settlement_ru": "Бендеры",
+          "street_ru": "Школьный переулок",
+          "unaddressed_units": 10
+        },
+        {
+          "address_count": 10,
+          "display_address_ru": "Школьный переулок (Гиска)",
+          "district_ru": null,
+          "settlement_ru": "Гиска",
+          "street_ru": "Школьный переулок",
+          "unaddressed_units": 33
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-07-24T01:32:51Z",
+  "rule": "The real OSM street name is never modified and never contains a settlement. Qualifiers are display-only.",
+  "same_address_different_coordinates": 295,
+  "schema": "bender-street-name-qa/7"
+}

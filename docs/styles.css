@@ -134,3 +134,5 @@ h2 { font-size: 14px; margin: 18px 0 8px; text-transform: uppercase; letter-spac
   #layout { flex-direction: column; }
   #sidebar { width: 100%; min-width: 0; max-height: 45%; border-right: none; border-bottom: 1px solid var(--border); }
 }
+
+.variant { margin-top: 6px; padding: 4px 6px; border-left: 3px solid var(--found); background: #f7f9fc; }

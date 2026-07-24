@@ -1,6 +1,6 @@
 # Stage 06 — ordered OSRM tariff distance bands
 
-- Generated (UTC): `2026-07-24T01:16:34Z`
+- Generated (UTC): `2026-07-24T01:33:45Z`
 - model: **ordered_cost_bands_over_osrm_road_km** (не пространственная кластеризация)
 - routing: **OSRM MLD**, профиль `car.lua`
 - recommendation_status: **owner_review_required** · suggested K: **5**

@@ -36,6 +36,18 @@ from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
 from bender_zones import jsonutil
+from bender_zones.address import (
+    UNKNOWN_SETTLEMENT as UNKNOWN_SETTLEMENT_LABEL,
+)
+from bender_zones.address import (
+    build_street_index,
+    display_address_ru,
+    full_address_ru,
+    settlement_district,
+)
+from bender_zones.address import (
+    canonical_address_key as address_key,
+)
 from bender_zones.bands import (
     assign_band,
     band_edges,
@@ -61,13 +73,13 @@ from bender_zones.demand_units import (
     UNIT_ADDRESSED_BUILDING,
     UNIT_UNADDRESSED_BUILDING,
     DemandUnit,
-    canonical_address_key,
     deduplicate_address_nodes,
     reject_addresses_in_nonresidential,
     summarise,
     unit_weight,
 )
 from bender_zones.extract import extract_boundary
+from bender_zones.normalize import normalize_text
 from bender_zones.osrm import OsrmClient, OsrmError, expected_cost, worst_cost
 from bender_zones.service_trim import (
     area_m2,
@@ -413,23 +425,41 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         })
     print(f"routed units: {len(rows)} | unreachable: {len(unreachable)}")
 
-    # --- (2) canonical real addresses: one doorway = one zone ---
+    # --- (2) structured addresses + duplicate street-name disambiguation ---
+    for r in rows:
+        r["settlement_key"] = r["settlement"]
+        r["settlement_ru"], r["district_ru"] = settlement_district(r["settlement"])
+    # Which (settlement, district, street) need a display qualifier?
+    qualifiers = build_street_index(
+        [(r["settlement_ru"], r["district_ru"], r["street_ru"]) for r in rows])
+    # A district only enters the identity key where it actually disambiguates.
+    district_needed = set()
+    for (settlement, district, name), qual in qualifiers.items():
+        if qual and district is not None or (qual and "другой район" in str(qual)):
+            district_needed.add((settlement, name))
+    for r in rows:
+        key = (r["settlement_ru"], r["district_ru"], normalize_text(r["street_ru"] or ""))
+        r["street_qualifier"] = qualifiers.get(key)
+        r["display_address_ru"] = display_address_ru(r["street_ru"], r["street_qualifier"])
+        r["full_address_ru"] = full_address_ru(
+            r["settlement_ru"], r["district_ru"], r["street_ru"], r["housenumber"])
+        r["canonical_address"] = address_key(
+            r["settlement_ru"], r["street_ru"], r["housenumber"], r["district_ru"],
+            district_required=(r["settlement_ru"],
+                               normalize_text(r["street_ru"] or "")) in district_needed)
+
     groups: dict = {}
     for r in rows:
-        r["canonical_address"] = canonical_address_key(
-            r["settlement"], r["street_ru"], r["housenumber"])
         if r["canonical_address"]:
             groups.setdefault(r["canonical_address"], []).append(r)
     dup_conflicts = []
     for key, members in groups.items():
-        if len(members) < 2:
-            continue
         kms = [m["expected_km"] for m in members]
-        # The whole doorway is banded on its nearest reachable access.
         canonical_km = min(kms)
-        if max(kms) - min(kms) > float(bcfg["bands"]["bin_width_km"]):
+        if len(members) > 1 and max(kms) - min(kms) > float(bcfg["bands"]["bin_width_km"]):
             dup_conflicts.append({
                 "canonical_address": key,
+                "display_address_ru": members[0]["display_address_ru"],
                 "objects": [m["uid"] for m in members],
                 "expected_km": [round(x, 3) for x in kms],
                 "resolved_km": round(canonical_km, 3),
@@ -440,6 +470,7 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
     print(f"canonical addresses: {len(groups)} | multi-object: "
           f"{sum(1 for v in groups.values() if len(v) > 1)} | "
           f"reconciled spread: {len(dup_conflicts)}")
+    _street_name_qa(repo_root, rows, qualifiers)
 
     # --- ordered bands ---
     bw = float(bcfg["bands"]["bin_width_km"])
@@ -784,6 +815,117 @@ def _band_polygons(k, rows, proj, service_all, bcfg, out):
             "status": "prepared_owner_review_required"}))
 
 
+def _street_name_qa(repo_root, rows, qualifiers):
+    """QA report on street names that repeat across settlements/districts."""
+    by_name: dict = {}
+    for r in rows:
+        name = normalize_text(r["street_ru"] or "")
+        if not name:
+            continue
+        place = (r["settlement_ru"], r["district_ru"])
+        entry = by_name.setdefault(name, {})
+        v = entry.setdefault(place, {"street_ru": r["street_ru"], "addresses": 0,
+                                     "unaddressed": 0, "display": r["display_address_ru"]})
+        if r.get("canonical_address"):
+            v["addresses"] += 1
+        else:
+            v["unaddressed"] += 1
+
+    duplicates = []
+    for name, places in sorted(by_name.items()):
+        if len(places) < 2:
+            continue
+        duplicates.append({
+            "normalized_street": name,
+            "variants": sorted(
+                [{"settlement_ru": p[0] or UNKNOWN_SETTLEMENT_LABEL,
+                  "district_ru": p[1], "street_ru": v["street_ru"],
+                  "display_address_ru": v["display"],
+                  "address_count": v["addresses"],
+                  "unaddressed_units": v["unaddressed"]}
+                 for p, v in places.items()],
+                key=lambda x: (x["settlement_ru"], x["district_ru"] or "")),
+            "variant_count": len(places)})
+
+    unknown = [{"uid": r["uid"], "street_ru": r["street_ru"],
+                "housenumber": r["housenumber"]}
+               for r in rows if not r["settlement_ru"]]
+
+    # Same settlement + street + housenumber but far apart on the ground.
+    coord_conflicts = []
+    triples: dict = {}
+    for r in rows:
+        if not r.get("canonical_address"):
+            continue
+        triples.setdefault(r["canonical_address"], []).append(r)
+    for key, members in triples.items():
+        if len(members) < 2:
+            continue
+        lons = [m["lon"] for m in members]
+        lats = [m["lat"] for m in members]
+        spread_m = max(
+            ((max(lons) - min(lons)) * 76000.0), ((max(lats) - min(lats)) * 111000.0))
+        if spread_m > 150.0:
+            coord_conflicts.append({
+                "canonical_address": key,
+                "display_address_ru": members[0]["display_address_ru"],
+                "full_address_ru": members[0]["full_address_ru"],
+                "objects": [m["uid"] for m in members],
+                "coordinate_spread_m": round(spread_m),
+                "note": "same address, objects far apart — verify on the ground"})
+
+    data = repo_root / "docs/data"
+    with open(data / "duplicate-street-names.csv", "w", encoding="utf-8",
+              newline="") as fh:
+        w = csv.writer(fh, lineterminator=chr(10))
+        w.writerow(["normalized_street", "street_ru", "settlement_ru", "district_ru",
+                    "display_address_ru", "address_count", "unaddressed_units"])
+        for d in duplicates:
+            for v in d["variants"]:
+                w.writerow([d["normalized_street"], v["street_ru"], v["settlement_ru"],
+                            v["district_ru"] or "", v["display_address_ru"],
+                            v["address_count"], v["unaddressed_units"]])
+
+    report = {
+        "schema": "bender-street-name-qa/7",
+        "generated_at": _now(),
+        "rule": ("The real OSM street name is never modified and never contains a "
+                 "settlement. Qualifiers are display-only."),
+        "duplicate_street_names": len(duplicates),
+        "duplicates": duplicates,
+        "addresses_without_settlement": len(unknown),
+        "addresses_without_settlement_sample": unknown[:50],
+        "same_address_different_coordinates": len(coord_conflicts),
+        "coordinate_conflicts": coord_conflicts,
+    }
+    jsonutil.write(data / "street-name-qa.json", report)
+    reports = repo_root / "reports/stage-07"
+    reports.mkdir(parents=True, exist_ok=True)
+    jsonutil.write(reports / "duplicate-street-names.json", report)
+    lines = ["# Stage 07 — одинаковые названия улиц", "",
+             f"- Сгенерировано (UTC): `{report['generated_at']}`",
+             f"- Повторяющихся названий: **{len(duplicates)}**",
+             f"- Адресов без определённого населённого пункта: "
+             f"**{len(unknown)}**",
+             f"- Один адрес с разными координатами: **{len(coord_conflicts)}**", "",
+             "> " + report["rule"], "",
+             "| улица | населённый пункт | район | отображение | адресов | без адреса |",
+             "|---|---|---|---|---:|---:|"]
+    for d in duplicates:
+        for v in d["variants"]:
+            lines.append(f"| {v['street_ru']} | {v['settlement_ru']} | "
+                         f"{v['district_ru'] or '—'} | {v['display_address_ru']} | "
+                         f"{v['address_count']} | {v['unaddressed_units']} |")
+    if coord_conflicts:
+        lines += ["", "## Один адрес — разные координаты", ""]
+        lines += [f"- {c['full_address_ru']} — {len(c['objects'])} объекта, разброс "
+                  f"{c['coordinate_spread_m']} м" for c in coord_conflicts[:40]]
+    lines += [""]
+    (reports / "duplicate-street-names.md").write_text(
+        chr(10).join(lines), encoding="utf-8", newline=chr(10))
+    return report
+
+
 def _review_no_street(repo_root, units, service_all, proj, bcfg):
     """Group the unattached units so a missing OSM access road is visible.
 
@@ -870,7 +1012,9 @@ def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, b
            origin_meta, proj, no_street_units, nonres_addr, tuning, service_all):
     data = repo_root / "docs/data"
     ks = sorted(results)
-    fields = ["uid", "osm_type", "osm_id", "unit_type", "settlement", "street_ru",
+    fields = ["uid", "osm_type", "osm_id", "unit_type", "settlement",
+              "settlement_ru", "district_ru", "street_ru", "display_address_ru",
+              "full_address_ru", "canonical_address",
               "housenumber", "tier", "lon", "lat", "weight", "expected_km",
               "expected_min", "central_km", "central_min", "bam_km", "bam_min",
               "worst_origin_km"] + [f"band_k{k}" for k in ks]

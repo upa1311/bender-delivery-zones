@@ -10575,7 +10575,7 @@
     }
   },
   "direct_integration": false,
-  "generated_at": "2026-07-24T01:16:34Z",
+  "generated_at": "2026-07-24T01:33:45Z",
   "limitations": [
     "Bands are cost ranges, not geographic clusters; a band polygon is only a drawing of which units fall in that price range.",
     "Tier C units are no_delivery and appear in no band or matrix.",
@@ -11326,7 +11326,8 @@
     },
     "duplicate_address_conflicts": [
       {
-        "canonical_address": "parkany|комсомольская улица|2",
+        "canonical_address": "парканы||комсомольская улица|2",
+        "display_address_ru": "Комсомольская улица (Парканы)",
         "expected_km": [
           5.351,
           5.264,
@@ -11342,7 +11343,8 @@
         "spread_km": 1.723
       },
       {
-        "canonical_address": "parkany|улица будённого|164",
+        "canonical_address": "парканы||улица будённого|164",
+        "display_address_ru": "улица Будённого",
         "expected_km": [
           5.629,
           5.292
@@ -11356,7 +11358,8 @@
         "spread_km": 0.337
       },
       {
-        "canonical_address": "parkany|комсомольская улица|18",
+        "canonical_address": "парканы||комсомольская улица|18",
+        "display_address_ru": "Комсомольская улица (Парканы)",
         "expected_km": [
           3.525,
           3.791
@@ -11370,7 +11373,8 @@
         "spread_km": 0.266
       },
       {
-        "canonical_address": "parkany|улица фрунзе|28",
+        "canonical_address": "парканы||улица фрунзе|28",
+        "display_address_ru": "улица Фрунзе (Парканы)",
         "expected_km": [
           4.221,
           4.429
@@ -11384,7 +11388,8 @@
         "spread_km": 0.208
       },
       {
-        "canonical_address": "parkany|улица чкалова|34",
+        "canonical_address": "парканы||улица чкалова|34",
+        "display_address_ru": "улица Чкалова (Парканы)",
         "expected_km": [
           4.35,
           4.658
@@ -11398,7 +11403,8 @@
         "spread_km": 0.308
       },
       {
-        "canonical_address": "parkany|комсомольская улица|40",
+        "canonical_address": "парканы||комсомольская улица|40",
+        "display_address_ru": "Комсомольская улица (Парканы)",
         "expected_km": [
           3.91,
           4.789
@@ -11412,7 +11418,8 @@
         "spread_km": 0.879
       },
       {
-        "canonical_address": "parkany|комсомольская улица|24",
+        "canonical_address": "парканы||комсомольская улица|24",
+        "display_address_ru": "Комсомольская улица (Парканы)",
         "expected_km": [
           4.612,
           3.84
@@ -11426,7 +11433,8 @@
         "spread_km": 0.772
       },
       {
-        "canonical_address": "parkany|улица ленина|2",
+        "canonical_address": "парканы||улица ленина|2",
+        "display_address_ru": "улица Ленина (Парканы)",
         "expected_km": [
           4.575,
           3.241
@@ -11440,7 +11448,8 @@
         "spread_km": 1.334
       },
       {
-        "canonical_address": "parkany|улица гагарина|14",
+        "canonical_address": "парканы||улица гагарина|14",
+        "display_address_ru": "улица Гагарина (Парканы)",
         "expected_km": [
           5.154,
           5.289
@@ -11454,7 +11463,8 @@
         "spread_km": 0.135
       },
       {
-        "canonical_address": "parkany|улица шевченко|1",
+        "canonical_address": "парканы||улица шевченко|1",
+        "display_address_ru": "улица Шевченко (Парканы)",
         "expected_km": [
           3.426,
           3.473,
@@ -11470,7 +11480,8 @@
         "spread_km": 0.26
       },
       {
-        "canonical_address": "parkany|улица карла маркса|83",
+        "canonical_address": "парканы||улица карла маркса|83",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           4.507,
           5.166,
@@ -11486,7 +11497,8 @@
         "spread_km": 0.659
       },
       {
-        "canonical_address": "parkany|улица благоева|2",
+        "canonical_address": "парканы||улица благоева|2",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.65,
           4.11,
@@ -11504,7 +11516,8 @@
         "spread_km": 0.73
       },
       {
-        "canonical_address": "parkany|улица гоголя|11",
+        "canonical_address": "парканы||улица гоголя|11",
+        "display_address_ru": "улица Гоголя (Парканы)",
         "expected_km": [
           3.894,
           4.994
@@ -11518,7 +11531,8 @@
         "spread_km": 1.1
       },
       {
-        "canonical_address": "parkany|улица благоева|1",
+        "canonical_address": "парканы||улица благоева|1",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.827,
           4.204,
@@ -11536,7 +11550,8 @@
         "spread_km": 0.486
       },
       {
-        "canonical_address": "parkany|улица гоголя|1",
+        "canonical_address": "парканы||улица гоголя|1",
+        "display_address_ru": "улица Гоголя (Парканы)",
         "expected_km": [
           3.929,
           3.985
@@ -11550,7 +11565,8 @@
         "spread_km": 0.056
       },
       {
-        "canonical_address": "parkany|улица чехова|1",
+        "canonical_address": "парканы||улица чехова|1",
+        "display_address_ru": "улица Чехова (Парканы)",
         "expected_km": [
           4.063,
           4.742,
@@ -11566,7 +11582,8 @@
         "spread_km": 0.745
       },
       {
-        "canonical_address": "parkany|улица чехова|25",
+        "canonical_address": "парканы||улица чехова|25",
+        "display_address_ru": "улица Чехова (Парканы)",
         "expected_km": [
           5.422,
           4.768
@@ -11580,7 +11597,8 @@
         "spread_km": 0.654
       },
       {
-        "canonical_address": "parkany|улица петра николаева|98",
+        "canonical_address": "парканы||улица петра николаева|98",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.758,
           5.706
@@ -11594,7 +11612,8 @@
         "spread_km": 0.052
       },
       {
-        "canonical_address": "parkany|улица петра николаева|133",
+        "canonical_address": "парканы||улица петра николаева|133",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.618,
           5.891,
@@ -11610,7 +11629,8 @@
         "spread_km": 0.313
       },
       {
-        "canonical_address": "parkany|улица петра николаева|135",
+        "canonical_address": "парканы||улица петра николаева|135",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.65,
           5.905,
@@ -11626,7 +11646,8 @@
         "spread_km": 0.31
       },
       {
-        "canonical_address": "parkany|улица петра николаева|167",
+        "canonical_address": "парканы||улица петра николаева|167",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.042,
           6.247,
@@ -11644,7 +11665,8 @@
         "spread_km": 0.253
       },
       {
-        "canonical_address": "parkany|улица петра николаева|169",
+        "canonical_address": "парканы||улица петра николаева|169",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.042,
           6.254,
@@ -11660,7 +11682,8 @@
         "spread_km": 0.214
       },
       {
-        "canonical_address": "parkany|улица чапаева|241",
+        "canonical_address": "парканы||улица чапаева|241",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           6.741,
           6.563
@@ -11674,7 +11697,8 @@
         "spread_km": 0.178
       },
       {
-        "canonical_address": "parkany|улица благоева|4",
+        "canonical_address": "парканы||улица благоева|4",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.469,
           3.667,
@@ -11692,7 +11716,8 @@
         "spread_km": 0.202
       },
       {
-        "canonical_address": "parkany|улица чапаева|16",
+        "canonical_address": "парканы||улица чапаева|16",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           5.499,
           5.047
@@ -11706,7 +11731,8 @@
         "spread_km": 0.452
       },
       {
-        "canonical_address": "parkany|улица горького|58",
+        "canonical_address": "парканы||улица горького|58",
+        "display_address_ru": "улица Горького (Парканы)",
         "expected_km": [
           4.922,
           5.015
@@ -11720,7 +11746,8 @@
         "spread_km": 0.093
       },
       {
-        "canonical_address": "parkany|улица горького|61",
+        "canonical_address": "парканы||улица горького|61",
+        "display_address_ru": "улица Горького (Парканы)",
         "expected_km": [
           5.171,
           5.092
@@ -11734,7 +11761,8 @@
         "spread_km": 0.079
       },
       {
-        "canonical_address": "parkany|улица горького|129",
+        "canonical_address": "парканы||улица горького|129",
+        "display_address_ru": "улица Горького (Парканы)",
         "expected_km": [
           5.689,
           5.548
@@ -11748,7 +11776,8 @@
         "spread_km": 0.141
       },
       {
-        "canonical_address": "parkany|улица горького|137",
+        "canonical_address": "парканы||улица горького|137",
+        "display_address_ru": "улица Горького (Парканы)",
         "expected_km": [
           6.03,
           5.638
@@ -11762,7 +11791,8 @@
         "spread_km": 0.392
       },
       {
-        "canonical_address": "parkany|улица чкалова|26",
+        "canonical_address": "парканы||улица чкалова|26",
+        "display_address_ru": "улица Чкалова (Парканы)",
         "expected_km": [
           4.605,
           4.287
@@ -11776,7 +11806,8 @@
         "spread_km": 0.318
       },
       {
-        "canonical_address": "parkany|улица чкалова|28",
+        "canonical_address": "парканы||улица чкалова|28",
+        "display_address_ru": "улица Чкалова (Парканы)",
         "expected_km": [
           4.62,
           4.417
@@ -11790,7 +11821,8 @@
         "spread_km": 0.203
       },
       {
-        "canonical_address": "parkany|улица чкалова|32",
+        "canonical_address": "парканы||улица чкалова|32",
+        "display_address_ru": "улица Чкалова (Парканы)",
         "expected_km": [
           4.644,
           4.305
@@ -11804,7 +11836,8 @@
         "spread_km": 0.339
       },
       {
-        "canonical_address": "parkany|улица чкалова|93",
+        "canonical_address": "парканы||улица чкалова|93",
+        "display_address_ru": "улица Чкалова (Парканы)",
         "expected_km": [
           5.109,
           5.248
@@ -11818,7 +11851,8 @@
         "spread_km": 0.139
       },
       {
-        "canonical_address": "parkany|улица ворошилова|19",
+        "canonical_address": "парканы||улица ворошилова|19",
+        "display_address_ru": "улица Ворошилова",
         "expected_km": [
           4.168,
           3.882
@@ -11832,7 +11866,8 @@
         "spread_km": 0.286
       },
       {
-        "canonical_address": "parkany|улица ворошилова|21",
+        "canonical_address": "парканы||улица ворошилова|21",
+        "display_address_ru": "улица Ворошилова",
         "expected_km": [
           4.184,
           3.894
@@ -11846,7 +11881,8 @@
         "spread_km": 0.29
       },
       {
-        "canonical_address": "parkany|улица ворошилова|23",
+        "canonical_address": "парканы||улица ворошилова|23",
+        "display_address_ru": "улица Ворошилова",
         "expected_km": [
           4.202,
           3.913
@@ -11860,7 +11896,8 @@
         "spread_km": 0.289
       },
       {
-        "canonical_address": "parkany|улица котовского|15",
+        "canonical_address": "парканы||улица котовского|15",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.0,
           3.992,
@@ -11876,7 +11913,8 @@
         "spread_km": 0.15
       },
       {
-        "canonical_address": "parkany|улица котовского|17",
+        "canonical_address": "парканы||улица котовского|17",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.015,
           4.011,
@@ -11892,7 +11930,8 @@
         "spread_km": 0.146
       },
       {
-        "canonical_address": "parkany|улица котовского|22",
+        "canonical_address": "парканы||улица котовского|22",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.069,
           3.702
@@ -11906,7 +11945,8 @@
         "spread_km": 0.367
       },
       {
-        "canonical_address": "parkany|улица котовского|24",
+        "canonical_address": "парканы||улица котовского|24",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.096,
           3.739
@@ -11920,7 +11960,8 @@
         "spread_km": 0.357
       },
       {
-        "canonical_address": "parkany|улица котовского|64",
+        "canonical_address": "парканы||улица котовского|64",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.492,
           4.415
@@ -11934,7 +11975,8 @@
         "spread_km": 0.077
       },
       {
-        "canonical_address": "parkany|улица котовского|60",
+        "canonical_address": "парканы||улица котовского|60",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.459,
           4.386,
@@ -11950,7 +11992,8 @@
         "spread_km": 0.086
       },
       {
-        "canonical_address": "parkany|улица котовского|62",
+        "canonical_address": "парканы||улица котовского|62",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.475,
           4.4
@@ -11964,7 +12007,8 @@
         "spread_km": 0.075
       },
       {
-        "canonical_address": "parkany|улица котовского|66",
+        "canonical_address": "парканы||улица котовского|66",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.519,
           4.428
@@ -11978,7 +12022,8 @@
         "spread_km": 0.091
       },
       {
-        "canonical_address": "parkany|улица котовского|68",
+        "canonical_address": "парканы||улица котовского|68",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.533,
           4.447
@@ -11992,7 +12037,8 @@
         "spread_km": 0.086
       },
       {
-        "canonical_address": "parkany|улица котовского|70",
+        "canonical_address": "парканы||улица котовского|70",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.549,
           4.466
@@ -12006,7 +12052,8 @@
         "spread_km": 0.083
       },
       {
-        "canonical_address": "parkany|улица котовского|72",
+        "canonical_address": "парканы||улица котовского|72",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.563,
           4.485
@@ -12020,7 +12067,8 @@
         "spread_km": 0.078
       },
       {
-        "canonical_address": "parkany|улица котовского|74",
+        "canonical_address": "парканы||улица котовского|74",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.574,
           4.505
@@ -12034,7 +12082,8 @@
         "spread_km": 0.069
       },
       {
-        "canonical_address": "parkany|улица котовского|76",
+        "canonical_address": "парканы||улица котовского|76",
+        "display_address_ru": "улица Котовского",
         "expected_km": [
           4.586,
           4.534
@@ -12048,7 +12097,8 @@
         "spread_km": 0.052
       },
       {
-        "canonical_address": "parkany|комсомольская улица|16",
+        "canonical_address": "парканы||комсомольская улица|16",
+        "display_address_ru": "Комсомольская улица (Парканы)",
         "expected_km": [
           3.771,
           3.505
@@ -12062,7 +12112,8 @@
         "spread_km": 0.266
       },
       {
-        "canonical_address": "parkany|улица калинина|6",
+        "canonical_address": "парканы||улица калинина|6",
+        "display_address_ru": "улица Калинина (Парканы)",
         "expected_km": [
           4.831,
           4.998
@@ -12076,7 +12127,8 @@
         "spread_km": 0.167
       },
       {
-        "canonical_address": "parkany|улица ленина|10",
+        "canonical_address": "парканы||улица ленина|10",
+        "display_address_ru": "улица Ленина (Парканы)",
         "expected_km": [
           3.283,
           3.35
@@ -12090,7 +12142,8 @@
         "spread_km": 0.067
       },
       {
-        "canonical_address": "parkany|улица ленина|41",
+        "canonical_address": "парканы||улица ленина|41",
+        "display_address_ru": "улица Ленина (Парканы)",
         "expected_km": [
           3.515,
           3.715
@@ -12104,7 +12157,8 @@
         "spread_km": 0.2
       },
       {
-        "canonical_address": "parkany|улица ленина|43",
+        "canonical_address": "парканы||улица ленина|43",
+        "display_address_ru": "улица Ленина (Парканы)",
         "expected_km": [
           3.53,
           3.728
@@ -12118,7 +12172,8 @@
         "spread_km": 0.198
       },
       {
-        "canonical_address": "parkany|улица шевченко|3",
+        "canonical_address": "парканы||улица шевченко|3",
+        "display_address_ru": "улица Шевченко (Парканы)",
         "expected_km": [
           3.496,
           3.705
@@ -12132,7 +12187,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "parkany|улица шевченко|5",
+        "canonical_address": "парканы||улица шевченко|5",
+        "display_address_ru": "улица Шевченко (Парканы)",
         "expected_km": [
           3.512,
           3.721
@@ -12146,7 +12202,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "parkany|улица карла маркса|26",
+        "canonical_address": "парканы||улица карла маркса|26",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           4.409,
           4.069
@@ -12160,7 +12217,8 @@
         "spread_km": 0.34
       },
       {
-        "canonical_address": "parkany|улица карла маркса|28",
+        "canonical_address": "парканы||улица карла маркса|28",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           4.38,
           4.092
@@ -12174,7 +12232,8 @@
         "spread_km": 0.288
       },
       {
-        "canonical_address": "parkany|улица благоева|29",
+        "canonical_address": "парканы||улица благоева|29",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.221,
           4.118
@@ -12188,7 +12247,8 @@
         "spread_km": 0.103
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|36",
+        "canonical_address": "парканы||улица сергея лазо|36",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.28,
           4.226,
@@ -12204,7 +12264,8 @@
         "spread_km": 0.207
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|58",
+        "canonical_address": "парканы||улица сергея лазо|58",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.491,
           4.928
@@ -12218,7 +12279,8 @@
         "spread_km": 0.437
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|56",
+        "canonical_address": "парканы||улица сергея лазо|56",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.476,
           4.952
@@ -12232,7 +12294,8 @@
         "spread_km": 0.476
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|54",
+        "canonical_address": "парканы||улица сергея лазо|54",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.462,
           4.984
@@ -12246,7 +12309,8 @@
         "spread_km": 0.522
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|52",
+        "canonical_address": "парканы||улица сергея лазо|52",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.446,
           4.998
@@ -12260,7 +12324,8 @@
         "spread_km": 0.552
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|50",
+        "canonical_address": "парканы||улица сергея лазо|50",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.427,
           4.619
@@ -12274,7 +12339,8 @@
         "spread_km": 0.192
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|48",
+        "canonical_address": "парканы||улица сергея лазо|48",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.402,
           4.593
@@ -12288,7 +12354,8 @@
         "spread_km": 0.191
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|46",
+        "canonical_address": "парканы||улица сергея лазо|46",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.386,
           4.564
@@ -12302,7 +12369,8 @@
         "spread_km": 0.178
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|44",
+        "canonical_address": "парканы||улица сергея лазо|44",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.37,
           4.539
@@ -12316,7 +12384,8 @@
         "spread_km": 0.169
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|42",
+        "canonical_address": "парканы||улица сергея лазо|42",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.345,
           4.497
@@ -12330,7 +12399,8 @@
         "spread_km": 0.152
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|40",
+        "canonical_address": "парканы||улица сергея лазо|40",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.319,
           4.484
@@ -12344,7 +12414,8 @@
         "spread_km": 0.165
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|38",
+        "canonical_address": "парканы||улица сергея лазо|38",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.301,
           4.46
@@ -12358,7 +12429,8 @@
         "spread_km": 0.159
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|34",
+        "canonical_address": "парканы||улица сергея лазо|34",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.249,
           4.404
@@ -12372,7 +12444,8 @@
         "spread_km": 0.155
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|32",
+        "canonical_address": "парканы||улица сергея лазо|32",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.222,
           4.377
@@ -12386,7 +12459,8 @@
         "spread_km": 0.155
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|30",
+        "canonical_address": "парканы||улица сергея лазо|30",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.196,
           4.348
@@ -12400,7 +12474,8 @@
         "spread_km": 0.152
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|28",
+        "canonical_address": "парканы||улица сергея лазо|28",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.171,
           4.325
@@ -12414,7 +12489,8 @@
         "spread_km": 0.154
       },
       {
-        "canonical_address": "parkany|улица гоголя|12",
+        "canonical_address": "парканы||улица гоголя|12",
+        "display_address_ru": "улица Гоголя (Парканы)",
         "expected_km": [
           3.97,
           3.737
@@ -12428,7 +12504,8 @@
         "spread_km": 0.233
       },
       {
-        "canonical_address": "parkany|улица гоголя|10",
+        "canonical_address": "парканы||улица гоголя|10",
+        "display_address_ru": "улица Гоголя (Парканы)",
         "expected_km": [
           3.955,
           3.721,
@@ -12444,7 +12521,8 @@
         "spread_km": 0.234
       },
       {
-        "canonical_address": "parkany|улица благоева|11",
+        "canonical_address": "парканы||улица благоева|11",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.057,
           3.928
@@ -12458,7 +12536,8 @@
         "spread_km": 0.129
       },
       {
-        "canonical_address": "parkany|улица благоева|13",
+        "canonical_address": "парканы||улица благоева|13",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.079,
           3.947
@@ -12472,7 +12551,8 @@
         "spread_km": 0.132
       },
       {
-        "canonical_address": "parkany|улица благоева|19",
+        "canonical_address": "парканы||улица благоева|19",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.129,
           4.007
@@ -12486,7 +12566,8 @@
         "spread_km": 0.122
       },
       {
-        "canonical_address": "parkany|улица благоева|21",
+        "canonical_address": "парканы||улица благоева|21",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.144,
           4.025
@@ -12500,7 +12581,8 @@
         "spread_km": 0.119
       },
       {
-        "canonical_address": "parkany|улица благоева|15",
+        "canonical_address": "парканы||улица благоева|15",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.096,
           3.96,
@@ -12516,7 +12598,8 @@
         "spread_km": 0.143
       },
       {
-        "canonical_address": "parkany|улица благоева|17",
+        "canonical_address": "парканы||улица благоева|17",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.112,
           3.979
@@ -12530,7 +12613,8 @@
         "spread_km": 0.133
       },
       {
-        "canonical_address": "parkany|улица благоева|23",
+        "canonical_address": "парканы||улица благоева|23",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.162,
           4.052,
@@ -12546,7 +12630,8 @@
         "spread_km": 0.113
       },
       {
-        "canonical_address": "parkany|улица благоева|25",
+        "canonical_address": "парканы||улица благоева|25",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.178,
           4.079
@@ -12560,7 +12645,8 @@
         "spread_km": 0.099
       },
       {
-        "canonical_address": "parkany|улица благоева|27",
+        "canonical_address": "парканы||улица благоева|27",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.202,
           4.1
@@ -12574,7 +12660,8 @@
         "spread_km": 0.102
       },
       {
-        "canonical_address": "parkany|улица благоева|31",
+        "canonical_address": "парканы||улица благоева|31",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.25,
           4.145,
@@ -12590,7 +12677,8 @@
         "spread_km": 0.111
       },
       {
-        "canonical_address": "parkany|улица благоева|33",
+        "canonical_address": "парканы||улица благоева|33",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.268,
           4.179,
@@ -12606,7 +12694,8 @@
         "spread_km": 0.094
       },
       {
-        "canonical_address": "parkany|улица благоева|35",
+        "canonical_address": "парканы||улица благоева|35",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.287,
           4.192
@@ -12620,7 +12709,8 @@
         "spread_km": 0.095
       },
       {
-        "canonical_address": "parkany|улица благоева|37",
+        "canonical_address": "парканы||улица благоева|37",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.306,
           4.21
@@ -12634,7 +12724,8 @@
         "spread_km": 0.096
       },
       {
-        "canonical_address": "parkany|улица благоева|39",
+        "canonical_address": "парканы||улица благоева|39",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.339,
           4.238
@@ -12648,7 +12739,8 @@
         "spread_km": 0.101
       },
       {
-        "canonical_address": "parkany|улица благоева|41",
+        "canonical_address": "парканы||улица благоева|41",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.364,
           4.258
@@ -12662,7 +12754,8 @@
         "spread_km": 0.106
       },
       {
-        "canonical_address": "parkany|улица благоева|43",
+        "canonical_address": "парканы||улица благоева|43",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.385,
           4.943
@@ -12676,7 +12769,8 @@
         "spread_km": 0.558
       },
       {
-        "canonical_address": "parkany|улица благоева|45",
+        "canonical_address": "парканы||улица благоева|45",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           4.409,
           4.916
@@ -12690,7 +12784,8 @@
         "spread_km": 0.507
       },
       {
-        "canonical_address": "parkany|улица петра николаева|99",
+        "canonical_address": "парканы||улица петра николаева|99",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.15,
           5.863,
@@ -12706,7 +12801,8 @@
         "spread_km": 0.713
       },
       {
-        "canonical_address": "parkany|улица петра николаева|101",
+        "canonical_address": "парканы||улица петра николаева|101",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.209,
           5.845
@@ -12720,7 +12816,8 @@
         "spread_km": 0.636
       },
       {
-        "canonical_address": "parkany|улица петра николаева|103",
+        "canonical_address": "парканы||улица петра николаева|103",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.23,
           5.83
@@ -12734,7 +12831,8 @@
         "spread_km": 0.6
       },
       {
-        "canonical_address": "parkany|улица петра николаева|105",
+        "canonical_address": "парканы||улица петра николаева|105",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.276,
           5.813
@@ -12748,7 +12846,8 @@
         "spread_km": 0.537
       },
       {
-        "canonical_address": "parkany|улица петра николаева|107",
+        "canonical_address": "парканы||улица петра николаева|107",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.296,
           5.795
@@ -12762,7 +12861,8 @@
         "spread_km": 0.499
       },
       {
-        "canonical_address": "parkany|улица петра николаева|109",
+        "canonical_address": "парканы||улица петра николаева|109",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.316,
           5.779
@@ -12776,7 +12876,8 @@
         "spread_km": 0.463
       },
       {
-        "canonical_address": "parkany|улица петра николаева|111",
+        "canonical_address": "парканы||улица петра николаева|111",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.336,
           5.762,
@@ -12792,7 +12893,8 @@
         "spread_km": 0.436
       },
       {
-        "canonical_address": "parkany|улица петра николаева|113",
+        "canonical_address": "парканы||улица петра николаева|113",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.351,
           5.746
@@ -12806,7 +12908,8 @@
         "spread_km": 0.395
       },
       {
-        "canonical_address": "parkany|улица петра николаева|115",
+        "canonical_address": "парканы||улица петра николаева|115",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.368,
           5.756
@@ -12820,7 +12923,8 @@
         "spread_km": 0.388
       },
       {
-        "canonical_address": "parkany|улица петра николаева|117",
+        "canonical_address": "парканы||улица петра николаева|117",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.382,
           5.769,
@@ -12836,7 +12940,8 @@
         "spread_km": 0.434
       },
       {
-        "canonical_address": "parkany|улица петра николаева|119",
+        "canonical_address": "парканы||улица петра николаева|119",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.401,
           5.782,
@@ -12852,7 +12957,8 @@
         "spread_km": 0.428
       },
       {
-        "canonical_address": "parkany|улица петра николаева|121",
+        "canonical_address": "парканы||улица петра николаева|121",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.418,
           5.796,
@@ -12870,7 +12976,8 @@
         "spread_km": 0.428
       },
       {
-        "canonical_address": "parkany|улица петра николаева|123",
+        "canonical_address": "парканы||улица петра николаева|123",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.444,
           5.81,
@@ -12886,7 +12993,8 @@
         "spread_km": 0.414
       },
       {
-        "canonical_address": "parkany|улица петра николаева|131",
+        "canonical_address": "парканы||улица петра николаева|131",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.568,
           5.874,
@@ -12904,7 +13012,8 @@
         "spread_km": 0.349
       },
       {
-        "canonical_address": "parkany|улица петра николаева|129",
+        "canonical_address": "парканы||улица петра николаева|129",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.545,
           5.86,
@@ -12920,7 +13029,8 @@
         "spread_km": 0.357
       },
       {
-        "canonical_address": "parkany|улица петра николаева|127",
+        "canonical_address": "парканы||улица петра николаева|127",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.522,
           5.843,
@@ -12936,7 +13046,8 @@
         "spread_km": 0.369
       },
       {
-        "canonical_address": "parkany|улица петра николаева|125",
+        "canonical_address": "парканы||улица петра николаева|125",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.473,
           5.827,
@@ -12954,7 +13065,8 @@
         "spread_km": 0.401
       },
       {
-        "canonical_address": "parkany|улица петра николаева|137",
+        "canonical_address": "парканы||улица петра николаева|137",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.661,
           5.937,
@@ -12972,7 +13084,8 @@
         "spread_km": 0.33
       },
       {
-        "canonical_address": "parkany|улица петра николаева|139",
+        "canonical_address": "парканы||улица петра николаева|139",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.678,
           5.955,
@@ -12988,7 +13101,8 @@
         "spread_km": 0.331
       },
       {
-        "canonical_address": "parkany|улица петра николаева|141",
+        "canonical_address": "парканы||улица петра николаева|141",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.697,
           5.972,
@@ -13006,7 +13120,8 @@
         "spread_km": 0.325
       },
       {
-        "canonical_address": "parkany|улица петра николаева|143",
+        "canonical_address": "парканы||улица петра николаева|143",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.715,
           5.989,
@@ -13022,7 +13137,8 @@
         "spread_km": 0.322
       },
       {
-        "canonical_address": "parkany|улица петра николаева|145",
+        "canonical_address": "парканы||улица петра николаева|145",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.735,
           6.006,
@@ -13040,7 +13156,8 @@
         "spread_km": 0.524
       },
       {
-        "canonical_address": "parkany|улица петра николаева|147",
+        "canonical_address": "парканы||улица петра николаева|147",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.758,
           6.022
@@ -13054,7 +13171,8 @@
         "spread_km": 0.264
       },
       {
-        "canonical_address": "parkany|улица петра николаева|149",
+        "canonical_address": "парканы||улица петра николаева|149",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.783,
           6.037,
@@ -13070,7 +13188,8 @@
         "spread_km": 0.45
       },
       {
-        "canonical_address": "parkany|улица петра николаева|151",
+        "canonical_address": "парканы||улица петра николаева|151",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.816,
           6.258,
@@ -13086,7 +13205,8 @@
         "spread_km": 0.442
       },
       {
-        "canonical_address": "parkany|улица петра николаева|153",
+        "canonical_address": "парканы||улица петра николаева|153",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.843,
           6.24,
@@ -13102,7 +13222,8 @@
         "spread_km": 0.397
       },
       {
-        "canonical_address": "parkany|улица петра николаева|155",
+        "canonical_address": "парканы||улица петра николаева|155",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.879,
           6.224,
@@ -13118,7 +13239,8 @@
         "spread_km": 0.345
       },
       {
-        "canonical_address": "parkany|улица петра николаева|157",
+        "canonical_address": "парканы||улица петра николаева|157",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.903,
           6.206,
@@ -13134,7 +13256,8 @@
         "spread_km": 0.303
       },
       {
-        "canonical_address": "parkany|улица петра николаева|165",
+        "canonical_address": "парканы||улица петра николаева|165",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.979,
           6.196,
@@ -13150,7 +13273,8 @@
         "spread_km": 0.217
       },
       {
-        "canonical_address": "parkany|улица петра николаева|163",
+        "canonical_address": "парканы||улица петра николаева|163",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.96,
           6.168,
@@ -13166,7 +13290,8 @@
         "spread_km": 0.224
       },
       {
-        "canonical_address": "parkany|улица петра николаева|161",
+        "canonical_address": "парканы||улица петра николаева|161",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.942,
           6.162,
@@ -13182,7 +13307,8 @@
         "spread_km": 0.221
       },
       {
-        "canonical_address": "parkany|улица петра николаева|159",
+        "canonical_address": "парканы||улица петра николаева|159",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.924,
           6.182,
@@ -13198,7 +13324,8 @@
         "spread_km": 0.258
       },
       {
-        "canonical_address": "parkany|улица петра николаева|171",
+        "canonical_address": "парканы||улица петра николаева|171",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.055,
           6.26,
@@ -13214,7 +13341,8 @@
         "spread_km": 0.212
       },
       {
-        "canonical_address": "parkany|улица петра николаева|173",
+        "canonical_address": "парканы||улица петра николаева|173",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.071,
           6.279,
@@ -13230,7 +13358,8 @@
         "spread_km": 0.214
       },
       {
-        "canonical_address": "parkany|улица петра николаева|175",
+        "canonical_address": "парканы||улица петра николаева|175",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.088,
           6.297,
@@ -13246,7 +13375,8 @@
         "spread_km": 0.218
       },
       {
-        "canonical_address": "parkany|улица петра николаева|177",
+        "canonical_address": "парканы||улица петра николаева|177",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.11,
           6.315,
@@ -13262,7 +13392,8 @@
         "spread_km": 0.215
       },
       {
-        "canonical_address": "parkany|улица петра николаева|179",
+        "canonical_address": "парканы||улица петра николаева|179",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.134,
           6.337,
@@ -13278,7 +13409,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "parkany|улица петра николаева|181",
+        "canonical_address": "парканы||улица петра николаева|181",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.153,
           6.354,
@@ -13294,7 +13426,8 @@
         "spread_km": 0.208
       },
       {
-        "canonical_address": "parkany|улица петра николаева|183",
+        "canonical_address": "парканы||улица петра николаева|183",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.175,
           6.368,
@@ -13310,7 +13443,8 @@
         "spread_km": 0.21
       },
       {
-        "canonical_address": "parkany|улица петра николаева|185",
+        "canonical_address": "парканы||улица петра николаева|185",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.2,
           6.384,
@@ -13326,7 +13460,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "parkany|улица петра николаева|187",
+        "canonical_address": "парканы||улица петра николаева|187",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.229,
           6.401,
@@ -13342,7 +13477,8 @@
         "spread_km": 0.199
       },
       {
-        "canonical_address": "parkany|улица петра николаева|189",
+        "canonical_address": "парканы||улица петра николаева|189",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.251,
           6.42,
@@ -13358,7 +13494,8 @@
         "spread_km": 0.204
       },
       {
-        "canonical_address": "parkany|улица петра николаева|191",
+        "canonical_address": "парканы||улица петра николаева|191",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.271,
           6.438,
@@ -13374,7 +13511,8 @@
         "spread_km": 0.2
       },
       {
-        "canonical_address": "parkany|улица петра николаева|193",
+        "canonical_address": "парканы||улица петра николаева|193",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.293,
           6.454,
@@ -13390,7 +13528,8 @@
         "spread_km": 0.2
       },
       {
-        "canonical_address": "parkany|улица петра николаева|195",
+        "canonical_address": "парканы||улица петра николаева|195",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.312,
           6.471,
@@ -13406,7 +13545,8 @@
         "spread_km": 0.49
       },
       {
-        "canonical_address": "parkany|улица петра николаева|197",
+        "canonical_address": "парканы||улица петра николаева|197",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.336,
           6.489,
@@ -13422,7 +13562,8 @@
         "spread_km": 0.45
       },
       {
-        "canonical_address": "parkany|улица петра николаева|199",
+        "canonical_address": "парканы||улица петра николаева|199",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.351,
           6.504,
@@ -13438,7 +13579,8 @@
         "spread_km": 0.42
       },
       {
-        "canonical_address": "parkany|улица петра николаева|201",
+        "canonical_address": "парканы||улица петра николаева|201",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.37,
           6.793
@@ -13452,7 +13594,8 @@
         "spread_km": 0.423
       },
       {
-        "canonical_address": "parkany|улица петра николаева|203",
+        "canonical_address": "парканы||улица петра николаева|203",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.398,
           6.775
@@ -13466,7 +13609,8 @@
         "spread_km": 0.377
       },
       {
-        "canonical_address": "parkany|улица петра николаева|205",
+        "canonical_address": "парканы||улица петра николаева|205",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.418,
           6.759
@@ -13480,7 +13624,8 @@
         "spread_km": 0.341
       },
       {
-        "canonical_address": "parkany|улица петра николаева|215",
+        "canonical_address": "парканы||улица петра николаева|215",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.554,
           6.671
@@ -13494,7 +13639,8 @@
         "spread_km": 0.117
       },
       {
-        "canonical_address": "parkany|улица петра николаева|213",
+        "canonical_address": "парканы||улица петра николаева|213",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.506,
           6.686
@@ -13508,7 +13654,8 @@
         "spread_km": 0.18
       },
       {
-        "canonical_address": "parkany|улица петра николаева|211",
+        "canonical_address": "парканы||улица петра николаева|211",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.487,
           6.7
@@ -13522,7 +13669,8 @@
         "spread_km": 0.213
       },
       {
-        "canonical_address": "parkany|улица петра николаева|209",
+        "canonical_address": "парканы||улица петра николаева|209",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.463,
           6.718
@@ -13536,7 +13684,8 @@
         "spread_km": 0.255
       },
       {
-        "canonical_address": "parkany|улица петра николаева|207",
+        "canonical_address": "парканы||улица петра николаева|207",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.444,
           6.738
@@ -13550,7 +13699,8 @@
         "spread_km": 0.294
       },
       {
-        "canonical_address": "parkany|улица петра николаева|217",
+        "canonical_address": "парканы||улица петра николаева|217",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.553,
           6.665
@@ -13564,7 +13714,8 @@
         "spread_km": 0.112
       },
       {
-        "canonical_address": "parkany|улица петра николаева|219",
+        "canonical_address": "парканы||улица петра николаева|219",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.581,
           6.678
@@ -13578,7 +13729,8 @@
         "spread_km": 0.097
       },
       {
-        "canonical_address": "parkany|улица петра николаева|221",
+        "canonical_address": "парканы||улица петра николаева|221",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.598,
           6.694
@@ -13592,7 +13744,8 @@
         "spread_km": 0.096
       },
       {
-        "canonical_address": "parkany|улица петра николаева|223",
+        "canonical_address": "парканы||улица петра николаева|223",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.637,
           6.706
@@ -13606,7 +13759,8 @@
         "spread_km": 0.069
       },
       {
-        "canonical_address": "parkany|улица петра николаева|225",
+        "canonical_address": "парканы||улица петра николаева|225",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.656,
           6.721
@@ -13620,7 +13774,8 @@
         "spread_km": 0.065
       },
       {
-        "canonical_address": "parkany|улица петра николаева|227",
+        "canonical_address": "парканы||улица петра николаева|227",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.671,
           6.742
@@ -13634,7 +13789,8 @@
         "spread_km": 0.071
       },
       {
-        "canonical_address": "parkany|улица петра николаева|229",
+        "canonical_address": "парканы||улица петра николаева|229",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.689,
           6.755
@@ -13648,7 +13804,8 @@
         "spread_km": 0.066
       },
       {
-        "canonical_address": "parkany|улица петра николаева|231",
+        "canonical_address": "парканы||улица петра николаева|231",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.705,
           6.771
@@ -13662,7 +13819,8 @@
         "spread_km": 0.066
       },
       {
-        "canonical_address": "parkany|улица петра николаева|233",
+        "canonical_address": "парканы||улица петра николаева|233",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.72,
           6.786
@@ -13676,7 +13834,8 @@
         "spread_km": 0.066
       },
       {
-        "canonical_address": "parkany|улица мичурина|122",
+        "canonical_address": "парканы||улица мичурина|122",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           6.281,
           6.208
@@ -13690,7 +13849,8 @@
         "spread_km": 0.073
       },
       {
-        "canonical_address": "parkany|улица мичурина|140",
+        "canonical_address": "парканы||улица мичурина|140",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           6.475,
           6.415
@@ -13704,7 +13864,8 @@
         "spread_km": 0.06
       },
       {
-        "canonical_address": "parkany|улица мичурина|159",
+        "canonical_address": "парканы||улица мичурина|159",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           6.517,
           6.443
@@ -13718,7 +13879,8 @@
         "spread_km": 0.074
       },
       {
-        "canonical_address": "parkany|улица мичурина|110",
+        "canonical_address": "парканы||улица мичурина|110",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           6.273,
           6.019
@@ -13732,7 +13894,8 @@
         "spread_km": 0.254
       },
       {
-        "canonical_address": "parkany|улица мичурина|104",
+        "canonical_address": "парканы||улица мичурина|104",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           5.958,
           6.047
@@ -13746,7 +13909,8 @@
         "spread_km": 0.089
       },
       {
-        "canonical_address": "parkany|улица мичурина|103",
+        "canonical_address": "парканы||улица мичурина|103",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           5.904,
           5.935,
@@ -13762,7 +13926,8 @@
         "spread_km": 0.067
       },
       {
-        "canonical_address": "parkany|улица мичурина|106",
+        "canonical_address": "парканы||улица мичурина|106",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           5.978,
           6.321
@@ -13776,7 +13941,8 @@
         "spread_km": 0.343
       },
       {
-        "canonical_address": "parkany|улица мичурина|108",
+        "canonical_address": "парканы||улица мичурина|108",
+        "display_address_ru": "улица Мичурина (Парканы)",
         "expected_km": [
           5.999,
           6.298
@@ -13790,7 +13956,8 @@
         "spread_km": 0.299
       },
       {
-        "canonical_address": "parkany|улица благоева|3",
+        "canonical_address": "парканы||улица благоева|3",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.843,
           4.078
@@ -13804,7 +13971,8 @@
         "spread_km": 0.235
       },
       {
-        "canonical_address": "parkany|улица благоева|5",
+        "canonical_address": "парканы||улица благоева|5",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.868,
           3.736
@@ -13818,7 +13986,8 @@
         "spread_km": 0.132
       },
       {
-        "canonical_address": "parkany|улица благоева|7",
+        "canonical_address": "парканы||улица благоева|7",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.885,
           4.001
@@ -13832,7 +14001,8 @@
         "spread_km": 0.116
       },
       {
-        "canonical_address": "parkany|улица энгельса|46а",
+        "canonical_address": "парканы||улица энгельса|46а",
+        "display_address_ru": "улица Энгельса (Парканы)",
         "expected_km": [
           4.662,
           4.562
@@ -13846,7 +14016,8 @@
         "spread_km": 0.1
       },
       {
-        "canonical_address": "parkany|улица карла маркса|71",
+        "canonical_address": "парканы||улица карла маркса|71",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           4.982,
           5.034
@@ -13860,7 +14031,8 @@
         "spread_km": 0.052
       },
       {
-        "canonical_address": "parkany|улица карла маркса|151",
+        "canonical_address": "парканы||улица карла маркса|151",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           5.867,
           5.982
@@ -13874,7 +14046,8 @@
         "spread_km": 0.115
       },
       {
-        "canonical_address": "parkany|улица карла маркса|161",
+        "canonical_address": "парканы||улица карла маркса|161",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           5.949,
           6.036,
@@ -13890,7 +14063,8 @@
         "spread_km": 0.087
       },
       {
-        "canonical_address": "parkany|улица карла маркса|231",
+        "canonical_address": "парканы||улица карла маркса|231",
+        "display_address_ru": "улица Карла Маркса",
         "expected_km": [
           6.541,
           6.638
@@ -13904,7 +14078,8 @@
         "spread_km": 0.097
       },
       {
-        "canonical_address": "parkany|улица суворова|15",
+        "canonical_address": "парканы||улица суворова|15",
+        "display_address_ru": "улица Суворова (Парканы)",
         "expected_km": [
           4.941,
           4.853
@@ -13918,7 +14093,8 @@
         "spread_km": 0.088
       },
       {
-        "canonical_address": "parkany|улица чапаева|18",
+        "canonical_address": "парканы||улица чапаева|18",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           5.069,
           5.514
@@ -13932,7 +14108,8 @@
         "spread_km": 0.445
       },
       {
-        "canonical_address": "parkany|улица чапаева|20",
+        "canonical_address": "парканы||улица чапаева|20",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           5.09,
           5.529
@@ -13946,7 +14123,8 @@
         "spread_km": 0.439
       },
       {
-        "canonical_address": "parkany|улица чапаева|16б",
+        "canonical_address": "парканы||улица чапаева|16б",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           5.456,
           5.59
@@ -13960,7 +14138,8 @@
         "spread_km": 0.134
       },
       {
-        "canonical_address": "parkany|улица чапаева|16а",
+        "canonical_address": "парканы||улица чапаева|16а",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           5.407,
           5.546
@@ -13974,7 +14153,8 @@
         "spread_km": 0.139
       },
       {
-        "canonical_address": "parkany|улица чапаева|227",
+        "canonical_address": "парканы||улица чапаева|227",
+        "display_address_ru": "улица Чапаева (Парканы)",
         "expected_km": [
           6.445,
           6.584
@@ -13988,7 +14168,8 @@
         "spread_km": 0.139
       },
       {
-        "canonical_address": "parkany|молодёжная улица|24",
+        "canonical_address": "парканы||молодёжная улица|24",
+        "display_address_ru": "Молодёжная улица (Парканы)",
         "expected_km": [
           5.835,
           5.891
@@ -14002,7 +14183,8 @@
         "spread_km": 0.056
       },
       {
-        "canonical_address": "parkany|улица фрунзе|30",
+        "canonical_address": "парканы||улица фрунзе|30",
+        "display_address_ru": "улица Фрунзе (Парканы)",
         "expected_km": [
           4.264,
           4.445
@@ -14016,7 +14198,8 @@
         "spread_km": 0.181
       },
       {
-        "canonical_address": "parkany|улица фрунзе|24",
+        "canonical_address": "парканы||улица фрунзе|24",
+        "display_address_ru": "улица Фрунзе (Парканы)",
         "expected_km": [
           4.156,
           4.385
@@ -14030,7 +14213,8 @@
         "spread_km": 0.229
       },
       {
-        "canonical_address": "parkany|садовая улица|79",
+        "canonical_address": "парканы||садовая улица|79",
+        "display_address_ru": "Садовая улица (Парканы)",
         "expected_km": [
           4.142,
           4.051
@@ -14044,7 +14228,8 @@
         "spread_km": 0.091
       },
       {
-        "canonical_address": "parkany|садовая улица|81",
+        "canonical_address": "парканы||садовая улица|81",
+        "display_address_ru": "Садовая улица (Парканы)",
         "expected_km": [
           4.156,
           4.085
@@ -14058,7 +14243,8 @@
         "spread_km": 0.071
       },
       {
-        "canonical_address": "parkany|садовая улица|85",
+        "canonical_address": "парканы||садовая улица|85",
+        "display_address_ru": "Садовая улица (Парканы)",
         "expected_km": [
           4.197,
           4.107
@@ -14072,7 +14258,8 @@
         "spread_km": 0.09
       },
       {
-        "canonical_address": "parkany|садовая улица|85а",
+        "canonical_address": "парканы||садовая улица|85а",
+        "display_address_ru": "Садовая улица (Парканы)",
         "expected_km": [
           4.183,
           4.094
@@ -14086,7 +14273,8 @@
         "spread_km": 0.089
       },
       {
-        "canonical_address": "parkany|улица петра николаева|116",
+        "canonical_address": "парканы||улица петра николаева|116",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.242,
           6.045
@@ -14100,7 +14288,8 @@
         "spread_km": 0.197
       },
       {
-        "canonical_address": "parkany|улица петра николаева|142",
+        "canonical_address": "парканы||улица петра николаева|142",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.369,
           6.446
@@ -14114,7 +14303,8 @@
         "spread_km": 0.077
       },
       {
-        "canonical_address": "parkany|улица петра николаева|144",
+        "canonical_address": "парканы||улица петра николаева|144",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.389,
           6.479
@@ -14128,7 +14318,8 @@
         "spread_km": 0.09
       },
       {
-        "canonical_address": "parkany|улица петра николаева|146",
+        "canonical_address": "парканы||улица петра николаева|146",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.41,
           6.497
@@ -14142,7 +14333,8 @@
         "spread_km": 0.087
       },
       {
-        "canonical_address": "parkany|улица петра николаева|150",
+        "canonical_address": "парканы||улица петра николаева|150",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           6.453,
           6.778
@@ -14156,7 +14348,8 @@
         "spread_km": 0.325
       },
       {
-        "canonical_address": "parkany|улица петра николаева|87",
+        "canonical_address": "парканы||улица петра николаева|87",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.609,
           5.914
@@ -14170,7 +14363,8 @@
         "spread_km": 0.305
       },
       {
-        "canonical_address": "parkany|улица петра николаева|95",
+        "canonical_address": "парканы||улица петра николаева|95",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.901,
           5.117,
@@ -14186,7 +14380,8 @@
         "spread_km": 0.797
       },
       {
-        "canonical_address": "parkany|улица петра николаева|97",
+        "canonical_address": "парканы||улица петра николаева|97",
+        "display_address_ru": "улица Петра Николаева",
         "expected_km": [
           5.88,
           5.152
@@ -14200,7 +14395,8 @@
         "spread_km": 0.728
       },
       {
-        "canonical_address": "parkany|улица свердлова|3",
+        "canonical_address": "парканы||улица свердлова|3",
+        "display_address_ru": "улица Свердлова",
         "expected_km": [
           6.429,
           6.309
@@ -14214,7 +14410,8 @@
         "spread_km": 0.12
       },
       {
-        "canonical_address": "parkany|улица свердлова|1",
+        "canonical_address": "парканы||улица свердлова|1",
+        "display_address_ru": "улица Свердлова",
         "expected_km": [
           6.387,
           6.351,
@@ -14230,7 +14427,8 @@
         "spread_km": 0.12
       },
       {
-        "canonical_address": "parkany|улица русакова|45",
+        "canonical_address": "парканы||улица русакова|45",
+        "display_address_ru": "улица Русакова",
         "expected_km": [
           5.635,
           5.939
@@ -14244,7 +14442,8 @@
         "spread_km": 0.304
       },
       {
-        "canonical_address": "parkany|улица благоева|6",
+        "canonical_address": "парканы||улица благоева|6",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.686,
           3.484
@@ -14258,7 +14457,8 @@
         "spread_km": 0.202
       },
       {
-        "canonical_address": "parkany|улица благоева|8",
+        "canonical_address": "парканы||улица благоева|8",
+        "display_address_ru": "улица Благоева",
         "expected_km": [
           3.702,
           3.517
@@ -14272,7 +14472,8 @@
         "spread_km": 0.185
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|60",
+        "canonical_address": "парканы||улица сергея лазо|60",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.521,
           4.915
@@ -14286,7 +14487,8 @@
         "spread_km": 0.394
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|18",
+        "canonical_address": "парканы||улица сергея лазо|18",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.001,
           4.217
@@ -14300,7 +14502,8 @@
         "spread_km": 0.216
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|22",
+        "canonical_address": "парканы||улица сергея лазо|22",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.059,
           4.266
@@ -14314,7 +14517,8 @@
         "spread_km": 0.207
       },
       {
-        "canonical_address": "parkany|улица сергея лазо|20",
+        "canonical_address": "парканы||улица сергея лазо|20",
+        "display_address_ru": "улица Сергея Лазо (Парканы)",
         "expected_km": [
           4.023,
           4.247
@@ -14328,7 +14532,8 @@
         "spread_km": 0.224
       },
       {
-        "canonical_address": "parkany|улица фрунзе|25",
+        "canonical_address": "парканы||улица фрунзе|25",
+        "display_address_ru": "улица Фрунзе (Парканы)",
         "expected_km": [
           4.24,
           4.415
@@ -14342,7 +14547,8 @@
         "spread_km": 0.175
       },
       {
-        "canonical_address": "giska|улица мира|26",
+        "canonical_address": "гиска||улица мира|26",
+        "display_address_ru": "улица Мира (Гиска)",
         "expected_km": [
           6.53,
           4.25
@@ -14356,7 +14562,8 @@
         "spread_km": 2.28
       },
       {
-        "canonical_address": "giska|улица мира|30",
+        "canonical_address": "гиска||улица мира|30",
+        "display_address_ru": "улица Мира (Гиска)",
         "expected_km": [
           6.064,
           4.283
@@ -14370,7 +14577,8 @@
         "spread_km": 1.781
       },
       {
-        "canonical_address": "giska|улица 60 лет октября|2",
+        "canonical_address": "гиска||улица 60 лет октября|2",
+        "display_address_ru": "улица 60 лет Октября",
         "expected_km": [
           6.017,
           5.924
@@ -14384,7 +14592,8 @@
         "spread_km": 0.093
       },
       {
-        "canonical_address": "giska|улица мира|1",
+        "canonical_address": "гиска||улица мира|1",
+        "display_address_ru": "улица Мира (Гиска)",
         "expected_km": [
           5.913,
           4.432
@@ -14398,7 +14607,8 @@
         "spread_km": 1.481
       },
       {
-        "canonical_address": "giska|школьный переулок|3",
+        "canonical_address": "гиска||школьный переулок|3",
+        "display_address_ru": "Школьный переулок (Гиска)",
         "expected_km": [
           6.569,
           6.938
@@ -14412,7 +14622,8 @@
         "spread_km": 0.369
       },
       {
-        "canonical_address": "giska|школьный переулок|2",
+        "canonical_address": "гиска||школьный переулок|2",
+        "display_address_ru": "Школьный переулок (Гиска)",
         "expected_km": [
           6.606,
           6.667
@@ -14426,7 +14637,8 @@
         "spread_km": 0.061
       },
       {
-        "canonical_address": "giska|улица ленина|174",
+        "canonical_address": "гиска||улица ленина|174",
+        "display_address_ru": "улица Ленина (Гиска)",
         "expected_km": [
           7.665,
           7.564
@@ -14440,7 +14652,8 @@
         "spread_km": 0.101
       },
       {
-        "canonical_address": "giska|садовая улица|3",
+        "canonical_address": "гиска||садовая улица|3",
+        "display_address_ru": "Садовая улица (Гиска)",
         "expected_km": [
           8.661,
           9.263
@@ -14454,7 +14667,8 @@
         "spread_km": 0.602
       },
       {
-        "canonical_address": "giska|улица победы|7",
+        "canonical_address": "гиска||улица победы|7",
+        "display_address_ru": "улица Победы (Гиска)",
         "expected_km": [
           7.827,
           7.92
@@ -14468,7 +14682,8 @@
         "spread_km": 0.093
       },
       {
-        "canonical_address": "giska|улица ленина|2",
+        "canonical_address": "гиска||улица ленина|2",
+        "display_address_ru": "улица Ленина (Гиска)",
         "expected_km": [
           4.202,
           4.451
@@ -14482,7 +14697,8 @@
         "spread_km": 0.249
       },
       {
-        "canonical_address": "giska|улица суворова|13",
+        "canonical_address": "гиска||улица суворова|13",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           5.005,
           4.334
@@ -14496,7 +14712,8 @@
         "spread_km": 0.671
       },
       {
-        "canonical_address": "giska|улица суворова|10",
+        "canonical_address": "гиска||улица суворова|10",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.312,
           4.042
@@ -14510,7 +14727,8 @@
         "spread_km": 0.27
       },
       {
-        "canonical_address": "giska|улица суворова|12",
+        "canonical_address": "гиска||улица суворова|12",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.331,
           4.061
@@ -14524,7 +14742,8 @@
         "spread_km": 0.27
       },
       {
-        "canonical_address": "giska|улица суворова|8",
+        "canonical_address": "гиска||улица суворова|8",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.288,
           4.02
@@ -14538,7 +14757,8 @@
         "spread_km": 0.268
       },
       {
-        "canonical_address": "giska|улица суворова|14",
+        "canonical_address": "гиска||улица суворова|14",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.352,
           4.083
@@ -14552,7 +14772,8 @@
         "spread_km": 0.269
       },
       {
-        "canonical_address": "giska|улица суворова|16",
+        "canonical_address": "гиска||улица суворова|16",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.372,
           4.188
@@ -14566,7 +14787,8 @@
         "spread_km": 0.184
       },
       {
-        "canonical_address": "giska|улица суворова|18",
+        "canonical_address": "гиска||улица суворова|18",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.393,
           4.173
@@ -14580,7 +14802,8 @@
         "spread_km": 0.22
       },
       {
-        "canonical_address": "giska|улица суворова|20",
+        "canonical_address": "гиска||улица суворова|20",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           4.412,
           4.184
@@ -14594,7 +14817,8 @@
         "spread_km": 0.228
       },
       {
-        "canonical_address": "giska|улица кирова|21",
+        "canonical_address": "гиска||улица кирова|21",
+        "display_address_ru": "улица Кирова (Гиска)",
         "expected_km": [
           4.434,
           4.699,
@@ -14610,7 +14834,8 @@
         "spread_km": 0.42
       },
       {
-        "canonical_address": "giska|улица мира|22",
+        "canonical_address": "гиска||улица мира|22",
+        "display_address_ru": "улица Мира (Гиска)",
         "expected_km": [
           4.699,
           4.642
@@ -14624,7 +14849,8 @@
         "spread_km": 0.057
       },
       {
-        "canonical_address": "giska|улица суворова|6",
+        "canonical_address": "гиска||улица суворова|6",
+        "display_address_ru": "улица Суворова (Гиска)",
         "expected_km": [
           3.99,
           4.272
@@ -14638,7 +14864,8 @@
         "spread_km": 0.282
       },
       {
-        "canonical_address": "giska|улица мира|28",
+        "canonical_address": "гиска||улица мира|28",
+        "display_address_ru": "улица Мира (Гиска)",
         "expected_km": [
           4.267,
           6.526
@@ -14652,7 +14879,8 @@
         "spread_km": 2.259
       },
       {
-        "canonical_address": "bender_core|южная улица|46",
+        "canonical_address": "бендеры||южная улица|46",
+        "display_address_ru": "Южная улица",
         "expected_km": [
           4.48,
           4.841
@@ -14666,7 +14894,8 @@
         "spread_km": 0.361
       },
       {
-        "canonical_address": "bender_core|южная улица|48",
+        "canonical_address": "бендеры||южная улица|48",
+        "display_address_ru": "Южная улица",
         "expected_km": [
           4.501,
           4.827
@@ -14680,7 +14909,8 @@
         "spread_km": 0.326
       },
       {
-        "canonical_address": "bender_core|1-й измаильский переулок|58",
+        "canonical_address": "бендеры||1-й измаильский переулок|58",
+        "display_address_ru": "1-й Измаильский переулок",
         "expected_km": [
           4.907,
           4.847
@@ -14694,7 +14924,8 @@
         "spread_km": 0.06
       },
       {
-        "canonical_address": "bender_core|улица куйбышева|15",
+        "canonical_address": "бендеры||улица куйбышева|15",
+        "display_address_ru": "улица Куйбышева",
         "expected_km": [
           4.962,
           4.828
@@ -14708,7 +14939,8 @@
         "spread_km": 0.134
       },
       {
-        "canonical_address": "protyagailovka|садовая улица|1",
+        "canonical_address": "протягайловка||садовая улица|1",
+        "display_address_ru": "Садовая улица (Протягайловка)",
         "expected_km": [
           7.412,
           7.685,
@@ -14724,7 +14956,8 @@
         "spread_km": 0.273
       },
       {
-        "canonical_address": "protyagailovka|садовая улица|2",
+        "canonical_address": "протягайловка||садовая улица|2",
+        "display_address_ru": "Садовая улица (Протягайловка)",
         "expected_km": [
           7.458,
           7.644
@@ -14738,7 +14971,8 @@
         "spread_km": 0.186
       },
       {
-        "canonical_address": "protyagailovka|главная улица|2",
+        "canonical_address": "протягайловка||главная улица|2",
+        "display_address_ru": "Главная улица (Протягайловка)",
         "expected_km": [
           7.017,
           4.521
@@ -14752,7 +14986,8 @@
         "spread_km": 2.496
       },
       {
-        "canonical_address": "protyagailovka|улица мунтяна|1",
+        "canonical_address": "протягайловка||улица мунтяна|1",
+        "display_address_ru": "улица Мунтяна",
         "expected_km": [
           6.592,
           6.675
@@ -14766,7 +15001,8 @@
         "spread_km": 0.083
       },
       {
-        "canonical_address": "protyagailovka|комсомольский переулок|1",
+        "canonical_address": "протягайловка||комсомольский переулок|1",
+        "display_address_ru": "Комсомольский переулок",
         "expected_km": [
           5.845,
           5.668
@@ -14780,7 +15016,8 @@
         "spread_km": 0.177
       },
       {
-        "canonical_address": "protyagailovka|первомайская улица|31",
+        "canonical_address": "протягайловка||первомайская улица|31",
+        "display_address_ru": "Первомайская улица (Протягайловка)",
         "expected_km": [
           6.413,
           7.511
@@ -14794,7 +15031,8 @@
         "spread_km": 1.098
       },
       {
-        "canonical_address": "protyagailovka|первомайская улица|56",
+        "canonical_address": "протягайловка||первомайская улица|56",
+        "display_address_ru": "Первомайская улица (Протягайловка)",
         "expected_km": [
           5.919,
           6.471
@@ -14808,7 +15046,8 @@
         "spread_km": 0.552
       },
       {
-        "canonical_address": "protyagailovka|первомайская улица|22",
+        "canonical_address": "протягайловка||первомайская улица|22",
+        "display_address_ru": "Первомайская улица (Протягайловка)",
         "expected_km": [
           6.169,
           7.492
@@ -14822,7 +15061,8 @@
         "spread_km": 1.323
       },
       {
-        "canonical_address": "bender_core|улица куйбышева|38",
+        "canonical_address": "бендеры||улица куйбышева|38",
+        "display_address_ru": "улица Куйбышева",
         "expected_km": [
           4.618,
           4.998
@@ -14836,7 +15076,8 @@
         "spread_km": 0.38
       },
       {
-        "canonical_address": "protyagailovka|улица мунтяна|2",
+        "canonical_address": "протягайловка||улица мунтяна|2",
+        "display_address_ru": "улица Мунтяна",
         "expected_km": [
           6.579,
           6.639
@@ -14850,7 +15091,8 @@
         "spread_km": 0.06
       },
       {
-        "canonical_address": "protyagailovka|первомайская улица|33",
+        "canonical_address": "протягайловка||первомайская улица|33",
+        "display_address_ru": "Первомайская улица (Протягайловка)",
         "expected_km": [
           6.434,
           7.524
@@ -14864,7 +15106,8 @@
         "spread_km": 1.09
       },
       {
-        "canonical_address": "protyagailovka|первомайская улица|37",
+        "canonical_address": "протягайловка||первомайская улица|37",
+        "display_address_ru": "Первомайская улица (Протягайловка)",
         "expected_km": [
           6.466,
           8.302
@@ -14878,7 +15121,8 @@
         "spread_km": 1.836
       },
       {
-        "canonical_address": "protyagailovka|главная улица|5",
+        "canonical_address": "протягайловка||главная улица|5",
+        "display_address_ru": "Главная улица (Протягайловка)",
         "expected_km": [
           4.526,
           7.085
@@ -14892,7 +15136,8 @@
         "spread_km": 2.559
       },
       {
-        "canonical_address": "bender_core|улица лермонтова|18",
+        "canonical_address": "бендеры||улица лермонтова|18",
+        "display_address_ru": "улица Лермонтова",
         "expected_km": [
           5.268,
           5.395
@@ -14906,7 +15151,8 @@
         "spread_km": 0.127
       },
       {
-        "canonical_address": "bender_core|переулок бородина|9",
+        "canonical_address": "бендеры||переулок бородина|9",
+        "display_address_ru": "переулок Бородина",
         "expected_km": [
           5.019,
           4.966
@@ -14920,7 +15166,8 @@
         "spread_km": 0.053
       },
       {
-        "canonical_address": "bender_core|садовая улица|73",
+        "canonical_address": "бендеры||садовая улица|73",
+        "display_address_ru": "Садовая улица (Бендеры)",
         "expected_km": [
           1.862,
           1.927,
@@ -14936,7 +15183,8 @@
         "spread_km": 0.075
       },
       {
-        "canonical_address": "bender_core|первомайская улица|135",
+        "canonical_address": "бендеры||первомайская улица|135",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.532,
           1.822
@@ -14950,7 +15198,8 @@
         "spread_km": 0.29
       },
       {
-        "canonical_address": "bender_core|улица советской армии|16",
+        "canonical_address": "бендеры||улица советской армии|16",
+        "display_address_ru": "улица Советской Армии",
         "expected_km": [
           2.859,
           2.862,
@@ -14966,7 +15215,8 @@
         "spread_km": 0.225
       },
       {
-        "canonical_address": "bender_core|новый проезд|1а",
+        "canonical_address": "бендеры||новый проезд|1а",
+        "display_address_ru": "Новый проезд",
         "expected_km": [
           6.254,
           4.112
@@ -14980,7 +15230,8 @@
         "spread_km": 2.142
       },
       {
-        "canonical_address": "bender_core|улица петровского|4",
+        "canonical_address": "бендеры||улица петровского|4",
+        "display_address_ru": "улица Петровского",
         "expected_km": [
           3.061,
           3.299,
@@ -14998,7 +15249,8 @@
         "spread_km": 0.659
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|25",
+        "canonical_address": "бендеры||улица космонавтов|25",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           3.866,
           3.445
@@ -15012,7 +15264,8 @@
         "spread_km": 0.421
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|11",
+        "canonical_address": "бендеры||улица космонавтов|11",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.245,
           3.327
@@ -15026,7 +15279,8 @@
         "spread_km": 0.918
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|17",
+        "canonical_address": "бендеры||улица космонавтов|17",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.108,
           3.371
@@ -15040,7 +15294,8 @@
         "spread_km": 0.737
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|3",
+        "canonical_address": "бендеры||улица космонавтов|3",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.321,
           3.253
@@ -15054,7 +15309,8 @@
         "spread_km": 1.068
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|21",
+        "canonical_address": "бендеры||улица космонавтов|21",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.033,
           3.415
@@ -15068,7 +15324,8 @@
         "spread_km": 0.618
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|7",
+        "canonical_address": "бендеры||улица космонавтов|7",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.284,
           3.283
@@ -15082,7 +15339,8 @@
         "spread_km": 1.001
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|19",
+        "canonical_address": "бендеры||улица космонавтов|19",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.083,
           3.391
@@ -15096,7 +15354,8 @@
         "spread_km": 0.692
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|5",
+        "canonical_address": "бендеры||улица космонавтов|5",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.412,
           3.267
@@ -15110,7 +15369,8 @@
         "spread_km": 1.145
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|13",
+        "canonical_address": "бендеры||улица космонавтов|13",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.333,
           3.344
@@ -15124,7 +15384,8 @@
         "spread_km": 0.989
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|9",
+        "canonical_address": "бендеры||улица космонавтов|9",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.377,
           3.31
@@ -15138,7 +15399,8 @@
         "spread_km": 1.067
       },
       {
-        "canonical_address": "bender_core|улица космонавтов|1",
+        "canonical_address": "бендеры||улица космонавтов|1",
+        "display_address_ru": "улица Космонавтов (Бендеры)",
         "expected_km": [
           4.335,
           3.272
@@ -15152,7 +15414,8 @@
         "spread_km": 1.063
       },
       {
-        "canonical_address": "bender_core|коммунистическая улица|1",
+        "canonical_address": "бендеры||коммунистическая улица|1",
+        "display_address_ru": "Коммунистическая улица (Бендеры)",
         "expected_km": [
           3.351,
           1.307
@@ -15166,7 +15429,8 @@
         "spread_km": 2.044
       },
       {
-        "canonical_address": "bender_core|улица победы|2",
+        "canonical_address": "бендеры||улица победы|2",
+        "display_address_ru": "улица Победы (Бендеры)",
         "expected_km": [
           3.532,
           3.467
@@ -15180,7 +15444,8 @@
         "spread_km": 0.065
       },
       {
-        "canonical_address": "bender_core|улица победы|6",
+        "canonical_address": "бендеры||улица победы|6",
+        "display_address_ru": "улица Победы (Бендеры)",
         "expected_km": [
           3.747,
           3.562
@@ -15194,7 +15459,8 @@
         "spread_km": 0.185
       },
       {
-        "canonical_address": "bender_core|улица зои космодемьянской|10",
+        "canonical_address": "бендеры||улица зои космодемьянской|10",
+        "display_address_ru": "улица Зои Космодемьянской",
         "expected_km": [
           3.929,
           3.624,
@@ -15210,7 +15476,8 @@
         "spread_km": 0.418
       },
       {
-        "canonical_address": "bender_core|улица асаке|50",
+        "canonical_address": "бендеры||улица асаке|50",
+        "display_address_ru": "улица Асаке",
         "expected_km": [
           4.15,
           4.046
@@ -15224,7 +15491,8 @@
         "spread_km": 0.104
       },
       {
-        "canonical_address": "bender_lipcani|улица титова|3",
+        "canonical_address": "бендеры|липканы|улица титова|3",
+        "display_address_ru": "улица Титова (Липканы)",
         "expected_km": [
           3.198,
           3.287
@@ -15238,7 +15506,8 @@
         "spread_km": 0.089
       },
       {
-        "canonical_address": "bender_core|ленинградская улица|52",
+        "canonical_address": "бендеры||ленинградская улица|52",
+        "display_address_ru": "Ленинградская улица",
         "expected_km": [
           4.474,
           4.74
@@ -15252,7 +15521,8 @@
         "spread_km": 0.266
       },
       {
-        "canonical_address": "bender_core|ленинградская улица|28",
+        "canonical_address": "бендеры||ленинградская улица|28",
+        "display_address_ru": "Ленинградская улица",
         "expected_km": [
           3.953,
           3.857
@@ -15266,7 +15536,8 @@
         "spread_km": 0.096
       },
       {
-        "canonical_address": "bender_core|улица зои космодемьянской|18",
+        "canonical_address": "бендеры||улица зои космодемьянской|18",
+        "display_address_ru": "улица Зои Космодемьянской",
         "expected_km": [
           4.013,
           3.925
@@ -15280,7 +15551,8 @@
         "spread_km": 0.088
       },
       {
-        "canonical_address": "bender_core|улица зои космодемьянской|16",
+        "canonical_address": "бендеры||улица зои космодемьянской|16",
+        "display_address_ru": "улица Зои Космодемьянской",
         "expected_km": [
           3.968,
           3.893
@@ -15294,7 +15566,8 @@
         "spread_km": 0.075
       },
       {
-        "canonical_address": "bender_core|улица 12 октября|2",
+        "canonical_address": "бендеры||улица 12 октября|2",
+        "display_address_ru": "улица 12 Октября",
         "expected_km": [
           4.315,
           5.546,
@@ -15312,7 +15585,8 @@
         "spread_km": 1.314
       },
       {
-        "canonical_address": "bender_core|улица панфилова|6",
+        "canonical_address": "бендеры||улица панфилова|6",
+        "display_address_ru": "улица Панфилова",
         "expected_km": [
           6.109,
           5.743
@@ -15326,7 +15600,8 @@
         "spread_km": 0.366
       },
       {
-        "canonical_address": "bender_core|улица полоза|19",
+        "canonical_address": "бендеры||улица полоза|19",
+        "display_address_ru": "улица Полоза",
         "expected_km": [
           5.544,
           5.76
@@ -15340,7 +15615,8 @@
         "spread_km": 0.216
       },
       {
-        "canonical_address": "bender_core|улица щорса|14",
+        "canonical_address": "бендеры||улица щорса|14",
+        "display_address_ru": "улица Щорса",
         "expected_km": [
           1.146,
           1.204
@@ -15354,7 +15630,8 @@
         "spread_km": 0.058
       },
       {
-        "canonical_address": "bender_core|улица калинина|17",
+        "canonical_address": "бендеры||улица калинина|17",
+        "display_address_ru": "улица Калинина (Бендеры)",
         "expected_km": [
           1.335,
           1.442
@@ -15368,7 +15645,8 @@
         "spread_km": 0.107
       },
       {
-        "canonical_address": "bender_core|улица гагарина|16",
+        "canonical_address": "бендеры||улица гагарина|16",
+        "display_address_ru": "улица Гагарина (Бендеры)",
         "expected_km": [
           1.073,
           0.976
@@ -15382,7 +15660,8 @@
         "spread_km": 0.097
       },
       {
-        "canonical_address": "bender_core|улица титова|10",
+        "canonical_address": "бендеры||улица титова|10",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.359,
           3.667
@@ -15396,7 +15675,8 @@
         "spread_km": 0.308
       },
       {
-        "canonical_address": "bender_lipcani|подольская улица|8",
+        "canonical_address": "бендеры||подольская улица|8",
+        "display_address_ru": "Подольская улица",
         "expected_km": [
           3.216,
           3.164
@@ -15410,7 +15690,8 @@
         "spread_km": 0.052
       },
       {
-        "canonical_address": "bender_core|улица титова|8",
+        "canonical_address": "бендеры||улица титова|8",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.485,
           3.7
@@ -15424,7 +15705,8 @@
         "spread_km": 0.215
       },
       {
-        "canonical_address": "bender_core|пионерская улица|27",
+        "canonical_address": "бендеры||пионерская улица|27",
+        "display_address_ru": "Пионерская улица (Бендеры)",
         "expected_km": [
           6.44,
           6.406,
@@ -15442,7 +15724,8 @@
         "spread_km": 0.183
       },
       {
-        "canonical_address": "bender_core|советская улица|8",
+        "canonical_address": "бендеры||советская улица|8",
+        "display_address_ru": "Советская улица",
         "expected_km": [
           1.529,
           1.58
@@ -15456,7 +15739,8 @@
         "spread_km": 0.051
       },
       {
-        "canonical_address": "bender_core|улица гагарина|10",
+        "canonical_address": "бендеры||улица гагарина|10",
+        "display_address_ru": "улица Гагарина (Бендеры)",
         "expected_km": [
           1.283,
           1.014
@@ -15470,7 +15754,8 @@
         "spread_km": 0.269
       },
       {
-        "canonical_address": "bender_core|улица тимирязева|5",
+        "canonical_address": "бендеры||улица тимирязева|5",
+        "display_address_ru": "улица Тимирязева",
         "expected_km": [
           5.6,
           5.455
@@ -15484,7 +15769,8 @@
         "spread_km": 0.145
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|107",
+        "canonical_address": "бендеры||индустриальная улица|107",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           4.793,
           4.251
@@ -15498,7 +15784,8 @@
         "spread_km": 0.542
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|111",
+        "canonical_address": "бендеры||индустриальная улица|111",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           5.398,
           4.345
@@ -15512,7 +15799,8 @@
         "spread_km": 1.053
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|109",
+        "canonical_address": "бендеры||индустриальная улица|109",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           4.815,
           4.289
@@ -15526,7 +15814,8 @@
         "spread_km": 0.526
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|113",
+        "canonical_address": "бендеры||индустриальная улица|113",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           5.35,
           4.35
@@ -15540,7 +15829,8 @@
         "spread_km": 1.0
       },
       {
-        "canonical_address": "bender_core|красноармейская улица|6",
+        "canonical_address": "бендеры||красноармейская улица|6",
+        "display_address_ru": "Красноармейская улица",
         "expected_km": [
           5.403,
           4.835
@@ -15554,7 +15844,8 @@
         "spread_km": 0.568
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|115",
+        "canonical_address": "бендеры||индустриальная улица|115",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           5.288,
           4.352
@@ -15568,7 +15859,8 @@
         "spread_km": 0.936
       },
       {
-        "canonical_address": "bender_core|красноармейская улица|4",
+        "canonical_address": "бендеры||красноармейская улица|4",
+        "display_address_ru": "Красноармейская улица",
         "expected_km": [
           4.908,
           4.813
@@ -15582,7 +15874,8 @@
         "spread_km": 0.095
       },
       {
-        "canonical_address": "bender_core|улица петровского|6",
+        "canonical_address": "бендеры||улица петровского|6",
+        "display_address_ru": "улица Петровского",
         "expected_km": [
           3.229,
           3.19,
@@ -15598,7 +15891,8 @@
         "spread_km": 0.518
       },
       {
-        "canonical_address": "bender_core|улица петровского|8",
+        "canonical_address": "бендеры||улица петровского|8",
+        "display_address_ru": "улица Петровского",
         "expected_km": [
           3.117,
           3.283
@@ -15612,7 +15906,8 @@
         "spread_km": 0.166
       },
       {
-        "canonical_address": "bender_lipcani|парканская улица|13",
+        "canonical_address": "бендеры||парканская улица|13",
+        "display_address_ru": "Парканская улица",
         "expected_km": [
           3.488,
           3.846
@@ -15626,7 +15921,8 @@
         "spread_km": 0.358
       },
       {
-        "canonical_address": "bender_core|советская улица|1",
+        "canonical_address": "бендеры||советская улица|1",
+        "display_address_ru": "Советская улица",
         "expected_km": [
           1.433,
           1.369
@@ -15640,7 +15936,8 @@
         "spread_km": 0.064
       },
       {
-        "canonical_address": "bender_core|улица ленина|50",
+        "canonical_address": "бендеры||улица ленина|50",
+        "display_address_ru": "улица Ленина (Бендеры)",
         "expected_km": [
           1.001,
           0.839
@@ -15654,7 +15951,8 @@
         "spread_km": 0.162
       },
       {
-        "canonical_address": "bender_core|улица гагарина|14",
+        "canonical_address": "бендеры||улица гагарина|14",
+        "display_address_ru": "улица Гагарина (Бендеры)",
         "expected_km": [
           1.133,
           0.989
@@ -15668,7 +15966,8 @@
         "spread_km": 0.144
       },
       {
-        "canonical_address": "bender_core|коммунистическая улица|4",
+        "canonical_address": "бендеры||коммунистическая улица|4",
+        "display_address_ru": "Коммунистическая улица (Бендеры)",
         "expected_km": [
           3.255,
           1.216
@@ -15682,7 +15981,8 @@
         "spread_km": 2.039
       },
       {
-        "canonical_address": "bender_core|улица гагарина|22",
+        "canonical_address": "бендеры||улица гагарина|22",
+        "display_address_ru": "улица Гагарина (Бендеры)",
         "expected_km": [
           1.763,
           1.023
@@ -15696,7 +15996,8 @@
         "spread_km": 0.74
       },
       {
-        "canonical_address": "bender_core|улица академика фёдорова|1",
+        "canonical_address": "бендеры||улица академика фёдорова|1",
+        "display_address_ru": "улица Академика Фёдорова",
         "expected_km": [
           1.665,
           1.378
@@ -15710,7 +16011,8 @@
         "spread_km": 0.287
       },
       {
-        "canonical_address": "bender_core|севастопольская улица|8",
+        "canonical_address": "бендеры||севастопольская улица|8",
+        "display_address_ru": "Севастопольская улица",
         "expected_km": [
           4.55,
           4.663
@@ -15724,7 +16026,8 @@
         "spread_km": 0.113
       },
       {
-        "canonical_address": "bender_core|советская улица|34",
+        "canonical_address": "бендеры||советская улица|34",
+        "display_address_ru": "Советская улица",
         "expected_km": [
           0.72,
           1.285
@@ -15738,7 +16041,8 @@
         "spread_km": 0.565
       },
       {
-        "canonical_address": "bender_core|улица ленина|15",
+        "canonical_address": "бендеры||улица ленина|15",
+        "display_address_ru": "улица Ленина (Бендеры)",
         "expected_km": [
           0.778,
           1.296
@@ -15752,7 +16056,8 @@
         "spread_km": 0.518
       },
       {
-        "canonical_address": "bender_core|улица сергея лазо|16",
+        "canonical_address": "бендеры||улица сергея лазо|16",
+        "display_address_ru": "улица Сергея Лазо (Бендеры)",
         "expected_km": [
           0.643,
           0.385
@@ -15766,7 +16071,8 @@
         "spread_km": 0.258
       },
       {
-        "canonical_address": "bender_core|улица кирова|9",
+        "canonical_address": "бендеры||улица кирова|9",
+        "display_address_ru": "улица Кирова (Бендеры)",
         "expected_km": [
           0.972,
           1.125
@@ -15780,7 +16086,8 @@
         "spread_km": 0.153
       },
       {
-        "canonical_address": "bender_core|улица ленина|5",
+        "canonical_address": "бендеры||улица ленина|5",
+        "display_address_ru": "улица Ленина (Бендеры)",
         "expected_km": [
           1.359,
           1.283
@@ -15794,7 +16101,8 @@
         "spread_km": 0.076
       },
       {
-        "canonical_address": "bender_core|московская улица|69",
+        "canonical_address": "бендеры||московская улица|69",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           1.196,
           1.087
@@ -15808,7 +16116,8 @@
         "spread_km": 0.109
       },
       {
-        "canonical_address": "bender_core|улица калинина|24",
+        "canonical_address": "бендеры||улица калинина|24",
+        "display_address_ru": "улица Калинина (Бендеры)",
         "expected_km": [
           1.443,
           1.04
@@ -15822,7 +16131,8 @@
         "spread_km": 0.403
       },
       {
-        "canonical_address": "bender_core|тираспольская улица|3",
+        "canonical_address": "бендеры||тираспольская улица|3",
+        "display_address_ru": "Тираспольская улица",
         "expected_km": [
           1.203,
           1.609,
@@ -15842,7 +16152,8 @@
         "spread_km": 0.406
       },
       {
-        "canonical_address": "bender_core|улица дзержинского|7",
+        "canonical_address": "бендеры||улица дзержинского|7",
+        "display_address_ru": "улица Дзержинского",
         "expected_km": [
           1.147,
           1.423
@@ -15856,7 +16167,8 @@
         "spread_km": 0.276
       },
       {
-        "canonical_address": "bender_core|улица калинина|43",
+        "canonical_address": "бендеры||улица калинина|43",
+        "display_address_ru": "улица Калинина (Бендеры)",
         "expected_km": [
           0.84,
           0.805,
@@ -15872,7 +16184,8 @@
         "spread_km": 0.234
       },
       {
-        "canonical_address": "bender_core|московская улица|45",
+        "canonical_address": "бендеры||московская улица|45",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           0.977,
           1.021,
@@ -15888,7 +16201,8 @@
         "spread_km": 0.059
       },
       {
-        "canonical_address": "bender_core|улица 40 лет победы|10",
+        "canonical_address": "бендеры||улица 40 лет победы|10",
+        "display_address_ru": "улица 40 лет Победы",
         "expected_km": [
           4.252,
           4.196
@@ -15902,7 +16216,8 @@
         "spread_km": 0.056
       },
       {
-        "canonical_address": "bender_core|улица 40 лет победы|4",
+        "canonical_address": "бендеры||улица 40 лет победы|4",
+        "display_address_ru": "улица 40 лет Победы",
         "expected_km": [
           4.092,
           4.037
@@ -15916,7 +16231,8 @@
         "spread_km": 0.055
       },
       {
-        "canonical_address": "bender_core|улица 40 лет победы|34",
+        "canonical_address": "бендеры||улица 40 лет победы|34",
+        "display_address_ru": "улица 40 лет Победы",
         "expected_km": [
           4.921,
           4.646
@@ -15930,7 +16246,8 @@
         "spread_km": 0.275
       },
       {
-        "canonical_address": "bender_core|улица шестакова|22",
+        "canonical_address": "бендеры||улица шестакова|22",
+        "display_address_ru": "улица Шестакова",
         "expected_km": [
           1.07,
           1.485
@@ -15944,7 +16261,8 @@
         "spread_km": 0.415
       },
       {
-        "canonical_address": "bender_core|тираспольская улица|4",
+        "canonical_address": "бендеры||тираспольская улица|4",
+        "display_address_ru": "Тираспольская улица",
         "expected_km": [
           1.511,
           1.359,
@@ -15960,7 +16278,8 @@
         "spread_km": 0.184
       },
       {
-        "canonical_address": "bender_core|улица дзержинского|1а",
+        "canonical_address": "бендеры||улица дзержинского|1а",
+        "display_address_ru": "улица Дзержинского",
         "expected_km": [
           1.478,
           1.962
@@ -15974,7 +16293,8 @@
         "spread_km": 0.484
       },
       {
-        "canonical_address": "bender_core|улица клары цеткин|1",
+        "canonical_address": "бендеры||улица клары цеткин|1",
+        "display_address_ru": "улица Клары Цеткин",
         "expected_km": [
           4.055,
           3.932,
@@ -15990,7 +16310,8 @@
         "spread_km": 0.322
       },
       {
-        "canonical_address": "bender_core|улица спартака|7",
+        "canonical_address": "бендеры||улица спартака|7",
+        "display_address_ru": "улица Спартака",
         "expected_km": [
           4.973,
           5.443
@@ -16004,7 +16325,8 @@
         "spread_km": 0.47
       },
       {
-        "canonical_address": "bender_core|улица панфилова|8",
+        "canonical_address": "бендеры||улица панфилова|8",
+        "display_address_ru": "улица Панфилова",
         "expected_km": [
           6.163,
           5.686
@@ -16018,7 +16340,8 @@
         "spread_km": 0.477
       },
       {
-        "canonical_address": "bender_core|улица ивана шимкова|34",
+        "canonical_address": "бендеры||улица ивана шимкова|34",
+        "display_address_ru": "улица Ивана Шимкова",
         "expected_km": [
           5.537,
           5.63
@@ -16032,7 +16355,8 @@
         "spread_km": 0.093
       },
       {
-        "canonical_address": "bender_core|улица богдана хмельницкого|32",
+        "canonical_address": "бендеры||улица богдана хмельницкого|32",
+        "display_address_ru": "улица Богдана Хмельницкого",
         "expected_km": [
           5.578,
           5.915
@@ -16046,7 +16370,8 @@
         "spread_km": 0.337
       },
       {
-        "canonical_address": "bender_core|улица панфилова|2",
+        "canonical_address": "бендеры||улица панфилова|2",
+        "display_address_ru": "улица Панфилова",
         "expected_km": [
           6.026,
           5.744
@@ -16060,7 +16385,8 @@
         "spread_km": 0.282
       },
       {
-        "canonical_address": "bender_core|улица ивана шимкова|40",
+        "canonical_address": "бендеры||улица ивана шимкова|40",
+        "display_address_ru": "улица Ивана Шимкова",
         "expected_km": [
           5.506,
           5.598
@@ -16074,7 +16400,8 @@
         "spread_km": 0.092
       },
       {
-        "canonical_address": "bender_core|улица богдана хмельницкого|30",
+        "canonical_address": "бендеры||улица богдана хмельницкого|30",
+        "display_address_ru": "улица Богдана Хмельницкого",
         "expected_km": [
           5.578,
           5.897
@@ -16088,7 +16415,8 @@
         "spread_km": 0.319
       },
       {
-        "canonical_address": "bender_core|улица панфилова|4",
+        "canonical_address": "бендеры||улица панфилова|4",
+        "display_address_ru": "улица Панфилова",
         "expected_km": [
           6.114,
           6.154,
@@ -16104,7 +16432,8 @@
         "spread_km": 0.412
       },
       {
-        "canonical_address": "bender_core|улица ивана шимкова|36",
+        "canonical_address": "бендеры||улица ивана шимкова|36",
+        "display_address_ru": "улица Ивана Шимкова",
         "expected_km": [
           5.526,
           5.612
@@ -16118,7 +16447,8 @@
         "spread_km": 0.086
       },
       {
-        "canonical_address": "bender_core|улица ивана шимкова|38",
+        "canonical_address": "бендеры||улица ивана шимкова|38",
+        "display_address_ru": "улица Ивана Шимкова",
         "expected_km": [
           5.516,
           5.609
@@ -16132,7 +16462,8 @@
         "spread_km": 0.093
       },
       {
-        "canonical_address": "bender_core|улица богдана хмельницкого|24",
+        "canonical_address": "бендеры||улица богдана хмельницкого|24",
+        "display_address_ru": "улица Богдана Хмельницкого",
         "expected_km": [
           5.617,
           5.711
@@ -16146,7 +16477,8 @@
         "spread_km": 0.094
       },
       {
-        "canonical_address": "bender_core|бельцкая улица|31",
+        "canonical_address": "бендеры||бельцкая улица|31",
+        "display_address_ru": "Бельцкая улица",
         "expected_km": [
           4.091,
           3.61
@@ -16160,7 +16492,8 @@
         "spread_km": 0.481
       },
       {
-        "canonical_address": "bender_core|улица полоза|10",
+        "canonical_address": "бендеры||улица полоза|10",
+        "display_address_ru": "улица Полоза",
         "expected_km": [
           6.727,
           5.817
@@ -16174,7 +16507,8 @@
         "spread_km": 0.91
       },
       {
-        "canonical_address": "bender_core|переулок осипенко|2",
+        "canonical_address": "бендеры||переулок осипенко|2",
+        "display_address_ru": "переулок Осипенко",
         "expected_km": [
           5.825,
           5.99,
@@ -16190,7 +16524,8 @@
         "spread_km": 0.165
       },
       {
-        "canonical_address": "bender_core|пионерская улица|7",
+        "canonical_address": "бендеры||пионерская улица|7",
+        "display_address_ru": "Пионерская улица (Бендеры)",
         "expected_km": [
           5.942,
           5.888
@@ -16204,7 +16539,8 @@
         "spread_km": 0.054
       },
       {
-        "canonical_address": "bender_core|улица 50 лет влксм|3",
+        "canonical_address": "бендеры||улица 50 лет влксм|3",
+        "display_address_ru": "улица 50 лет ВЛКСМ",
         "expected_km": [
           5.735,
           5.8,
@@ -16220,7 +16556,8 @@
         "spread_km": 0.065
       },
       {
-        "canonical_address": "bender_core|пионерская улица|5",
+        "canonical_address": "бендеры||пионерская улица|5",
+        "display_address_ru": "Пионерская улица (Бендеры)",
         "expected_km": [
           5.876,
           5.823
@@ -16234,7 +16571,8 @@
         "spread_km": 0.053
       },
       {
-        "canonical_address": "bender_core|улица павлика морозова|8",
+        "canonical_address": "бендеры||улица павлика морозова|8",
+        "display_address_ru": "улица Павлика Морозова",
         "expected_km": [
           6.331,
           6.387
@@ -16248,7 +16586,8 @@
         "spread_km": 0.056
       },
       {
-        "canonical_address": "bender_core|переулок осипенко|1",
+        "canonical_address": "бендеры||переулок осипенко|1",
+        "display_address_ru": "переулок Осипенко",
         "expected_km": [
           5.997,
           5.91,
@@ -16264,7 +16603,8 @@
         "spread_km": 0.087
       },
       {
-        "canonical_address": "bender_core|улица 50 лет влксм|2а",
+        "canonical_address": "бендеры||улица 50 лет влксм|2а",
+        "display_address_ru": "улица 50 лет ВЛКСМ",
         "expected_km": [
           5.615,
           5.658,
@@ -16280,7 +16620,8 @@
         "spread_km": 0.099
       },
       {
-        "canonical_address": "bender_core|улица 50 лет влксм|7а",
+        "canonical_address": "бендеры||улица 50 лет влксм|7а",
+        "display_address_ru": "улица 50 лет ВЛКСМ",
         "expected_km": [
           6.175,
           5.581,
@@ -16296,7 +16637,8 @@
         "spread_km": 0.594
       },
       {
-        "canonical_address": "bender_core|школьная улица|4",
+        "canonical_address": "бендеры||школьная улица|4",
+        "display_address_ru": "Школьная улица (Бендеры)",
         "expected_km": [
           4.659,
           4.608
@@ -16310,7 +16652,8 @@
         "spread_km": 0.051
       },
       {
-        "canonical_address": "bender_core|железнодорожная улица|25",
+        "canonical_address": "бендеры||железнодорожная улица|25",
+        "display_address_ru": "Железнодорожная улица",
         "expected_km": [
           4.79,
           5.172
@@ -16324,7 +16667,8 @@
         "spread_km": 0.382
       },
       {
-        "canonical_address": "bender_core|улица 40 лет советской пионерии|35",
+        "canonical_address": "бендеры||улица 40 лет советской пионерии|35",
+        "display_address_ru": "улица 40 лет Советской Пионерии",
         "expected_km": [
           4.993,
           5.088
@@ -16338,7 +16682,8 @@
         "spread_km": 0.095
       },
       {
-        "canonical_address": "bender_core|улица 28 июня|3",
+        "canonical_address": "бендеры||улица 28 июня|3",
+        "display_address_ru": "улица 28 Июня",
         "expected_km": [
           2.909,
           2.845
@@ -16352,7 +16697,8 @@
         "spread_km": 0.064
       },
       {
-        "canonical_address": "bender_core|улица мичурина|6",
+        "canonical_address": "бендеры||улица мичурина|6",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.066,
           2.888
@@ -16366,7 +16712,8 @@
         "spread_km": 0.178
       },
       {
-        "canonical_address": "bender_core|улица мичурина|8",
+        "canonical_address": "бендеры||улица мичурина|8",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.093,
           2.909
@@ -16380,7 +16727,8 @@
         "spread_km": 0.184
       },
       {
-        "canonical_address": "bender_core|улица старого|2а",
+        "canonical_address": "бендеры||улица старого|2а",
+        "display_address_ru": "улица Старого",
         "expected_km": [
           4.859,
           5.065,
@@ -16396,7 +16744,8 @@
         "spread_km": 0.206
       },
       {
-        "canonical_address": "bender_core|улица мичурина|1",
+        "canonical_address": "бендеры||улица мичурина|1",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           2.993,
           3.48
@@ -16410,7 +16759,8 @@
         "spread_km": 0.487
       },
       {
-        "canonical_address": "bender_core|улица мичурина|10",
+        "canonical_address": "бендеры||улица мичурина|10",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.14,
           2.929
@@ -16424,7 +16774,8 @@
         "spread_km": 0.211
       },
       {
-        "canonical_address": "bender_core|улица мичурина|4",
+        "canonical_address": "бендеры||улица мичурина|4",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           2.981,
           2.868
@@ -16438,7 +16789,8 @@
         "spread_km": 0.113
       },
       {
-        "canonical_address": "bender_core|коммунистическая улица|2",
+        "canonical_address": "бендеры||коммунистическая улица|2",
+        "display_address_ru": "Коммунистическая улица (Бендеры)",
         "expected_km": [
           2.941,
           1.26
@@ -16452,7 +16804,8 @@
         "spread_km": 1.681
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|54",
+        "canonical_address": "бендеры||улица кавриаго|54",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.833,
           1.058,
@@ -16468,7 +16821,8 @@
         "spread_km": 0.775
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|12",
+        "canonical_address": "бендеры||комсомольская улица|12",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.773,
           1.446
@@ -16482,7 +16836,8 @@
         "spread_km": 0.327
       },
       {
-        "canonical_address": "bender_core|переулок суворова|119",
+        "canonical_address": "бендеры||переулок суворова|119",
+        "display_address_ru": "переулок Суворова (Бендеры)",
         "expected_km": [
           1.481,
           1.965
@@ -16496,7 +16851,8 @@
         "spread_km": 0.484
       },
       {
-        "canonical_address": "bender_core|первомайская улица|84",
+        "canonical_address": "бендеры||первомайская улица|84",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.889,
           2.072
@@ -16510,7 +16866,8 @@
         "spread_km": 0.183
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|56",
+        "canonical_address": "бендеры||комсомольская улица|56",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.134,
           1.409
@@ -16524,7 +16881,8 @@
         "spread_km": 0.275
       },
       {
-        "canonical_address": "bender_core|советская улица|60",
+        "canonical_address": "бендеры||советская улица|60",
+        "display_address_ru": "Советская улица",
         "expected_km": [
           1.19,
           1.358
@@ -16538,7 +16896,8 @@
         "spread_km": 0.168
       },
       {
-        "canonical_address": "bender_core|колодезный переулок|16",
+        "canonical_address": "бендеры||колодезный переулок|16",
+        "display_address_ru": "Колодезный переулок",
         "expected_km": [
           2.346,
           2.477
@@ -16552,7 +16911,8 @@
         "spread_km": 0.131
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|107",
+        "canonical_address": "бендеры||улица кавриаго|107",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.182,
           1.527
@@ -16566,7 +16926,8 @@
         "spread_km": 0.345
       },
       {
-        "canonical_address": "bender_core|московская улица|38",
+        "canonical_address": "бендеры||московская улица|38",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           0.677,
           0.974
@@ -16580,7 +16941,8 @@
         "spread_km": 0.297
       },
       {
-        "canonical_address": "bender_core|улица ткаченко|87",
+        "canonical_address": "бендеры||улица ткаченко|87",
+        "display_address_ru": "улица Ткаченко (Бендеры)",
         "expected_km": [
           1.247,
           1.16
@@ -16594,7 +16956,8 @@
         "spread_km": 0.087
       },
       {
-        "canonical_address": "bender_core|улица павлика морозова|15",
+        "canonical_address": "бендеры||улица павлика морозова|15",
+        "display_address_ru": "улица Павлика Морозова",
         "expected_km": [
           6.369,
           6.496
@@ -16608,7 +16971,8 @@
         "spread_km": 0.127
       },
       {
-        "canonical_address": "bender_core|улица луначарского|6",
+        "canonical_address": "бендеры||улица луначарского|6",
+        "display_address_ru": "улица Луначарского",
         "expected_km": [
           5.477,
           5.421
@@ -16622,7 +16986,8 @@
         "spread_km": 0.056
       },
       {
-        "canonical_address": "bender_core|железнодорожная улица|15",
+        "canonical_address": "бендеры||железнодорожная улица|15",
+        "display_address_ru": "Железнодорожная улица",
         "expected_km": [
           4.818,
           5.241
@@ -16636,7 +17001,8 @@
         "spread_km": 0.423
       },
       {
-        "canonical_address": "bender_core|улица мира|114",
+        "canonical_address": "бендеры||улица мира|114",
+        "display_address_ru": "улица Мира (Бендеры)",
         "expected_km": [
           2.795,
           2.651
@@ -16650,7 +17016,8 @@
         "spread_km": 0.144
       },
       {
-        "canonical_address": "bender_core|улица георге асаке|11",
+        "canonical_address": "бендеры||улица георге асаке|11",
+        "display_address_ru": "улица Георге Асаке",
         "expected_km": [
           2.925,
           2.798,
@@ -16666,7 +17033,8 @@
         "spread_km": 0.157
       },
       {
-        "canonical_address": "bender_core|улица пирогова|8",
+        "canonical_address": "бендеры||улица пирогова|8",
+        "display_address_ru": "улица Пирогова",
         "expected_km": [
           3.675,
           3.751,
@@ -16682,7 +17050,8 @@
         "spread_km": 0.272
       },
       {
-        "canonical_address": "bender_core|тираспольская улица|2",
+        "canonical_address": "бендеры||тираспольская улица|2",
+        "display_address_ru": "Тираспольская улица",
         "expected_km": [
           1.306,
           1.479
@@ -16696,7 +17065,8 @@
         "spread_km": 0.173
       },
       {
-        "canonical_address": "bender_core|тираспольская улица|8",
+        "canonical_address": "бендеры||тираспольская улица|8",
+        "display_address_ru": "Тираспольская улица",
         "expected_km": [
           1.294,
           1.156
@@ -16710,7 +17080,8 @@
         "spread_km": 0.138
       },
       {
-        "canonical_address": "bender_core|московская улица|77",
+        "canonical_address": "бендеры||московская улица|77",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           0.929,
           0.784
@@ -16724,7 +17095,8 @@
         "spread_km": 0.145
       },
       {
-        "canonical_address": "bender_core|московская улица|79",
+        "canonical_address": "бендеры||московская улица|79",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           1.222,
           0.804
@@ -16738,7 +17110,8 @@
         "spread_km": 0.418
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|85",
+        "canonical_address": "бендеры||комсомольская улица|85",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           0.854,
           1.118
@@ -16752,7 +17125,8 @@
         "spread_km": 0.264
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|87",
+        "canonical_address": "бендеры||комсомольская улица|87",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           0.874,
           1.461
@@ -16766,7 +17140,8 @@
         "spread_km": 0.587
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|89",
+        "canonical_address": "бендеры||комсомольская улица|89",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           0.891,
           1.447
@@ -16780,7 +17155,8 @@
         "spread_km": 0.556
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|54",
+        "canonical_address": "бендеры||комсомольская улица|54",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.085,
           1.324
@@ -16794,7 +17170,8 @@
         "spread_km": 0.239
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|95",
+        "canonical_address": "бендеры||комсомольская улица|95",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.837,
           1.318,
@@ -16810,7 +17187,8 @@
         "spread_km": 0.815
       },
       {
-        "canonical_address": "bender_core|коммунистическая улица|69",
+        "canonical_address": "бендеры||коммунистическая улица|69",
+        "display_address_ru": "Коммунистическая улица (Бендеры)",
         "expected_km": [
           0.96,
           2.196
@@ -16824,7 +17202,8 @@
         "spread_km": 1.236
       },
       {
-        "canonical_address": "bender_core|улица кирова|17",
+        "canonical_address": "бендеры||улица кирова|17",
+        "display_address_ru": "улица Кирова (Бендеры)",
         "expected_km": [
           1.396,
           1.082
@@ -16838,7 +17217,8 @@
         "spread_km": 0.314
       },
       {
-        "canonical_address": "bender_core|московская улица|40",
+        "canonical_address": "бендеры||московская улица|40",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           0.768,
           1.053
@@ -16852,7 +17232,8 @@
         "spread_km": 0.285
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|72",
+        "canonical_address": "бендеры||комсомольская улица|72",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.103,
           1.235,
@@ -16868,7 +17249,8 @@
         "spread_km": 0.399
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|70",
+        "canonical_address": "бендеры||комсомольская улица|70",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.133,
           1.427
@@ -16882,7 +17264,8 @@
         "spread_km": 0.294
       },
       {
-        "canonical_address": "bender_core|улица кирова|109",
+        "canonical_address": "бендеры||улица кирова|109",
+        "display_address_ru": "улица Кирова (Бендеры)",
         "expected_km": [
           1.673,
           1.905
@@ -16896,7 +17279,8 @@
         "spread_km": 0.232
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|64",
+        "canonical_address": "бендеры||комсомольская улица|64",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.186,
           1.384
@@ -16910,7 +17294,8 @@
         "spread_km": 0.198
       },
       {
-        "canonical_address": "bender_core|московская улица|36",
+        "canonical_address": "бендеры||московская улица|36",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           0.659,
           0.956
@@ -16924,7 +17309,8 @@
         "spread_km": 0.297
       },
       {
-        "canonical_address": "bender_core|московская улица|34",
+        "canonical_address": "бендеры||московская улица|34",
+        "display_address_ru": "Московская улица",
         "expected_km": [
           1.262,
           1.533
@@ -16938,7 +17324,8 @@
         "spread_km": 0.271
       },
       {
-        "canonical_address": "bender_core|улица калинина|79",
+        "canonical_address": "бендеры||улица калинина|79",
+        "display_address_ru": "улица Калинина (Бендеры)",
         "expected_km": [
           1.467,
           1.915
@@ -16952,7 +17339,8 @@
         "spread_km": 0.448
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|46",
+        "canonical_address": "бендеры||комсомольская улица|46",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.065,
           1.265
@@ -16966,7 +17354,8 @@
         "spread_km": 0.2
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|48",
+        "canonical_address": "бендеры||комсомольская улица|48",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.019,
           1.29
@@ -16980,7 +17369,8 @@
         "spread_km": 0.271
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|27",
+        "canonical_address": "бендеры||улица кавриаго|27",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.202,
           1.134,
@@ -16996,7 +17386,8 @@
         "spread_km": 0.405
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|25",
+        "canonical_address": "бендеры||улица кавриаго|25",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.228,
           1.535
@@ -17010,7 +17401,8 @@
         "spread_km": 0.307
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|109",
+        "canonical_address": "бендеры||улица кавриаго|109",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.208,
           1.509
@@ -17024,7 +17416,8 @@
         "spread_km": 0.301
       },
       {
-        "canonical_address": "bender_core|переулок суворова|113",
+        "canonical_address": "бендеры||переулок суворова|113",
+        "display_address_ru": "переулок Суворова (Бендеры)",
         "expected_km": [
           1.325,
           1.476
@@ -17038,7 +17431,8 @@
         "spread_km": 0.151
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|91",
+        "canonical_address": "бендеры||комсомольская улица|91",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           0.989,
           1.422
@@ -17052,7 +17446,8 @@
         "spread_km": 0.433
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|93",
+        "canonical_address": "бендеры||комсомольская улица|93",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.007,
           1.41
@@ -17066,7 +17461,8 @@
         "spread_km": 0.403
       },
       {
-        "canonical_address": "bender_core|улица сергея лазо|57",
+        "canonical_address": "бендеры||улица сергея лазо|57",
+        "display_address_ru": "улица Сергея Лазо (Бендеры)",
         "expected_km": [
           0.946,
           0.813
@@ -17080,7 +17476,8 @@
         "spread_km": 0.133
       },
       {
-        "canonical_address": "bender_core|улица кирова|21",
+        "canonical_address": "бендеры||улица кирова|21",
+        "display_address_ru": "улица Кирова (Бендеры)",
         "expected_km": [
           1.048,
           2.114
@@ -17094,7 +17491,8 @@
         "spread_km": 1.066
       },
       {
-        "canonical_address": "bender_core|переулок суворова|111",
+        "canonical_address": "бендеры||переулок суворова|111",
+        "display_address_ru": "переулок Суворова (Бендеры)",
         "expected_km": [
           1.259,
           1.492
@@ -17108,7 +17506,8 @@
         "spread_km": 0.233
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|99",
+        "canonical_address": "бендеры||улица кавриаго|99",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.072,
           1.352
@@ -17122,7 +17521,8 @@
         "spread_km": 0.28
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|101",
+        "canonical_address": "бендеры||улица кавриаго|101",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.089,
           1.341
@@ -17136,7 +17536,8 @@
         "spread_km": 0.252
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|103",
+        "canonical_address": "бендеры||улица кавриаго|103",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.101,
           1.327
@@ -17150,7 +17551,8 @@
         "spread_km": 0.226
       },
       {
-        "canonical_address": "bender_core|улица кавриаго|105",
+        "canonical_address": "бендеры||улица кавриаго|105",
+        "display_address_ru": "улица Кавриаго",
         "expected_km": [
           1.114,
           1.541
@@ -17164,7 +17566,8 @@
         "spread_km": 0.427
       },
       {
-        "canonical_address": "bender_core|улица шестакова|41",
+        "canonical_address": "бендеры||улица шестакова|41",
+        "display_address_ru": "улица Шестакова",
         "expected_km": [
           1.383,
           0.918
@@ -17178,7 +17581,8 @@
         "spread_km": 0.465
       },
       {
-        "canonical_address": "bender_core|комсомольская улица|50",
+        "canonical_address": "бендеры||комсомольская улица|50",
+        "display_address_ru": "Комсомольская улица (Бендеры)",
         "expected_km": [
           1.303,
           1.028
@@ -17192,7 +17596,8 @@
         "spread_km": 0.275
       },
       {
-        "canonical_address": "bender_core|тираспольская улица|1",
+        "canonical_address": "бендеры||тираспольская улица|1",
+        "display_address_ru": "Тираспольская улица",
         "expected_km": [
           1.329,
           1.192
@@ -17206,7 +17611,8 @@
         "spread_km": 0.137
       },
       {
-        "canonical_address": "bender_core|молдавская улица|17",
+        "canonical_address": "бендеры||молдавская улица|17",
+        "display_address_ru": "Молдавская улица",
         "expected_km": [
           1.401,
           1.506
@@ -17220,7 +17626,8 @@
         "spread_km": 0.105
       },
       {
-        "canonical_address": "bender_core|улица маяковского|79",
+        "canonical_address": "бендеры||улица маяковского|79",
+        "display_address_ru": "улица Маяковского (Бендеры)",
         "expected_km": [
           1.143,
           1.863
@@ -17234,7 +17641,8 @@
         "spread_km": 0.72
       },
       {
-        "canonical_address": "bender_core|улица шестакова|24",
+        "canonical_address": "бендеры||улица шестакова|24",
+        "display_address_ru": "улица Шестакова",
         "expected_km": [
           1.418,
           1.051
@@ -17248,7 +17656,8 @@
         "spread_km": 0.367
       },
       {
-        "canonical_address": "bender_core|садовая улица|44",
+        "canonical_address": "бендеры||садовая улица|44",
+        "display_address_ru": "Садовая улица (Бендеры)",
         "expected_km": [
           1.14,
           1.684
@@ -17262,7 +17671,8 @@
         "spread_km": 0.544
       },
       {
-        "canonical_address": "bender_core|молдавская улица|15",
+        "canonical_address": "бендеры||молдавская улица|15",
+        "display_address_ru": "Молдавская улица",
         "expected_km": [
           1.405,
           1.49
@@ -17276,7 +17686,8 @@
         "spread_km": 0.085
       },
       {
-        "canonical_address": "bender_core|садовая улица|13",
+        "canonical_address": "бендеры||садовая улица|13",
+        "display_address_ru": "Садовая улица (Бендеры)",
         "expected_km": [
           1.348,
           2.596
@@ -17290,7 +17701,8 @@
         "spread_km": 1.248
       },
       {
-        "canonical_address": "bender_core|молдавская улица|2",
+        "canonical_address": "бендеры||молдавская улица|2",
+        "display_address_ru": "Молдавская улица",
         "expected_km": [
           1.429,
           1.662
@@ -17304,7 +17716,8 @@
         "spread_km": 0.233
       },
       {
-        "canonical_address": "bender_core|улица шевченко|4",
+        "canonical_address": "бендеры||улица шевченко|4",
+        "display_address_ru": "улица Шевченко (Бендеры)",
         "expected_km": [
           1.546,
           1.649
@@ -17318,7 +17731,8 @@
         "spread_km": 0.103
       },
       {
-        "canonical_address": "bender_core|переулок суворова|121",
+        "canonical_address": "бендеры||переулок суворова|121",
+        "display_address_ru": "переулок Суворова (Бендеры)",
         "expected_km": [
           1.436,
           1.941
@@ -17332,7 +17746,8 @@
         "spread_km": 0.505
       },
       {
-        "canonical_address": "bender_core|улица шевченко|24",
+        "canonical_address": "бендеры||улица шевченко|24",
+        "display_address_ru": "улица Шевченко (Бендеры)",
         "expected_km": [
           1.657,
           1.91
@@ -17346,7 +17761,8 @@
         "spread_km": 0.253
       },
       {
-        "canonical_address": "bender_core|первомайская улица|110",
+        "canonical_address": "бендеры||первомайская улица|110",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.852,
           1.729
@@ -17360,7 +17776,8 @@
         "spread_km": 0.123
       },
       {
-        "canonical_address": "bender_core|первомайская улица|112",
+        "canonical_address": "бендеры||первомайская улица|112",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.839,
           1.707
@@ -17374,7 +17791,8 @@
         "spread_km": 0.132
       },
       {
-        "canonical_address": "bender_core|первомайская улица|114",
+        "canonical_address": "бендеры||первомайская улица|114",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.818,
           1.696
@@ -17388,7 +17806,8 @@
         "spread_km": 0.122
       },
       {
-        "canonical_address": "bender_core|первомайская улица|116",
+        "canonical_address": "бендеры||первомайская улица|116",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.798,
           1.685
@@ -17402,7 +17821,8 @@
         "spread_km": 0.113
       },
       {
-        "canonical_address": "bender_core|улица щорса|7",
+        "canonical_address": "бендеры||улица щорса|7",
+        "display_address_ru": "улица Щорса",
         "expected_km": [
           1.221,
           1.291
@@ -17416,7 +17836,8 @@
         "spread_km": 0.07
       },
       {
-        "canonical_address": "bender_core|первомайская улица|89",
+        "canonical_address": "бендеры||первомайская улица|89",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.993,
           2.125
@@ -17430,7 +17851,8 @@
         "spread_km": 0.132
       },
       {
-        "canonical_address": "bender_core|первомайская улица|164",
+        "canonical_address": "бендеры||первомайская улица|164",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.939,
           2.03
@@ -17444,7 +17866,8 @@
         "spread_km": 0.091
       },
       {
-        "canonical_address": "bender_core|первомайская улица|124",
+        "canonical_address": "бендеры||первомайская улица|124",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.614,
           1.749
@@ -17458,7 +17881,8 @@
         "spread_km": 0.135
       },
       {
-        "canonical_address": "bender_core|первомайская улица|126",
+        "canonical_address": "бендеры||первомайская улица|126",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.603,
           2.323
@@ -17472,7 +17896,8 @@
         "spread_km": 0.72
       },
       {
-        "canonical_address": "bender_core|первомайская улица|128",
+        "canonical_address": "бендеры||первомайская улица|128",
+        "display_address_ru": "Первомайская улица (Бендеры)",
         "expected_km": [
           1.598,
           2.304
@@ -17486,7 +17911,8 @@
         "spread_km": 0.706
       },
       {
-        "canonical_address": "bender_core|улица глядковской|7",
+        "canonical_address": "бендеры||улица глядковской|7",
+        "display_address_ru": "улица Глядковской",
         "expected_km": [
           3.808,
           3.924,
@@ -17504,7 +17930,8 @@
         "spread_km": 0.13
       },
       {
-        "canonical_address": "bender_core|улица тургенева|5",
+        "canonical_address": "бендеры||улица тургенева|5",
+        "display_address_ru": "улица Тургенева",
         "expected_km": [
           4.945,
           4.717,
@@ -17520,7 +17947,8 @@
         "spread_km": 0.322
       },
       {
-        "canonical_address": "bender_core|херсонская улица|139",
+        "canonical_address": "бендеры||херсонская улица|139",
+        "display_address_ru": "Херсонская улица",
         "expected_km": [
           1.648,
           1.722
@@ -17534,7 +17962,8 @@
         "spread_km": 0.074
       },
       {
-        "canonical_address": "bender_core|песчанная улица|151",
+        "canonical_address": "бендеры||песчанная улица|151",
+        "display_address_ru": "Песчанная улица",
         "expected_km": [
           2.275,
           1.82
@@ -17548,7 +17977,8 @@
         "spread_km": 0.455
       },
       {
-        "canonical_address": "bender_core|песчанная улица|153",
+        "canonical_address": "бендеры||песчанная улица|153",
+        "display_address_ru": "Песчанная улица",
         "expected_km": [
           2.262,
           1.835
@@ -17562,7 +17992,8 @@
         "spread_km": 0.427
       },
       {
-        "canonical_address": "bender_core|улица 40 лет советской пионерии|37",
+        "canonical_address": "бендеры||улица 40 лет советской пионерии|37",
+        "display_address_ru": "улица 40 лет Советской Пионерии",
         "expected_km": [
           4.992,
           5.09
@@ -17576,7 +18007,8 @@
         "spread_km": 0.098
       },
       {
-        "canonical_address": "bender_core|улица толбухина|1",
+        "canonical_address": "бендеры||улица толбухина|1",
+        "display_address_ru": "улица Толбухина",
         "expected_km": [
           2.058,
           2.399
@@ -17590,7 +18022,8 @@
         "spread_km": 0.341
       },
       {
-        "canonical_address": "bender_core|киевская улица|11",
+        "canonical_address": "бендеры||киевская улица|11",
+        "display_address_ru": "Киевская улица",
         "expected_km": [
           4.651,
           4.515
@@ -17604,7 +18037,8 @@
         "spread_km": 0.136
       },
       {
-        "canonical_address": "bender_core|путейская улица|1",
+        "canonical_address": "бендеры||путейская улица|1",
+        "display_address_ru": "Путейская улица",
         "expected_km": [
           5.032,
           2.866
@@ -17618,7 +18052,8 @@
         "spread_km": 2.166
       },
       {
-        "canonical_address": "bender_core|киевская улица|2",
+        "canonical_address": "бендеры||киевская улица|2",
+        "display_address_ru": "Киевская улица",
         "expected_km": [
           4.693,
           4.484
@@ -17632,7 +18067,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "bender_core|киевская улица|14",
+        "canonical_address": "бендеры||киевская улица|14",
+        "display_address_ru": "Киевская улица",
         "expected_km": [
           4.704,
           4.381
@@ -17646,7 +18082,8 @@
         "spread_km": 0.323
       },
       {
-        "canonical_address": "bender_core|улица чехова|37",
+        "canonical_address": "бендеры||улица чехова|37",
+        "display_address_ru": "улица Чехова (Бендеры)",
         "expected_km": [
           4.518,
           5.028
@@ -17660,7 +18097,8 @@
         "spread_km": 0.51
       },
       {
-        "canonical_address": "bender_core|улица чехова|33",
+        "canonical_address": "бендеры||улица чехова|33",
+        "display_address_ru": "улица Чехова (Бендеры)",
         "expected_km": [
           4.557,
           4.992
@@ -17674,7 +18112,8 @@
         "spread_km": 0.435
       },
       {
-        "canonical_address": "bender_core|улица чехова|35",
+        "canonical_address": "бендеры||улица чехова|35",
+        "display_address_ru": "улица Чехова (Бендеры)",
         "expected_km": [
           4.532,
           5.009
@@ -17688,7 +18127,8 @@
         "spread_km": 0.477
       },
       {
-        "canonical_address": "bender_core|киевская улица|16",
+        "canonical_address": "бендеры||киевская улица|16",
+        "display_address_ru": "Киевская улица",
         "expected_km": [
           4.413,
           4.709
@@ -17702,7 +18142,8 @@
         "spread_km": 0.296
       },
       {
-        "canonical_address": "bender_core|киевская улица|18",
+        "canonical_address": "бендеры||киевская улица|18",
+        "display_address_ru": "Киевская улица",
         "expected_km": [
           4.432,
           4.675
@@ -17716,7 +18157,8 @@
         "spread_km": 0.243
       },
       {
-        "canonical_address": "bender_core|железнодорожная улица|2",
+        "canonical_address": "бендеры||железнодорожная улица|2",
+        "display_address_ru": "Железнодорожная улица",
         "expected_km": [
           4.598,
           5.399
@@ -17730,7 +18172,8 @@
         "spread_km": 0.801
       },
       {
-        "canonical_address": "bender_core|улица няги|13",
+        "canonical_address": "бендеры||улица няги|13",
+        "display_address_ru": "улица Няги",
         "expected_km": [
           2.333,
           2.222
@@ -17744,7 +18187,8 @@
         "spread_km": 0.111
       },
       {
-        "canonical_address": "bender_core|улица няги|7",
+        "canonical_address": "бендеры||улица няги|7",
+        "display_address_ru": "улица Няги",
         "expected_km": [
           2.268,
           2.196
@@ -17758,7 +18202,8 @@
         "spread_km": 0.072
       },
       {
-        "canonical_address": "bender_core|улица толбухина|20",
+        "canonical_address": "бендеры||улица толбухина|20",
+        "display_address_ru": "улица Толбухина",
         "expected_km": [
           2.074,
           2.482
@@ -17772,7 +18217,8 @@
         "spread_km": 0.408
       },
       {
-        "canonical_address": "bender_core|песчанная улица|155",
+        "canonical_address": "бендеры||песчанная улица|155",
+        "display_address_ru": "Песчанная улица",
         "expected_km": [
           2.22,
           1.861
@@ -17786,7 +18232,8 @@
         "spread_km": 0.359
       },
       {
-        "canonical_address": "bender_core|фруктовая улица|1",
+        "canonical_address": "бендеры||фруктовая улица|1",
+        "display_address_ru": "Фруктовая улица",
         "expected_km": [
           2.552,
           2.638
@@ -17800,7 +18247,8 @@
         "spread_km": 0.086
       },
       {
-        "canonical_address": "bender_core|школьный переулок|6",
+        "canonical_address": "бендеры||школьный переулок|6",
+        "display_address_ru": "Школьный переулок (Бендеры)",
         "expected_km": [
           2.513,
           2.763
@@ -17814,7 +18262,8 @@
         "spread_km": 0.25
       },
       {
-        "canonical_address": "bender_core|улица бориса главана|26",
+        "canonical_address": "бендеры||улица бориса главана|26",
+        "display_address_ru": "улица Бориса Главана (Бендеры)",
         "expected_km": [
           4.657,
           4.424
@@ -17828,7 +18277,8 @@
         "spread_km": 0.233
       },
       {
-        "canonical_address": "bender_core|улица бориса главана|28",
+        "canonical_address": "бендеры||улица бориса главана|28",
+        "display_address_ru": "улица Бориса Главана (Бендеры)",
         "expected_km": [
           4.637,
           4.439
@@ -17842,7 +18292,8 @@
         "spread_km": 0.198
       },
       {
-        "canonical_address": "bender_core|улица бориса главана|30",
+        "canonical_address": "бендеры||улица бориса главана|30",
+        "display_address_ru": "улица Бориса Главана (Бендеры)",
         "expected_km": [
           4.617,
           4.457
@@ -17856,7 +18307,8 @@
         "spread_km": 0.16
       },
       {
-        "canonical_address": "bender_core|тупик некрасова|12",
+        "canonical_address": "бендеры||тупик некрасова|12",
+        "display_address_ru": "тупик Некрасова",
         "expected_km": [
           2.686,
           2.766
@@ -17870,7 +18322,8 @@
         "spread_km": 0.08
       },
       {
-        "canonical_address": "bender_core|загородная улица|16",
+        "canonical_address": "бендеры||загородная улица|16",
+        "display_address_ru": "Загородная улица",
         "expected_km": [
           2.727,
           3.297
@@ -17884,7 +18337,8 @@
         "spread_km": 0.57
       },
       {
-        "canonical_address": "bender_core|октябрьская улица|7",
+        "canonical_address": "бендеры||октябрьская улица|7",
+        "display_address_ru": "Октябрьская улица (Бендеры)",
         "expected_km": [
           2.606,
           2.462
@@ -17898,7 +18352,8 @@
         "spread_km": 0.144
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|22",
+        "canonical_address": "бендеры||индустриальная улица|22",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           3.45,
           4.377
@@ -17912,7 +18367,8 @@
         "spread_km": 0.927
       },
       {
-        "canonical_address": "bender_core|улица бориса главана|1",
+        "canonical_address": "бендеры||улица бориса главана|1",
+        "display_address_ru": "улица Бориса Главана (Бендеры)",
         "expected_km": [
           4.344,
           4.66
@@ -17926,7 +18382,8 @@
         "spread_km": 0.316
       },
       {
-        "canonical_address": "bender_core|переулок лермонтова|61",
+        "canonical_address": "бендеры||переулок лермонтова|61",
+        "display_address_ru": "переулок Лермонтова",
         "expected_km": [
           4.956,
           5.121
@@ -17940,7 +18397,8 @@
         "spread_km": 0.165
       },
       {
-        "canonical_address": "bender_core|переулок лермонтова|64",
+        "canonical_address": "бендеры||переулок лермонтова|64",
+        "display_address_ru": "переулок Лермонтова",
         "expected_km": [
           4.998,
           5.078
@@ -17954,7 +18412,8 @@
         "spread_km": 0.08
       },
       {
-        "canonical_address": "bender_core|переулок лермонтова|66",
+        "canonical_address": "бендеры||переулок лермонтова|66",
+        "display_address_ru": "переулок Лермонтова",
         "expected_km": [
           4.995,
           5.078
@@ -17968,7 +18427,8 @@
         "spread_km": 0.083
       },
       {
-        "canonical_address": "bender_core|переулок лермонтова|17",
+        "canonical_address": "бендеры||переулок лермонтова|17",
+        "display_address_ru": "переулок Лермонтова",
         "expected_km": [
           5.14,
           5.265
@@ -17982,7 +18442,8 @@
         "spread_km": 0.125
       },
       {
-        "canonical_address": "bender_core|улица спартака|17",
+        "canonical_address": "бендеры||улица спартака|17",
+        "display_address_ru": "улица Спартака",
         "expected_km": [
           5.096,
           5.19
@@ -17996,7 +18457,8 @@
         "spread_km": 0.094
       },
       {
-        "canonical_address": "bender_core|улица спартака|19",
+        "canonical_address": "бендеры||улица спартака|19",
+        "display_address_ru": "улица Спартака",
         "expected_km": [
           5.091,
           5.19
@@ -18010,7 +18472,8 @@
         "spread_km": 0.099
       },
       {
-        "canonical_address": "bender_core|железнодорожная улица|32",
+        "canonical_address": "бендеры||железнодорожная улица|32",
+        "display_address_ru": "Железнодорожная улица",
         "expected_km": [
           5.236,
           4.501
@@ -18024,7 +18487,8 @@
         "spread_km": 0.735
       },
       {
-        "canonical_address": "bender_core|улица спартака|30",
+        "canonical_address": "бендеры||улица спартака|30",
+        "display_address_ru": "улица Спартака",
         "expected_km": [
           5.23,
           5.311
@@ -18038,7 +18502,8 @@
         "spread_km": 0.081
       },
       {
-        "canonical_address": "bender_core|улица спартака|28",
+        "canonical_address": "бендеры||улица спартака|28",
+        "display_address_ru": "улица Спартака",
         "expected_km": [
           5.231,
           5.33
@@ -18052,7 +18517,8 @@
         "spread_km": 0.099
       },
       {
-        "canonical_address": "bender_core|улица осипенко|2",
+        "canonical_address": "бендеры||улица осипенко|2",
+        "display_address_ru": "улица Осипенко",
         "expected_km": [
           5.272,
           5.374,
@@ -18068,7 +18534,8 @@
         "spread_km": 0.208
       },
       {
-        "canonical_address": "bender_core|индустриальная улица|1",
+        "canonical_address": "бендеры||индустриальная улица|1",
+        "display_address_ru": "Индустриальная улица",
         "expected_km": [
           2.932,
           4.739
@@ -18082,7 +18549,8 @@
         "spread_km": 1.807
       },
       {
-        "canonical_address": "bender_core|улица матросова|10",
+        "canonical_address": "бендеры||улица матросова|10",
+        "display_address_ru": "улица Матросова",
         "expected_km": [
           5.415,
           5.502
@@ -18096,7 +18564,8 @@
         "spread_km": 0.087
       },
       {
-        "canonical_address": "bender_core|бельцкая улица|39",
+        "canonical_address": "бендеры||бельцкая улица|39",
+        "display_address_ru": "Бельцкая улица",
         "expected_km": [
           4.156,
           3.69
@@ -18110,7 +18579,8 @@
         "spread_km": 0.466
       },
       {
-        "canonical_address": "bender_core|улица титова|2",
+        "canonical_address": "бендеры||улица титова|2",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.46,
           3.777
@@ -18124,7 +18594,8 @@
         "spread_km": 0.317
       },
       {
-        "canonical_address": "bender_core|улица зои космодемьянской|22",
+        "canonical_address": "бендеры||улица зои космодемьянской|22",
+        "display_address_ru": "улица Зои Космодемьянской",
         "expected_km": [
           3.497,
           3.981
@@ -18138,7 +18609,8 @@
         "spread_km": 0.484
       },
       {
-        "canonical_address": "bender_core|улица титова|63",
+        "canonical_address": "бендеры||улица титова|63",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.318,
           4.11
@@ -18152,7 +18624,8 @@
         "spread_km": 0.792
       },
       {
-        "canonical_address": "bender_core|улица титова|65",
+        "canonical_address": "бендеры||улица титова|65",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.304,
           4.137
@@ -18166,7 +18639,8 @@
         "spread_km": 0.833
       },
       {
-        "canonical_address": "bender_core|улица титова|71",
+        "canonical_address": "бендеры||улица титова|71",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           3.236,
           4.219
@@ -18180,7 +18654,8 @@
         "spread_km": 0.983
       },
       {
-        "canonical_address": "bender_core|улица разина|6",
+        "canonical_address": "бендеры||улица разина|6",
+        "display_address_ru": "улица Разина",
         "expected_km": [
           2.291,
           2.352
@@ -18194,7 +18669,8 @@
         "spread_km": 0.061
       },
       {
-        "canonical_address": "bender_core|улица разина|16",
+        "canonical_address": "бендеры||улица разина|16",
+        "display_address_ru": "улица Разина",
         "expected_km": [
           2.442,
           2.618
@@ -18208,7 +18684,8 @@
         "spread_km": 0.176
       },
       {
-        "canonical_address": "bender_lipcani|колхозный переулок|2",
+        "canonical_address": "бендеры||колхозный переулок|2",
+        "display_address_ru": "Колхозный переулок",
         "expected_km": [
           3.032,
           3.175
@@ -18222,7 +18699,8 @@
         "spread_km": 0.143
       },
       {
-        "canonical_address": "bender_core|улица советской армии|12",
+        "canonical_address": "бендеры||улица советской армии|12",
+        "display_address_ru": "улица Советской Армии",
         "expected_km": [
           3.095,
           2.832
@@ -18236,7 +18714,8 @@
         "spread_km": 0.263
       },
       {
-        "canonical_address": "bender_core|улица советской армии|10",
+        "canonical_address": "бендеры||улица советской армии|10",
+        "display_address_ru": "улица Советской Армии",
         "expected_km": [
           3.094,
           2.815
@@ -18250,7 +18729,8 @@
         "spread_km": 0.279
       },
       {
-        "canonical_address": "bender_core|улица мира|4",
+        "canonical_address": "бендеры||улица мира|4",
+        "display_address_ru": "улица Мира (Бендеры)",
         "expected_km": [
           2.71,
           2.78
@@ -18264,7 +18744,8 @@
         "spread_km": 0.07
       },
       {
-        "canonical_address": "bender_core|улица мира|2",
+        "canonical_address": "бендеры||улица мира|2",
+        "display_address_ru": "улица Мира (Бендеры)",
         "expected_km": [
           2.755,
           2.649
@@ -18278,7 +18759,8 @@
         "spread_km": 0.106
       },
       {
-        "canonical_address": "bender_core|улица куйбышева|36",
+        "canonical_address": "бендеры||улица куйбышева|36",
+        "display_address_ru": "улица Куйбышева",
         "expected_km": [
           4.611,
           4.978
@@ -18292,7 +18774,8 @@
         "spread_km": 0.367
       },
       {
-        "canonical_address": "bender_core|переулок строителей|7",
+        "canonical_address": "бендеры||переулок строителей|7",
+        "display_address_ru": "переулок Строителей",
         "expected_km": [
           4.696,
           4.554
@@ -18306,7 +18789,8 @@
         "spread_km": 0.142
       },
       {
-        "canonical_address": "bender_core|переулок строителей|5",
+        "canonical_address": "бендеры||переулок строителей|5",
+        "display_address_ru": "переулок Строителей",
         "expected_km": [
           4.712,
           4.552
@@ -18320,7 +18804,8 @@
         "spread_km": 0.16
       },
       {
-        "canonical_address": "bender_core|каховская улица|2",
+        "canonical_address": "бендеры||каховская улица|2",
+        "display_address_ru": "Каховская улица",
         "expected_km": [
           4.881,
           4.775
@@ -18334,7 +18819,8 @@
         "spread_km": 0.106
       },
       {
-        "canonical_address": "bender_core|улица титова|69",
+        "canonical_address": "бендеры||улица титова|69",
+        "display_address_ru": "улица Титова (Бендеры, другой район)",
         "expected_km": [
           4.194,
           3.258
@@ -18348,7 +18834,8 @@
         "spread_km": 0.936
       },
       {
-        "canonical_address": "bender_core|улица мичурина|34",
+        "canonical_address": "бендеры||улица мичурина|34",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.119,
           3.462
@@ -18362,7 +18849,8 @@
         "spread_km": 0.343
       },
       {
-        "canonical_address": "bender_core|улица мичурина|32",
+        "canonical_address": "бендеры||улица мичурина|32",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.104,
           3.452
@@ -18376,7 +18864,8 @@
         "spread_km": 0.348
       },
       {
-        "canonical_address": "bender_core|улица мичурина|30",
+        "canonical_address": "бендеры||улица мичурина|30",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.089,
           3.436
@@ -18390,7 +18879,8 @@
         "spread_km": 0.347
       },
       {
-        "canonical_address": "bender_core|улица мичурина|28",
+        "canonical_address": "бендеры||улица мичурина|28",
+        "display_address_ru": "улица Мичурина (Бендеры)",
         "expected_km": [
           3.072,
           3.423
@@ -18404,7 +18894,8 @@
         "spread_km": 0.351
       },
       {
-        "canonical_address": "bender_core|переулок пирогова|6",
+        "canonical_address": "бендеры||переулок пирогова|6",
+        "display_address_ru": "переулок Пирогова",
         "expected_km": [
           3.447,
           3.501
@@ -18418,7 +18909,8 @@
         "spread_km": 0.054
       },
       {
-        "canonical_address": "bender_core|улица менделеева|3",
+        "canonical_address": "бендеры||улица менделеева|3",
+        "display_address_ru": "улица Менделеева",
         "expected_km": [
           3.606,
           3.691
@@ -18432,7 +18924,8 @@
         "spread_km": 0.085
       },
       {
-        "canonical_address": "bender_core|улица асаке|2",
+        "canonical_address": "бендеры||улица асаке|2",
+        "display_address_ru": "улица Асаке",
         "expected_km": [
           3.941,
           3.824
@@ -18446,7 +18939,8 @@
         "spread_km": 0.117
       },
       {
-        "canonical_address": "bender_core|переулок текстильщиков|10",
+        "canonical_address": "бендеры||переулок текстильщиков|10",
+        "display_address_ru": "переулок Текстильщиков",
         "expected_km": [
           4.884,
           4.728
@@ -18460,7 +18954,8 @@
         "spread_km": 0.156
       },
       {
-        "canonical_address": "bender_core|гвардейская улица|18",
+        "canonical_address": "бендеры||гвардейская улица|18",
+        "display_address_ru": "Гвардейская улица",
         "expected_km": [
           4.822,
           4.737
@@ -18474,7 +18969,8 @@
         "spread_km": 0.085
       },
       {
-        "canonical_address": "bender_core|переулок текстильщиков|8",
+        "canonical_address": "бендеры||переулок текстильщиков|8",
+        "display_address_ru": "переулок Текстильщиков",
         "expected_km": [
           4.886,
           4.744
@@ -18488,7 +18984,8 @@
         "spread_km": 0.142
       },
       {
-        "canonical_address": "bender_core|улица 50 лет влксм|6а",
+        "canonical_address": "бендеры||улица 50 лет влксм|6а",
+        "display_address_ru": "улица 50 лет ВЛКСМ",
         "expected_km": [
           5.555,
           5.906
@@ -18502,7 +18999,8 @@
         "spread_km": 0.351
       },
       {
-        "canonical_address": "bender_lipcani|красивая улица|18",
+        "canonical_address": "бендеры||красивая улица|18",
+        "display_address_ru": "Красивая улица",
         "expected_km": [
           3.491,
           3.282
@@ -18516,7 +19014,8 @@
         "spread_km": 0.209
       },
       {
-        "canonical_address": "bender_lipcani|1-й переулок кутузова|1",
+        "canonical_address": "бендеры||1-й переулок кутузова|1",
+        "display_address_ru": "1-й переулок Кутузова",
         "expected_km": [
           3.866,
           3.74
@@ -18530,7 +19029,8 @@
         "spread_km": 0.126
       },
       {
-        "canonical_address": "bender_lipcani|подольская улица|12",
+        "canonical_address": "бендеры||подольская улица|12",
+        "display_address_ru": "Подольская улица",
         "expected_km": [
           3.192,
           3.38

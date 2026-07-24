@@ -46,6 +46,11 @@ const REASON_RU = {
   outside_owner_named_limit: "вне предела владельца",
 };
 
+const SETTLEMENT_OF = {
+  bender_core: "Бендеры", bender_lipcani: "Бендеры, Липканы",
+  giska: "Гиска", parkany: "Парканы", protyagailovka: "Протягайловка",
+};
+
 const map = L.map("map", { zoomControl: true }).setView([START.lat, START.lon], START.zoom);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -129,6 +134,7 @@ function streetPopup(p) {
   return `<div class="popup">
     <div class="popup-title">${esc(p.ru_display || p.name)} ${badge}</div>
     <table>
+      <tr><td class="k">населённый пункт</td><td>${esc(SETTLEMENT_OF[p.settlement] || "—")}</td></tr>
       <tr><td class="k">исходное</td><td>${esc(p.name)}</td></tr>
       ${fieldRows(p, ["name:ru", "name:ro", "official_name", "alt_name", "old_name"])}
       <tr><td class="k">RU источник</td><td>${esc(p.ru_source)}</td></tr>
@@ -266,7 +272,22 @@ function setupSearch() {
       return [p.name, p["name:ru"], p.ru_display, p["name:ro"]]
         .some((v) => v && String(v).toLowerCase().includes(q));
     });
-    out.textContent = `Найдено улиц (сегментов): ${matches.length}`;
+    // Same-named streets in different settlements are DIFFERENT streets: list
+    // each place separately so they cannot be confused.
+    const places = new Map();
+    matches.forEach((f) => {
+      const p = f.properties;
+      const place = p.settlement_ru || SETTLEMENT_OF[p.settlement] || "—";
+      const key = `${p.ru_display || p.name}||${place}`;
+      places.set(key, (places.get(key) || 0) + 1);
+    });
+    const variants = [...places.entries()].sort()
+      .map(([key, n]) => {
+        const [street, place] = key.split("||");
+        return `<div class="variant"><b>${esc(street)}</b><br>`
+          + `<span class="muted small">${esc(place)} · ${n} сегм.</span></div>`;
+      }).join("");
+    out.innerHTML = `Найдено улиц (сегментов): ${matches.length}` + variants;
     if (!matches.length) return;
     const hl = L.geoJSON({ type: "FeatureCollection", features: matches }, {
       style: () => ({ color: "#111827", weight: 5, opacity: 1 }),

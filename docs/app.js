@@ -454,20 +454,19 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(
         `<div class="popup"><b>Маршрут «Северный»</b><br>${esc(f.properties.name)}</div>`),
     });
-    const SEV_COLOR = { strong: "#0e9488", moderate: "#f59e0b", weak: "#9ca3af" };
-    overlays["Северный — жилые кандидаты"] = L.geoJSON(severnyArea, {
-      style: (f) => ({ color: SEV_COLOR[f.properties.evidence_strength] || "#9ca3af",
-        weight: 2, fillColor: SEV_COLOR[f.properties.evidence_strength] || "#9ca3af",
+    overlays["Северный — жилой контур (кандидат)"] = L.geoJSON(severnyArea, {
+      style: () => ({ color: "#0e9488", weight: 2, fillColor: "#0e9488",
         fillOpacity: 0.35 }),
       onEachFeature: (f, l) => { const p = f.properties; l.bindPopup(
-        `<div class="popup"><div class="popup-title">Северный · кластер ${p.cluster_id} `
-        + `<span class="badge review">${esc(p.evidence_strength)}</span></div><table>`
-        + `<tr><td class="k">статус</td><td>${esc(p.status)}</td></tr>`
+        `<div class="popup"><div class="popup-title">${esc(p.district_label_ru)} `
+        + `<span class="badge review">owner review</span></div><table>`
+        + `<tr><td class="k">населённый пункт</td><td>${esc(p.settlement_ru)}</td></tr>`
+        + `<tr><td class="k">район</td><td>${esc(p.district_ru)}</td></tr>`
         + `<tr><td class="k">зданий</td><td>${p.building_count}</td></tr>`
         + `<tr><td class="k">адресов</td><td>${p.confirmed_address_count}</td></tr>`
         + `<tr><td class="k">квартирных</td><td>${p.apartment_building_count}</td></tr>`
-        + `<tr><td class="k">до Варницы</td><td>${p.separation_from_varnita_m} м</td></tr>`
-        + `<tr><td class="k">в Варнице</td><td>${p.buildings_inside_varnita}</td></tr>`
+        + `<tr><td class="k">севернее Варницы</td><td>${p.north_of_varnita_village ? "да" : "нет"}</td></tr>`
+        + `<tr><td class="k">формат</td><td>${esc(p.official_address_format)}</td></tr>`
         + `</table><p class="muted small">${esc(p.note)}</p></div>`); },
     });
     overlays["Варница — исключена (транзит)"] = L.geoJSON(varnita, {

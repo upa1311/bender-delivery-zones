@@ -1,58 +1,54 @@
-# Stage 08 — Северный: жилые кандидаты
+# Stage 08 — Северный (исправлено, полный PBF)
 
-- Сгенерировано (UTC): `2026-07-24T04:52:37Z`
-- resolved: **False** · Severny candidate residential footprints — owner_review_required
+- Сгенерировано (UTC): `2026-07-24T05:11:30Z`
+- resolved: **False** · Real Северный resolved from full PBF — owner_review_required
 - decided_k: **4** · цены: **False** · Direct: **False**
 
-## Профиль по радиусам (от терминала маршрутов)
+## Исправление регрессии
 
-| радиус | жилых зданий | адресов | квартирных | внутри Варницы |
-|---|---:|---:|---:|---:|
-| 300 м | 216 | 131 | 9 | 0 |
-| 500 м | 415 | 227 | 15 | 0 |
-| 800 м | 538 | 267 | 15 | 0 |
+- прежний обрезанный терминал: {'lon': 29.480231, 'lat': 46.854251}
+- реальный терминал маршрутов: {'lon': 29.464, 'lat': 46.890752}
+- узел place=suburb «Северный»: {'id': 5135654201, 'lon': 29.472287, 'lat': 46.881852}
+- причина: previous run read only city-extract-12463379; routes and the enclave lie outside it
 
-## Кандидатные жилые кластеры
+## Реальный жилой контур Северного
 
-| # | зданий | адресов | кв. | улиц | POI | площадь м² | от терминала м | до Варницы м | в Варнице | сила |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | 320 | 190 | 15 | 15 | 4 | 494291 | 0 | 174 | 0 | strong |
-| 2 | 75 | 50 | 0 | 5 | 0 | 147792 | 0 | 28 | 0 | strong |
-| 3 | 55 | 10 | 0 | 2 | 0 | 102714 | 112 | 6 | 0 | strong |
-| 4 | 19 | 5 | 0 | 1 | 2 | 50831 | 575 | 368 | 0 | moderate |
-| 5 | 13 | 3 | 0 | 1 | 0 | 43812 | 620 | 902 | 0 | weak |
-| 6 | 8 | 3 | 0 | 1 | 0 | 9673 | 537 | 961 | 0 | weak |
-| 7 | 7 | 3 | 0 | 1 | 0 | 10028 | 81 | 219 | 0 | weak |
-| 8 | 5 | 0 | 0 | 0 | 0 | 6988 | 683 | 1035 | 0 | weak |
+- зданий: **59** · адресов: **7** · квартирных: **23**
+- улицы: Strada Academician Iacob Bumbu, Strada Dimitrie Cantemir, Strada Tighina, Северная улица
+- официальный формат: `Бендеры, микрорайон Северный, дом N` (примеры: Бендеры, микрорайон Северный, дом 13, Бендеры, микрорайон Северный, дом 19A, Бендеры, микрорайон Северный, дом 21, Бендеры, микрорайон Северный, дом 21/1)
+- севернее села Варница: **True** · отсоединён: **True**
 
-Сильных кандидатов: **3** (id [1, 2, 3]). Победитель не выбран.
+## Overlap-отчёт (Липканы / уже обслуживается)
 
-## Доказательство исключения Варницы
+- уже в service area: **0**
+- уже как Липканы: **0**
+- на улицах Липкан: **0**
+- новые здания Северного: **59**
+- новые адреса Северного: **7**
 
-- обслуживаемых адресов внутри Варницы: **0**
-- жилых зданий Варницы включено: **0**
-- Северный-кандидатов внутри Варницы: **0** (помечены, не классифицированы как Северный без проверки)
-- доказано: **True** — Varnița stays excluded from service. Its roads may be used by OSRM only as transit. Any Северный candidate building falling inside the Varnița polygon is flagged, never auto-classified as Северный.
+Прежние кластеры (n=8) — `rejected_false_candidates_lipcani` (Липканы, не Северный).
 
-## Сценарии зон
+## Проверки
 
-- **Scenario A**: keep current K=4 edges, append Северный to Zone 4 where beyond the current maximum. Текущие границы K=4: [2.424, 4.076, 5.577, 9.692] км.
+- терминал ≠ обрезанная точка 46.854251: **True**
+- контур севернее Варницы (село): **True**
+- контур пересекает село Варница: **False**
+- central→Северный доезжает: **True** (8.135 км)
+- узел внутри admin-relation Варницы: **True** — The OSM admin_level=8 Varnița relation geographically encloses the Bender Северный enclave. Северный is operationally Бендеры; exclusion is enforced against the Varnița VILLAGE built-up area, not the admin claim.
 
-| кластер | expected км (центр) | зона A | за макс. |
-|---:|---:|---:|---|
-| 1 | 3.064 | Zone 2 | нет |
-| 2 | 3.714 | Zone 2 | нет |
-| 3 | 4.061 | Zone 2 | нет |
-| 4 | 3.189 | Zone 2 | нет |
-| 5 | 2.829 | Zone 2 | нет |
-| 6 | 3.375 | Zone 2 | нет |
-| 7 | 3.513 | Zone 2 | нет |
-| 8 | 3.05 | Zone 2 | нет |
+## Варница — исключение
 
-- **Scenario B** (превью, не production): пересчёт K=4 с Северным. Новые границы [2.773, 4.526, 6.126, 9.686] км; существующих адресов меняют зону: **5162** из 22120; добавлено адресов Северного 264.
+- обслуживаемых адресов внутри села Варница: **0**
+- Северный-кандидатов внутри села Варница: **0**
+
+## Сценарии
+
+- **Scenario A**: keep K=4 edges; extend Zone 4 only if beyond current maximum. expected_km(центр) = **7.757**, зона **4**, за макс.: **False**.
+- маршрут через Варницу: **True**
+- **Scenario B** (превью): границы [2.975, 4.875, 6.426, 9.686] км; units существующих 22120 (адресов 9777); меняют зону **8863**; добавлено Северного — units 59, адресов 7 (units и адреса отдельно).
 
 ## Требуются решения владельца
 
-- Approve or reject each Северный candidate residential footprint.
-- Confirm whether Scenario A (append to Zone 4) or a later Scenario-B recompute is acceptable.
-- Confirm the Varnița exclusion (0 serviceable addresses inside).
+- Approve or reject the Северный candidate residential footprint.
+- Confirm Scenario A (extend Zone 4 if beyond max) vs a Scenario-B recompute.
+- Confirm the enclave handling: Северный served as Бендеры though it lies within the OSM admin Varnița relation.

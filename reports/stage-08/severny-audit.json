@@ -70,7 +70,7 @@
       "Северная улица"
     ]
   },
-  "generated_at": "2026-07-24T05:28:31Z",
+  "generated_at": "2026-07-24T05:42:01Z",
   "message": "Real Северный footprint + per-address zones — owner_review_required",
   "overlap_report": {
     "candidate_addresses_already_classified_as_lipcani": 0,
@@ -105,6 +105,16 @@
       "min": 6.584,
       "p50": 7.508,
       "p90": 7.942
+    },
+    "readiness": {
+      "address_catalog_ready": false,
+      "direct_export_ready": false,
+      "geometry_ready": true,
+      "missing_requirement": "verified mapping of микрорайон Северный houses to coordinates",
+      "osm_housenumber_without_street": 0,
+      "unaddressed_delivery_units": 50,
+      "verified_osm_addresses": 7,
+      "zone_assignment_ready": true
     },
     "units_per_zone": {
       "1": 0,

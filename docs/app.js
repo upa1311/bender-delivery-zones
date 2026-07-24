@@ -464,12 +464,13 @@ async function init() {
         + `<span class="badge review">owner review</span></div><table>`
         + `<tr><td class="k">населённый пункт</td><td>${esc(p.settlement_ru)}</td></tr>`
         + `<tr><td class="k">район</td><td>${esc(p.district_ru)}</td></tr>`
-        + `<tr><td class="k">зданий</td><td>${p.building_count}</td></tr>`
-        + `<tr><td class="k">адресов</td><td>${p.confirmed_address_count}</td></tr>`
+        + `<tr><td class="k">зданий включено</td><td>${p.final_included_buildings}</td></tr>`
+        + `<tr><td class="k">адресов OSM</td><td>${p.confirmed_address_count}</td></tr>`
         + `<tr><td class="k">квартирных</td><td>${p.apartment_building_count}</td></tr>`
         + `<tr><td class="k">севернее Варницы</td><td>${p.north_of_varnita_village ? "да" : "нет"}</td></tr>`
-        + `<tr><td class="k">формат</td><td>${esc(p.official_address_format)}</td></tr>`
-        + `</table><p class="muted small">${esc(p.note)}</p></div>`); },
+        + `</table>`
+        + `<p class="muted small">Нумерация 1–105 не подтверждена для импорта</p>`
+        + `<p class="muted small">${esc(p.note)}</p></div>`); },
     });
     // Varnița: the admin claim is a REFERENCE LINE (it encloses the Bender
     // Северный enclave, so it must never be filled); only the village built-up

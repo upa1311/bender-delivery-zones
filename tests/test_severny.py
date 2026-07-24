@@ -59,11 +59,10 @@ def test_known_lipcani_streets_are_not_in_severny(repo_root):
 
 # --- (1) Varnița: admin reference vs excluded village -----------------------
 
-def test_varnita_admin_reference_is_a_line_not_a_fill(repo_root):
+def test_varnita_admin_reference_carries_no_service_meaning(repo_root):
     fc = _json(repo_root, "docs/data/varnita-admin-reference.geojson")
     p = fc["features"][0]["properties"]
     assert p["kind"] == "admin_reference"
-    assert p["filled"] is False
     assert "service_status" not in p, "the admin claim must carry no service meaning"
 
 
@@ -239,3 +238,93 @@ def test_severny_not_declared_added(repo_root):
     assert fc["chosen"] is False
     assert fc["resolution_status"] == "candidate_pending_owner_review"
     assert fc["features"][0]["properties"]["resolution"] == "owner_review_required"
+
+
+# --- final export cleanup ----------------------------------------------------
+
+def test_varnita_admin_reference_is_line_geometry(repo_root):
+    """The admin claim must be impossible to render as a filled area."""
+    fc = _json(repo_root, "docs/data/varnita-admin-reference.geojson")
+    for f in fc["features"]:
+        assert f["geometry"]["type"] in ("LineString", "MultiLineString")
+        assert f["properties"]["geometry_kind"] == "boundary_line"
+        assert "filled" not in f["properties"]
+
+
+def test_severny_popup_uses_existing_fields(repo_root):
+    """app.js must not read fields the footprint no longer publishes."""
+    app = (repo_root / "docs/app.js").read_text(encoding="utf-8")
+    block = app[app.index("Северный — жилой контур"):]
+    block = block[:block.index("overlays[", 10)] if "overlays[" in block[10:] else block
+    assert "p.building_count" not in block
+    assert "p.official_address_format" not in block
+    for field in ("final_included_buildings", "confirmed_address_count",
+                  "apartment_building_count"):
+        assert field in block, field
+    assert "Нумерация 1–105 не подтверждена для импорта" in app
+    props = _json(repo_root, "docs/data/severny-service-area.geojson")[
+        "features"][0]["properties"]
+    for field in ("final_included_buildings", "confirmed_address_count",
+                  "apartment_building_count", "north_of_varnita_village", "note"):
+        assert field in props, f"popup reads {field} but the data lacks it"
+
+
+def test_units_have_stable_identity(repo_root):
+    units = _units(repo_root)
+    seen = set()
+    for u in units:
+        for field in ("uid", "osm_type", "osm_id", "settlement_ru", "district_ru",
+                      "address_status", "source_dataset_version"):
+            assert u[field], field
+        assert u["osm_type"] in ("n", "w")
+        assert u["uid"] == f"{u['osm_type']}{u['osm_id']}"
+        assert u["uid"] not in seen, "unit ids must be unique"
+        seen.add(u["uid"])
+        assert u["settlement_ru"] == "Бендеры"
+        assert u["district_ru"] == "Северный"
+        assert u["source_dataset_version"].startswith("moldova-pbf:")
+
+
+def test_canonical_key_only_for_verified_osm_addresses(repo_root):
+    for u in _units(repo_root):
+        if u["address_status"] == "verified_osm_address":
+            assert u["canonical_address_key"], "verified address needs a canonical key"
+            assert u["housenumber"] and u["street_ru"]
+        else:
+            assert not u["canonical_address_key"], \
+                "unverified/unaddressed units must not get a canonical key"
+
+
+def test_no_canonical_keys_invented_for_external_house_numbers(repo_root):
+    keys = {u["canonical_address_key"] for u in _units(repo_root)
+            if u["canonical_address_key"]}
+    ref = _audit(repo_root)["external_address_reference"]
+    for hn in ref["external_example_house_numbers"]:
+        bogus = f"бендеры|северный|микрорайон северный|{hn.lower()}"
+        assert bogus not in keys, "external 1-105 houses must not become addresses"
+
+
+def test_readiness_is_published_explicitly(repo_root):
+    r = _audit(repo_root)["per_unit_report"]["readiness"]
+    assert r["geometry_ready"] is True
+    assert r["zone_assignment_ready"] is True
+    assert r["direct_export_ready"] is False
+    assert r["address_catalog_ready"] is False
+    assert r["verified_osm_addresses"] == 7
+    assert r["unaddressed_delivery_units"] == 50
+    assert "verified mapping" in r["missing_requirement"]
+
+
+def test_readiness_matches_the_unit_data(repo_root):
+    r = _audit(repo_root)["per_unit_report"]["readiness"]
+    units = _units(repo_root)
+    verified = sum(1 for u in units if u["address_status"] == "verified_osm_address")
+    unaddressed = sum(1 for u in units
+                      if u["address_status"] == "unaddressed_delivery_unit")
+    assert r["verified_osm_addresses"] == verified
+    assert r["unaddressed_delivery_units"] == unaddressed
+
+
+def test_all_severny_units_remain_in_zone_4(repo_root):
+    for u in _units(repo_root):
+        assert u["assigned_zone"] == "4"

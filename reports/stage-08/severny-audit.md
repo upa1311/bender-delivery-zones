@@ -1,6 +1,6 @@
 # Stage 08 — Северный (финальный контур + адресные зоны)
 
-- Сгенерировано (UTC): `2026-07-24T05:28:31Z`
+- Сгенерировано (UTC): `2026-07-24T05:42:01Z`
 - resolved: **False** · Real Северный footprint + per-address zones — owner_review_required
 - decided_k: **4** · направление: **Scenario A (individual distances, Zone 4)** · цены: **False** · Direct: **False**
 
@@ -36,6 +36,19 @@
 - units по зонам: {1: 0, 2: 0, 3: 0, 4: 57}
 - адресов по зонам: {1: 0, 2: 0, 3: 0, 4: 7}
 - expected_km: min 6.584 / p50 7.508 / p90 7.942 / max 8.385
+
+## Готовность
+
+| признак | значение |
+|---|---|
+| `geometry_ready` | True |
+| `zone_assignment_ready` | True |
+| `direct_export_ready` | False |
+| `address_catalog_ready` | False |
+| `verified_osm_addresses` | 7 |
+| `osm_housenumber_without_street` | 0 |
+| `unaddressed_delivery_units` | 50 |
+| `missing_requirement` | verified mapping of микрорайон Северный houses to coordinates |
 
 ## Сценарии
 

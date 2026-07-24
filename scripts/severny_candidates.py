@@ -36,7 +36,7 @@ from shapely.geometry import LineString, Point, Polygon, mapping, shape
 from shapely.ops import unary_union
 
 from bender_zones import jsonutil
-from bender_zones.address import full_address_ru
+from bender_zones.address import canonical_address_key, full_address_ru
 from bender_zones.bands import (
     assign_band,
     band_edges,
@@ -52,6 +52,7 @@ from bender_zones.demand import (
     tier_weight,
 )
 from bender_zones.extract import extract_boundary, osmium_tool_path
+from bender_zones.manifest import find_latest_manifest
 from bender_zones.normalize import normalize_text
 from bender_zones.osrm import OsrmClient
 from bender_zones.service_area import classify_road
@@ -238,7 +239,8 @@ def _load_fabric(work_pbf, proj):
             if b is not None and classify_building(t) in (CONFIRMED_RESIDENTIAL,
                                                           PROBABLE_RESIDENTIAL):
                 res.append(_rec((obj.lon, obj.lat),
-                                Point(*proj.to_m(obj.lon, obj.lat)).buffer(7), t))
+                                Point(*proj.to_m(obj.lon, obj.lat)).buffer(7), t,
+                                "n", obj.id))
             continue
         if kind == "w":
             cs = [(nd.lon, nd.lat) for nd in obj.nodes if nd.location.valid()]
@@ -248,7 +250,7 @@ def _load_fabric(work_pbf, proj):
                 mp = Polygon([proj.to_m(x, y) for x, y in cs])
                 if mp.is_valid and mp.area > 0:
                     cen = mp.centroid
-                    res.append(_rec(proj.to_deg(cen.x, cen.y), mp, t))
+                    res.append(_rec(proj.to_deg(cen.x, cen.y), mp, t, "w", obj.id))
             if t.get("highway") and t.get("name") and len(cs) >= 2:
                 _c, is_addr, _ = classify_road(t)
                 if is_addr:
@@ -262,8 +264,9 @@ def _load_fabric(work_pbf, proj):
             "severny_node": severny_node}
 
 
-def _rec(lonlat, geom_m, t):
+def _rec(lonlat, geom_m, t, osm_type, osm_id):
     return {"lonlat": (round(lonlat[0], 6), round(lonlat[1], 6)), "geom_m": geom_m,
+            "osm_type": osm_type, "osm_id": osm_id,
             "addr": bool(t.get("addr:housenumber")), "apt": is_apartment_building(t),
             "hn": t.get("addr:housenumber"), "street": t.get("addr:street"),
             "street_norm": normalize_text(t.get("addr:street") or "")}
@@ -366,9 +369,18 @@ def _origins(repo_root):
             for f in fc["features"] if f["properties"]["role"] in ("central", "bam")}
 
 
+def _dataset_version(repo_root):
+    m = find_latest_manifest(repo_root / "data/manifests",
+                             "data/raw/moldova-latest.osm.pbf")
+    if m and m.get("sha256"):
+        return f"moldova-pbf:{m['sha256'][:12]}"
+    return "moldova-pbf:unknown"
+
+
 def _per_unit(repo_root, included, client, village_deg):
     edges = json.loads((repo_root / "docs/data/tariff-band-metrics.json")
                        .read_text("utf-8"))["candidates"]["4"]["upper_edges_km"]
+    dataset_version = _dataset_version(repo_root)
     origins = _origins(repo_root)
     dests = [c["lonlat"] for c in included]
     ckm, cmin = _table(client, [origins["central"]], dests)
@@ -387,7 +399,25 @@ def _per_unit(repo_root, included, client, village_deg):
         through = bool(route and route["geometry"].intersects(village_deg))
         zone = (assign_band(exp, edges) + 1) if exp is not None else None
         weight = tier_weight("A") * (1.0 if c["addr"] else 0.5)
+        # Stable identity: coordinates alone are not an identifier.
+        has_street = bool((c["street"] or "").strip())
+        if c["addr"] and has_street:
+            address_status = "verified_osm_address"
+            canonical = canonical_address_key("Бендеры", c["street"], c["hn"],
+                                              "Северный", district_required=True)
+        elif c["addr"]:
+            address_status = "osm_housenumber_without_street"
+            canonical = None      # incomplete: no canonical key
+        else:
+            address_status = "unaddressed_delivery_unit"
+            canonical = None
         units.append({
+            "uid": f"{c['osm_type']}{c['osm_id']}",
+            "osm_type": c["osm_type"], "osm_id": c["osm_id"],
+            "settlement_ru": "Бендеры", "district_ru": "Северный",
+            "canonical_address_key": canonical or "",
+            "address_status": address_status,
+            "source_dataset_version": dataset_version,
             "lon": c["lonlat"][0], "lat": c["lonlat"][1],
             "unit_type": "addressed_residential_building" if c["addr"]
             else "unaddressed_residential_building",
@@ -409,8 +439,25 @@ def _per_unit(repo_root, included, client, village_deg):
     def pct(p):
         return round(kms[min(int(len(kms) * p / 100), len(kms) - 1)], 3) if kms else None
 
+    verified_addr = sum(1 for u in units
+                        if u["address_status"] == "verified_osm_address")
+    unaddressed = sum(1 for u in units
+                      if u["address_status"] == "unaddressed_delivery_unit")
+    hn_only = sum(1 for u in units
+                  if u["address_status"] == "osm_housenumber_without_street")
     report = {
         "current_k4_edges_km": edges,
+        "readiness": {
+            "geometry_ready": True,
+            "zone_assignment_ready": True,
+            "direct_export_ready": False,
+            "address_catalog_ready": False,
+            "verified_osm_addresses": verified_addr,
+            "osm_housenumber_without_street": hn_only,
+            "unaddressed_delivery_units": unaddressed,
+            "missing_requirement": ("verified mapping of микрорайон Северный houses "
+                                    "to coordinates"),
+        },
         "units_total": len(units),
         "units_reachable": len(reachable_units),
         "unreachable": sum(1 for u in units if not u["reachable"]),
@@ -646,8 +693,10 @@ def _write(repo_root, proj, footprint_deg, included, excluded_iso, comps, empty_
                            f["geometry"]["coordinates"][0]))})
 
     # per-unit CSV + geojson
-    fields = ["lon", "lat", "unit_type", "addressed", "apartment", "housenumber",
-              "street_ru", "central_km", "central_min", "bam_km", "bam_min",
+    fields = ["uid", "osm_type", "osm_id", "settlement_ru", "district_ru",
+              "street_ru", "housenumber", "canonical_address_key", "address_status",
+              "source_dataset_version", "lon", "lat", "unit_type", "addressed",
+              "apartment", "central_km", "central_min", "bam_km", "bam_min",
               "expected_km", "expected_min", "assigned_zone",
               "route_through_varnita_village", "reachable", "weight"]
     with open(data / "severny-delivery-units.csv", "w", encoding="utf-8",
@@ -677,14 +726,17 @@ def _write(repo_root, proj, footprint_deg, included, excluded_iso, comps, empty_
                            {"type": "FeatureCollection", "features": qa})
 
     # (1) Varnița split into admin reference (line) and village (grey fill)
+    # Exported as a LINE, not a polygon: the relation encloses the Bender
+    # Северный enclave, so it must be impossible to render it as a filled area.
+    admin_line = varnita_admin.simplify(0.0002).boundary
     jsonutil.write_compact(data / "varnita-admin-reference.geojson", {
         "type": "FeatureCollection", "features": [{
             "type": "Feature", "properties": {
                 "name": "Варница (админ-граница)", "kind": "admin_reference",
-                "relation": VARNITA_REL, "filled": False,
-                "note": ("Только справочная граница (пунктир). Включает спорную/"
-                         "анклавную территорию, поэтому НЕ заливается.")},
-            "geometry": mapping(varnita_admin.simplify(0.0002))}]})
+                "relation": VARNITA_REL, "geometry_kind": "boundary_line",
+                "note": ("Только справочная линия границы. Включает спорную/"
+                         "анклавную территорию, поэтому не является площадью.")},
+            "geometry": mapping(admin_line)}]})
     jsonutil.write_compact(data / "varnita-village-no-delivery.geojson", {
         "type": "FeatureCollection", "features": [{
             "type": "Feature", "properties": {
@@ -794,6 +846,11 @@ def _md(a, addr_key):
              f"- expected_km: min {ur['expected_km']['min']} / p50 "
              f"{ur['expected_km']['p50']} / p90 {ur['expected_km']['p90']} / max "
              f"{ur['expected_km']['max']}", "",
+             "## Готовность", "",
+             "| признак | значение |", "|---|---|"]
+    for k, val in ur["readiness"].items():
+        lines.append(f"| `{k}` | {val} |")
+    lines += ["",
              "## Сценарии", "",
              f"- **Scenario A** (production): {sa['rule']}. Индивидуальные "
              f"расстояния: **{sa['uses_individual_distances']}**. За макс.: "

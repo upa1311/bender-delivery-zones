@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upa1311.github.io/bender-delivery-zones/schemas/order-pricing-snapshot.schema.json",
+  "title": "Order pricing snapshot (immutable audit record)",
+  "description": "Written once when an order is priced. It freezes the zone set, the tariff row and the route that were used, so a LATER change to zones or tariffs can never alter the history of a completed order. Money fields stay null until the owner supplies tariffs.",
+  "type": "object",
+  "required": ["order_id", "calculated_at", "zone_dataset_version", "tariff_version",
+               "origin_zone_id", "destination_zone_id", "route_distance_km",
+               "route_duration_min", "immutable"],
+  "properties": {
+    "order_id": { "type": "string" },
+    "calculated_at": { "type": "string", "format": "date-time" },
+    "immutable": { "const": true, "description": "Never recomputed; later zone/tariff edits do not touch this record." },
+
+    "zone_dataset_version": { "type": "string", "description": "Which published zone set assigned these zones." },
+    "tariff_version": { "type": ["integer", "null"], "description": "Version of the matrix row applied." },
+
+    "origin": { "$ref": "#/$defs/endpoint" },
+    "destination": { "$ref": "#/$defs/endpoint" },
+    "origin_zone_id": { "type": ["integer", "null"] },
+    "destination_zone_id": { "type": ["integer", "null"] },
+
+    "route_distance_km": { "type": ["number", "null"] },
+    "route_duration_min": { "type": ["number", "null"] },
+    "routing_engine": {
+      "type": "object",
+      "properties": {
+        "name": { "const": "OSRM" },
+        "algorithm": { "const": "MLD" },
+        "version": { "type": "string" },
+        "profile_sha256": { "type": "string" },
+        "source_pbf_sha256": { "type": "string" }
+      }
+    },
+
+    "customer_delivery_fee": { "type": ["number", "null"], "default": null },
+    "courier_payout": { "type": ["number", "null"], "default": null, "description": "Stored separately from the customer fee." },
+    "currency": { "type": ["string", "null"], "default": null },
+
+    "calculation_components": {
+      "type": "array",
+      "description": "Ordered, human-readable breakdown of how the numbers were reached.",
+      "items": {
+        "type": "object",
+        "required": ["component", "source"],
+        "properties": {
+          "component": { "type": "string", "examples": ["zone_matrix_base", "distance_adjustment", "courier_base_payout"] },
+          "applies_to": { "enum": ["customer", "courier", "both"] },
+          "amount": { "type": ["number", "null"], "default": null },
+          "source": { "type": "string", "examples": ["tariff_matrix:Zone 1→Zone 3 v1"] },
+          "note": { "type": ["string", "null"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object",
+      "properties": {
+        "canonical_address_key": { "type": ["string", "null"] },
+        "full_address_ru": { "type": ["string", "null"] },
+        "display_address_ru": { "type": ["string", "null"] },
+        "settlement_ru": { "type": ["string", "null"] },
+        "district_ru": { "type": ["string", "null"] },
+        "coordinates": {
+          "type": "object",
+          "properties": { "lon": { "type": "number" }, "lat": { "type": "number" } }
+        }
+      }
+    }
+  }
+}

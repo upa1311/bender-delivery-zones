@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upa1311.github.io/bender-delivery-zones/schemas/address-zone-lookup.schema.json",
+  "title": "Address → zone lookup (read model)",
+  "description": "Read-only contract for the admin 'Zones and tariffs' screen. The source of truth is the EXACT ADDRESS, never the street name alone: one street may have houses in several zones, so a street-only query must never resolve to a single unconfirmed zone_id. No monetary values appear here.",
+  "type": "object",
+  "required": ["query", "resolution", "results", "zone_dataset_version"],
+  "properties": {
+    "query": {
+      "type": "object",
+      "description": "What the admin typed. street_only queries are answered with candidates, not a zone.",
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["exact_address", "street_only", "free_text"] },
+        "settlement_ru": { "type": ["string", "null"] },
+        "district_ru": { "type": ["string", "null"] },
+        "street_ru": { "type": ["string", "null"] },
+        "housenumber": { "type": ["string", "null"] }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["resolved", "ambiguous_street", "ambiguous_settlement",
+                   "not_found", "no_delivery", "excluded"],
+          "description": "'ambiguous_street' is returned when only a street name was given and its houses span more than one zone."
+        },
+        "reason": { "type": ["string", "null"] },
+        "requires_housenumber": { "type": "boolean" }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/addressZone" }
+    },
+    "zone_dataset_version": { "type": "string" }
+  },
+  "$defs": {
+    "addressZone": {
+      "type": "object",
+      "required": ["canonical_address_key", "display_address_ru", "full_address_ru",
+                   "settlement_ru", "street_ru", "service_status"],
+      "properties": {
+        "canonical_address_key": {
+          "type": "string",
+          "description": "settlement | district (only where it disambiguates) | street | housenumber, normalised. Never contains a zone id, so re-banding cannot change an address's identity."
+        },
+        "display_address_ru": {
+          "type": "string",
+          "description": "Street label with a qualifier only where needed, e.g. 'улица Ленина (Гиска)'."
+        },
+        "full_address_ru": { "type": "string", "examples": ["Гиска, улица Ленина, дом 15", "Бендеры, Липканы, улица Энгельса, дом 24"] },
+        "settlement_ru": { "type": "string" },
+        "district_ru": { "type": ["string", "null"] },
+        "street_ru": { "type": "string", "description": "Clean OSM street name; a settlement is NEVER embedded here." },
+        "housenumber": { "type": ["string", "null"] },
+        "osm": {
+          "type": "object",
+          "properties": {
+            "osm_type": { "enum": ["n", "w", "r"] },
+            "osm_id": { "type": "integer" },
+            "unit_type": { "enum": ["addressed_residential_building", "standalone_address_node", "unaddressed_residential_building"] }
+          }
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": { "lon": { "type": "number" }, "lat": { "type": "number" } }
+        },
+        "zone": {
+          "type": ["object", "null"],
+          "description": "Null when the address is not served.",
+          "properties": {
+            "zone_id": { "type": "integer", "minimum": 1 },
+            "zone_name": { "type": "string", "examples": ["Zone 1"] },
+            "k": { "type": "integer", "description": "Zone-set size the assignment belongs to." },
+            "band_min_km": { "type": "number" },
+            "band_max_km": { "type": "number" }
+          }
+        },
+        "service_status": {
+          "enum": ["standard", "low_density", "no_delivery", "excluded", "disputed"],
+          "description": "no_delivery covers Tier C fringe; excluded covers unreachable / no serviceable street / address inside a non-residential building."
+        },
+        "assignment_basis": {
+          "type": "object",
+          "description": "Why this address got this zone. No prices.",
+          "properties": {
+            "expected_km": { "type": "number", "description": "Origin-weighted OSRM road kilometres (0.85 central / 0.15 outer)." },
+            "expected_min": { "type": "number" },
+            "central_origin": { "$ref": "#/$defs/originLeg" },
+            "bam_origin": { "$ref": "#/$defs/originLeg" },
+            "worst_origin_km": { "type": "number" },
+            "tier": { "enum": ["A", "B", "C"] },
+            "rule": { "type": "string", "examples": ["ordered_cost_band_over_osrm_road_km"] }
+          }
+        },
+        "exclusion": {
+          "type": ["object", "null"],
+          "properties": {
+            "reason": { "enum": ["tier_c_no_delivery", "outside_service_area", "unreachable_by_osrm", "no_serviceable_street_within_threshold", "address_inside_nonresidential_building"] },
+            "note": { "type": ["string", "null"] }
+          }
+        },
+        "disambiguation": {
+          "type": "object",
+          "description": "Present when the street name repeats elsewhere.",
+          "properties": {
+            "street_name_is_duplicated": { "type": "boolean" },
+            "other_places": { "type": "array", "items": { "type": "string" }, "examples": [["Гиска", "Парканы"]] }
+          }
+        },
+        "zone_dataset_version": { "type": "string" }
+      }
+    },
+    "originLeg": {
+      "type": "object",
+      "properties": {
+        "origin_key": { "type": "string" },
+        "distance_km": { "type": ["number", "null"] },
+        "duration_min": { "type": ["number", "null"] }
+      }
+    }
+  }
+}

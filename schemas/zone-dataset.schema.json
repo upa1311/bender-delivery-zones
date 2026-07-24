@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upa1311.github.io/bender-delivery-zones/schemas/zone-dataset.schema.json",
+  "title": "Versioned zone dataset (immutable release)",
+  "description": "The zone-only dataset a product vendors to resolve addresses to zones. Contains geometry, colours and the address->zone resolution index. Carries NO money: no fee, payout or currency appears anywhere.",
+  "type": "object",
+  "required": ["release", "version", "immutable", "decided_k", "zone_edges_km",
+               "zone_colors", "source_dataset_version", "prices_included",
+               "zones", "resolution_index"],
+  "properties": {
+    "release": { "type": "string", "examples": ["bender-zones-v1"] },
+    "version": { "type": "string", "examples": ["1.0.0"] },
+    "immutable": { "const": true },
+    "decided_k": { "const": 4 },
+    "scenario": { "const": "A" },
+    "zone_edges_km": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
+    "zone_colors": {
+      "type": "object",
+      "properties": {
+        "1": { "type": "string" }, "2": { "type": "string" },
+        "3": { "type": "string" }, "4": { "type": "string" }
+      }
+    },
+    "source_dataset_version": { "type": "string", "examples": ["moldova-pbf:09ba0c058e89"] },
+    "prices_included": { "const": false },
+    "zones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["zone_id", "zone_name", "color"],
+        "properties": {
+          "zone_id": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "zone_name": { "type": "string" },
+          "color": { "type": "string" },
+          "component": { "enum": ["bender_main", "severny_enclave"] }
+        }
+      }
+    },
+    "resolution_index": {
+      "type": "object",
+      "description": "Street catalog used to resolve an address to a zone. The house is the source of truth; a street-only lookup for a split street is ambiguous.",
+      "properties": {
+        "streets": { "type": "array", "items": { "$ref": "#/$defs/street" } }
+      }
+    }
+  },
+  "$defs": {
+    "street": {
+      "type": "object",
+      "required": ["settlement_ru", "street_ru", "zones", "split_street"],
+      "properties": {
+        "settlement_ru": { "type": "string" },
+        "district_ru": { "type": ["string", "null"] },
+        "street_ru": { "type": "string" },
+        "zones": { "type": "array", "items": { "type": "integer" } },
+        "split_street": { "type": "boolean" },
+        "service_status": { "enum": ["standard", "low_density", "no_delivery", "disputed"] },
+        "houses_by_zone": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "zone_id": { "type": "integer" },
+              "houses": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+}

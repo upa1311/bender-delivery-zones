@@ -301,7 +301,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress, severnyRoutes, severnyArea] = await Promise.all([
+           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress, severnyRoutes, severnyArea, varnita] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -320,6 +320,7 @@ async function init() {
       loadJSON("data/no-address-data.geojson"),
       loadJSON("data/severny-route-qa.geojson"),
       loadJSON("data/severny-service-area.geojson"),
+      loadJSON("data/varnita-exclusion.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -453,14 +454,30 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(
         `<div class="popup"><b>Маршрут «Северный»</b><br>${esc(f.properties.name)}</div>`),
     });
-    overlays["Северный — кандидат (не подтверждён)"] = L.geoJSON(severnyArea, {
-      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
-        radius: 9, color: "#b45309", weight: 3, fillColor: "#fde68a",
-        fillOpacity: 0.9 }),
+    const SEV_COLOR = { strong: "#0e9488", moderate: "#f59e0b", weak: "#9ca3af" };
+    overlays["Северный — жилые кандидаты"] = L.geoJSON(severnyArea, {
+      style: (f) => ({ color: SEV_COLOR[f.properties.evidence_strength] || "#9ca3af",
+        weight: 2, fillColor: SEV_COLOR[f.properties.evidence_strength] || "#9ca3af",
+        fillOpacity: 0.35 }),
+      onEachFeature: (f, l) => { const p = f.properties; l.bindPopup(
+        `<div class="popup"><div class="popup-title">Северный · кластер ${p.cluster_id} `
+        + `<span class="badge review">${esc(p.evidence_strength)}</span></div><table>`
+        + `<tr><td class="k">статус</td><td>${esc(p.status)}</td></tr>`
+        + `<tr><td class="k">зданий</td><td>${p.building_count}</td></tr>`
+        + `<tr><td class="k">адресов</td><td>${p.confirmed_address_count}</td></tr>`
+        + `<tr><td class="k">квартирных</td><td>${p.apartment_building_count}</td></tr>`
+        + `<tr><td class="k">до Варницы</td><td>${p.separation_from_varnita_m} м</td></tr>`
+        + `<tr><td class="k">в Варнице</td><td>${p.buildings_inside_varnita}</td></tr>`
+        + `</table><p class="muted small">${esc(p.note)}</p></div>`); },
+    });
+    overlays["Варница — исключена (транзит)"] = L.geoJSON(varnita, {
+      style: () => ({ color: "#6b7280", weight: 1.5, fillColor: "#9ca3af",
+        fillOpacity: 0.4, dashArray: "4 4" }),
       onEachFeature: (f, l) => l.bindPopup(
-        `<div class="popup"><div class="popup-title">Северный `
-        + `<span class="badge review">${esc(f.properties.status)}</span></div>`
-        + `<p>${esc(f.properties.note)}</p></div>`),
+        `<div class="popup"><div class="popup-title">Варница `
+        + `<span class="badge missing">исключена</span></div>`
+        + `<p>Обслуживаемых адресов внутри: ${f.properties.serviceable_addresses_inside}. `
+        + `${esc(f.properties.note)}</p></div>`),
     });
 
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);

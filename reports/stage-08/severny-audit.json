@@ -1,38 +1,836 @@
 {
-  "anchor_candidate": {
-    "lat": 46.854251,
-    "lon": 29.480231,
-    "road_distance_from_centre_km": 4.469,
-    "road_duration_from_centre_min": 6.52
-  },
+  "clusters": [
+    {
+      "apartment_building_count": 15,
+      "area_m2": 494291,
+      "building_count": 320,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.845214,
+        "lon": 29.481238
+      },
+      "civic_or_commercial_pois": 4,
+      "cluster_id": 1,
+      "confirmed_address_count": 190,
+      "distance_from_terminal_m": 0,
+      "evidence_strength": "strong",
+      "separation_from_varnita_m": 174,
+      "streets": [
+        "Колхозная улица",
+        "Колхозный переулок",
+        "Красивая улица",
+        "Парканская улица",
+        "Пограничный переулок",
+        "Подольская улица",
+        "Подольский переулок",
+        "переулок Грибоедова",
+        "переулок Иона Солтыса",
+        "переулок Энгельса",
+        "улица Гайдара",
+        "улица Иона Солтыса",
+        "улица Кутузова",
+        "улица Шмидта",
+        "улица Энгельса"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 147792,
+      "building_count": 75,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.850474,
+        "lon": 29.481123
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 2,
+      "confirmed_address_count": 50,
+      "distance_from_terminal_m": 0,
+      "evidence_strength": "strong",
+      "separation_from_varnita_m": 28,
+      "streets": [
+        "1-й переулок Кутузова",
+        "2-й переулок Кутузова",
+        "переулок Энгельса",
+        "улица Гайдара",
+        "улица Энгельса"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 102714,
+      "building_count": 55,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.852192,
+        "lon": 29.485385
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 3,
+      "confirmed_address_count": 10,
+      "distance_from_terminal_m": 112,
+      "evidence_strength": "strong",
+      "separation_from_varnita_m": 6,
+      "streets": [
+        "1-й переулок Кутузова",
+        "улица Кутузова"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 50831,
+      "building_count": 19,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.843125,
+        "lon": 29.473966
+      },
+      "civic_or_commercial_pois": 2,
+      "cluster_id": 4,
+      "confirmed_address_count": 5,
+      "distance_from_terminal_m": 575,
+      "evidence_strength": "moderate",
+      "separation_from_varnita_m": 368,
+      "streets": [
+        "улица Титова"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 43812,
+      "building_count": 13,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.840961,
+        "lon": 29.483216
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 5,
+      "confirmed_address_count": 3,
+      "distance_from_terminal_m": 620,
+      "evidence_strength": "weak",
+      "separation_from_varnita_m": 902,
+      "streets": [
+        "улица Панина"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 9673,
+      "building_count": 8,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.844213,
+        "lon": 29.487154
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 6,
+      "confirmed_address_count": 3,
+      "distance_from_terminal_m": 537,
+      "evidence_strength": "weak",
+      "separation_from_varnita_m": 961,
+      "streets": [
+        "Парканская улица"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 10028,
+      "building_count": 7,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.847994,
+        "lon": 29.478835
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 7,
+      "confirmed_address_count": 3,
+      "distance_from_terminal_m": 81,
+      "evidence_strength": "weak",
+      "separation_from_varnita_m": 219,
+      "streets": [
+        "переулок Энгельса"
+      ]
+    },
+    {
+      "apartment_building_count": 0,
+      "area_m2": 6988,
+      "building_count": 5,
+      "buildings_inside_varnita": 0,
+      "centroid": {
+        "lat": 46.841657,
+        "lon": 29.486152
+      },
+      "civic_or_commercial_pois": 0,
+      "cluster_id": 8,
+      "confirmed_address_count": 0,
+      "distance_from_terminal_m": 683,
+      "evidence_strength": "weak",
+      "separation_from_varnita_m": 1035,
+      "streets": []
+    }
+  ],
+  "decided_k": 4,
   "direct_integration": false,
-  "evidence": "Северный named only by marshrutka route relations [6572078, 6572079, 6572080, 6572081]; no place=/boundary=/bus_stop object.",
-  "generated_at": "2026-07-24T04:35:35Z",
-  "message": "Severny landmark unresolved — owner confirmation required",
+  "entrances_in_extract": 273,
+  "generated_at": "2026-07-24T04:52:37Z",
+  "message": "Severny candidate residential footprints — owner_review_required",
+  "owner_decisions_required": [
+    "Approve or reject each Северный candidate residential footprint.",
+    "Confirm whether Scenario A (append to Zone 4) or a later Scenario-B recompute is acceptable.",
+    "Confirm the Varnița exclusion (0 serviceable addresses inside)."
+  ],
   "prices_assigned": false,
-  "resolved": false,
-  "routes": {
-    "6572078": {
-      "member_count": 27,
-      "name": "Маршрутка №25: Бендерыстрой - Северный",
-      "ref": "25"
+  "radius_profile": {
+    "300": {
+      "apartment_buildings": 9,
+      "confirmed_addresses": 131,
+      "inside_varnita": 0,
+      "residential_buildings": 216
     },
-    "6572079": {
-      "member_count": 23,
-      "name": "Маршрутка №25: Северный - Бендерыстрой",
-      "ref": "25"
+    "500": {
+      "apartment_buildings": 15,
+      "confirmed_addresses": 227,
+      "inside_varnita": 0,
+      "residential_buildings": 415
     },
-    "6572080": {
-      "member_count": 10,
-      "name": "Маршрутка №24: Ленинский - Северный",
-      "ref": "24"
-    },
-    "6572081": {
-      "member_count": 10,
-      "name": "Маршрутка №24: Северный - Ленинский",
-      "ref": "24"
+    "800": {
+      "apartment_buildings": 15,
+      "confirmed_addresses": 267,
+      "inside_varnita": 0,
+      "residential_buildings": 538
     }
   },
-  "schema": "bender-severny-audit/8",
-  "zones_created": false
+  "resolved": false,
+  "route_terminus": {
+    "lat": 46.854251,
+    "lon": 29.480231
+  },
+  "scenarios": {
+    "clusters": [
+      {
+        "cluster_id": 1,
+        "expected_km": {
+          "begin": 2.8,
+          "centre": 3.064,
+          "end": 3.705
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 0.87,
+              "forward_min": 1.5,
+              "reverse_km": 1.718,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.141,
+              "forward_min": 4.69,
+              "reverse_km": 2.666,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 1.133,
+              "forward_min": 1.84,
+              "reverse_km": 1.424,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.405,
+              "forward_min": 5.03,
+              "reverse_km": 3.132,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 1.775,
+              "forward_min": 3.39,
+              "reverse_km": 2.065,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.046,
+              "forward_min": 6.58,
+              "reverse_km": 3.773,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.479333,
+            46.841676
+          ],
+          "centre": [
+            29.481238,
+            46.845214
+          ],
+          "end": [
+            29.482715,
+            46.848508
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.064,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 2,
+        "expected_km": {
+          "begin": 3.403,
+          "centre": 3.714,
+          "end": 4.01
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 1.473,
+              "forward_min": 2.43,
+              "reverse_km": 1.764,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.744,
+              "forward_min": 5.61,
+              "reverse_km": 3.472,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 1.784,
+              "forward_min": 3.01,
+              "reverse_km": 2.075,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.055,
+              "forward_min": 6.19,
+              "reverse_km": 3.783,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 2.08,
+              "forward_min": 4.89,
+              "reverse_km": 2.37,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.351,
+              "forward_min": 8.07,
+              "reverse_km": 4.079,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.480379,
+            46.848253
+          ],
+          "centre": [
+            29.481123,
+            46.850474
+          ],
+          "end": [
+            29.481089,
+            46.852539
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.714,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 3,
+        "expected_km": {
+          "begin": 4.022,
+          "centre": 4.061,
+          "end": 4.32
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 2.091,
+              "forward_min": 4.61,
+              "reverse_km": 2.382,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.363,
+              "forward_min": 7.8,
+              "reverse_km": 4.09,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 2.131,
+              "forward_min": 4.77,
+              "reverse_km": 2.421,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.402,
+              "forward_min": 7.96,
+              "reverse_km": 4.129,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 2.39,
+              "forward_min": 4.14,
+              "reverse_km": 2.681,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.661,
+              "forward_min": 7.33,
+              "reverse_km": 4.389,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.487132,
+            46.850744
+          ],
+          "centre": [
+            29.485385,
+            46.852192
+          ],
+          "end": [
+            29.484264,
+            46.853396
+          ]
+        },
+        "route_through_varnita": true,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 4.061,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 4,
+        "expected_km": {
+          "begin": 2.959,
+          "centre": 3.189,
+          "end": 3.18
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 0.154,
+              "forward_min": 0.41,
+              "reverse_km": 0.425,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.454,
+              "forward_min": 4.87,
+              "reverse_km": 3.393,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 0.384,
+              "forward_min": 1.23,
+              "reverse_km": 0.505,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.684,
+              "forward_min": 5.7,
+              "reverse_km": 3.474,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 0.481,
+              "forward_min": 1.2,
+              "reverse_km": 0.474,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.656,
+              "forward_min": 5.58,
+              "reverse_km": 3.3,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.473906,
+            46.842008
+          ],
+          "centre": [
+            29.473966,
+            46.843125
+          ],
+          "end": [
+            29.474571,
+            46.844251
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.189,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 5,
+        "expected_km": {
+          "begin": 2.63,
+          "centre": 2.829,
+          "end": 2.91
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 0.789,
+              "forward_min": 1.41,
+              "reverse_km": 1.124,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 2.955,
+              "forward_min": 4.31,
+              "reverse_km": 2.622,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 0.988,
+              "forward_min": 1.97,
+              "reverse_km": 1.323,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.154,
+              "forward_min": 4.86,
+              "reverse_km": 2.821,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 1.07,
+              "forward_min": 2.27,
+              "reverse_km": 1.405,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.235,
+              "forward_min": 5.17,
+              "reverse_km": 2.902,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.481026,
+            46.840372
+          ],
+          "centre": [
+            29.483216,
+            46.840961
+          ],
+          "end": [
+            29.484264,
+            46.841856
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 2.829,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 6,
+        "expected_km": {
+          "begin": 3.374,
+          "centre": 3.375,
+          "end": 3.874
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 1.444,
+              "forward_min": 2.88,
+              "reverse_km": 1.719,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.715,
+              "forward_min": 6.06,
+              "reverse_km": 3.427,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 1.445,
+              "forward_min": 2.83,
+              "reverse_km": 1.736,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.716,
+              "forward_min": 6.02,
+              "reverse_km": 3.444,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 1.944,
+              "forward_min": 3.67,
+              "reverse_km": 2.234,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 4.215,
+              "forward_min": 6.86,
+              "reverse_km": 3.942,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.486919,
+            46.843638
+          ],
+          "centre": [
+            29.487154,
+            46.844213
+          ],
+          "end": [
+            29.487386,
+            46.844794
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.375,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 7,
+        "expected_km": {
+          "begin": 3.547,
+          "centre": 3.513,
+          "end": 3.532
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 1.617,
+              "forward_min": 2.88,
+              "reverse_km": 1.908,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.888,
+              "forward_min": 6.07,
+              "reverse_km": 3.616,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 1.583,
+              "forward_min": 2.8,
+              "reverse_km": 1.874,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.854,
+              "forward_min": 5.99,
+              "reverse_km": 3.582,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 1.602,
+              "forward_min": 2.85,
+              "reverse_km": 1.893,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.873,
+              "forward_min": 6.04,
+              "reverse_km": 3.601,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.478412,
+            46.84769
+          ],
+          "centre": [
+            29.478835,
+            46.847994
+          ],
+          "end": [
+            29.478573,
+            46.848336
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.513,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      },
+      {
+        "cluster_id": 8,
+        "expected_km": {
+          "begin": 3.261,
+          "centre": 3.05,
+          "end": 3.05
+        },
+        "legs": {
+          "begin": {
+            "bam": {
+              "forward_km": 1.421,
+              "forward_min": 3.75,
+              "reverse_km": 1.756,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.586,
+              "forward_min": 6.65,
+              "reverse_km": 3.253,
+              "unreachable": false
+            }
+          },
+          "centre": {
+            "bam": {
+              "forward_km": 1.209,
+              "forward_min": 2.93,
+              "reverse_km": 1.544,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.375,
+              "forward_min": 5.83,
+              "reverse_km": 3.042,
+              "unreachable": false
+            }
+          },
+          "end": {
+            "bam": {
+              "forward_km": 1.209,
+              "forward_min": 2.93,
+              "reverse_km": 1.544,
+              "unreachable": false
+            },
+            "central": {
+              "forward_km": 3.375,
+              "forward_min": 5.83,
+              "reverse_km": 3.042,
+              "unreachable": false
+            }
+          }
+        },
+        "points": {
+          "begin": [
+            29.486642,
+            46.84144
+          ],
+          "centre": [
+            29.486152,
+            46.841657
+          ],
+          "end": [
+            29.48563,
+            46.84188
+          ]
+        },
+        "route_through_varnita": false,
+        "scenario_A": {
+          "assigned_zone": 2,
+          "beyond_current_max": false,
+          "expected_km_centre": 3.05,
+          "rule": "appended to Zone 4 where beyond current maximum"
+        }
+      }
+    ],
+    "current_k4_edges_km": [
+      2.424,
+      4.076,
+      5.577,
+      9.692
+    ],
+    "scenario_A_note": "keep current K=4 edges, append Северный to Zone 4 where beyond the current maximum",
+    "scenario_B": {
+      "current_edges_km": [
+        2.424,
+        4.076,
+        5.577,
+        9.692
+      ],
+      "existing_addresses_changing_zone": 5162,
+      "existing_addresses_total": 22120,
+      "new_edges_km": [
+        2.773,
+        4.526,
+        6.126,
+        9.686
+      ],
+      "note": "PREVIEW ONLY, not production. Full K=4 recompute including Северный candidate addresses, distance-only balanced bands.",
+      "severny_addresses_added": 264
+    }
+  },
+  "schema": "bender-severny-audit/8.1",
+  "strong_candidates": [
+    1,
+    2,
+    3
+  ],
+  "varnita_proof": {
+    "policy": "Varnița stays excluded from service. Its roads may be used by OSRM only as transit. Any Северный candidate building falling inside the Varnița polygon is flagged, never auto-classified as Северный.",
+    "proven": true,
+    "residential_buildings_of_varnita_included": 0,
+    "serviceable_addresses_inside_varnita": 0,
+    "severny_candidate_buildings_inside_varnita": 0,
+    "varnita_relation": 8289510
+  }
 }

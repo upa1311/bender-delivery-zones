@@ -14,8 +14,10 @@ def test_district_coverage_audit_lists_every_bender_suburb(repo_root):
     assert d["districts_total"] >= 10
     assert d["connected"] + d["disconnected"] == d["districts_total"]
     for x in d["districts"]:
-        assert x["status"] in ("connected", "disconnected")
-        assert x["covered_by_candidate_area"] == (x["status"] == "connected")
+        assert x["status"] in ("connected", "disconnected",
+                               "covered_at_building_level")
+        if x["status"] == "connected":
+            assert x["covered_by_candidate_area"] is True
         assert x["osm_id"] and x["name"]
 
 
@@ -28,20 +30,11 @@ def test_disconnected_districts_are_flagged(repo_root):
         assert x["distance_to_candidate_area_m"] >= 0
 
 
-def test_severny_is_not_resolved_and_no_polygon_invented(repo_root):
+def test_severny_is_not_declared_resolved(repo_root):
+    """Full Severny candidate checks live in tests/test_severny.py."""
     a = _json(repo_root, "reports/stage-08/severny-audit.json")
     assert a["resolved"] is False
-    assert "unresolved" in a["message"].lower()
-    assert a["routes"], "Северный evidence must cite the marshrutka routes"
-    assert a["zones_created"] is False and a["direct_integration"] is False
-
-    fc = _json(repo_root, "docs/data/severny-service-area.geojson")
-    assert fc["resolution_status"] == "unresolved"
-    for f in fc["features"]:
-        # a marker, never a fabricated delivery polygon
-        assert f["geometry"]["type"] == "Point"
-        assert f["properties"]["status"] == "candidate_unconfirmed"
-        assert f["properties"]["resolution"] == "owner_review_required"
+    assert a["direct_integration"] is False
 
 
 def test_severny_route_qa_has_real_geometry(repo_root):

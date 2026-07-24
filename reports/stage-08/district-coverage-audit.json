@@ -1,7 +1,33 @@
 {
   "addressed_buildings_total": 5476,
-  "connected": 9,
-  "disconnected": 2,
+  "building_level_review": {
+    "Ленинский": {
+      "covered_by_candidate_area": 76,
+      "expansion_recommended": false,
+      "genuinely_omitted_addresses": 0,
+      "genuinely_omitted_buildings": 0,
+      "place_node": {
+        "lat": 46.802269,
+        "lon": 29.46851
+      },
+      "residential_buildings_within_400m": 76,
+      "verdict": "mostly covered — place node position, not the district, was outside the polygon"
+    },
+    "Птичник": {
+      "covered_by_candidate_area": 77,
+      "expansion_recommended": false,
+      "genuinely_omitted_addresses": 1,
+      "genuinely_omitted_buildings": 1,
+      "place_node": {
+        "lat": 46.844477,
+        "lon": 29.456476
+      },
+      "residential_buildings_within_400m": 78,
+      "verdict": "mostly covered — place node position, not the district, was outside the polygon"
+    }
+  },
+  "connected": 11,
+  "disconnected": 0,
   "districts": [
     {
       "addressed_buildings_within_300m": 235,
@@ -47,6 +73,7 @@
     },
     {
       "addressed_buildings_within_300m": 26,
+      "building_level_note": "place node outside the polygon, but the district's buildings are covered",
       "covered_by_candidate_area": false,
       "distance_to_candidate_area_m": 53,
       "lat": 46.802269,
@@ -57,7 +84,7 @@
       "place": "suburb",
       "road_distance_from_centre_km": 3.251,
       "road_duration_from_centre_min": 4.63,
-      "status": "disconnected"
+      "status": "covered_at_building_level"
     },
     {
       "addressed_buildings_within_300m": 79,
@@ -89,6 +116,7 @@
     },
     {
       "addressed_buildings_within_300m": 34,
+      "building_level_note": "place node outside the polygon, but the district's buildings are covered",
       "covered_by_candidate_area": false,
       "distance_to_candidate_area_m": 18,
       "lat": 46.844477,
@@ -99,7 +127,7 @@
       "place": "neighbourhood",
       "road_distance_from_centre_km": 4.972,
       "road_duration_from_centre_min": 7.04,
-      "status": "disconnected"
+      "status": "covered_at_building_level"
     },
     {
       "addressed_buildings_within_300m": 34,
@@ -159,7 +187,7 @@
     }
   ],
   "districts_total": 11,
-  "generated_at": "2026-07-24T04:35:35Z",
+  "generated_at": "2026-07-24T04:52:37Z",
   "note": "'disconnected' = the district's place node is outside the Tier A+B candidate service area; it is not necessarily unserviceable, but it is not covered by the current housing-density polygons.",
   "osrm_used": true,
   "schema": "bender-district-coverage/8"

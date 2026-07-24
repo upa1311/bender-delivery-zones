@@ -1,0 +1,58 @@
+lon,lat,unit_type,addressed,apartment,housenumber,street_ru,central_km,central_min,bam_km,bam_min,expected_km,expected_min,assigned_zone,route_through_varnita_village,reachable,weight
+29.475462,46.875937,addressed_residential_building,True,True,31/7,Strada Tighina,6.925,11.44,4.654,8.25,6.584,10.96,4,True,True,1.0
+29.475108,46.876103,unaddressed_residential_building,False,False,,,6.933,11.29,4.662,8.11,6.592,10.81,4,True,True,0.5
+29.475299,46.876237,addressed_residential_building,True,True,31/6,Strada Tighina,6.942,11.3,4.671,8.12,6.601,10.82,4,True,True,1.0
+29.475178,46.877109,addressed_residential_building,True,False,31/3,Strada Tighina,7.072,11.69,4.8,8.51,6.731,11.21,4,True,True,1.0
+29.475232,46.8766,addressed_residential_building,True,False,31/5,Strada Tighina,7.104,11.82,4.833,8.64,6.763,11.34,4,True,True,1.0
+29.47544,46.876436,unaddressed_residential_building,False,False,,,7.117,11.88,4.846,8.69,6.776,11.4,4,True,True,0.5
+29.475972,46.876827,addressed_residential_building,True,False,31/4,Strada Tighina,7.158,12.1,4.887,8.91,6.817,11.62,4,True,True,1.0
+29.475701,46.877397,addressed_residential_building,True,False,31/2,Strada Tighina,7.199,12.18,4.927,8.99,6.858,11.7,4,True,True,1.0
+29.474209,46.878605,unaddressed_residential_building,False,True,,Северная улица,7.328,12.14,5.057,8.96,6.987,11.66,4,True,True,0.5
+29.476659,46.877294,unaddressed_residential_building,False,False,,Strada Academician Iacob Bumbu,7.361,12.91,5.09,9.72,7.02,12.43,4,True,True,0.5
+29.47829,46.8783,unaddressed_residential_building,False,False,,,7.364,12.66,5.093,9.47,7.023,12.18,4,True,True,0.5
+29.474802,46.878188,unaddressed_residential_building,False,True,,Северная улица,7.402,12.46,5.131,9.27,7.061,11.98,4,True,True,0.5
+29.472089,46.880056,unaddressed_residential_building,False,False,,,7.429,12.03,5.158,8.85,7.088,11.55,4,True,True,0.5
+29.47198,46.880172,unaddressed_residential_building,False,False,,,7.446,12.06,5.175,8.87,7.105,11.58,4,True,True,0.5
+29.473398,46.879965,unaddressed_residential_building,False,True,,Северная улица,7.454,12.54,5.183,9.35,7.113,12.06,4,True,True,0.5
+29.471727,46.880406,unaddressed_residential_building,False,False,,,7.478,12.11,5.207,8.92,7.137,11.63,4,True,True,0.5
+29.472822,46.880393,unaddressed_residential_building,False,True,,Северная улица,7.52,12.8,5.249,9.62,7.179,12.32,4,True,True,0.5
+29.477636,46.879722,unaddressed_residential_building,False,False,,,7.537,14.29,5.266,11.1,7.196,13.81,4,True,True,0.5
+29.476723,46.879963,unaddressed_residential_building,False,False,,,7.6,14.54,5.328,11.35,7.259,14.06,4,True,True,0.5
+29.473172,46.881103,unaddressed_residential_building,False,True,,Северная улица,7.604,12.65,5.332,9.46,7.263,12.17,4,True,True,0.5
+29.473111,46.881528,unaddressed_residential_building,False,True,,Северная улица,7.624,12.72,5.353,9.53,7.283,12.24,4,True,True,0.5
+29.473759,46.881219,unaddressed_residential_building,False,False,,,7.625,12.73,5.354,9.54,7.284,12.25,4,True,True,0.5
+29.476737,46.880453,addressed_residential_building,True,False,11,Strada Dimitrie Cantemir,7.641,14.7,5.37,11.51,7.3,14.22,4,True,True,1.0
+29.477911,46.880916,unaddressed_residential_building,False,False,,,7.65,14.74,5.379,11.55,7.309,14.26,4,True,True,0.5
+29.472473,46.882213,unaddressed_residential_building,False,False,,,7.713,13.08,5.442,9.89,7.372,12.6,4,True,True,0.5
+29.476074,46.881493,unaddressed_residential_building,False,False,,,7.767,15.21,5.496,12.02,7.426,14.73,4,True,True,0.5
+29.47558,46.881295,unaddressed_residential_building,False,False,,,7.793,15.38,5.522,12.19,7.452,14.9,4,True,True,0.5
+29.47621,46.882301,unaddressed_residential_building,False,False,,,7.839,15.59,5.567,12.4,7.498,15.11,4,True,True,0.5
+29.476805,46.882483,unaddressed_residential_building,False,False,,,7.849,15.57,5.578,12.38,7.508,15.09,4,True,True,0.5
+29.475518,46.882336,unaddressed_residential_building,False,False,,,7.87,15.62,5.599,12.43,7.529,15.14,4,True,True,0.5
+29.477802,46.882365,unaddressed_residential_building,False,False,,,7.872,15.66,5.601,12.47,7.531,15.18,4,True,True,0.5
+29.475106,46.881799,unaddressed_residential_building,False,False,,,7.879,15.73,5.608,12.54,7.538,15.25,4,True,True,0.5
+29.475998,46.882724,unaddressed_residential_building,False,False,,,7.895,15.71,5.623,12.53,7.554,15.23,4,True,True,0.5
+29.469976,46.883526,unaddressed_residential_building,False,True,,Северная улица,7.929,13.24,5.658,10.05,7.588,12.76,4,True,True,0.5
+29.470725,46.882768,unaddressed_residential_building,False,True,,Северная улица,7.944,13.25,5.673,10.06,7.603,12.77,4,True,True,0.5
+29.471444,46.883506,unaddressed_residential_building,False,True,,Северная улица,7.978,13.39,5.707,10.2,7.637,12.91,4,True,True,0.5
+29.47132,46.882182,unaddressed_residential_building,False,True,,Северная улица,8.014,13.53,5.743,10.34,7.673,13.05,4,True,True,0.5
+29.471376,46.882839,unaddressed_residential_building,False,True,,Северная улица,8.024,13.58,5.753,10.4,7.683,13.1,4,True,True,0.5
+29.469365,46.884304,unaddressed_residential_building,False,True,,Северная улица,8.034,13.35,5.762,10.16,7.693,12.87,4,True,True,0.5
+29.469987,46.884532,unaddressed_residential_building,False,True,,Северная улица,8.06,13.44,5.789,10.26,7.719,12.96,4,True,True,0.5
+29.471923,46.883214,unaddressed_residential_building,False,True,,Северная улица,8.067,13.76,5.796,10.57,7.726,13.28,4,True,True,0.5
+29.472077,46.882559,unaddressed_residential_building,False,True,,Северная улица,8.07,13.76,5.798,10.58,7.729,13.28,4,True,True,0.5
+29.470476,46.884671,unaddressed_residential_building,False,True,,Северная улица,8.085,13.5,5.814,10.32,7.744,13.02,4,True,True,0.5
+29.468961,46.884627,unaddressed_residential_building,False,True,,Северная улица,8.091,13.58,5.819,10.39,7.75,13.1,4,True,True,0.5
+29.471898,46.881742,unaddressed_residential_building,False,True,,Северная улица,8.091,13.84,5.82,10.65,7.75,13.36,4,True,True,0.5
+29.469713,46.884938,unaddressed_residential_building,False,True,,Северная улица,8.112,13.65,5.84,10.46,7.771,13.17,4,True,True,0.5
+29.472402,46.882949,unaddressed_residential_building,False,True,,Северная улица,8.117,13.96,5.846,10.77,7.776,13.48,4,True,True,0.5
+29.468044,46.88525,unaddressed_residential_building,False,False,,,8.123,13.23,5.852,10.04,7.782,12.75,4,True,True,0.5
+29.469001,46.885135,unaddressed_residential_building,False,False,,,8.192,13.53,5.921,10.35,7.851,13.05,4,True,True,0.5
+29.468713,46.884936,unaddressed_residential_building,False,True,,Северная улица,8.209,13.6,5.937,10.41,7.868,13.12,4,True,True,0.5
+29.474158,46.884291,unaddressed_residential_building,False,False,,,8.236,16.3,5.965,13.12,7.895,15.82,4,True,True,0.5
+29.47461,46.883629,unaddressed_residential_building,False,False,,,8.283,16.48,6.012,13.29,7.942,16.0,4,True,True,0.5
+29.475154,46.883616,unaddressed_residential_building,False,False,,,8.333,16.75,6.062,13.56,7.992,16.27,4,True,True,0.5
+29.473594,46.884145,unaddressed_residential_building,False,False,,,8.356,16.82,6.085,13.63,8.015,16.34,4,True,True,0.5
+29.473258,46.882125,unaddressed_residential_building,False,False,,,8.491,17.47,6.22,14.29,8.15,16.99,4,True,True,0.5
+29.473676,46.881864,unaddressed_residential_building,False,False,,,8.509,17.45,6.238,14.26,8.168,16.97,4,True,True,0.5
+29.47109,46.885799,unaddressed_residential_building,False,False,,,8.726,15.87,6.455,12.68,8.385,15.39,4,True,True,0.5

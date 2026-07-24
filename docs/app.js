@@ -301,7 +301,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress, severnyRoutes, severnyArea, varnita] = await Promise.all([
+           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress, severnyRoutes, severnyArea, varnitaAdmin, varnitaVillage, severnyUnits] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -320,7 +320,9 @@ async function init() {
       loadJSON("data/no-address-data.geojson"),
       loadJSON("data/severny-route-qa.geojson"),
       loadJSON("data/severny-service-area.geojson"),
-      loadJSON("data/varnita-exclusion.geojson"),
+      loadJSON("data/varnita-admin-reference.geojson"),
+      loadJSON("data/varnita-village-no-delivery.geojson"),
+      loadJSON("data/severny-delivery-units.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -469,14 +471,39 @@ async function init() {
         + `<tr><td class="k">формат</td><td>${esc(p.official_address_format)}</td></tr>`
         + `</table><p class="muted small">${esc(p.note)}</p></div>`); },
     });
-    overlays["Варница — исключена (транзит)"] = L.geoJSON(varnita, {
-      style: () => ({ color: "#6b7280", weight: 1.5, fillColor: "#9ca3af",
-        fillOpacity: 0.4, dashArray: "4 4" }),
+    // Varnița: the admin claim is a REFERENCE LINE (it encloses the Bender
+    // Северный enclave, so it must never be filled); only the village built-up
+    // area carries the grey no-delivery meaning.
+    overlays["Варница — админ-граница (справочно)"] = L.geoJSON(varnitaAdmin, {
+      style: () => ({ color: "#6b7280", weight: 2, dashArray: "8 6", fill: false,
+        opacity: 0.9 }),
       onEachFeature: (f, l) => l.bindPopup(
-        `<div class="popup"><div class="popup-title">Варница `
-        + `<span class="badge missing">исключена</span></div>`
-        + `<p>Обслуживаемых адресов внутри: ${f.properties.serviceable_addresses_inside}. `
-        + `${esc(f.properties.note)}</p></div>`),
+        `<div class="popup"><div class="popup-title">Варница — админ-граница</div>`
+        + `<p class="muted small">${esc(f.properties.note)}</p></div>`),
+    });
+    overlays["Варница (село) — без доставки"] = L.geoJSON(varnitaVillage, {
+      style: () => ({ color: "#4b5563", weight: 1.5, fillColor: "#9ca3af",
+        fillOpacity: 0.55 }),
+      onEachFeature: (f, l) => l.bindPopup(
+        `<div class="popup"><div class="popup-title">Варница (село) `
+        + `<span class="badge missing">${esc(f.properties.service_status)}</span></div>`
+        + `<p class="muted small">${esc(f.properties.note)}</p></div>`),
+    });
+
+    // Северный delivery units coloured by assigned zone.
+    overlays["Северный — адреса по зонам"] = L.geoJSON(severnyUnits, {
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+        radius: 4, weight: 1, color: "#111827",
+        fillColor: BAND_COLORS[(f.properties.assigned_zone - 1) % BAND_COLORS.length],
+        fillOpacity: 0.9 }),
+      onEachFeature: (f, l) => { const p = f.properties; l.bindPopup(
+        `<div class="popup"><div class="popup-title">Zone ${p.assigned_zone}</div><table>`
+        + `<tr><td class="k">адрес</td><td>${p.addressed ? esc(p.street_ru + " " + p.housenumber) : "без адреса"}</td></tr>`
+        + `<tr><td class="k">центр</td><td>${p.central_km} км / ${p.central_min} мин</td></tr>`
+        + `<tr><td class="k">БАМ</td><td>${p.bam_km} км / ${p.bam_min} мин</td></tr>`
+        + `<tr><td class="k">ожидаемое</td><td>${p.expected_km} км</td></tr>`
+        + `<tr><td class="k">транзит Варница</td><td>${p.route_through_varnita_village ? "да" : "нет"}</td></tr>`
+        + `</table></div>`); },
     });
 
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);

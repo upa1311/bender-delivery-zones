@@ -1,32 +1,65 @@
 {
+  "components": [
+    {
+      "area_m2": 500004,
+      "buildings": 57,
+      "kept": true
+    },
+    {
+      "area_m2": 4932,
+      "buildings": 2,
+      "kept": false
+    }
+  ],
   "decided_k": 4,
   "direct_integration": false,
+  "external_address_reference": {
+    "examples": [
+      "Бендеры, микрорайон Северный, дом 13",
+      "Бендеры, микрорайон Северный, дом 19A",
+      "Бендеры, микрорайон Северный, дом 21",
+      "Бендеры, микрорайон Северный, дом 21/1"
+    ],
+    "external_example_house_numbers": [
+      "13",
+      "19A",
+      "21",
+      "21/1"
+    ],
+    "external_house_range_reference": "1-105",
+    "note": "External reference only, not a verified register. Missing houses are NOT synthesized; do not import as addresses.",
+    "osm_note": "OSM addresses near Северный use addr:street and block numbering; the official numbering is an external reference pending verification.",
+    "source": {
+      "archived_reference": "conversation task text, 2026-07",
+      "claim": "Северный official numbering spans houses 1-105; examples 13, 19A, 21, 21/1",
+      "confidence": "unverified_owner_statement",
+      "may_be_imported_as_address": false,
+      "retrieval_date": "2026-07-24",
+      "title": "Owner statement (Stage-08 task brief)",
+      "url": null
+    },
+    "verified_for_automatic_import": false
+  },
   "footprint": {
     "apartment_building_count": 23,
-    "building_count": 59,
+    "component_count": 1,
     "confirmed_address_count": 7,
     "disconnected_from_main_service": true,
     "district_label_ru": "микрорайон Северный",
     "district_ru": "Северный",
+    "empty_area_pct": 61.5,
     "example_addresses": [
       "Бендеры, микрорайон Северный, дом 13",
       "Бендеры, микрорайон Северный, дом 19A",
       "Бендеры, микрорайон Северный, дом 21",
       "Бендеры, микрорайон Северный, дом 21/1"
     ],
-    "geometry_kind": "derived_residential_footprint",
-    "house_numbers_sample": [
-      "11",
-      "31/2",
-      "31/3",
-      "31/4",
-      "31/5",
-      "31/6",
-      "31/7"
-    ],
+    "excluded_isolated_buildings": 2,
+    "final_included_buildings": 57,
+    "footprint_method": "morphological: residential/apartment building buffers (22 m) + named access streets (14 m) + residential landuse, 25 m gap-closing, isolated components (<5 buildings) dropped, disconnected components kept separate. No convex hull.",
     "north_of_varnita_village": true,
-    "note": "Реальный Северный (enclave, place=suburb node 5135654201). НЕ объявлен добавленным — owner_review.",
-    "official_address_format": "Бендеры, микрорайон Северный, дом N",
+    "note": "Реальный Северный (place=suburb node 5135654201). НЕ объявлен добавленным — owner_review.",
+    "raw_candidate_buildings": 59,
     "resolution": "owner_review_required",
     "settlement_ru": "Бендеры",
     "status": "candidate_residential_footprint",
@@ -37,35 +70,56 @@
       "Северная улица"
     ]
   },
-  "generated_at": "2026-07-24T05:11:30Z",
-  "message": "Real Северный resolved from full PBF — owner_review_required",
-  "official_address_support": {
-    "examples": [
-      "Бендеры, микрорайон Северный, дом 13",
-      "Бендеры, микрорайон Северный, дом 19A",
-      "Бендеры, микрорайон Северный, дом 21",
-      "Бендеры, микрорайон Северный, дом 21/1"
-    ],
-    "format": "Бендеры, микрорайон Северный, дом N",
-    "house_range_official": "1-105",
-    "osm_note": "OSM addresses near Северный use addr:street (Северная улица / Strada Tighina) and block numbering 31/2..31/7; official микрорайон numbering is the district_ru label."
-  },
+  "generated_at": "2026-07-24T05:28:31Z",
+  "message": "Real Северный footprint + per-address zones — owner_review_required",
   "overlap_report": {
     "candidate_addresses_already_classified_as_lipcani": 0,
     "candidate_buildings_already_in_existing_service_area": 0,
     "candidate_streets_matching_lipcani": 0,
+    "excluded_isolated_buildings": 2,
+    "final_included_buildings": 57,
     "new_severny_only_addresses": 7,
     "new_severny_only_buildings": 59,
-    "note": "Objects on Липканы streets or inside bender_lipcani / the main service polygon are excluded from Северный."
+    "raw_candidate_buildings": 59
   },
   "owner_decisions_required": [
-    "Approve or reject the Северный candidate residential footprint.",
-    "Confirm Scenario A (extend Zone 4 if beyond max) vs a Scenario-B recompute.",
-    "Confirm the enclave handling: Северный served as Бендеры though it lies within the OSM admin Varnița relation."
+    "Approve or reject the Северный residential footprint.",
+    "Confirm Scenario A (per-unit distances, Zone 4) as production direction.",
+    "Provide a verified source for the микрорайон Северный 1-105 numbering before any address import."
   ],
+  "per_unit_report": {
+    "confirmed_addresses_per_zone": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 7
+    },
+    "current_k4_edges_km": [
+      2.424,
+      4.076,
+      5.577,
+      9.692
+    ],
+    "expected_km": {
+      "max": 8.385,
+      "min": 6.584,
+      "p50": 7.508,
+      "p90": 7.942
+    },
+    "units_per_zone": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 57
+    },
+    "units_reachable": 57,
+    "units_requiring_varnita_transit": 57,
+    "units_total": 57,
+    "unreachable": 0
+  },
   "prices_assigned": false,
+  "production_direction": "Scenario A (individual distances, Zone 4)",
   "regression_fix": {
-    "cause": "previous run read only city-extract-12463379; routes and the enclave lie outside it",
     "previous_truncated_terminus": {
       "lat": 46.854251,
       "lon": 29.480231
@@ -221,72 +275,35 @@
       5.577,
       9.692
     ],
-    "expected_km": {
-      "begin": 6.585,
-      "centre": 7.757,
-      "end": 8.607
-    },
-    "legs": {
-      "begin": {
-        "bam": {
-          "forward_km": 4.655,
-          "reverse_km": 4.946,
-          "unreachable": false
-        },
-        "central": {
-          "forward_km": 6.926,
-          "reverse_km": 6.654,
-          "unreachable": false
-        }
-      },
-      "centre": {
-        "bam": {
-          "forward_km": 5.827,
-          "reverse_km": 5.861,
-          "unreachable": false
-        },
-        "central": {
-          "forward_km": 8.098,
-          "reverse_km": 7.569,
-          "unreachable": false
-        }
-      },
-      "end": {
-        "bam": {
-          "forward_km": 6.677,
-          "reverse_km": 6.968,
-          "unreachable": false
-        },
-        "central": {
-          "forward_km": 8.948,
-          "reverse_km": 8.676,
-          "unreachable": false
-        }
-      }
-    },
-    "points": {
-      "begin": [
-        29.475427,
-        46.875981
-      ],
-      "centre": [
-        29.472287,
-        46.881852
-      ],
-      "end": [
-        29.473454,
-        46.886184
-      ]
-    },
-    "route_through_varnita": true,
     "scenario_A": {
-      "assigned_zone": 4,
-      "beyond_current_max": false,
-      "expected_km_centre": 7.757,
-      "rule": "keep K=4 edges; extend Zone 4 only if beyond current maximum",
+      "confirmed_addresses_per_zone": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 7
+      },
+      "rule": "keep K=4 edges; assign each unit by its OWN OSRM distance; extend Zone 4 only for units beyond the current maximum",
+      "units_beyond_current_max": 0,
+      "units_per_zone": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 57
+      },
+      "uses_individual_distances": true,
       "zone4_extended_to_km": null
     },
     "scenario_B": {
+      "control_recompute_without_severny": {
+        "edges_km": [
+          2.424,
+          4.076,
+          5.577,
+          9.692
+        ],
+        "existing_units_changing_zone": 0,
+        "note": "baseline drift of the optimiser without Северный; compare with the figure above to isolate Северный's real impact"
+      },
       "current_edges_km": [
         2.424,
         4.076,
@@ -294,36 +311,37 @@
         9.692
       ],
       "existing_addresses_total": 9777,
-      "existing_delivery_units_changing_zone": 8863,
+      "existing_delivery_units_changing_zone": 0,
       "existing_delivery_units_total": 22120,
       "new_edges_km": [
-        2.975,
-        4.875,
-        6.426,
-        9.686
+        2.424,
+        4.076,
+        5.577,
+        9.692
       ],
-      "note": "PREVIEW ONLY, not production.",
+      "note": "PREVIEW ONLY, not production. Recomputed with per-unit distances.",
+      "optimiser": "same as Stage 06 (1-D weighted DP, balance bounds, split penalty 'low')",
       "severny_confirmed_addresses_added": 7,
-      "severny_delivery_units_added": 59
+      "severny_delivery_units_added": 57
     }
   },
-  "schema": "bender-severny-audit/8.2-corrected",
+  "schema": "bender-severny-audit/8.3-final",
   "varnita_proof": {
-    "enclave_note": "The OSM admin_level=8 Varnița relation geographically encloses the Bender Северный enclave. Северный is operationally Бендеры; exclusion is enforced against the Varnița VILLAGE built-up area, not the admin claim.",
+    "enclave_note": "The OSM admin_level=8 Varnița relation (8289510) encloses the Bender Северный enclave. It is published as a reference LINE only. Exclusion is enforced against the derived Varnița VILLAGE built-up footprint, which Северный does not touch.",
     "proven": true,
     "residential_buildings_of_varnita_included": 0,
-    "serviceable_addresses_inside_varnita": 0,
+    "serviceable_addresses_inside_varnita_village": 0,
     "severny_candidate_buildings_inside_varnita_village": 0,
+    "severny_footprint_intersects_village_fill": false,
     "varnita_relation": 8289510
   },
   "verification": {
-    "admin_note": "The OSM admin_level=8 Varnița relation geographically encloses the Bender Северный enclave. Северный is operationally Бендеры; exclusion is enforced against the Varnița VILLAGE built-up area, not the admin claim.",
+    "admin_note": "The OSM admin_level=8 Varnița relation (8289510) encloses the Bender Северный enclave. It is published as a reference LINE only. Exclusion is enforced against the derived Varnița VILLAGE built-up footprint, which Северный does not touch.",
     "central_route_km": 8.135,
     "central_route_reaches_severny": true,
-    "distance_to_main_service_m": 6494,
     "district_ru": "Северный",
-    "footprint_crosses_varnita_village": false,
     "footprint_disconnected_from_main_service": true,
+    "footprint_intersects_varnita_village_fill": false,
     "footprint_north_of_varnita_village": true,
     "settlement_ru": "Бендеры",
     "severny_node_inside_varnita_admin_relation": true,

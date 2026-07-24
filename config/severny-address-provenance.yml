@@ -1,0 +1,17 @@
+# Provenance for the Северный house-numbering claim.
+#
+# The values "official house range 1-105" and examples 13/19A/21/21/1 came from
+# the owner's Stage-08 task description, NOT from a verified, citable register.
+# Until a real source is attached, they are an EXTERNAL REFERENCE only and MUST
+# NOT be imported as addresses. Missing houses are never synthesized.
+verified_for_automatic_import: false
+source:
+  title: "Owner statement (Stage-08 task brief)"
+  url: null
+  archived_reference: "conversation task text, 2026-07"
+  retrieval_date: "2026-07-24"
+  claim: "Северный official numbering spans houses 1-105; examples 13, 19A, 21, 21/1"
+  confidence: unverified_owner_statement
+  may_be_imported_as_address: false
+external_house_range_reference: "1-105"
+external_example_house_numbers: ["13", "19A", "21", "21/1"]

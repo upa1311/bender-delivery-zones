@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Каталог: улицы и дома по зонам — Бендеры</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="catalog.css" />
+</head>
+<body>
+  <div id="notice" role="alert">
+    Финальный каталог зон K=4 (Scenario A, утверждено владельцем). Цены не назначены.
+    Это не интеграция с Direct. <a href="index.html">← QA-карта</a>
+  </div>
+
+  <div id="cat-layout">
+    <section id="cat-panel">
+      <div id="cat-controls">
+        <input id="q-street" type="search" placeholder="Поиск по улице…" autocomplete="off" />
+        <input id="q-house" type="search" placeholder="Поиск по дому…" autocomplete="off" />
+        <select id="f-settlement"><option value="">— населённый пункт —</option></select>
+        <select id="f-district"><option value="">— район —</option></select>
+        <div id="f-zones">
+          <label><input type="checkbox" class="fz" value="1" checked /> <span class="zchip z1">Zone 1</span></label>
+          <label><input type="checkbox" class="fz" value="2" checked /> <span class="zchip z2">Zone 2</span></label>
+          <label><input type="checkbox" class="fz" value="3" checked /> <span class="zchip z3">Zone 3</span></label>
+          <label><input type="checkbox" class="fz" value="4" checked /> <span class="zchip z4">Zone 4</span></label>
+          <label><input type="checkbox" id="f-nodelivery" /> no_delivery</label>
+          <label><input type="checkbox" id="f-disputed" /> disputed</label>
+        </div>
+        <div id="cat-count" class="muted small"></div>
+      </div>
+      <div id="cat-table-wrap">
+        <table id="cat-table">
+          <thead><tr>
+            <th data-sort="settlement_ru">Населённый пункт</th>
+            <th data-sort="district_ru">Район</th>
+            <th data-sort="street_ru">Улица</th>
+            <th data-sort="housenumber">Дом</th>
+            <th data-sort="zone_id">Зона</th>
+            <th data-sort="expected_km">Расст.</th>
+            <th data-sort="service_status">Статус</th>
+          </tr></thead>
+          <tbody id="cat-body"></tbody>
+        </table>
+      </div>
+    </section>
+    <main id="cat-map" aria-label="Карта зон"></main>
+  </div>
+
+  <div id="house-card" hidden></div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="catalog.js"></script>
+</body>
+</html>

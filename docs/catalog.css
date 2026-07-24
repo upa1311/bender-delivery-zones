@@ -1,0 +1,48 @@
+/* Final zone catalog page. Zone colours are the permanent scheme, identical in
+   polygons, points, legend, table and cards. */
+:root {
+  --z1: #2a9d3f; --z2: #f2c500; --z3: #f07f14; --z4: #d62828;
+  --disputed: #7c3aed; --nodelivery: #9ca3af; --tierc: #6b7280;
+}
+
+#cat-layout { display: flex; height: calc(100% - 44px); }
+#cat-panel { width: 52%; min-width: 380px; display: flex; flex-direction: column;
+  border-right: 1px solid var(--border); background: var(--panel); }
+#cat-map { flex: 1; height: 100%; }
+
+#cat-controls { padding: 10px 12px; border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+#cat-controls input[type="search"], #cat-controls select {
+  padding: 6px 9px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; }
+#q-street { flex: 1 1 160px; } #q-house { width: 130px; }
+#f-zones { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; width: 100%; }
+#f-zones label { display: inline-flex; align-items: center; gap: 4px; }
+
+.zchip { padding: 1px 7px; border-radius: 10px; color: #fff; font-size: 12px; font-weight: 700; }
+.zchip.z1 { background: var(--z1); } .zchip.z2 { background: var(--z2); color: #333; }
+.zchip.z3 { background: var(--z3); } .zchip.z4 { background: var(--z4); }
+.zchip.zdisp { background: var(--disputed); } .zchip.znd { background: var(--nodelivery); color:#333; }
+
+#cat-table-wrap { flex: 1; overflow: auto; }
+#cat-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#cat-table thead th { position: sticky; top: 0; background: #f4f6f9; text-align: left;
+  padding: 6px 8px; border-bottom: 2px solid var(--border); cursor: pointer; white-space: nowrap; }
+#cat-table td { padding: 4px 8px; border-bottom: 1px solid var(--border); }
+#cat-table tbody tr { cursor: pointer; }
+#cat-table tbody tr:hover { background: #eef4ff; }
+#cat-table tbody tr.active { background: #dbe8ff; }
+td.house-unconfirmed { color: var(--muted); font-style: italic; }
+
+#house-card { position: absolute; right: 14px; top: 58px; z-index: 1200; width: 320px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18); padding: 14px; font-size: 13px; }
+#house-card h3 { margin: 0 0 8px; font-size: 15px; }
+#house-card table { width: 100%; border-collapse: collapse; }
+#house-card td { padding: 2px 4px; vertical-align: top; }
+#house-card td.k { color: var(--muted); white-space: nowrap; }
+#house-card .close { position: absolute; right: 10px; top: 8px; cursor: pointer;
+  color: var(--muted); font-weight: 700; }
+
+#notice a { color: #8a4b00; }
+@media (max-width: 820px) { #cat-layout { flex-direction: column; }
+  #cat-panel { width: 100%; max-height: 55%; } }

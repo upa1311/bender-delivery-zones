@@ -69,12 +69,7 @@ def _sse(i: int, j: int, w, wx, wxx) -> float:
 
 
 def street_split_counts(street_bins: dict[object, list[int]], n_bins: int) -> list[float]:
-    """How many streets a cut placed *before* bin ``p`` would split.
-
-    ``street_bins`` maps a street key to the bin indices its units occupy. A cut
-    at ``p`` splits a street when the street has units both below and at/above
-    ``p``. Index ``p`` runs 0..n_bins; the ends are never internal cuts.
-    """
+    """How many streets a cut placed *before* bin ``p`` would split (unweighted)."""
     counts = [0.0] * (n_bins + 1)
     for indices in street_bins.values():
         if not indices:
@@ -83,6 +78,31 @@ def street_split_counts(street_bins: dict[object, list[int]], n_bins: int) -> li
         for p in range(lo + 1, hi + 1):
             counts[p] += 1.0
     return counts
+
+
+def street_split_demand(street_units: dict[object, list[tuple[int, float]]],
+                        n_bins: int) -> list[float]:
+    """Confirmed-address demand a cut before bin ``p`` would separate.
+
+    ``street_units`` maps a street to ``(bin_index, address_weight)`` pairs. The
+    cost of a cut is the demand actually torn apart -- the smaller side of the
+    street at that cut -- so splitting a street with 200 addresses costs far more
+    than splitting one with 2 uncertain units, and a cut at the very end of a
+    street (separating nobody) costs almost nothing.
+    """
+    cost = [0.0] * (n_bins + 1)
+    for units in street_units.values():
+        if not units:
+            continue
+        total = sum(w for _b, w in units)
+        if total <= 0:
+            continue
+        lo = min(b for b, _w in units)
+        hi = max(b for b, _w in units)
+        for p in range(lo + 1, hi + 1):
+            below = sum(w for b, w in units if b < p)
+            cost[p] += min(below, total - below)
+    return cost
 
 
 def optimal_bands(bins: list[Bin], k: int, min_weight_share: float = 0.05,

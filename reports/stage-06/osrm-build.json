@@ -8,19 +8,42 @@
   "engine": {
     "algorithm": "MLD",
     "binary_sha256": "8c60df18caff7cd0be76cd06934631e9061dd72384559e73bc74fb1d04875867",
-    "binary_source": "Project-OSRM/osrm-backend release asset (win32-x64), no container",
+    "binary_source": {
+      "darwin-arm64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-darwin-arm64-Release.tar.gz",
+      "linux-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-linux-x64-Release.tar.gz",
+      "win32-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-win32-x64-Release.tar.gz"
+    },
     "container_image_digest": null,
     "name": "OSRM",
+    "pin": {
+      "algorithm": "MLD",
+      "binaries": {
+        "darwin-arm64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-darwin-arm64-Release.tar.gz",
+        "linux-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-linux-x64-Release.tar.gz",
+        "win32-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-win32-x64-Release.tar.gz"
+      },
+      "container_alternative": "ghcr.io/project-osrm/osrm-backend:v26.7.3",
+      "engine": "OSRM",
+      "note": "Pinned so a clean clone reproduces the exact routing graph. The car.lua and its lib/ are vendored here; checksums are recorded in vendor/osrm/CHECKSUMS.sha256.",
+      "profile": {
+        "path": "vendor/osrm/profiles/car.lua",
+        "source": "https://raw.githubusercontent.com/Project-OSRM/osrm-backend/v26.7.3/profiles/car.lua",
+        "vendored": true
+      },
+      "release_page": "https://github.com/Project-OSRM/osrm-backend/releases/tag/v26.7.3",
+      "version": "v26.7.3"
+    },
     "version": "v26.7.3"
   },
-  "generated_at": "2026-07-23T22:32:37Z",
+  "generated_at": "2026-07-24T00:47:53Z",
   "notes": [
     "Deterministic: same PBF + same car.lua + same OSRM version reproduce the graph.",
     "Creates no tariffs, no prices and no Direct integration."
   ],
   "profile": {
-    "path": "car.lua",
-    "sha256": "48bbb716c2b68ce6803a11a4151fcac050c6ea8240295e7dde111f15f8bd3984"
+    "path": "vendor/osrm/profiles/car.lua",
+    "sha256": "48bbb716c2b68ce6803a11a4151fcac050c6ea8240295e7dde111f15f8bd3984",
+    "vendored": true
   },
   "schema": "bender-osrm-build/1",
   "smoke_test": {
@@ -59,5 +82,5 @@
     "path": "data/raw/moldova-latest.osm.pbf",
     "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c"
   },
-  "started_at": "2026-07-23T22:31:46Z"
+  "started_at": "2026-07-24T00:47:14Z"
 }

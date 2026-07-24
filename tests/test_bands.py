@@ -435,7 +435,8 @@ def test_split_streets_publish_exact_house_ranges(repo_root):
             assert len(d["zones"]) > 1, "a split street must span >1 zone"
             for name, z in d["zones"].items():
                 assert name.startswith("Zone ")
-                assert z["units"] > 0
+                assert (z["canonical_address_count"]
+                        + z["unaddressed_building_units"]) > 0
 
 
 def test_demand_weight_sensitivity_is_published_not_chosen_silently(repo_root):
@@ -451,9 +452,9 @@ def test_demand_weight_sensitivity_is_published_not_chosen_silently(repo_root):
 
 def test_apartment_proxy_does_not_invent_household_counts(repo_root):
     apt = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
-        "demand_weight_sensitivity"]["apartment_flats_proxy"]
-    assert "addr:flats" in apt["proxy"]
-    assert apt["with_addr_flats"] <= apt["apartment_units_total"]
+        "apartment_sensitivity"]
+    assert "addr:flats" in apt["proxy_basis"]
+    assert apt["with_addr_flats"] <= apt["apartment_buildings_total"]
     for field in ("with_building_levels", "with_entrances"):
         assert field in apt
 
@@ -515,3 +516,162 @@ def test_osrm_clean_rebuild_smoke_test_passed(repo_root):
     for name in ("centre_to_parkany", "centre_to_giska"):
         lo, hi = smoke[name]["expected_km_range"]
         assert lo <= smoke[name]["distance_km"] <= hi
+
+
+# --- address-weighted split penalty & canonical addresses -------------------
+
+def test_split_penalty_is_proportional_to_address_demand():
+    from bender_zones.bands import street_split_demand
+    big = {"busy": [(0, 100.0), (5, 100.0)]}      # 200 addresses torn in half
+    small = {"quiet": [(0, 1.0), (5, 1.0)]}       # 2 uncertain units
+    cost_big = street_split_demand(big, 6)
+    cost_small = street_split_demand(small, 6)
+    assert max(cost_big) > max(cost_small) * 50
+
+
+def test_split_cost_is_lowest_at_the_end_of_a_street():
+    from bender_zones.bands import street_split_demand
+    cost = street_split_demand({"s": [(0, 10.0), (1, 10.0), (2, 1.0)]}, 4)
+    assert cost[3] < cost[2]        # cutting off one unit costs less than halving
+
+
+def test_address_weighted_penalty_beats_flat_counting(repo_root):
+    sweep = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "split_penalty_sweep"]
+    for k in ("4", "5"):
+        assert sweep["high"]["k"][k]["split_confirmed_addresses"] < \
+            sweep["baseline"]["k"][k]["split_confirmed_addresses"]
+        assert sweep["high"]["k"][k]["split_demand_weight"] < \
+            sweep["baseline"]["k"][k]["split_demand_weight"]
+
+
+def test_split_metrics_report_streets_addresses_and_weight(repo_root):
+    for res in _json(repo_root, "docs/data/tariff-band-metrics.json")[
+            "candidates"].values():
+        for field in ("split_streets", "split_confirmed_addresses",
+                      "split_demand_weight"):
+            assert field in res
+
+
+def test_canonical_address_key_identifies_the_real_doorway():
+    from bender_zones.demand_units import canonical_address_key
+    a = canonical_address_key("bender_core", "улица Ленина", "10")
+    b = canonical_address_key("bender_core", " Улица  Ленина ", "10 ")
+    assert a == b, "the same real address must produce one key"
+    assert canonical_address_key("bender_core", "улица Ленина", "11") != a
+    assert canonical_address_key("bender_core", "", "10") is None
+
+
+def test_no_canonical_address_spans_two_zones(repo_root):
+    rows = _units(repo_root)
+    for k in ("4", "5"):
+        seen = {}
+        for r in rows:
+            key = r.get("canonical_address")
+            if not key:
+                continue
+            seen.setdefault(key, set()).add(r[f"band_k{k}"])
+        offenders = [key for key, zones in seen.items() if len(zones) > 1]
+        assert not offenders, f"K={k}: {len(offenders)} addresses in >1 zone"
+
+
+def test_split_streets_publish_canonical_addresses_and_flag_exactness(repo_root):
+    for res in _json(repo_root, "docs/data/tariff-band-metrics.json")[
+            "candidates"].values():
+        assert res["canonical_addresses_in_multiple_zones"] == 0
+        for d in res["split_street_house_ranges"]:
+            assert d["ranges_are_exact"] is True
+            assert not d["canonical_addresses_in_multiple_zones"]
+            for z in d["zones"].values():
+                assert "canonical_addresses" in z
+                assert "unaddressed_building_units" in z
+
+
+def test_duplicate_address_conflicts_are_published(repo_root):
+    conflicts = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "duplicate_address_conflicts"]
+    for c in conflicts:
+        assert len(c["objects"]) > 1
+        assert c["resolution"] == "nearest_access_used_for_all_objects"
+        assert c["spread_km"] > 0
+
+
+# --- apartment scenarios -----------------------------------------------------
+
+def test_apartment_scenarios_published_none_selected(repo_root):
+    apt = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "apartment_sensitivity"]
+    assert apt["no_scenario_selected"] is True
+    assert apt["with_addr_flats"] == 0, "addr:flats is absent in this extract"
+    assert apt["with_building_levels"] > 0
+    assert set(apt["scenarios"]) >= {"one_unit", "levels"}
+    assert any(name.startswith("levels_capped") for name in apt["scenarios"])
+    for v in apt["scenarios"].values():
+        for k in ("4", "5"):
+            assert "edge_shift_km" in v["k"][k]
+
+
+def test_apartment_proxy_never_claims_household_counts(repo_root):
+    apt = _json(repo_root, "docs/data/tariff-band-metrics.json")["tuning"][
+        "apartment_sensitivity"]
+    assert "No household count is claimed" in apt["proxy_basis"]
+    assert "NOT a household count" in apt["scenarios"]["levels"]["description"]
+
+
+# --- no-street review --------------------------------------------------------
+
+def test_no_street_units_are_grouped_for_review(repo_root):
+    s = _json(repo_root, "docs/data/no-street-units-summary.json")
+    assert s["total_units"] > 0
+    assert set(s["by_kind"]) == {"address", "unaddressed_building"}
+    assert "unassigned" not in s["by_settlement"], "units must be attributed"
+    rows = list(csv.DictReader((repo_root / "docs/data/no-street-units-review.csv")
+                               .read_text(encoding="utf-8").splitlines()))
+    assert len(rows) == s["total_units"]
+    for r in rows[:50]:
+        assert r["cluster_size"] and r["nearest_serviceable_road_m"] is not None
+        assert r["status"] == "excluded_pending_owner_review"
+
+
+def test_dense_no_street_clusters_are_flagged_not_written_off(repo_root):
+    s = _json(repo_root, "docs/data/no-street-units-summary.json")
+    assert s["dense_clusters_flagged"] > 0
+    rows = list(csv.DictReader((repo_root / "docs/data/no-street-units-review.csv")
+                               .read_text(encoding="utf-8").splitlines()))
+    flags = {r["flag"] for r in rows}
+    assert "possible_missing_or_unnamed_access_road" in flags
+    assert "missing" in s["note"]
+
+
+# --- pinned, vendored OSRM ---------------------------------------------------
+
+def test_car_lua_is_vendored_and_checksummed(repo_root):
+    import hashlib
+    recorded = (repo_root / "vendor/osrm/CHECKSUMS.sha256").read_text(encoding="utf-8")
+    assert "profiles/car.lua" in recorded
+    for line in recorded.splitlines():
+        want, _, name = line.partition("  ")
+        got = hashlib.sha256((repo_root / "vendor/osrm" / name).read_bytes()).hexdigest()
+        assert got == want, name
+
+
+def test_osrm_release_is_pinned_for_a_clean_clone(repo_root):
+    pin = _json(repo_root, "vendor/osrm/OSRM_PIN.json")
+    assert pin["version"].startswith("v")
+    for platform in ("linux-x64", "win32-x64"):
+        assert pin["binaries"][platform].startswith(
+            "https://github.com/Project-OSRM/osrm-backend/releases/download/")
+    assert pin["profile"]["vendored"] is True
+    assert (repo_root / "scripts/setup_osrm.sh").exists()
+
+
+def test_build_record_matches_the_vendored_pin(repo_root):
+    import hashlib
+    rec = json.loads((repo_root / "reports/stage-06/osrm-build.json")
+                     .read_text(encoding="utf-8"))
+    pin = _json(repo_root, "vendor/osrm/OSRM_PIN.json")
+    assert rec["engine"]["version"] == pin["version"]
+    vendored = hashlib.sha256(
+        (repo_root / "vendor/osrm/profiles/car.lua").read_bytes()).hexdigest()
+    assert rec["profile"]["sha256"] == vendored
+    assert rec["profile"]["vendored"] is True

@@ -41,3 +41,5 @@ osrm:            ## Deterministic local OSRM MLD build + provenance record
 	bash scripts/build_osrm.sh --smoke
 osrm-serve:      ## Build and leave osrm-routed running on :5000
 	bash scripts/build_osrm.sh --serve --smoke
+osrm-setup:      ## Fetch the pinned OSRM release into ./.osrm (clean clone)
+	bash scripts/setup_osrm.sh

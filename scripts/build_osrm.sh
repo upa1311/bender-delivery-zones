@@ -12,9 +12,10 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OSRM_HOME="${OSRM_HOME:-$HOME/osrm}"
+# Repo-local by default so a clean clone works without an unknown $HOME install.
+OSRM_HOME="${OSRM_HOME:-$REPO_ROOT/.osrm}"
 OSRM_BIN="${OSRM_BIN:-$OSRM_HOME/bin}"
-PROFILE="${OSRM_PROFILE:-$OSRM_HOME/profiles/car.lua}"
+PROFILE="${OSRM_PROFILE:-$REPO_ROOT/vendor/osrm/profiles/car.lua}"
 PBF="${PBF:-$REPO_ROOT/data/raw/moldova-latest.osm.pbf}"
 WORK="$REPO_ROOT/data/interim/osrm"
 PORT="${OSRM_PORT:-5000}"
@@ -82,11 +83,12 @@ fi
 SMOKE_JSON="null"
 if [ "$SMOKE" = "1" ]; then
   echo "==> smoke test"
-  SMOKE_JSON="$(python "$REPO_ROOT/scripts/osrm_smoke.py" --port "$PORT")"
+  SMOKE_JSON="$(cd "$REPO_ROOT" && python scripts/osrm_smoke.py --port "$PORT")"
 fi
 
 mkdir -p "$REPO_ROOT/reports/stage-06"
-python - "$REPO_ROOT/reports/stage-06/osrm-build.json" <<PYEOF
+cd "$REPO_ROOT"
+python - "reports/stage-06/osrm-build.json" <<PYEOF
 import json, sys
 doc = {
   "schema": "bender-osrm-build/1",
@@ -97,10 +99,11 @@ doc = {
     "algorithm": "MLD",
     "version": "$OSRM_VERSION",
     "binary_sha256": "$EXTRACT_SHA",
-    "binary_source": "Project-OSRM/osrm-backend release asset (win32-x64), no container",
+    "binary_source": json.load(open("vendor/osrm/OSRM_PIN.json", encoding="utf-8"))["binaries"],
+    "pin": json.load(open("vendor/osrm/OSRM_PIN.json", encoding="utf-8")),
     "container_image_digest": None,
   },
-  "profile": {"path": "car.lua", "sha256": "$PROFILE_SHA"},
+  "profile": {"path": "vendor/osrm/profiles/car.lua", "sha256": "$PROFILE_SHA", "vendored": True},
   "source_pbf": {"path": "data/raw/moldova-latest.osm.pbf", "sha256": "$PBF_SHA"},
   "commands": ["$CMD_EXTRACT", "$CMD_PARTITION", "$CMD_CUSTOMIZE", "$CMD_ROUTED"],
   "smoke_test": json.loads('''$SMOKE_JSON'''),

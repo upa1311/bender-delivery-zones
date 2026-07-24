@@ -35,3 +35,44 @@ jobs:
 
       - name: Audit CLI help (no network, no PBF, no spatial audit)
         run: uv run python scripts/audit_osm.py --help
+
+  verify-provenance:
+    # Verifies the OSRM pin and vendored profile WITHOUT building the graph:
+    # the full rebuild stays a documented local workflow (multi-GB), but the
+    # provenance that ties published results to a pinned engine runs in CI.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vendored car.lua matches the recorded checksums
+        run: |
+          cd vendor/osrm && sha256sum -c CHECKSUMS.sha256
+
+      - name: Build record matches the vendored profile and the pin
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, sys
+          pin = json.loads(pathlib.Path("vendor/osrm/OSRM_PIN.json").read_text("utf-8"))
+          rec = json.loads(pathlib.Path("reports/stage-06/osrm-build.json").read_text("utf-8"))
+          errors = []
+          if rec["engine"]["version"] != pin["version"]:
+              errors.append(f"engine {rec['engine']['version']} != pin {pin['version']}")
+          vendored = hashlib.sha256(
+              pathlib.Path("vendor/osrm/profiles/car.lua").read_bytes()).hexdigest()
+          if rec["profile"]["sha256"] != vendored:
+              errors.append("build record car.lua sha does not match the vendored file")
+          if not rec.get("smoke_test", {}).get("passed"):
+              errors.append("recorded smoke test did not pass")
+          for step in ("osrm-extract", "osrm-partition", "osrm-customize", "osrm-routed"):
+              if step not in " ".join(rec["commands"]):
+                  errors.append(f"missing command: {step}")
+          if errors:
+              print("
+".join(errors)); sys.exit(1)
+          print("OSRM provenance OK:", rec["engine"]["version"])
+          PY
+
+      - name: Setup script resolves the pinned URL for this platform
+        run: |
+          python -c "import json;p=json.load(open('vendor/osrm/OSRM_PIN.json'));assert p['binaries']['linux-x64'].startswith('https://github.com/Project-OSRM/');print('pin ok')"
+

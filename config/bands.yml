@@ -18,6 +18,8 @@ units:
   # No automatic Tier A: a unit farther than this from any serviceable street
   # becomes the explicit exception no_serviceable_street_within_threshold.
   street_attach_threshold_m: 150
+  cluster_radius_m: 80
+  dense_cluster_min_units: 5
 
 # Split-street penalty sweep. The penalty is added to the DP objective for every
 # street a band boundary cuts, in the same units as the weighted squared
@@ -35,6 +37,7 @@ split_penalty:
 # as sensitivity so the owner can see how far the edges move.
 sensitivity:
   published_model: A
+  apartment_level_cap: 5
   models:
     A: 0.0     # confirmed address units only
     B: 0.25    # + unaddressed residential buildings at 0.25

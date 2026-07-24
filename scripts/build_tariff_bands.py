@@ -41,10 +41,11 @@ from bender_zones.bands import (
     band_edges,
     dispersion,
     housenumber_ranges,
+    housenumber_sort_key,
     is_monotonic,
     make_bins,
     optimal_bands,
-    street_split_counts,
+    street_split_demand,
 )
 from bender_zones.config import load_audit, load_sources
 from bender_zones.demand import (
@@ -60,6 +61,7 @@ from bender_zones.demand_units import (
     UNIT_ADDRESSED_BUILDING,
     UNIT_UNADDRESSED_BUILDING,
     DemandUnit,
+    canonical_address_key,
     deduplicate_address_nodes,
     reject_addresses_in_nonresidential,
     summarise,
@@ -293,8 +295,9 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
 
     cand = json.loads((repo_root / "docs/data/candidate-service-area.geojson")
                       .read_text("utf-8"))
-    service_all = unary_union([to_metres(shape(f["geometry"]), proj)
-                               for f in cand["features"]])
+    service_m = {f["properties"]["key"]: to_metres(shape(f["geometry"]), proj)
+                 for f in cand["features"]}
+    service_all = unary_union(list(service_m.values()))
 
     tier_by_id, street_by_id = {}, {}
     for row in csv.DictReader((repo_root / "docs/data/street-demand-audit.csv")
@@ -353,6 +356,7 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         threshold = float(bcfg["units"]["street_attach_threshold_m"])
         if sv_i is None or d_sv > threshold:
             # No automatic Tier A: an unattached unit is an explicit exception.
+            u.nearest_road_m = None if sv_i is None else round(d_sv, 1)
             no_street_units.append(u)
             continue
         u.settlement, u.street = serviceable_streets[sv_i][1]
@@ -409,6 +413,34 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         })
     print(f"routed units: {len(rows)} | unreachable: {len(unreachable)}")
 
+    # --- (2) canonical real addresses: one doorway = one zone ---
+    groups: dict = {}
+    for r in rows:
+        r["canonical_address"] = canonical_address_key(
+            r["settlement"], r["street_ru"], r["housenumber"])
+        if r["canonical_address"]:
+            groups.setdefault(r["canonical_address"], []).append(r)
+    dup_conflicts = []
+    for key, members in groups.items():
+        if len(members) < 2:
+            continue
+        kms = [m["expected_km"] for m in members]
+        # The whole doorway is banded on its nearest reachable access.
+        canonical_km = min(kms)
+        if max(kms) - min(kms) > float(bcfg["bands"]["bin_width_km"]):
+            dup_conflicts.append({
+                "canonical_address": key,
+                "objects": [m["uid"] for m in members],
+                "expected_km": [round(x, 3) for x in kms],
+                "resolved_km": round(canonical_km, 3),
+                "spread_km": round(max(kms) - min(kms), 3),
+                "resolution": "nearest_access_used_for_all_objects"})
+        for m in members:
+            m["expected_km"] = canonical_km
+    print(f"canonical addresses: {len(groups)} | multi-object: "
+          f"{sum(1 for v in groups.values() if len(v) > 1)} | "
+          f"reconciled spread: {len(dup_conflicts)}")
+
     # --- ordered bands ---
     bw = float(bcfg["bands"]["bin_width_km"])
     min_share = float(bcfg["bands"]["min_weight_share"])
@@ -436,13 +468,17 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         bins = make_bins(values, weights, bw)
         keys = sorted({int(math.floor(v / bw)) for v in values})
         idx_of = {k: i for i, k in enumerate(keys)}
-        street_bins = {}
+        # Penalty is proportional to the CONFIRMED ADDRESS demand a cut tears
+        # apart, so a 200-address street costs far more to split than two
+        # uncertain building units.
+        street_units = {}
         for r, w in zip(rows, weights, strict=False):
-            if w <= 0 or not r["street_ru"]:
+            if not r["street_ru"]:
                 continue
-            street_bins.setdefault((r["settlement"], r["street_ru"]), []).append(
-                idx_of[int(math.floor(r["expected_km"] / bw))])
-        return bins, street_split_counts(street_bins, len(bins))
+            addr_w = w if r["unit_type"] != UNIT_UNADDRESSED_BUILDING else 0.0
+            street_units.setdefault((r["settlement"], r["street_ru"]), []).append(
+                (idx_of[int(math.floor(r["expected_km"] / bw))], addr_w))
+        return bins, street_split_demand(street_units, len(bins))
 
     def edges_for(weights, k, penalty):
         bins, split_at = bins_for(weights)
@@ -450,14 +486,28 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
                                split_penalty=penalty)
         return band_edges(bins, bounds)
 
-    def count_splits(edges, k):
-        seen = {}
+    def split_stats(edges):
+        seen, per_street = {}, {}
         for r in rows:
             if not r["street_ru"]:
                 continue
-            seen.setdefault((r["settlement"], r["street_ru"]), set()).add(
-                assign_band(r["expected_km"], edges))
-        return sum(1 for v in seen.values() if len(v) > 1)
+            key = (r["settlement"], r["street_ru"])
+            zone = assign_band(r["expected_km"], edges)
+            seen.setdefault(key, set()).add(zone)
+            per_street.setdefault(key, []).append((zone, r))
+        split_keys = [k for k, v in seen.items() if len(v) > 1]
+        split_addr, split_weight = 0, 0.0
+        for key in split_keys:
+            for _zone, r in per_street[key]:
+                if r["unit_type"] != UNIT_UNADDRESSED_BUILDING:
+                    split_addr += 1
+                    split_weight += tier_weight(r["tier"])
+        return {"split_streets": len(split_keys),
+                "split_confirmed_addresses": split_addr,
+                "split_demand_weight": round(split_weight, 2)}
+
+    def count_splits(edges, k):
+        return split_stats(edges)["split_streets"]
 
     strengths = bcfg["split_penalty"]["strengths"]
     models = bcfg["sensitivity"]["models"]
@@ -481,7 +531,7 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
             disp /= max(sum(sum(v[1]) for v in per_zone_vals.values()), 1e-9)
             penalty_sweep[name]["k"][str(k)] = {
                 "upper_edges_km": [round(x, 3) for x in e],
-                "split_streets": count_splits(e, k),
+                **split_stats(e),
                 "weighted_km_dispersion": round(disp, 4),
                 "monotonic": True}
 
@@ -493,18 +543,59 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         for k in bcfg["bands"]["k_values"]:
             e = edges_for(w, k, float(strengths[pub_strength]))
             sensitivity[name]["k"][str(k)] = {"upper_edges_km": [round(x, 3) for x in e]}
-    apt_w = model_weights(float(models[pub_model]), apartment_flats=True)
-    sensitivity["apartment_flats_proxy"] = {
-        "proxy": "addr:flats where present; NO household count is invented when absent",
-        "apartment_units_total": len(all_apartments),
-        "with_addr_flats": len(apt_flats),
-        "with_building_levels": sum(1 for a in all_apartments if a["building_levels"]),
-        "with_entrances": sum(1 for a in all_apartments if a["entrances"]),
-        "k": {str(k): {"upper_edges_km": [round(x, 3)
-                                          for x in edges_for(apt_w, k,
-                                                             float(strengths[pub_strength]))]}
-              for k in bcfg["bands"]["k_values"]},
+    apt_levels = {}
+    for a in all_apartments:
+        try:
+            apt_levels[a["uid"]] = max(1, int(float(str(a["building_levels"]).strip())))
+        except (TypeError, ValueError):
+            continue
+    apt_cap = int(bcfg["sensitivity"].get("apartment_level_cap", 5))
+
+    def apartment_weights(mode):
+        out = []
+        for r in rows:
+            w = tier_weight(r["tier"])
+            if r["unit_type"] == UNIT_UNADDRESSED_BUILDING:
+                w *= float(models[pub_model])
+            elif mode != "one_unit" and r["uid"] in apt_levels:
+                levels = apt_levels[r["uid"]]
+                w *= levels if mode == "levels" else min(levels, apt_cap)
+            out.append(w)
+        return out
+
+    apartment_scenarios = {
+        "one_unit": "apartment building counts as 1 address unit",
+        "levels": "weight = max(1, building:levels) — an upper-bound proxy, NOT a "
+                  "household count",
+        f"levels_capped_{apt_cap}": f"weight = min(building:levels, {apt_cap}) — "
+                                    "conservative capped proxy",
     }
+    apartment_sensitivity = {
+        "proxy_basis": ("addr:flats is ABSENT in this extract; building:levels is used "
+                        "only as a relative proxy. No household count is claimed."),
+        "apartment_buildings_total": len(all_apartments),
+        "with_addr_flats": len(apt_flats),
+        "with_building_levels": len(apt_levels),
+        "with_entrances": sum(1 for a in all_apartments if a["entrances"]),
+        "no_scenario_selected": True,
+        "scenarios": {},
+    }
+    for mode, desc in apartment_scenarios.items():
+        w = apartment_weights("one_unit" if mode == "one_unit"
+                              else ("levels" if mode == "levels" else "capped"))
+        apartment_sensitivity["scenarios"][mode] = {
+            "description": desc,
+            "k": {str(k): {"upper_edges_km":
+                           [round(x, 3) for x in
+                            edges_for(w, k, float(strengths[pub_strength]))]}
+                  for k in bcfg["bands"]["k_values"]}}
+    base_apt = apartment_sensitivity["scenarios"]["one_unit"]["k"]
+    for mode in apartment_sensitivity["scenarios"]:
+        for k in bcfg["bands"]["k_values"]:
+            cur = apartment_sensitivity["scenarios"][mode]["k"][str(k)]["upper_edges_km"]
+            ref = base_apt[str(k)]["upper_edges_km"]
+            apartment_sensitivity["scenarios"][mode]["k"][str(k)]["edge_shift_km"] = [
+                round(c - b, 3) for c, b in zip(cur, ref, strict=False)]
     for name in sensitivity:
         for k in bcfg["bands"]["k_values"]:
             base = sensitivity[pub_model]["k"][str(k)]["upper_edges_km"]
@@ -532,8 +623,18 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
                  "decides."),
         "split_penalty_sweep": penalty_sweep,
         "demand_weight_sensitivity": sensitivity,
+        "apartment_sensitivity": apartment_sensitivity,
+        "duplicate_address_conflicts": dup_conflicts,
     }
 
+    # Name the territory each unattached unit falls in, so the owner can review
+    # them per settlement rather than as one anonymous pile.
+    for u in no_street_units:
+        for key, geom in service_m.items():
+            if geom.covers(u.point):
+                u.settlement = key
+                break
+    _review_no_street(repo_root, no_street_units, service_all, proj, bcfg)
     _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, bcfg,
            {"raw_building_objects": raw_b, "raw_address_objects": raw_a,
             "duplicates_merged": merged, "unique_units": len(unique_units),
@@ -566,14 +667,27 @@ def _band_metrics(k, rows, edges, origins, bcfg, model_weights):
         per_zone = {}
         for r in rows:
             if (r["settlement"], r["street_ru"]) == key:
-                per_zone.setdefault(r[f"band_k{k}"], []).append(r["housenumber"])
+                per_zone.setdefault(r[f"band_k{k}"], []).append(r)
+        zones_doc, all_canon = {}, {}
+        for z in sorted(per_zone):
+            canon = sorted({r["housenumber"].strip() for r in per_zone[z]
+                            if r.get("canonical_address")},
+                           key=housenumber_sort_key)
+            for h in canon:
+                all_canon.setdefault(h, set()).add(z)
+            zones_doc[f"Zone {z}"] = {
+                "canonical_addresses": canon,
+                "canonical_address_count": len(canon),
+                "house_number_ranges": housenumber_ranges(canon),
+                "unaddressed_building_units": sum(
+                    1 for r in per_zone[z]
+                    if r["unit_type"] == UNIT_UNADDRESSED_BUILDING)}
+        overlaps = sorted(h for h, zs in all_canon.items() if len(zs) > 1)
         split_detail.append({
             "settlement": key[0], "street_ru": key[1],
-            "zones": {f"Zone {z}": {
-                "house_numbers": housenumber_ranges(per_zone[z]),
-                "units": len(per_zone[z]),
-                "with_housenumber": sum(1 for h in per_zone[z] if (h or "").strip()),
-            } for z in sorted(per_zone)}})
+            "zones": zones_doc,
+            "canonical_addresses_in_multiple_zones": overlaps,
+            "ranges_are_exact": not overlaps})
 
     ordered_values = []
     for zone in sorted(per_band):
@@ -611,8 +725,18 @@ def _band_metrics(k, rows, edges, origins, bcfg, model_weights):
             "streets": sorted({f"{r['settlement']}: {r['street_ru']}"
                                for r in rs if r["street_ru"]}),
         })
+    split_addr = sum(len(d["zones"][z]["canonical_addresses"])
+                     for d in split_detail for z in d["zones"])
+    split_weight = round(sum(
+        model_weights[i] for i, r in enumerate(rows)
+        if (r["settlement"], r["street_ru"]) in set(split_keys)
+        and r["unit_type"] != UNIT_UNADDRESSED_BUILDING), 2)
     return {"k": k, "upper_edges_km": [round(e, 3) for e in edges], "zones": zones,
             "monotonic": is_monotonic(ordered_values), "split_streets": len(split),
+            "split_confirmed_addresses": split_addr,
+            "split_demand_weight": split_weight,
+            "canonical_addresses_in_multiple_zones": sum(
+                len(d["canonical_addresses_in_multiple_zones"]) for d in split_detail),
             "split_street_list": split, "split_street_house_ranges": split_detail,
             "weighted_dispersion": round(
                 sum(z["km_dispersion"] * z["demand_weight"] for z in zones)
@@ -658,6 +782,87 @@ def _band_polygons(k, rows, proj, service_all, bcfg, out):
             "k": k, "zone": zone, "name": f"Zone {zone}", "kind": "tariff_band",
             "units": len(per_band[zone]), "area_km2": round(area_m2(geom) / 1e6, 4),
             "status": "prepared_owner_review_required"}))
+
+
+def _review_no_street(repo_root, units, service_all, proj, bcfg):
+    """Group the unattached units so a missing OSM access road is visible.
+
+    A dense cluster of houses with no named street nearby is far more likely to
+    be an unmapped/unnamed access road than a genuine no-delivery pocket, so it
+    is flagged for survey instead of being written off.
+    """
+    radius = float(bcfg["units"].get("cluster_radius_m", 80))
+    dense_min = int(bcfg["units"].get("dense_cluster_min_units", 5))
+    pts = [u.point for u in units]
+    remaining, clusters = list(range(len(pts))), []
+    while remaining:
+        seed = remaining.pop(0)
+        comp, frontier = [seed], [seed]
+        while frontier:
+            cur = frontier.pop()
+            for i in list(remaining):
+                if pts[cur].distance(pts[i]) <= radius:
+                    remaining.remove(i)
+                    comp.append(i)
+                    frontier.append(i)
+        clusters.append(sorted(comp))
+    cluster_of = {}
+    for ci, comp in enumerate(clusters):
+        for i in comp:
+            cluster_of[i] = (ci, len(comp))
+
+    data = repo_root / "docs/data"
+    rows_out, feats = [], []
+    for i, u in enumerate(units):
+        ci, size = cluster_of[i]
+        dense = size >= dense_min
+        rows_out.append({
+            "uid": u.uid, "osm_type": u.osm_type, "osm_id": u.osm_id,
+            "settlement": u.settlement or "unassigned",
+            "kind": "address" if u.is_address else "unaddressed_building",
+            "housenumber": u.housenumber or "",
+            "cluster_id": ci, "cluster_size": size,
+            "nearest_serviceable_road_m": getattr(u, "nearest_road_m", None),
+            "lon": round(u.lon, 5), "lat": round(u.lat, 5),
+            "flag": ("possible_missing_or_unnamed_access_road" if dense
+                     else "isolated_no_delivery_candidate"),
+            "status": "excluded_pending_owner_review",
+        })
+        feats.append({"type": "Feature", "properties": rows_out[-1],
+                      "geometry": {"type": "Point",
+                                   "coordinates": [round(u.lon, 5), round(u.lat, 5)]}})
+    rows_out.sort(key=lambda r: (-r["cluster_size"], r["settlement"], r["uid"]))
+    with open(data / "no-street-units-review.csv", "w", encoding="utf-8",
+              newline="") as fh:
+        fields = list(rows_out[0]) if rows_out else ["uid"]
+        w = csv.DictWriter(fh, fieldnames=fields, lineterminator=chr(10))
+        w.writeheader()
+        for r in rows_out:
+            w.writerow(r)
+    jsonutil.write_compact(data / "no-street-units-review.geojson",
+                           {"type": "FeatureCollection",
+                            "features": sorted(
+                                feats, key=lambda f: f["properties"]["uid"])})
+    summary = {
+        "total_units": len(units),
+        "clusters": len(clusters),
+        "dense_clusters_flagged": sum(1 for c in clusters if len(c) >= dense_min),
+        "units_in_dense_clusters": sum(len(c) for c in clusters if len(c) >= dense_min),
+        "by_settlement": {},
+        "by_kind": {"address": sum(1 for r in rows_out if r["kind"] == "address"),
+                    "unaddressed_building": sum(1 for r in rows_out
+                                                if r["kind"] == "unaddressed_building")},
+        "largest_clusters": [{"cluster_id": ci, "units": len(c)}
+                             for ci, c in sorted(enumerate(clusters),
+                                                 key=lambda x: -len(x[1]))[:10]],
+        "note": ("Dense clusters likely indicate a missing or unnamed OSM access "
+                 "road, not a definitive no-delivery decision."),
+    }
+    for r in rows_out:
+        key = r["settlement"]
+        summary["by_settlement"][key] = summary["by_settlement"].get(key, 0) + 1
+    jsonutil.write(data / "no-street-units-summary.json", summary)
+    return summary
 
 
 def _write(repo_root, rows, results, band_features, origins, origin_doc, taxi, bcfg,
@@ -993,9 +1198,14 @@ def _md(doc):
         detail = res.get("split_street_house_ranges", [])
         lines += [f"### K={k} ({len(detail)} улиц)", ""]
         for d in detail[:25]:
-            parts = "; ".join(f"{z}: {v['house_numbers'] or '—'}"
-                              for z, v in d["zones"].items())
-            lines.append(f"- **{d['settlement']}: {d['street_ru']}** — {parts}")
+            parts = "; ".join(
+                f"{z}: {v['house_number_ranges'] or '—'}"
+                f" ({v['canonical_address_count']} адр."
+                + (f", +{v['unaddressed_building_units']} без адреса)"
+                   if v["unaddressed_building_units"] else ")")
+                for z, v in d["zones"].items())
+            exact = "точные" if d["ranges_are_exact"] else "НЕ точные (дубли номеров)"
+            lines.append(f"- **{d['settlement']}: {d['street_ru']}** [{exact}] — {parts}")
         if len(detail) > 25:
             lines.append(f"- … и ещё {len(detail) - 25} улиц (полный список в JSON)")
         lines += [""]

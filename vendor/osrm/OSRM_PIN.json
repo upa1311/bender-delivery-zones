@@ -1,0 +1,18 @@
+{
+  "engine": "OSRM",
+  "version": "v26.7.3",
+  "algorithm": "MLD",
+  "release_page": "https://github.com/Project-OSRM/osrm-backend/releases/tag/v26.7.3",
+  "binaries": {
+    "win32-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-win32-x64-Release.tar.gz",
+    "linux-x64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-linux-x64-Release.tar.gz",
+    "darwin-arm64": "https://github.com/Project-OSRM/osrm-backend/releases/download/v26.7.3/node_osrm-v26.7.3-8-darwin-arm64-Release.tar.gz"
+  },
+  "container_alternative": "ghcr.io/project-osrm/osrm-backend:v26.7.3",
+  "profile": {
+    "path": "vendor/osrm/profiles/car.lua",
+    "source": "https://raw.githubusercontent.com/Project-OSRM/osrm-backend/v26.7.3/profiles/car.lua",
+    "vendored": true
+  },
+  "note": "Pinned so a clean clone reproduces the exact routing graph. The car.lua and its lib/ are vendored here; checksums are recorded in vendor/osrm/CHECKSUMS.sha256."
+}

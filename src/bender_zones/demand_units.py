@@ -86,6 +86,24 @@ def deduplicate_address_nodes(building_units, address_node_units, building_polys
     return kept, merged
 
 
+def canonical_address_key(settlement, street_ru, housenumber):
+    """Identity of a REAL address, independent of how OSM modelled it.
+
+    Normalised settlement + Russian street + house number. Two OSM objects (a
+    building and a node, or two building parts) that resolve to the same key are
+    the same doorway and must never land in two different price zones.
+    Returns ``None`` when the address is incomplete, so unaddressed building
+    units are never merged with each other.
+    """
+    from .normalize import normalize_text
+
+    parts = [normalize_text(settlement or ""), normalize_text(street_ru or ""),
+             normalize_text(housenumber or "")]
+    if not all(parts):
+        return None
+    return "|".join(parts)
+
+
 def reject_addresses_in_nonresidential(address_units, nonresidential_polys):
     """Drop address nodes that sit inside/on a confirmed NON-residential building.
 

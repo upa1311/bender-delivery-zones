@@ -1,0 +1,60 @@
+{
+  "by_kind": {
+    "address": 142,
+    "unaddressed_building": 446
+  },
+  "by_settlement": {
+    "bender_core": 320,
+    "bender_lipcani": 103,
+    "giska": 42,
+    "parkany": 97,
+    "protyagailovka": 26
+  },
+  "clusters": 126,
+  "dense_clusters_flagged": 33,
+  "largest_clusters": [
+    {
+      "cluster_id": 79,
+      "units": 56
+    },
+    {
+      "cluster_id": 37,
+      "units": 49
+    },
+    {
+      "cluster_id": 21,
+      "units": 35
+    },
+    {
+      "cluster_id": 0,
+      "units": 25
+    },
+    {
+      "cluster_id": 16,
+      "units": 18
+    },
+    {
+      "cluster_id": 34,
+      "units": 17
+    },
+    {
+      "cluster_id": 42,
+      "units": 17
+    },
+    {
+      "cluster_id": 122,
+      "units": 17
+    },
+    {
+      "cluster_id": 1,
+      "units": 15
+    },
+    {
+      "cluster_id": 55,
+      "units": 14
+    }
+  ],
+  "note": "Dense clusters likely indicate a missing or unnamed OSM access road, not a definitive no-delivery decision.",
+  "total_units": 588,
+  "units_in_dense_clusters": 432
+}

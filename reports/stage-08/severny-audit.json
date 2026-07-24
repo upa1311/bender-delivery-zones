@@ -1,0 +1,38 @@
+{
+  "anchor_candidate": {
+    "lat": 46.854251,
+    "lon": 29.480231,
+    "road_distance_from_centre_km": 4.469,
+    "road_duration_from_centre_min": 6.52
+  },
+  "direct_integration": false,
+  "evidence": "Северный named only by marshrutka route relations [6572078, 6572079, 6572080, 6572081]; no place=/boundary=/bus_stop object.",
+  "generated_at": "2026-07-24T04:35:35Z",
+  "message": "Severny landmark unresolved — owner confirmation required",
+  "prices_assigned": false,
+  "resolved": false,
+  "routes": {
+    "6572078": {
+      "member_count": 27,
+      "name": "Маршрутка №25: Бендерыстрой - Северный",
+      "ref": "25"
+    },
+    "6572079": {
+      "member_count": 23,
+      "name": "Маршрутка №25: Северный - Бендерыстрой",
+      "ref": "25"
+    },
+    "6572080": {
+      "member_count": 10,
+      "name": "Маршрутка №24: Ленинский - Северный",
+      "ref": "24"
+    },
+    "6572081": {
+      "member_count": 10,
+      "name": "Маршрутка №24: Северный - Ленинский",
+      "ref": "24"
+    }
+  },
+  "schema": "bender-severny-audit/8",
+  "zones_created": false
+}

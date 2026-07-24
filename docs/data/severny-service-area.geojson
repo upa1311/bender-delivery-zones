@@ -1,0 +1,25 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          29.480231,
+          46.854251
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "derived_from": "northern extremity of marshrutka routes to Северный",
+        "geometry_kind": "marker_not_polygon",
+        "name": "Северный",
+        "note": "Не подтверждён как OSM-объект. Не является полигоном доставки. Требуется решение владельца по границе/координате.",
+        "resolution": "owner_review_required",
+        "road_distance_from_centre_km": 4.469,
+        "status": "candidate_unconfirmed"
+      },
+      "type": "Feature"
+    }
+  ],
+  "resolution_status": "unresolved",
+  "type": "FeatureCollection"
+}

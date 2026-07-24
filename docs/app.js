@@ -301,7 +301,7 @@ function setupSearch() {
 async function init() {
   try {
     const [source, candidate, excluded, sparse, questions, buildings, roads, diff,
-           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress] = await Promise.all([
+           tierC, demand, bands, origins, bandMetrics, exceptions, unitPoints, noAddress, severnyRoutes, severnyArea] = await Promise.all([
       loadJSON("data/source-boundaries.geojson"),
       loadJSON("data/candidate-service-area.geojson"),
       loadJSON("data/excluded-large-areas.geojson"),
@@ -318,6 +318,8 @@ async function init() {
       loadJSON("data/delivery-exceptions.geojson"),
       loadJSON("data/delivery-unit-points.geojson"),
       loadJSON("data/no-address-data.geojson"),
+      loadJSON("data/severny-route-qa.geojson"),
+      loadJSON("data/severny-service-area.geojson"),
     ]);
 
     // Source OSM boundaries — dashed, reference only.
@@ -443,6 +445,22 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(
         `<div class="popup"><b>Исключение</b><br>${esc(f.properties.uid)}<br>` +
         `<code>${esc(f.properties.reason)}</code></div>`),
+    });
+
+    // Северный: маршруты (QA) + неподтверждённый кандидат-маркер.
+    overlays["Северный — маршруты (QA)"] = L.geoJSON(severnyRoutes, {
+      style: () => ({ color: "#0ea5e9", weight: 3, opacity: 0.85, dashArray: "5 4" }),
+      onEachFeature: (f, l) => l.bindPopup(
+        `<div class="popup"><b>Маршрут «Северный»</b><br>${esc(f.properties.name)}</div>`),
+    });
+    overlays["Северный — кандидат (не подтверждён)"] = L.geoJSON(severnyArea, {
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+        radius: 9, color: "#b45309", weight: 3, fillColor: "#fde68a",
+        fillOpacity: 0.9 }),
+      onEachFeature: (f, l) => l.bindPopup(
+        `<div class="popup"><div class="popup-title">Северный `
+        + `<span class="badge review">${esc(f.properties.status)}</span></div>`
+        + `<p>${esc(f.properties.note)}</p></div>`),
     });
 
     L.control.layers(null, overlays, { collapsed: false }).addTo(map);

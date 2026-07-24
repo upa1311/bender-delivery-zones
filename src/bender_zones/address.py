@@ -79,14 +79,17 @@ def build_street_index(records) -> dict:
             continue
         settlements = {s for s, _d in places}
         for settlement, district in places:
-            if len(settlements) > 1:
+            if district:
+                # A known district is always more precise than the settlement:
+                # "улица Энгельса (Липканы)", never "(Бендеры)".
+                qualifiers[(settlement, district, _name)] = district
+            elif len(settlements) > 1:
                 # Same name in different settlements -> qualify by settlement.
                 qualifiers[(settlement, district, _name)] = settlement
             else:
-                # Same name twice inside one settlement -> qualify by district.
+                # Same name twice inside one settlement, this one has no district.
                 qualifiers[(settlement, district, _name)] = (
-                    district if district
-                    else f"{settlement}, {OTHER_DISTRICT_SUFFIX}")
+                    f"{settlement}, {OTHER_DISTRICT_SUFFIX}")
     return qualifiers
 
 

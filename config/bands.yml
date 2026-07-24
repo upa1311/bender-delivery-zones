@@ -21,6 +21,9 @@ units:
   street_attach_threshold_m: 150
   cluster_radius_m: 80
   dense_cluster_min_units: 5
+  # Above this coordinate spread, duplicate objects of one address are NOT merged
+  # automatically — the address is quarantined for owner review.
+  duplicate_coordinate_tolerance_m: 150
 
 # Split-street penalty sweep. The penalty is added to the DP objective for every
 # street a band boundary cuts, in the same units as the weighted squared

@@ -170,3 +170,118 @@ def test_duplicate_streets_do_not_share_canonical_keys(repo_root):
         by_key.setdefault(r["canonical_address"], set()).add(r["settlement_ru"])
     for key, settlements in by_key.items():
         assert len(settlements) == 1, f"{key} spans settlements {settlements}"
+
+
+# --- district beats the generic settlement qualifier ------------------------
+
+def test_district_is_preferred_over_settlement_qualifier():
+    index = build_street_index([
+        ("Бендеры", "Липканы", "улица Энгельса"),
+        ("Бендеры", None, "улица Энгельса")])
+    lip = index[("Бендеры", "Липканы", "улица энгельса")]
+    core = index[("Бендеры", None, "улица энгельса")]
+    assert display_address_ru("улица Энгельса", lip) == "улица Энгельса (Липканы)"
+    assert "(Бендеры)" not in display_address_ru("улица Энгельса", lip)
+    assert display_address_ru("улица Энгельса", core) == \
+        "улица Энгельса (Бендеры, другой район)"
+
+
+def test_district_wins_even_across_settlements():
+    """A street in Липканы is labelled by its district, never by 'Бендеры'."""
+    index = build_street_index([
+        ("Бендеры", "Липканы", "улица Ленина"),
+        ("Гиска", None, "улица Ленина"),
+        ("Парканы", None, "улица Ленина")])
+    lip = index[("Бендеры", "Липканы", "улица ленина")]
+    assert display_address_ru(LENIN, lip) == "улица Ленина (Липканы)"
+    assert display_address_ru(LENIN, index[("Гиска", None, "улица ленина")]) == \
+        "улица Ленина (Гиска)"
+
+
+def test_full_address_still_carries_settlement_and_district():
+    assert full_address_ru("Бендеры", "Липканы", "улица Энгельса", "24") == \
+        "Бендеры, Липканы, улица Энгельса, дом 24"
+
+
+def test_committed_lipcani_rows_never_say_bendery(repo_root):
+    rows = _rows(repo_root)
+    lip = [r for r in rows if r["district_ru"] == "Липканы"]
+    assert lip
+    for r in lip:
+        assert "(Бендеры)" not in r["display_address_ru"]
+        if "(" in r["display_address_ru"]:
+            assert r["display_address_ru"].endswith("(Липканы)")
+        assert r["full_address_ru"].startswith("Бендеры, Липканы, ")
+
+
+def test_committed_titova_shows_district_on_both_sides(repo_root):
+    labels = {r["display_address_ru"] for r in _rows(repo_root)
+              if "Титова" in (r["street_ru"] or "")}
+    assert "улица Титова (Липканы)" in labels
+    assert "улица Титова (Бендеры, другой район)" in labels
+
+
+# --- disputed addresses are quarantined, never auto-resolved ----------------
+
+def test_disputed_addresses_are_quarantined(repo_root):
+    doc = json.loads((repo_root / "docs/data/disputed-addresses.json")
+                     .read_text(encoding="utf-8"))
+    assert doc["count"] > 0
+    assert "Direct" in doc["policy"]
+    for a in doc["addresses"]:
+        assert a["status"] == "disputed"
+        assert a["resolution"] == "owner_review_required"
+        assert a["direct_export_eligible"] is False
+        assert a["coordinate_spread_m"] >= a["tolerance_m"]
+        assert len(a["candidates"]) > 1
+
+
+def test_disputed_addresses_keep_every_candidate_route(repo_root):
+    doc = json.loads((repo_root / "docs/data/disputed-addresses.json")
+                     .read_text(encoding="utf-8"))
+    for a in doc["addresses"][:50]:
+        for c in a["candidates"]:
+            assert c["uid"] and c["lon"] and c["lat"]
+            assert c["expected_km"] is not None
+        # the shortest route was NOT silently chosen for the address
+        assert "resolved_km" not in a
+
+
+def test_disputed_addresses_are_absent_from_the_bands(repo_root):
+    doc = json.loads((repo_root / "docs/data/disputed-addresses.json")
+                     .read_text(encoding="utf-8"))
+    banded = {r["canonical_address"] for r in _rows(repo_root)}
+    for a in doc["addresses"]:
+        assert a["canonical_address"] not in banded, \
+            "a disputed address must not receive a tariff zone"
+
+
+def test_disputed_counts_published_by_settlement_and_street(repo_root):
+    doc = json.loads((repo_root / "docs/data/disputed-addresses.json")
+                     .read_text(encoding="utf-8"))
+    assert doc["by_settlement"] and doc["by_street"]
+    assert sum(doc["by_settlement"].values()) == doc["count"]
+    header = (repo_root / "docs/data/disputed-addresses.csv").read_text(
+        encoding="utf-8").splitlines()[0]
+    for col in ("coordinate_spread_m", "candidate_uid", "expected_km", "status",
+                "direct_export_eligible"):
+        assert col in header
+
+
+def test_duplicates_within_tolerance_are_still_merged(repo_root):
+    tuning = json.loads((repo_root / "docs/data/tariff-band-metrics.json")
+                        .read_text(encoding="utf-8"))["tuning"]
+    merged = tuning["duplicate_address_conflicts"]
+    assert merged, "safe duplicates must still merge automatically"
+    for m in merged:
+        assert m["resolution"] == "merged_within_coordinate_tolerance"
+        assert m["coordinate_spread_m"] <= tuning["disputed_addresses"]["tolerance_m"]
+
+
+def test_apartment_section_reads_the_current_field(repo_root):
+    md = (repo_root / "reports/stage-06/tariff-bands.md").read_text(encoding="utf-8")
+    assert "Квартирная чувствительность" in md
+    assert "addr:flats" in md and "building:levels" in md
+    for scenario in ("one_unit", "levels"):
+        assert scenario in md
+    assert "None" not in md.split("Квартирная чувствительность")[1][:600]

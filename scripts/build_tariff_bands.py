@@ -452,9 +452,51 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
     for r in rows:
         if r["canonical_address"]:
             groups.setdefault(r["canonical_address"], []).append(r)
-    dup_conflicts = []
+
+    tol_m = float(bcfg["units"].get("duplicate_coordinate_tolerance_m", 150))
+    dup_conflicts, disputed = [], []
     for key, members in groups.items():
         kms = [m["expected_km"] for m in members]
+        if len(members) > 1:
+            lons = [m["lon"] for m in members]
+            lats = [m["lat"] for m in members]
+            spread_m = max((max(lons) - min(lons)) * 76000.0,
+                           (max(lats) - min(lats)) * 111000.0)
+        else:
+            spread_m = 0.0
+
+        if spread_m > tol_m:
+            # Geographically inconsistent: picking the shortest route would be a
+            # silent guess. Quarantine the address instead.
+            record = {
+                "canonical_address": key,
+                "display_address_ru": members[0]["display_address_ru"],
+                "full_address_ru": members[0]["full_address_ru"],
+                "settlement_ru": members[0]["settlement_ru"],
+                "district_ru": members[0]["district_ru"],
+                "street_ru": members[0]["street_ru"],
+                "housenumber": members[0]["housenumber"],
+                "coordinate_spread_m": round(spread_m),
+                "tolerance_m": tol_m,
+                "status": "disputed",
+                "resolution": "owner_review_required",
+                "direct_export_eligible": False,
+                "candidates": [{"uid": m["uid"], "osm_type": m["osm_type"],
+                                "osm_id": m["osm_id"], "lon": m["lon"], "lat": m["lat"],
+                                "expected_km": m["expected_km"],
+                                "expected_min": m["expected_min"],
+                                "central_km": m["central_km"],
+                                "worst_origin_km": m["worst_origin_km"]}
+                               for m in members],
+                "note": ("Same address, objects farther apart than the tolerance. "
+                         "No route was chosen automatically."),
+            }
+            disputed.append(record)
+            for m in members:
+                m["disputed"] = True
+            continue
+
+        # Within tolerance: the objects are the same doorway, merge safely.
         canonical_km = min(kms)
         if len(members) > 1 and max(kms) - min(kms) > float(bcfg["bands"]["bin_width_km"]):
             dup_conflicts.append({
@@ -464,12 +506,18 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
                 "expected_km": [round(x, 3) for x in kms],
                 "resolved_km": round(canonical_km, 3),
                 "spread_km": round(max(kms) - min(kms), 3),
-                "resolution": "nearest_access_used_for_all_objects"})
+                "coordinate_spread_m": round(spread_m),
+                "resolution": "merged_within_coordinate_tolerance"})
         for m in members:
             m["expected_km"] = canonical_km
+
+    quarantined = [r for r in rows if r.get("disputed")]
+    rows = [r for r in rows if not r.get("disputed")]
     print(f"canonical addresses: {len(groups)} | multi-object: "
-          f"{sum(1 for v in groups.values() if len(v) > 1)} | "
-          f"reconciled spread: {len(dup_conflicts)}")
+          f"{sum(1 for v in groups.values() if len(v) > 1)} | merged: "
+          f"{len(dup_conflicts)} | disputed(quarantined): {len(disputed)} "
+          f"({len(quarantined)} objects)")
+    _write_disputed(repo_root, disputed)
     _street_name_qa(repo_root, rows, qualifiers)
 
     # --- ordered bands ---
@@ -676,6 +724,14 @@ def build(pbf: Path, repo_root: Path, osrm_url: str) -> int:
         "demand_weight_sensitivity": sensitivity,
         "apartment_sensitivity": apartment_sensitivity,
         "duplicate_address_conflicts": dup_conflicts,
+        "disputed_addresses": {
+            "count": len(disputed),
+            "tolerance_m": tol_m,
+            "policy": ("quarantined: excluded from bands and from any production "
+                       "Direct export until the owner resolves them"),
+            "by_settlement": _count_by(disputed, "settlement_ru"),
+            "by_street": _count_by(disputed, "display_address_ru"),
+        },
     }
 
     # Name the territory each unattached unit falls in, so the owner can review
@@ -833,6 +889,59 @@ def _band_polygons(k, rows, proj, service_all, bcfg, out):
             "k": k, "zone": zone, "name": f"Zone {zone}", "kind": "tariff_band",
             "units": len(per_band[zone]), "area_km2": round(area_m2(geom) / 1e6, 4),
             "status": "prepared_owner_review_required"}))
+
+
+def _count_by(records, field):
+    out: dict = {}
+    for r in records:
+        key = r.get(field) or "не определён"
+        out[key] = out.get(key, 0) + 1
+    return dict(sorted(out.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def _write_disputed(repo_root, disputed):
+    """Quarantine layer: addresses whose objects disagree on where they are."""
+    data = repo_root / "docs/data"
+    jsonutil.write(data / "disputed-addresses.json", {
+        "schema": "bender-disputed-addresses/7",
+        "generated_at": _now(),
+        "policy": ("Excluded from the tariff bands and from any production Direct "
+                   "export until the owner resolves them. No route is chosen "
+                   "automatically."),
+        "count": len(disputed),
+        "by_settlement": _count_by(disputed, "settlement_ru"),
+        "by_street": _count_by(disputed, "display_address_ru"),
+        "addresses": disputed,
+    })
+    with open(data / "disputed-addresses.csv", "w", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh, lineterminator=chr(10))
+        w.writerow(["canonical_address", "full_address_ru", "display_address_ru",
+                    "settlement_ru", "district_ru", "street_ru", "housenumber",
+                    "coordinate_spread_m", "candidate_uid", "lon", "lat",
+                    "expected_km", "status", "resolution", "direct_export_eligible"])
+        for d in disputed:
+            for c in d["candidates"]:
+                w.writerow([d["canonical_address"], d["full_address_ru"],
+                            d["display_address_ru"], d["settlement_ru"],
+                            d["district_ru"] or "", d["street_ru"], d["housenumber"],
+                            d["coordinate_spread_m"], c["uid"], c["lon"], c["lat"],
+                            c["expected_km"], d["status"], d["resolution"],
+                            d["direct_export_eligible"]])
+    feats = []
+    for d in disputed:
+        for c in d["candidates"]:
+            feats.append({"type": "Feature", "properties": {
+                "canonical_address": d["canonical_address"],
+                "full_address_ru": d["full_address_ru"],
+                "status": "disputed", "resolution": "owner_review_required",
+                "coordinate_spread_m": d["coordinate_spread_m"],
+                "uid": c["uid"], "expected_km": c["expected_km"]},
+                "geometry": {"type": "Point", "coordinates": [c["lon"], c["lat"]]}})
+    feats.sort(key=lambda f: (f["properties"]["canonical_address"],
+                              f["properties"]["uid"]))
+    jsonutil.write_compact(data / "disputed-addresses.geojson",
+                           {"type": "FeatureCollection", "features": feats})
+    return disputed
 
 
 def _street_name_qa(repo_root, rows, qualifiers):
@@ -1356,12 +1465,28 @@ def _md(doc):
         for k, x in v["k"].items():
             lines.append(f"| {name} | {k} | {x['upper_edges_km']} | "
                          f"{round(x['max_abs_shift_km'], 3)} |")
-    apt = t["demand_weight_sensitivity"].get("apartment_flats_proxy", {})
-    lines += ["", f"Квартирный прокси: `addr:flats` у {apt.get('with_addr_flats')} из "
-              f"{apt.get('apartment_units_total')} многоквартирных, "
-              f"`building:levels` у {apt.get('with_building_levels')}, "
-              f"подъезды у {apt.get('with_entrances')}. "
-              "Точное число домохозяйств при отсутствии данных не выдумывается.", ""]
+    apt = t.get("apartment_sensitivity", {})
+    lines += ["", "## Квартирная чувствительность", "",
+              f"- многоквартирных зданий: **{apt.get('apartment_buildings_total')}**",
+              f"- с `addr:flats`: **{apt.get('with_addr_flats')}**",
+              f"- с `building:levels`: **{apt.get('with_building_levels')}**",
+              f"- с подъездами: **{apt.get('with_entrances')}**",
+              f"- {apt.get('proxy_basis', '')}", "",
+              "| сценарий | K=4 сдвиг границ, км | K=5 сдвиг границ, км |",
+              "|---|---|---|"]
+    for name, sc in (apt.get("scenarios") or {}).items():
+        k4 = sc["k"].get("4", {}).get("edge_shift_km")
+        k5 = sc["k"].get("5", {}).get("edge_shift_km")
+        lines.append(f"| `{name}` — {sc['description']} | {k4} | {k5} |")
+    dis = doc.get("tuning", {}).get("disputed_addresses", {})
+    if dis:
+        lines += ["", "## Спорные адреса (карантин)", "",
+                  f"- всего: **{dis.get('count')}** (допуск "
+                  f"{dis.get('tolerance_m')} м)", f"- {dis.get('policy')}",
+                  "", "| населённый пункт | адресов |", "|---|---:|"]
+        for k, v in (dis.get("by_settlement") or {}).items():
+            lines.append(f"| {k} | {v} |")
+    lines += [""]
     lines += ["## Split streets — точные диапазоны домов", ""]
     for k, res in doc["candidates"].items():
         detail = res.get("split_street_house_ranges", [])

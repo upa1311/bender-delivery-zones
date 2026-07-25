@@ -1,0 +1,13 @@
+{
+  "central_origin_lonlat": [
+    29.48313,
+    46.82388
+  ],
+  "putepovod_lonlat": [
+    29.477691,
+    46.840768
+  ],
+  "origin_is_south_of_rail_belt": true,
+  "straight_km_origin_to_putepovod": 1.923,
+  "interpretation": "Central origin sits SOUTH of the rail belt in the city core (demand centre), on the correct city side; Borisovka is NW across the belt and is reached over the путепровод. The origin is NOT east of the interchange nor on the wrong side of the tracks."
+}

@@ -1,5 +1,15 @@
 # Stage 09A — routing truth: recommendation
 
+> **CORRECTION (superseded by Stage 09B/09C).** The "railway barrier forces a
+> ~3 km southern loop" conclusion below is WRONG. Reading OSM **nodes** finds 116
+> level-crossing nodes and 43 real car crossings; the Кишинёв–Тирасполь
+> **путепровод** (bridge=yes, layer=2) carries bus route №5 to Borisovka and is in
+> the OSRM graph. The rail belt is NOT a barrier. The southern arc is only the
+> fastest-by-**duration** route (6.57 km); a 27 %-shorter route (4.77 km) goes
+> NORTH over the путепровод. See `reports/stage-09c/borisovka-corridor.md` and
+> `reports/stage-09b/`. This is a duration-vs-distance METRIC issue, not a barrier.
+
+
 **Prove routes before zones. Read-only audit — no OSM edits, no routing override
 applied, no zone recomputed to final, no release, no Direct changes. Every item
 `owner_review_required`.**

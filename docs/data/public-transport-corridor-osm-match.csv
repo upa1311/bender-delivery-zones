@@ -1,0 +1,68 @@
+corridor_street,osm_way_id,way_name,highway,bridge,tunnel,layer,oneway,access,motor_vehicle,maxspeed,present_in_pbf,direction
+Кишинёв-Тирасполь,28796004,Кишинёв-Тирасполь,primary,yes,,2,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,28796006,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,28796008,Кишинёв-Тирасполь,primary,yes,,2,yes,,,60,True,reverse_differs
+Кишинёв-Тирасполь,28796010,Кишинёв-Тирасполь,primary,,,,yes,,,60,True,reverse_differs
+Кишинёв-Тирасполь,38633102,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,38633114,Кишинёв-Тирасполь,primary,,,,yes,,,60,True,reverse_differs
+Кишинёв-Тирасполь,38633124,Кишинёв-Тирасполь,primary_link,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,58427503,Кишинёв-Тирасполь,primary_link,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,132957184,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,132957188,Кишинёв-Тирасполь,primary,,,,yes,,,60,True,reverse_differs
+Кишинёв-Тирасполь,133143205,Кишинёв-Тирасполь,primary,,,,yes,,,60,True,reverse_differs
+Кишинёв-Тирасполь,185144051,Кишинёв-Тирасполь,primary,,,,,,,,True,both
+Кишинёв-Тирасполь,385234576,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,415365320,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,28584680,Кишинёв-Тирасполь,primary,,,,yes,,,90,True,reverse_differs
+Кишинёв-Тирасполь,83039093,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,83039114,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,83039154,Кишинёв-Тирасполь,primary,,,,,,,70,True,both
+Кишинёв-Тирасполь,614526735,Кишинёв-Тирасполь,primary,,,,,,,50,True,both
+Кишинёв-Тирасполь,614526736,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,614526737,Кишинёв-Тирасполь,primary,,,,yes,,,50,True,reverse_differs
+Кишинёв-Тирасполь,617252894,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,617252895,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,685641259,Кишинёв-Тирасполь,primary,,,,,,,,True,both
+Кишинёв-Тирасполь,795416596,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,795416597,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,795416598,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёв-Тирасполь,795416599,Кишинёв-Тирасполь,primary,,,,yes,,,,True,reverse_differs
+Кишинёвская улица,41749663,Кишинёвская улица,tertiary,,,,,,,,True,both
+Кишинёвская улица,62383007,Кишинёвская улица,primary,,,,,,,50,True,both
+Кишинёвская улица,63221794,Кишинёвская улица,primary,,,,,,,60,True,both
+Кишинёвская улица,133062213,Кишинёвская улица,primary,,,,,,,60,True,both
+Кишинёвская улица,133068144,Кишинёвская улица,primary,,,,,,,50,True,both
+Кишинёвская улица,133068155,Кишинёвская улица,primary_link,,,,yes,,,,True,reverse_differs
+Тираспольская улица,38633109,Тираспольская улица,residential,,,,,,,,True,both
+Тираспольская улица,94330335,Тираспольская улица,secondary,,,,yes,,,,True,reverse_differs
+Тираспольская улица,228367336,Тираспольская улица,secondary,,,,,,,,True,both
+улица 50 лет ВЛКСМ,64716999,улица 50 лет ВЛКСМ,tertiary,,,,no,,,,True,both
+улица 50 лет ВЛКСМ,133068147,улица 50 лет ВЛКСМ,tertiary,,,,no,,,,True,both
+улица 50 лет ВЛКСМ,222986033,улица 50 лет ВЛКСМ,residential,,,,,,,,True,both
+улица 50 лет ВЛКСМ,532560333,улица 50 лет ВЛКСМ,tertiary,,,,no,,,,True,both
+улица 50 лет ВЛКСМ,1465814212,улица 50 лет ВЛКСМ,tertiary,,,,no,,,,True,both
+улица Богдана Хмельницкого,46581879,улица Богдана Хмельницкого,residential,,,,,,,,True,both
+улица Дружбы,45858821,улица Дружбы,primary,,,,,,,,True,both
+улица Дружбы,103643505,улица Дружбы,secondary,,,,yes,,,,True,reverse_differs
+улица Дружбы,83039115,улица Дружбы,residential,,,,,,,,True,both
+улица Ермакова,38633120,улица Ермакова,primary,,,,yes,,,60,True,reverse_differs
+улица Ермакова,58426018,улица Ермакова,primary,,,,,,,50,True,both
+улица Ермакова,63221753,улица Ермакова,primary,,,,yes,,,50,True,reverse_differs
+улица Ермакова,132957175,улица Ермакова,primary,,,,,,,60,True,both
+улица Ермакова,222673638,улица Ермакова,primary,,,,yes,,,50,True,reverse_differs
+улица Ермакова,746365743,улица Ермакова,primary,,,,,,,50,True,both
+улица Ермакова,746365744,улица Ермакова,primary,,,,,,,50,True,both
+улица Ермакова,813128460,улица Ермакова,primary,,,,yes,,,50,True,reverse_differs
+улица Ермакова,813128461,улица Ермакова,primary,,,,yes,,,50,True,reverse_differs
+улица Ермакова,813128463,улица Ермакова,primary,,,,yes,,,60,True,reverse_differs
+улица Ермакова,916379244,улица Ермакова,primary,,,,yes,,,60,True,reverse_differs
+улица Ермакова,943960891,улица Ермакова,primary,,,,,,,,True,both
+улица Осипенко,45858827,улица Осипенко,residential,,,,,,,,True,both
+улица Петровского,60739704,улица Петровского,residential,,,,,,,,True,both
+улица Петровского,165763754,улица Петровского,residential,,,,,,,,True,both
+улица Титова,87499736,улица Титова,residential,,,,,,,,True,both
+улица Титова,116073586,улица Титова,tertiary,,,,yes,,,,True,reverse_differs
+улица Титова,161630389,улица Титова,residential,,,,,,,,True,both
+улица Титова,385234575,улица Титова,residential,,,,,,,,True,both
+улица Титова,493891920,улица Титова,tertiary,,,,yes,,,,True,reverse_differs
+улица Титова,813128462,улица Титова,residential,,,,,,,,True,both

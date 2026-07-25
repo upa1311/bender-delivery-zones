@@ -1,0 +1,336 @@
+{
+  "basis": "current v1.1 edges on CENTRAL-origin road km (proxy); not a republish",
+  "edges_km": [
+    2.424,
+    4.076,
+    5.577,
+    9.692
+  ],
+  "borisovka_homes": 511,
+  "zone_changes_fastest_vs_shortest": 168,
+  "unchanged": 343,
+  "note": "If the km tariff used the shortest valid (corridor) route instead of the fastest-by-duration route, this many Borisovka homes move to a cheaper zone. owner_review; no zone is republished.",
+  "owner_review_required": true,
+  "sample": [
+    {
+      "street": "Кишинёвская улица",
+      "house": "4",
+      "fastest_km": 7.1895,
+      "shortest_km": 4.9513,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "8/2",
+      "fastest_km": 7.1897,
+      "shortest_km": 4.9514,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "8",
+      "fastest_km": 7.2233,
+      "shortest_km": 4.9851,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "8/1",
+      "fastest_km": 7.1805,
+      "shortest_km": 4.9423,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "10",
+      "fastest_km": 7.1944,
+      "shortest_km": 4.9562,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "14",
+      "fastest_km": 7.1602,
+      "shortest_km": 4.9219,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "12",
+      "fastest_km": 7.1232,
+      "shortest_km": 4.8849,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "12/3",
+      "fastest_km": 7.1161,
+      "shortest_km": 4.8778,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "16",
+      "fastest_km": 7.0981,
+      "shortest_km": 4.8599,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "20",
+      "fastest_km": 7.0864,
+      "shortest_km": 4.8481,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "24",
+      "fastest_km": 7.0235,
+      "shortest_km": 4.7853,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвский переулок",
+      "house": "32",
+      "fastest_km": 6.9763,
+      "shortest_km": 4.7381,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "10",
+      "fastest_km": 7.1078,
+      "shortest_km": 4.8696,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "5",
+      "fastest_km": 7.0316,
+      "shortest_km": 4.7934,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвский переулок",
+      "house": "34",
+      "fastest_km": 6.979,
+      "shortest_km": 4.7408,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "1/3",
+      "fastest_km": 7.0585,
+      "shortest_km": 4.8203,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "34/2",
+      "fastest_km": 6.9046,
+      "shortest_km": 4.6664,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвский переулок",
+      "house": "38",
+      "fastest_km": 7.0179,
+      "shortest_km": 4.7797,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "4",
+      "fastest_km": 7.027,
+      "shortest_km": 4.7888,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "40",
+      "fastest_km": 6.8819,
+      "shortest_km": 4.6437,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "3а",
+      "fastest_km": 6.9281,
+      "shortest_km": 4.6899,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "1а",
+      "fastest_km": 7.0005,
+      "shortest_km": 4.7623,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Новый проезд",
+      "house": "46",
+      "fastest_km": 6.8938,
+      "shortest_km": 4.6556,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "31",
+      "fastest_km": 6.0875,
+      "shortest_km": 5.3416,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "29",
+      "fastest_km": 6.0796,
+      "shortest_km": 5.3337,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "27",
+      "fastest_km": 6.0536,
+      "shortest_km": 5.3077,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "25",
+      "fastest_km": 6.0371,
+      "shortest_km": 5.2912,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "21",
+      "fastest_km": 5.9833,
+      "shortest_km": 5.2374,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "19а",
+      "fastest_km": 5.9445,
+      "shortest_km": 5.1986,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Безымянный переулок",
+      "house": "23",
+      "fastest_km": 5.9943,
+      "shortest_km": 5.1264,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "5",
+      "fastest_km": 6.0936,
+      "shortest_km": 5.1033,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "улица 50 лет ВЛКСМ",
+      "house": "50",
+      "fastest_km": 6.0618,
+      "shortest_km": 5.2237,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "60",
+      "fastest_km": 6.6352,
+      "shortest_km": 4.8443,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "3",
+      "fastest_km": 6.4032,
+      "shortest_km": 4.8589,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "1а",
+      "fastest_km": 6.4418,
+      "shortest_km": 4.9374,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Безымянный переулок",
+      "house": "46",
+      "fastest_km": 6.0149,
+      "shortest_km": 5.1057,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Безымянный переулок",
+      "house": "44",
+      "fastest_km": 6.0384,
+      "shortest_km": 5.0822,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "5",
+      "fastest_km": 6.412,
+      "shortest_km": 4.8501,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Кишинёвская улица",
+      "house": "7",
+      "fastest_km": 6.3984,
+      "shortest_km": 4.894,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    },
+    {
+      "street": "Безымянный переулок",
+      "house": "42",
+      "fastest_km": 6.0509,
+      "shortest_km": 5.0697,
+      "zone_by_fastest": 4,
+      "zone_by_shortest": 3
+    }
+  ]
+}

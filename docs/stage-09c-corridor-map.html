@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stage 09C — коридор №5 на Борисовку (Бендеры)</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0 320px 0 0; }
+    #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 320px;
+      overflow: auto; background: #fff; border-left: 1px solid #ccc; padding: 12px; font-size: 13px; }
+    h1 { font-size: 15px; margin: 0 0 6px; } h2 { font-size: 13px; margin: 10px 0 4px; }
+    .lyr { display: block; margin: 3px 0; } .note { color: #666; font-size: 12px; }
+    .sw { display:inline-block; width:12px; height:3px; vertical-align:middle; margin-right:5px; }
+    #info { margin-top: 10px; padding: 8px; background: #f6f8fa; border-radius: 6px;
+      white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; min-height: 50px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="panel">
+    <h1>Stage 09C — коридор №5 на Борисовку</h1>
+    <p class="note">Read-only. Immutable-релиз/Direct/цены не изменены. Коридор
+      путепровода проверен по OSM+OSRM. Зоны не пересчитаны. owner review.</p>
+    <h2>Слои</h2>
+    <label class="lyr"><input type="checkbox" id="l-boundary" checked /> Граница Бендер</label>
+    <label class="lyr"><input type="checkbox" id="l-pt" checked /> Коридор №5 (OSM ways)</label>
+    <label class="lyr"><input type="checkbox" id="l-lc" /> Ж/д переезды</label>
+    <h2>Маршруты (4 линии)</h2>
+    <label class="lyr"><input type="checkbox" id="l-fast" checked /> <span class="sw" style="background:#d62828"></span>Unrestricted fastest (duration)</label>
+    <label class="lyr"><input type="checkbox" id="l-corr" checked /> <span class="sw" style="background:#2563eb"></span>Owner corridor (путепровод)</label>
+    <label class="lyr"><input type="checkbox" id="l-short" checked /> <span class="sw" style="background:#16a34a"></span>Shortest distance</label>
+    <label class="lyr"><input type="checkbox" id="l-pts" checked /> Дома / путепровод / origin</label>
+    <div id="info">Кликните линию/точку.</div>
+  </div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script>
+    const map = L.map("map").setView([46.834, 29.475], 14);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+    const info=document.getElementById("info"); const show=o=>info.textContent=JSON.stringify(o,null,1);
+    async function gj(p){try{const r=await fetch(p);return r.ok?r.json():null;}catch{return null;}}
+    function toggle(id,l){const cb=document.getElementById(id);const s=()=>{if(!l)return;cb.checked?l.addTo(map):map.removeLayer(l);};cb.addEventListener("change",s);s();}
+    const clicked=(f,l)=>l.on("click",()=>show(f.properties));
+    (async()=>{
+      const bnd=await gj("data/source-boundaries.geojson");
+      if(bnd){const b={type:"FeatureCollection",features:bnd.features.filter(f=>f.properties.key==="bender")};
+        toggle("l-boundary",L.geoJSON(b,{style:{color:"#111",weight:2,dashArray:"6 4",fill:false}}));}
+      const pt=await gj("data/public-transport-corridors.geojson");
+      if(pt)toggle("l-pt",L.geoJSON(pt,{style:f=>({color:f.properties.bridge==="yes"?"#7c3aed":"#f59e0b",weight:f.properties.bridge==="yes"?5:3,opacity:0.85}),onEachFeature:clicked}));
+      const lc=await gj("data/stage-09b-level-crossings.geojson");
+      if(lc)toggle("l-lc",L.geoJSON(lc,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:3,color:"#16a34a",weight:1,fillColor:"#4ade80",fillOpacity:0.9}),onEachFeature:clicked}));
+      const routes=await gj("data/stage-09c-corridor-routes.geojson");
+      if(routes){
+        const mk=(kind,color,dash)=>L.geoJSON(routes,{filter:f=>f.properties.kind===kind&&f.geometry.type==="LineString",style:{color,weight:4,opacity:0.8,dashArray:dash},onEachFeature:clicked});
+        toggle("l-fast",mk("unrestricted_fastest","#d62828",null));
+        toggle("l-corr",mk("owner_corridor","#2563eb","1 0"));
+        toggle("l-short",mk("shortest_distance","#16a34a","6 4"));
+        toggle("l-pts",L.geoJSON(routes,{filter:f=>f.geometry&&f.geometry.type==="Point",
+          pointToLayer:(f,ll)=>{const k=f.properties.kind;const c=k==="central_origin"?"#065f46":k==="putepovod_bridge_layer2"?"#7c3aed":"#111";
+            return L.circleMarker(ll,{radius:k==="home"?5:7,weight:2,color:c,fillColor:"#fff",fillOpacity:0.9});},onEachFeature:clicked}));
+      }
+    })();
+  </script>
+</body>
+</html>

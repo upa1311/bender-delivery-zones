@@ -1,0 +1,5 @@
+home,street,house,current_zone,unrestricted_fastest_km,unrestricted_fastest_s,owner_corridor_km,owner_corridor_s,shortest_distance_km,shortest_distance_s,current_zoning_route_km,corridor_minus_fastest_km,corridor_minus_fastest_s,fastest_uses_service_segment,corridor_uses_service_segment,zone_by_fastest_km,zone_by_shortest_km
+Кишинёвская_1,Кишинёвская улица,1,4,6.5654,410.9,5.8383,529.7,4.7745,426.9,6.5654,-0.727,118.8,True,True,4,3
+Борисовка_start,Кишинёвская улица,4,4,7.1895,476.2,6.0151,585.1,4.9513,482.3,7.1895,-1.174,108.9,True,True,4,3
+Борисовка_mid,улица Титова,60,2,3.5168,311.1,4.5807,413.9,3.5168,311.1,3.5168,1.064,102.8,True,True,2,2
+Борисовка_far,улица Зои Космодемьянской,18,2,4.4206,406.3,5.4844,509.1,4.4206,406.3,4.4206,1.064,102.8,True,True,3,3

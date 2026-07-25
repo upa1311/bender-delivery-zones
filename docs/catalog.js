@@ -1,11 +1,17 @@
-/* Final catalog page: table + colour-by-zone map. The permanent zone colours
- * are identical to the polygons, points, legend and cards. No prices shown. */
+/* Final catalog page: filter-driven table + a VIEWPORT/GRID-CLUSTERED map.
+ * The same filter drives the table and the map. The map never holds ~23k live
+ * DOM markers: only points inside the current viewport are rendered, and when
+ * there are too many they are aggregated into grid-cell clusters. Zone colours
+ * are the permanent scheme, identical in polygons, points, legend and cards.
+ * No runtime CDN — Leaflet is vendored. No prices shown. */
 "use strict";
 
 const ZC = { 1: "#2a9d3f", 2: "#f2c500", 3: "#f07f14", 4: "#d62828" };
 const STATUS_COLOR = { disputed: "#7c3aed", no_delivery: "#9ca3af", excluded: "#6b7280" };
 const OSM_ATTRIBUTION = "© OpenStreetMap contributors";
-const MAX_ROWS = 800; // table render cap; filters/search narrow below it
+const MAX_ROWS = 800;              // table render cap
+const POINT_THRESHOLD = 1400;      // above this in-viewport, cluster into a grid
+const GRID_CELLS = 46;             // grid resolution across the viewport
 
 const esc = (s) => (s == null ? "" : String(s).replace(/[&<>"]/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])));
@@ -19,10 +25,12 @@ const map = L.map("cat-map", { preferCanvas: true }).setView([46.83, 29.48], 12)
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
   { maxZoom: 19, attribution: OSM_ATTRIBUTION }).addTo(map);
 
-let all = [];         // address rows (from points geojson)
-let markerIndex = new Map(); // uid -> layer
+const pointLayer = L.layerGroup().addTo(map);   // clusters / individual points
 let highlight = null;
+const overlays = {};                            // id -> Leaflet layer
+let all = [];                                    // address rows
 let sortKey = "settlement_ru", sortDir = 1;
+let renderScheduled = false;
 
 const hnKey = (h) => {
   const t = (h || "").trim();
@@ -30,7 +38,13 @@ const hnKey = (h) => {
   return [m ? parseInt(m[0], 10) : 1e9, t];
 };
 
-async function loadJSON(p) { const r = await fetch(p); if (!r.ok) throw new Error(p + " " + r.status); return r.json(); }
+async function loadJSON(p) {
+  const r = await fetch(p);
+  if (!r.ok) throw new Error(p + " " + r.status);
+  return r.json();
+}
+
+/* ---------- filters (drive BOTH table and map) ---------- */
 
 function buildFilters() {
   const settlements = [...new Set(all.map((r) => r.settlement_ru).filter(Boolean))].sort();
@@ -49,38 +63,56 @@ function refreshDistricts() {
   if (districts.includes(cur)) fd.value = cur;
 }
 
+function statusClass(r) {
+  if (r.service_status === "disputed") return "disputed";
+  if (r.service_status === "no_delivery") return "no_delivery";
+  if (r.service_status === "excluded") return "excluded";
+  if (r.address_status === "unaddressed_delivery_unit") return "unaddressed";
+  return "verified";
+}
+
 function currentFilter() {
   const qs = document.getElementById("q-street").value.trim().toLowerCase();
   const qh = document.getElementById("q-house").value.trim().toLowerCase();
   const st = document.getElementById("f-settlement").value;
   const di = document.getElementById("f-district").value;
   const zones = new Set([...document.querySelectorAll(".fz:checked")].map((c) => +c.value));
-  const nod = document.getElementById("f-nodelivery").checked;
-  const dis = document.getElementById("f-disputed").checked;
+  const showVerified = document.getElementById("s-verified").checked;
+  const showUnaddressed = document.getElementById("s-unaddressed").checked;
+  const showNoDelivery = document.getElementById("s-nodelivery").checked;
+  const showDisputed = document.getElementById("s-disputed").checked;
+  const showExcluded = document.getElementById("s-excluded").checked;
   return (r) => {
     if (qs && !(r.street_ru || "").toLowerCase().includes(qs)) return false;
     if (qh && !(r.housenumber || "").toLowerCase().includes(qh)) return false;
     if (st && r.settlement_ru !== st) return false;
     if (di && r.district_ru !== di) return false;
-    if (r.service_status === "disputed") return dis;
-    if (r.service_status === "no_delivery") return nod;
-    if (r.service_status === "excluded") return false;
+    const cls = statusClass(r);
+    if (cls === "disputed") return showDisputed;
+    if (cls === "no_delivery") return showNoDelivery;
+    if (cls === "excluded") return showExcluded;
+    if (cls === "unaddressed") return showUnaddressed && (!r.zone_id || zones.has(r.zone_id));
+    if (!showVerified) return false;
     return r.zone_id ? zones.has(r.zone_id) : false;
   };
 }
 
-function render() {
-  const pred = currentFilter();
-  const rows = all.filter(pred);
-  rows.sort((a, b) => {
-    let x = a[sortKey], y = b[sortKey];
-    if (sortKey === "housenumber") { const ka = hnKey(x), kb = hnKey(y);
-      return sortDir * (ka[0] - kb[0] || ka[1].localeCompare(kb[1])); }
-    if (sortKey === "zone_id" || sortKey === "expected_km") return sortDir * ((x || 0) - (y || 0));
+/* ---------- table ---------- */
+
+function renderTable(rows) {
+  const body = document.getElementById("cat-body");
+  const sorted = rows.slice().sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    if (sortKey === "housenumber") {
+      const ka = hnKey(x), kb = hnKey(y);
+      return sortDir * (ka[0] - kb[0] || ka[1].localeCompare(kb[1]));
+    }
+    if (sortKey === "zone_id" || sortKey === "expected_km") {
+      return sortDir * ((x || 0) - (y || 0));
+    }
     return sortDir * String(x || "").localeCompare(String(y || ""));
   });
-  const body = document.getElementById("cat-body");
-  body.innerHTML = rows.slice(0, MAX_ROWS).map((r) => {
+  body.innerHTML = sorted.slice(0, MAX_ROWS).map((r) => {
     const house = r.housenumber
       ? esc(r.housenumber)
       : '<span class="house-unconfirmed">Дом не подтверждён</span>';
@@ -94,8 +126,72 @@ function render() {
       <td>${esc(r.service_status)}</td></tr>`;
   }).join("");
   document.getElementById("cat-count").textContent =
-    `${rows.length} объектов${rows.length > MAX_ROWS ? ` (показаны первые ${MAX_ROWS})` : ""}`;
+    `${rows.length} объектов${rows.length > MAX_ROWS ? ` (в таблице первые ${MAX_ROWS})` : ""}`;
 }
+
+/* ---------- viewport / grid clustered map ---------- */
+
+function renderMap(rows) {
+  pointLayer.clearLayers();
+  const b = map.getBounds();
+  const inView = rows.filter((r) => r.lat != null && b.contains([r.lat, r.lon]));
+
+  if (inView.length <= POINT_THRESHOLD) {
+    for (const r of inView) {
+      L.circleMarker([r.lat, r.lon], {
+        radius: 3, weight: 0, fillColor: colorOf(r), fillOpacity: 0.85,
+      }).on("click", () => focusUid(r.uid)).addTo(pointLayer);
+    }
+    return;
+  }
+
+  // Aggregate into viewport grid cells; render one marker per non-empty cell.
+  const sw = b.getSouthWest(), ne = b.getNorthEast();
+  const dLat = (ne.lat - sw.lat) / GRID_CELLS || 1e-9;
+  const dLon = (ne.lng - sw.lng) / GRID_CELLS || 1e-9;
+  const cells = new Map();
+  for (const r of inView) {
+    const gy = Math.floor((r.lat - sw.lat) / dLat);
+    const gx = Math.floor((r.lon - sw.lng) / dLon);
+    const key = gy * (GRID_CELLS + 1) + gx;
+    let cell = cells.get(key);
+    if (!cell) {
+      cell = { n: 0, sLat: 0, sLon: 0, zoneCount: {} };
+      cells.set(key, cell);
+    }
+    cell.n += 1;
+    cell.sLat += r.lat;
+    cell.sLon += r.lon;
+    const z = r.zone_id || r.service_status;
+    cell.zoneCount[z] = (cell.zoneCount[z] || 0) + 1;
+  }
+  for (const cell of cells.values()) {
+    const lat = cell.sLat / cell.n, lon = cell.sLon / cell.n;
+    const dominant = Object.entries(cell.zoneCount).sort((a, b) => b[1] - a[1])[0][0];
+    const color = ZC[dominant] || STATUS_COLOR[dominant] || "#4b5563";
+    const radius = Math.min(22, 8 + Math.log2(cell.n) * 2.4);
+    L.circleMarker([lat, lon], {
+      radius, weight: 1, color: "#1f2937", fillColor: color, fillOpacity: 0.7,
+    })
+      .bindTooltip(String(cell.n), { permanent: cell.n < 1000, direction: "center",
+        className: "cluster-count" })
+      .on("click", () => map.setView([lat, lon], Math.min(map.getZoom() + 2, 18)))
+      .addTo(pointLayer);
+  }
+}
+
+function scheduleRender() {
+  if (renderScheduled) return;
+  renderScheduled = true;
+  requestAnimationFrame(() => {
+    renderScheduled = false;
+    const rows = all.filter(currentFilter());
+    renderTable(rows);
+    renderMap(rows);
+  });
+}
+
+/* ---------- house card ---------- */
 
 function houseCard(r) {
   const card = document.getElementById("house-card");
@@ -131,54 +227,74 @@ function focusUid(uid) {
     tr.classList.toggle("active", tr.dataset.uid === uid));
   map.setView([r.lat, r.lon], 17);
   if (highlight) map.removeLayer(highlight);
-  highlight = L.circleMarker([r.lat, r.lon], { radius: 11, color: "#111827",
-    weight: 3, fillColor: colorOf(r), fillOpacity: 0.9 }).addTo(map);
+  highlight = L.circleMarker([r.lat, r.lon], {
+    radius: 11, color: "#111827", weight: 3, fillColor: colorOf(r), fillOpacity: 0.9,
+  }).addTo(map);
   houseCard(r);
+}
+
+/* ---------- overlays ---------- */
+
+function toggleOverlay(id, layer) {
+  overlays[id] = layer;
+  const checkbox = document.getElementById(id);
+  const apply = () => {
+    if (checkbox.checked) layer.addTo(map);
+    else map.removeLayer(layer);
+  };
+  checkbox.addEventListener("change", apply);
+  apply();
 }
 
 async function init() {
   try {
-    const [polys, points] = await Promise.all([
+    const [polys, points, tierc, vVillage, vAdmin, sevRoute] = await Promise.all([
       loadJSON("data/final-zone-polygons.geojson"),
       loadJSON("data/final-address-zone-points.geojson"),
+      loadJSON("data/tier-c-manual-review.geojson"),
+      loadJSON("data/varnita-village-no-delivery.geojson"),
+      loadJSON("data/varnita-admin-reference.geojson"),
+      loadJSON("data/severny-route-qa.geojson"),
     ]);
-    // zone polygons — translucent fill, visible borders, permanent colours
+
     L.geoJSON(polys, {
       style: (f) => ({ color: "#1f2937", weight: 2,
-        fillColor: f.properties.color, fillOpacity: 0.28 }),
+        fillColor: f.properties.color, fillOpacity: 0.22 }),
       onEachFeature: (f, l) => l.bindPopup(
-        `<b>${f.properties.zone_name}</b><br>${esc(f.properties.component)}`
-        + (f.properties.note ? `<br><span class="muted small">${esc(f.properties.note)}</span>` : "")),
+        `<b>${f.properties.zone_name}</b><br>${esc(f.properties.component)}`),
     }).addTo(map);
 
     all = points.features.map((f) => ({ ...f.properties,
       lon: f.geometry.coordinates[0], lat: f.geometry.coordinates[1] }));
 
-    // house points coloured by zone (canvas renderer for ~23k points)
-    const layer = L.geoJSON(points, {
-      pointToLayer: (f, ll) => {
-        const m = L.circleMarker(ll, { radius: 3, weight: 0,
-          fillColor: colorOf(f.properties), fillOpacity: 0.8 });
-        markerIndex.set(f.properties.uid, m);
-        return m;
-      },
-      onEachFeature: (f, l) => l.on("click", () => focusUid(f.properties.uid)),
-    }).addTo(map);
-    try { map.fitBounds(layer.getBounds(), { padding: [20, 20] }); } catch (e) { /* empty */ }
+    // toggleable QA overlays (grey Varnița, dashed admin line, Северный routes, Tier C)
+    toggleOverlay("ov-varnita-village", L.geoJSON(vVillage, {
+      style: () => ({ color: "#4b5563", weight: 1.5, fillColor: "#9ca3af",
+        fillOpacity: 0.5 }) }));
+    toggleOverlay("ov-varnita-admin", L.geoJSON(vAdmin, {
+      style: () => ({ color: "#6b7280", weight: 2, dashArray: "8 6", fill: false }) }));
+    toggleOverlay("ov-severny-route", L.geoJSON(sevRoute, {
+      style: () => ({ color: "#0e9488", weight: 2 }) }));
+    toggleOverlay("ov-tierc", L.geoJSON(tierc, {
+      style: () => ({ color: "#b45309", weight: 3, dashArray: "4 5" }),
+      pointToLayer: (f, ll) => L.circleMarker(ll, { radius: 5, color: "#b45309",
+        fillColor: "#f59e0b", fillOpacity: 0.6 }) }));
 
     buildFilters();
-    render();
-    ["q-street", "q-house", "f-settlement", "f-district", "f-nodelivery", "f-disputed"]
+    scheduleRender();
+
+    ["q-street", "q-house", "f-settlement", "f-district", "s-verified",
+      "s-unaddressed", "s-nodelivery", "s-disputed", "s-excluded"]
       .forEach((id) => document.getElementById(id).addEventListener("input", () => {
         if (id === "f-settlement") refreshDistricts();
-        render();
+        scheduleRender();
       }));
-    document.querySelectorAll(".fz").forEach((c) =>
-      c.addEventListener("change", render));
+    document.querySelectorAll(".fz").forEach((c) => c.addEventListener("change", scheduleRender));
+    map.on("moveend zoomend", scheduleRender);
     document.querySelectorAll("#cat-table thead th").forEach((th) =>
       th.addEventListener("click", () => {
         const k = th.dataset.sort;
-        sortDir = (sortKey === k) ? -sortDir : 1; sortKey = k; render();
+        sortDir = (sortKey === k) ? -sortDir : 1; sortKey = k; scheduleRender();
       }));
     document.getElementById("cat-body").addEventListener("click", (e) => {
       const tr = e.target.closest("tr"); if (tr) focusUid(tr.dataset.uid);

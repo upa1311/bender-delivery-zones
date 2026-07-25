@@ -11,8 +11,9 @@
 <body>
   <div id="notice" role="alert">
     Финальный каталог зон K=4 (Scenario A, утверждено владельцем). QA-карта закрыта;
-    зоны заморожены в неизменяемом релизе <code>bender-zones-v1</code>. Цены не
-    назначены. Это не интеграция с Direct. <a href="index.html">← QA-карта</a>
+    зоны заморожены в неизменяемых релизах <code>bender-zones-v1</code> /
+    <code>bender-zones-v1.1</code>. Цены не назначены. Это не интеграция с Direct.
+    <a href="index.html">← QA-карта</a>
   </div>
 
   <div id="cat-layout">
@@ -22,14 +23,29 @@
         <input id="q-house" type="search" placeholder="Поиск по дому…" autocomplete="off" />
         <select id="f-settlement"><option value="">— населённый пункт —</option></select>
         <select id="f-district"><option value="">— район —</option></select>
-        <div id="f-zones">
+
+        <div id="f-zones" class="chk-row">
           <label><input type="checkbox" class="fz" value="1" checked /> <span class="zchip z1">Zone 1</span></label>
           <label><input type="checkbox" class="fz" value="2" checked /> <span class="zchip z2">Zone 2</span></label>
           <label><input type="checkbox" class="fz" value="3" checked /> <span class="zchip z3">Zone 3</span></label>
           <label><input type="checkbox" class="fz" value="4" checked /> <span class="zchip z4">Zone 4</span></label>
-          <label><input type="checkbox" id="f-nodelivery" /> no_delivery</label>
-          <label><input type="checkbox" id="f-disputed" /> disputed</label>
         </div>
+
+        <div class="chk-row">
+          <label><input type="checkbox" id="s-verified" checked /> verified</label>
+          <label><input type="checkbox" id="s-unaddressed" /> unaddressed</label>
+          <label><input type="checkbox" id="s-nodelivery" /> no_delivery</label>
+          <label><input type="checkbox" id="s-disputed" /> disputed</label>
+          <label><input type="checkbox" id="s-excluded" /> excluded</label>
+        </div>
+
+        <div class="chk-row" id="overlay-row">
+          <label><input type="checkbox" id="ov-tierc" /> Tier C</label>
+          <label><input type="checkbox" id="ov-varnita-village" checked /> Варница (село)</label>
+          <label><input type="checkbox" id="ov-varnita-admin" checked /> Варница (граница)</label>
+          <label><input type="checkbox" id="ov-severny-route" /> Маршруты Северного</label>
+        </div>
+
         <div id="cat-count" class="muted small"></div>
       </div>
       <div id="cat-table-wrap">

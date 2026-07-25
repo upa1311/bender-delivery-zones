@@ -1,0 +1,46 @@
+{
+  "api": "Yandex Distance Matrix API (official) — the web map is never scraped",
+  "endpoint": "https://api.routing.yandex.net/v2/distancematrix",
+  "origin": {
+    "lat": 46.82388,
+    "lon": 29.48313,
+    "fixed": true
+  },
+  "settings": {
+    "mode": "driving",
+    "coordinate_format": "latitude,longitude",
+    "traffic": "neutral/static (no departure_time) for stable zoning",
+    "avoid_tolls": true,
+    "unpaved_or_poor_roads": "NOT excluded — awaiting a separate owner rule"
+  },
+  "volume": {
+    "exact_verified_addresses": 9216,
+    "origins": 1,
+    "destinations": 9216,
+    "matrix_elements": 9216,
+    "max_elements_per_sync_request": 100,
+    "full_run_http_requests": 93,
+    "pilot_addresses": 107,
+    "pilot_http_requests": 2
+  },
+  "prerequisites": {
+    "api_key_present": false,
+    "storage_licence_attested": false,
+    "licence_ref": null,
+    "blockers": [
+      "YANDEX_API_KEY is not set",
+      "storage-permitting licence not attested (YANDEX_LICENSE_ALLOWS_STORAGE / config/yandex-license.json)"
+    ],
+    "may_call_api": false,
+    "required_product": "Yandex Maps API — Distance Matrix API, on a COMMERCIAL tariff whose terms explicitly permit storing/caching results (the free tier forbids storage). Confirm the exact SKU and the data-retention clause with Yandex before use."
+  },
+  "may_start_pilot": false,
+  "fail_closed": {
+    "fabricated_values": "never",
+    "yandex_error_falls_back_to_osrm": false,
+    "unreachable": "OWNER_REVIEW, never an automatic Zone 4",
+    "divergence_gt_10pct": "ROUTER_DISAGREEMENT_OWNER_REVIEW"
+  },
+  "zones_release_direct_prices_changed": false,
+  "owner_review_required": true
+}

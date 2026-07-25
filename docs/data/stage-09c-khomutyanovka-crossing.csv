@@ -1,0 +1,6 @@
+osm_way_id,way_name,highway,railway,level_crossing_node_id,crossing_lon,crossing_lat,bridge,tunnel,layer,oneway,access,vehicle,motor_vehicle,maxspeed,present_in_pbf,present_in_osrm_forward,present_in_osrm_reverse
+115331505,,service,level_crossing,7996326115,29.479749,46.798335,,,,,,,,,True,True,True
+115331526,,primary,level_crossing,7996326105,29.478357,46.80105,,,,no,,,,,True,True,True
+305235655,,service,level_crossing,7996326188,29.480439,46.800675,,,,,,,,,True,True,True
+443460066,,service,level_crossing,7996326187,29.47887,46.800027,,,,,,,,,True,True,True
+1424467027,,service,level_crossing,13093023686,29.478806,46.800154,,,,,,,,,True,True,True

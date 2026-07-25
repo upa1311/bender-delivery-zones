@@ -1,0 +1,72 @@
+source,kind,uid,district,detail,owner_review_required
+stage-09a,WRONG_ADDRESS_SNAP,w352161708,Хомутяновка,"snap 42.0m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w352161717,Хомутяновка,"snap 43.9m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w184989544,Хомутяновка,"snap 56.7m, road primary",True
+stage-09a,WRONG_ACCESS_TAG,w316027473,Борисовка,"snap 28.9m, road service",True
+stage-09a,WRONG_ADDRESS_SNAP,n4886201637,Борисовка,"snap 42.8m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w316027138,Борисовка,"snap 44.7m, road residential",True
+stage-09a,WRONG_ACCESS_TAG,w446490135,Хомутяновка,"snap 15.1m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w211496742,Хомутяновка,"snap 26.6m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w211496787,Хомутяновка,"snap 16.8m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w211496770,Хомутяновка,"snap 18.2m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w415723868,Хомутяновка,"snap 22.3m, road service",True
+stage-09a,WRONG_ADDRESS_SNAP,w91848809,Борисовка,"snap 12.0m, road pedestrian",True
+stage-09a,WRONG_ADDRESS_SNAP,w209267174,Борисовка,"snap 55.8m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w224682791,Борисовка,"snap 58.5m, road residential",True
+stage-09a,WRONG_ACCESS_TAG,w209273613,Хомутяновка,"snap 14.3m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w209273616,Хомутяновка,"snap 14.7m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w209273593,Хомутяновка,"snap 12.7m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w209273618,Борисовка,"snap 15.9m, road service",True
+stage-09a,WRONG_ADDRESS_SNAP,w301982104,Хомутяновка,"snap 44.0m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w161058112,Хомутяновка,"snap 41.5m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w116073594,Борисовка,"snap 59.9m, road primary",True
+stage-09a,WRONG_ADDRESS_SNAP,w209287627,Хомутяновка,"snap 41.1m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w231243207,Хомутяновка,"snap 45.5m, road service",True
+stage-09a,WRONG_ACCESS_TAG,w284637197,Хомутяновка,"snap 25.6m, road service",True
+stage-09a,WRONG_ADDRESS_SNAP,w352148098,Борисовка,"snap 52.7m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w399052058,Хомутяновка,"snap 43.1m, road primary",True
+stage-09a,WRONG_ADDRESS_SNAP,w184989565,Хомутяновка,"snap 108.4m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w222764128,Хомутяновка,"snap 72.9m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w297047597,Борисовка,"snap 78.6m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w316026073,Борисовка,"snap 45.2m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w306219481,Борисовка,"snap 61.5m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w316026074,Борисовка,"snap 52.6m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w211496773,Хомутяновка,"snap 40.8m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w165763748,Борисовка,"snap 41.5m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w116073008,Борисовка,"snap 48.1m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w165763747,Борисовка,"snap 64.3m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w318058436,Борисовка,"snap 44.9m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w209267184,Борисовка,"snap 45.1m, road primary",True
+stage-09a,WRONG_ADDRESS_SNAP,w224340921,Борисовка,"snap 77.9m, road tertiary",True
+stage-09a,WRONG_ADDRESS_SNAP,w320439366,Хомутяновка,"snap 44.8m, road residential",True
+stage-09a,WRONG_ACCESS_TAG,n5640999867,Хомутяновка,"snap 28.9m, road service",True
+stage-09a,WRONG_ADDRESS_SNAP,w209273596,Хомутяновка,"snap 44.4m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w209273644,Хомутяновка,"snap 79.1m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w442395879,Борисовка,"snap 55.4m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w165763737,Борисовка,"snap 44.1m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w209273564,Хомутяновка,"snap 56.9m, road residential",True
+stage-09a,WRONG_ADDRESS_SNAP,w302370519,Центр,"snap 49.0m, road residential",True
+stage-09b-crossings,UNKNOWN_OWNER_REVIEW,224953397,rail-corridor,"residential Деповская улица @ 46.830011,29.470895",True
+stage-09b-crossings,UNKNOWN_OWNER_REVIEW,224958052,rail-corridor,"residential Деповская улица @ 46.82671,29.470374",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.821309,29.466043",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.821349,29.466118",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.823654,29.465376",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.821663,29.466563",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.821716,29.466697",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.823785,29.466521",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.823887,29.466641",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.82488,29.467583",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,318126158,rail-corridor,"service  @ 46.824844,29.467533",True
+stage-09b-crossings,UNKNOWN_OWNER_REVIEW,757851053,rail-corridor,"service  @ 46.827692,29.46859",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,757872450,rail-corridor,"service  @ 46.821237,29.468059",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837292,29.476381",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837301,29.476755",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837303,29.476839",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837306,29.476957",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837305,29.476894",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837295,29.476524",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837297,29.476596",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.83729,29.476299",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837299,29.476669",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837288,29.476234",True
+stage-09b-crossings,BROKEN_CONNECTIVITY,857747822,rail-corridor,"service  @ 46.837286,29.47617",True

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stage 10 — multi-source road truth (Бендеры)</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0 320px 0 0; }
+    #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 320px;
+      overflow: auto; background: #fff; border-left: 1px solid #ccc; padding: 12px; font-size: 13px; }
+    h1 { font-size: 15px; margin: 0 0 6px; } h2 { font-size: 13px; margin: 10px 0 4px; }
+    .lyr { display: block; margin: 3px 0; } .note { color: #666; font-size: 12px; }
+    #info { margin-top: 10px; padding: 8px; background: #f6f8fa; border-radius: 6px;
+      white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; min-height: 50px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="panel">
+    <h1>Stage 10 — road truth</h1>
+    <p class="note">OSRM на полном Moldova PBF. Другие движки/внешние источники —
+      unavailable (нет JVM/Docker/ключей); не выдуманы. Зоны/релиз/Direct не тронуты.</p>
+    <h2>Слои</h2>
+    <label class="lyr"><input type="checkbox" id="l-boundary" checked /> Граница Бендер</label>
+    <label class="lyr"><input type="checkbox" id="l-entries" checked /> Все реальные въезды (218)</label>
+    <label class="lyr"><input type="checkbox" id="l-cross" checked /> Road/rail crossings (класс)</label>
+    <label class="lyr"><input type="checkbox" id="l-lc" /> Ж/д переезды (nodes)</label>
+    <label class="lyr"><input type="checkbox" id="l-corrN" checked /> Corridor Борисовка (путепровод)</label>
+    <label class="lyr"><input type="checkbox" id="l-corrS" checked /> Corridor route №5 (юг)</label>
+    <div id="info">Кликните элемент.</div>
+  </div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script>
+    const CLS={LEVEL_CROSSING:"#16a34a",BRIDGE:"#2563eb",TUNNEL:"#7c3aed",
+      GEOMETRY_ONLY_NO_CONNECTION:"#dc2626",BROKEN_CONNECTIVITY:"#f59e0b",UNKNOWN_OWNER_REVIEW:"#6b7280"};
+    const map=L.map("map").setView([46.82,29.475],13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+    const info=document.getElementById("info"); const show=o=>info.textContent=JSON.stringify(o,null,1);
+    async function gj(p){try{const r=await fetch(p);return r.ok?r.json():null;}catch{return null;}}
+    function toggle(id,l){const cb=document.getElementById(id);const s=()=>{if(!l)return;cb.checked?l.addTo(map):map.removeLayer(l);};cb.addEventListener("change",s);s();}
+    const clicked=(f,l)=>l.on("click",()=>show(f.properties));
+    (async()=>{
+      const bnd=await gj("data/source-boundaries.geojson");
+      if(bnd){const b={type:"FeatureCollection",features:bnd.features.filter(f=>f.properties.key==="bender")};
+        toggle("l-boundary",L.geoJSON(b,{style:{color:"#111",weight:2,dashArray:"6 4",fill:false}}));}
+      const ent=await gj("data/stage10-entries.geojson");
+      if(ent)toggle("l-entries",L.geoJSON(ent,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:3,weight:1,color:"#1e3a8a",fillColor:"#93c5fd",fillOpacity:0.85}),onEachFeature:clicked}));
+      const csvTxt=await (await fetch("data/stage-09b-road-rail-crossings.csv")).text();
+      const L2=csvTxt.trim().split(/\r?\n/); const H=L2[0].split(","); const ci=n=>H.indexOf(n);
+      const cf=L2.slice(1).map(r=>{const c=r.split(",");return{cls:c[ci("classification")],lon:+c[ci("lon")],lat:+c[ci("lat")],name:c[ci("car_name")],hw:c[ci("car_highway")]};}).filter(x=>x.lon);
+      toggle("l-cross",L.layerGroup(cf.map(x=>L.circleMarker([x.lat,x.lon],{radius:5,weight:1,color:"#333",fillColor:CLS[x.cls]||"#888",fillOpacity:0.85}).on("click",()=>show(x)))));
+      const lc=await gj("data/stage-09b-level-crossings.geojson");
+      if(lc)toggle("l-lc",L.geoJSON(lc,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:2,color:"#16a34a",weight:1,fillColor:"#4ade80",fillOpacity:0.9})}));
+      const pt=await gj("data/public-transport-corridors.geojson");
+      if(pt)toggle("l-corrN",L.geoJSON(pt,{style:f=>({color:f.properties.bridge==="yes"?"#7c3aed":"#f59e0b",weight:f.properties.bridge==="yes"?5:3,opacity:0.85}),onEachFeature:clicked}));
+      const r5=await gj("data/stage-09c-route5-corridor.geojson");
+      if(r5)toggle("l-corrS",L.geoJSON(r5,{style:{color:"#0891b2",weight:3,opacity:0.8},onEachFeature:clicked}));
+    })();
+  </script>
+</body>
+</html>

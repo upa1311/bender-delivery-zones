@@ -1,0 +1,2 @@
+status,note
+PENDING_MULTI_ENGINE,Only OSRM is live. Multi-engine disagreement detection is PENDING a JVM (GraphHopper/openrouteservice) and/or Docker (Valhalla) on the full Moldova PBF. No disagreement is fabricated.

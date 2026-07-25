@@ -1,0 +1,81 @@
+{
+  "generated_note": "Honest source registry. Unavailable sources are NOT fabricated.",
+  "live_local_routers": [
+    "osrm"
+  ],
+  "osrm_on_full_moldova_pbf": true,
+  "sources": {
+    "osrm": {
+      "kind": "local_router",
+      "url": "http://127.0.0.1:5000",
+      "live": true,
+      "graph": {
+        "osrm_input_bytes": 100293069,
+        "raw_moldova_bytes": 100293069,
+        "built_on_full_moldova_pbf": true
+      },
+      "prerequisite": "vendored osrm-routed + prebuilt moldova.osrm (present)"
+    },
+    "graphhopper": {
+      "kind": "local_router",
+      "url": "http://127.0.0.1:8989",
+      "live": false,
+      "prerequisite": "Java (JVM) + graphhopper jar; build graph on full Moldova PBF",
+      "unavailable_reason": "no Java/JVM in this environment"
+    },
+    "valhalla": {
+      "kind": "local_router",
+      "url": "http://127.0.0.1:8002",
+      "live": false,
+      "prerequisite": "Valhalla build or Docker; tiles on full Moldova PBF",
+      "unavailable_reason": "no Docker/Valhalla build here"
+    },
+    "openrouteservice": {
+      "kind": "local_router",
+      "url": "http://127.0.0.1:8080/ors",
+      "live": false,
+      "prerequisite": "Java + ORS; graph on full Moldova PBF",
+      "unavailable_reason": "no Java/Docker here"
+    },
+    "yandex_maps": {
+      "kind": "external_qa",
+      "configured": false,
+      "prerequisite": "env YANDEX_API_KEY",
+      "note": "cars routing + local roads; QA only",
+      "unavailable_reason": "no YANDEX_API_KEY configured"
+    },
+    "google_routes": {
+      "kind": "external_qa",
+      "configured": false,
+      "prerequisite": "env GOOGLE_MAPS_API_KEY",
+      "note": "external QA only; data NOT copied into product",
+      "unavailable_reason": "no GOOGLE_MAPS_API_KEY configured"
+    },
+    "mapillary": {
+      "kind": "external_qa",
+      "configured": false,
+      "prerequisite": "env MAPILLARY_TOKEN",
+      "note": "street imagery confirmation",
+      "unavailable_reason": "no MAPILLARY_TOKEN configured"
+    },
+    "kartaview": {
+      "kind": "external_qa",
+      "configured": false,
+      "prerequisite": "KartaView API access",
+      "note": "street imagery confirmation",
+      "unavailable_reason": "no KartaView access configured"
+    },
+    "easyway": {
+      "kind": "public_transport",
+      "url": "https://www.eway.in.ua/…/bendery",
+      "configured": false,
+      "note": "route polylines/stops as connectivity proof",
+      "unavailable_reason": "web bot-blocked (HTTP 403); verified vs OSM instead"
+    }
+  },
+  "owner_action_needed": {
+    "local_routers": "provide a JVM (GraphHopper/ORS) and/or Docker (Valhalla), then rebuild each graph on data/raw/moldova-latest.osm.pbf (full PBF, not a city extract)",
+    "external_qa": "provide YANDEX_API_KEY / GOOGLE_MAPS_API_KEY / MAPILLARY_TOKEN / KartaView access"
+  },
+  "owner_review_required": true
+}

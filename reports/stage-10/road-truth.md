@@ -1,5 +1,12 @@
 # Stage 10 — ROAD_TRUTH (from available evidence)
 
+> **CORRECTED by Stage 10B.** The counts below used `alternatives=3` as the
+> "shortest route", which is NOT a shortest path. Against a TRUE distance-optimal
+> Dijkstra over the same car graph the real counts are: Борисовка **308/511**,
+> Хомутяновка **94/999** (not 5), Протягайловка **191/513** (not 13), Парканы
+> **45/90**, Гиска 0/90. In particular the "Хомутяновка is route-correct"
+> conclusion does NOT hold. See `reports/stage-10b/corridor-routing-truth.md`.
+
 **Read-only. No OSM edit, no release, no Direct, no price, no new zone.
 owner_review_required.** Verdicts use OSRM (full Moldova PBF) + local OSM topology
 + owner-confirmed public-transport corridors. Cross-engine and imagery verdicts

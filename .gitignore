@@ -81,3 +81,7 @@ data/interim/osrm/
 
 # Stage 09 routing cache (regenerable via scripts/stage09_route_all.py)
 /docs/data/stage-09-routed.jsonl
+
+# Stage 10B routing-graph cache (regenerable from the full PBF)
+/data/interim/stage10b-cargraph.pkl
+/data/interim/stage10b-restrictions.json

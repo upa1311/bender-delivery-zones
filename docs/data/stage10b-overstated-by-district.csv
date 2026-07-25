@@ -1,0 +1,6 @@
+district,homes,with_current_km,overstated_gt_10pct,mean_excess_km,max_excess_km,basis
+Борисовка,511,511,308,0.9401,2.7575,current OSRM fastest vs TRUE distance-optimal Dijkstra (own graph)
+Гиска,415,90,0,0.0308,0.1923,current OSRM fastest vs TRUE distance-optimal Dijkstra (own graph)
+Парканы,3768,90,45,0.4912,0.8686,current OSRM fastest vs TRUE distance-optimal Dijkstra (own graph)
+Протягайловка,513,513,191,0.6483,1.4646,current OSRM fastest vs TRUE distance-optimal Dijkstra (own graph)
+Хомутяновка,999,999,94,0.285,2.5492,current OSRM fastest vs TRUE distance-optimal Dijkstra (own graph)

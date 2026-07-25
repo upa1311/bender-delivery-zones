@@ -1,0 +1,160 @@
+{
+  "raw_moldova_pbf": {
+    "path": "data\\raw\\moldova-latest.osm.pbf",
+    "bytes": 100293069,
+    "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c"
+  },
+  "osrm_graph_input_pbf": {
+    "path": "data\\interim\\osrm\\moldova.osm.pbf",
+    "bytes": 100293069,
+    "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c"
+  },
+  "input_sha256_equals_raw_sha256": true,
+  "osrm_build_metadata": {
+    "osrm_files": [
+      {
+        "name": "moldova.osrm.cell_metrics",
+        "bytes": 42691584,
+        "mtime_utc": "2026-07-24T00:47:52Z"
+      },
+      {
+        "name": "moldova.osrm.cells",
+        "bytes": 544768,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.cnbg",
+        "bytes": 6036992,
+        "mtime_utc": "2026-07-24T00:47:32Z"
+      },
+      {
+        "name": "moldova.osrm.cnbg_to_ebg",
+        "bytes": 6036992,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.datasource_names",
+        "bytes": 69632,
+        "mtime_utc": "2026-07-24T00:47:50Z"
+      },
+      {
+        "name": "moldova.osrm.ebg",
+        "bytes": 35553280,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.ebg_nodes",
+        "bytes": 9055744,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.edges",
+        "bytes": 10380288,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.enw",
+        "bytes": 8950784,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.fileIndex",
+        "bytes": 31584700,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.geometry",
+        "bytes": 55222272,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.icd",
+        "bytes": 6038528,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.maneuver_overrides",
+        "bytes": 5120,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.mldgr",
+        "bytes": 36663808,
+        "mtime_utc": "2026-07-24T00:47:53Z"
+      },
+      {
+        "name": "moldova.osrm.names",
+        "bytes": 356352,
+        "mtime_utc": "2026-07-24T00:47:28Z"
+      },
+      {
+        "name": "moldova.osrm.nbg_nodes",
+        "bytes": 19458560,
+        "mtime_utc": "2026-07-24T00:47:32Z"
+      },
+      {
+        "name": "moldova.osrm.partition",
+        "bytes": 5971456,
+        "mtime_utc": "2026-07-24T00:47:49Z"
+      },
+      {
+        "name": "moldova.osrm.properties",
+        "bytes": 6144,
+        "mtime_utc": "2026-07-24T00:47:28Z"
+      },
+      {
+        "name": "moldova.osrm.ramIndex",
+        "bytes": 131584,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.restrictions",
+        "bytes": 4096,
+        "mtime_utc": "2026-07-24T00:47:36Z"
+      },
+      {
+        "name": "moldova.osrm.timestamp",
+        "bytes": 3584,
+        "mtime_utc": "2026-07-24T00:47:14Z"
+      },
+      {
+        "name": "moldova.osrm.tld",
+        "bytes": 4096,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.tls",
+        "bytes": 6144,
+        "mtime_utc": "2026-07-24T00:47:41Z"
+      },
+      {
+        "name": "moldova.osrm.turn_duration_penalties",
+        "bytes": 2966016,
+        "mtime_utc": "2026-07-24T00:47:36Z"
+      },
+      {
+        "name": "moldova.osrm.turn_penalties_index",
+        "bytes": 17776640,
+        "mtime_utc": "2026-07-24T00:47:36Z"
+      },
+      {
+        "name": "moldova.osrm.turn_weight_penalties",
+        "bytes": 2966016,
+        "mtime_utc": "2026-07-24T00:47:36Z"
+      }
+    ],
+    "osrm_file_count": 26,
+    "timestamp_file_text": "osrm_fingerprint.meta\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000000644 \u0000000000 \u0000000000 \u000000000000010 00000000000 013413\u0000 0\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "has_fileindex": true
+  },
+  "live_osrm_routed_processes": [
+    {
+      "pid": 8504,
+      "command_line": "C:\\Users\\upa13\\OneDrive\\Desktop\\MSLUPA13\\bender-delivery-zones\\.osrm\\bin\\osrm-routed.exe --algorithm mld --port 5000 data/interim/osrm/moldova.osrm"
+    }
+  ],
+  "live_process_serves_moldova_osrm": true,
+  "verdict": "FULL_MOLDOVA_PBF_CONFIRMED",
+  "method": "SHA-256 identity of the graph input vs the raw Geofabrik download, on-disk .osrm build inventory, and the argv of the answering osrm-routed process. File size alone is NOT used as proof.",
+  "owner_review_required": true
+}

@@ -1,0 +1,17 @@
+corridor,street,way_id,entry_node,exit_node,anchor_gap_m,highway,oneway_tag,oneway_forward_allowed,oneway_backward_allowed,access,motor_vehicle,bridge,tunnel,layer,maxspeed
+BORISOVKA,Тираспольская улица,228367336,6115591551,1121784303,612.6,secondary,,True,True,,,,,,
+BORISOVKA,улица Титова,116073586,1309929190,517234914,1286.1,tertiary,yes,True,False,,,,,,
+BORISOVKA,Кишинёвская улица,63221794,1067380892,457637403,738.3,primary,,True,True,,,,,,60
+BORISOVKA,улица Богдана Хмельницкого,46581879,595396012,595396016,1125.0,residential,,True,True,,,,,,
+BORISOVKA,улица 50 лет ВЛКСМ,222986033,2319359045,2319359043,186.0,residential,,True,True,,,,,,
+BORISOVKA,улица Осипенко,45858827,794206721,583629136,508.3,residential,,True,True,,,,,,
+KHOMUTYANOVKA_A,улица Дружбы,45858821,604245147,583629128,2187.5,primary,,True,True,,,,,,
+KHOMUTYANOVKA_A,улица Ечина,63221780,2905509350,2905509346,963.2,primary,,True,True,,,,,,
+KHOMUTYANOVKA_A,улица Старого,525055331,760367060,346864412,1407.6,residential,no,True,True,,,,,,
+KHOMUTYANOVKA_B,Московская улица,404564011,6367515249,1017871059,349.3,residential,no,True,True,,,,,,50
+KHOMUTYANOVKA_B,Первомайская улица,133021433,6369837721,514211028,839.4,residential,,True,True,,,,,,
+KHOMUTYANOVKA_B,улица Некрасова,697846845,1730582932,1730582966,238.5,residential,,True,True,,,,,,
+KHOMUTYANOVKA_B,улица Ечина,63221780,6367865573,2905509350,887.9,primary,,True,True,,,,,,
+KHOMUTYANOVKA_B,улица Старого,525055331,760367060,346864412,1458.9,residential,no,True,True,,,,,,
+PROTYAGAILOVKA,улица Старого,525055331,760367060,346864412,1405.8,residential,no,True,True,,,,,,
+PROTYAGAILOVKA,улица Мира,223691988,2325729793,2325729781,682.8,residential,,True,True,,,,,,

@@ -1,0 +1,78 @@
+{
+  "note": "Road-connectivity spot check for Borisovka. roads.geojson carries highway/class but not access/oneway/barrier; those are read from the city PBF only where a suspect needs them. No OSM data was modified.",
+  "origins": [
+    {
+      "key": "central",
+      "weight": 0.85,
+      "lon": 29.48313,
+      "lat": 46.82388,
+      "snap_distance_m": 33.2,
+      "snapped_name": "улица Сергея Лазо",
+      "nearest_road_highway": "tertiary",
+      "nearest_road_name": "улица Сергея Лазо",
+      "on_road_ok": true
+    },
+    {
+      "key": "bam",
+      "weight": 0.1,
+      "lon": 29.47296,
+      "lat": 46.84167,
+      "snap_distance_m": 16.1,
+      "snapped_name": "улица Ермакова",
+      "nearest_road_highway": "primary",
+      "nearest_road_name": "улица Ермакова",
+      "on_road_ok": true
+    },
+    {
+      "key": "outer_other",
+      "weight": 0.05,
+      "lon": 29.48801,
+      "lat": 46.83396,
+      "snap_distance_m": 7.1,
+      "snapped_name": "Цареградская улица",
+      "nearest_road_highway": "service",
+      "nearest_road_name": "Цареградская улица",
+      "on_road_ok": true
+    }
+  ],
+  "verdict_counts": {
+    "INSUFFICIENT_EVIDENCE": 1277,
+    "OSRM_ROUTE_SELECTION_ISSUE": 166,
+    "WRONG_ADDRESS_SNAP": 35,
+    "WRONG_ACCESS_TAG": 12,
+    "ROUTE_CORRECT_ZONE_MODEL_REVIEW": 61
+  },
+  "suspects_audited": 1551,
+  "snap_gt_40m": 34,
+  "alt_10pct_shorter": 170,
+  "leaves_and_reenters": 17,
+  "owner_review_required": true,
+  "borisovka_corridor": {
+    "corridor_bbox": [
+      29.455,
+      46.82,
+      29.487,
+      46.842
+    ],
+    "central_origin_lonlat": [
+      29.48313,
+      46.82388
+    ],
+    "borisovka_lonlat": [
+      29.46735,
+      46.83524
+    ],
+    "straight_line_km": 2.158,
+    "railways_in_corridor": 125,
+    "railways_crossing_straight_line": 19,
+    "waterways_in_corridor": 0,
+    "waterways_crossing_straight_line": 0,
+    "car_roads_in_corridor": 199,
+    "car_roads_access_ok": 199,
+    "car_roads_that_cross_a_railway": 5,
+    "railway_level_crossings_tagged": 0,
+    "interpretation": "A railway and/or waterway separates the central origin (SE) from Borisovka (NW). Few car roads in the corridor actually cross the railway, so OSRM must detour ~3 km south to the nearest crossing — this inflates the road distance to 5-7 km over a ~1.7 km straight line and pushes Borisovka into Zone 4. Whether a more direct car-legal crossing exists on the ground (missing/mis-tagged OSM road) is the owner_review question; no override is applied here.",
+    "owner_review_required": true,
+    "proposed_action": "owner confirms whether a direct NW crossing exists; if yes, a documented local routing override is proposed (never auto-applied)."
+  }
+}

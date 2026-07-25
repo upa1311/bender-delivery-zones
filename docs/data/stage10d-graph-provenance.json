@@ -1,0 +1,26 @@
+{
+  "pbf_sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+  "bbox": [
+    29.15,
+    46.6,
+    29.85,
+    47.02
+  ],
+  "graph_schema_version": "10d.1",
+  "access_profile_version": "endpoint-aware-delivery.1",
+  "restriction_parser_version": "turn-restrictions-ordered-via.1",
+  "counts": {
+    "physical_segments": 97955,
+    "directed_edges": 193560,
+    "nodes": 91677,
+    "ways": 13909,
+    "barrier_nodes": 281,
+    "denied_ways": 1751,
+    "endpoint_only_segments": 192,
+    "endpoint_only_components": 8,
+    "restrictions_total": 2497,
+    "no_via_node": 1546,
+    "only_via_node": 421,
+    "via_way": 2
+  }
+}

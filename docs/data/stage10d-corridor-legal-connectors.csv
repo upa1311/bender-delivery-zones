@@ -1,0 +1,15 @@
+corridor,from_landmark,minimal_legal_road_path_m,note,owner_review_required,to_landmark
+BORISOVKA,Тираспольская,2298.9,supporting information only — NOT a continuity verdict,True,Титова
+BORISOVKA,Титова,35.0,supporting information only — NOT a continuity verdict,True,Кишинёвская
+BORISOVKA,Кишинёвская,233.3,supporting information only — NOT a continuity verdict,True,Хмельницкого
+BORISOVKA,Хмельницкого,265.1,supporting information only — NOT a continuity verdict,True,50 лет ВЛКСМ
+BORISOVKA,50 лет ВЛКСМ,13.9,supporting information only — NOT a continuity verdict,True,Осипенко
+KHOMUTYANOVKA_A,Дружбы,81.0,supporting information only — NOT a continuity verdict,True,Ечина
+KHOMUTYANOVKA_A,Ечина,916.1,supporting information only — NOT a continuity verdict,True,Главана
+KHOMUTYANOVKA_A,Главана,74.4,supporting information only — NOT a continuity verdict,True,Старого
+KHOMUTYANOVKA_B,Московская,734.6,supporting information only — NOT a continuity verdict,True,Первомайская
+KHOMUTYANOVKA_B,Первомайская,238.6,supporting information only — NOT a continuity verdict,True,Некрасова
+KHOMUTYANOVKA_B,Некрасова,723.3,supporting information only — NOT a continuity verdict,True,Ечина
+KHOMUTYANOVKA_B,Ечина,916.1,supporting information only — NOT a continuity verdict,True,Главана
+KHOMUTYANOVKA_B,Главана,74.4,supporting information only — NOT a continuity verdict,True,Старого
+PROTYAGAILOVKA,Старого,350.4,supporting information only — NOT a continuity verdict,True,Мира

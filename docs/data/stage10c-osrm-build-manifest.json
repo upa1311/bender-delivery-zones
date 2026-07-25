@@ -1,6 +1,6 @@
 {
   "recorded_at_utc": "2026-07-25T07:04:03Z",
-  "provenance_mode": "recorded from the EXISTING build (no destructive rebuild was performed on the live graph)",
+  "provenance_mode": "retrospective: hashes recorded from artefacts already on disk. It does NOT prove the build ran with these inputs. The next rebuild must emit its manifest atomically via scripts/build_osrm_with_manifest.sh.",
   "source_pbf": {
     "path": "data\\raw\\moldova-latest.osm.pbf",
     "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
@@ -185,5 +185,6 @@
     }
   ],
   "output_count": 26,
-  "owner_review_required": true
+  "owner_review_required": true,
+  "status": "HISTORICAL_UNVERIFIED"
 }

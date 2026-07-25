@@ -1,0 +1,7 @@
+addresses,basis,district,mean_directed_states_per_snap,mean_off_road_m,owner_review_required,routable,unreachable
+511,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Борисовка,1.82,19.18,True,511,0
+415,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Гиска,2.0,18.76,True,415,0
+3772,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Парканы,2.0,16.19,True,3772,0
+513,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Протягайловка,2.0,19.27,True,513,0
+7,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Северный,2.0,25.44,True,7,0
+999,bidirectional multi-state snap + endpoint-aware access + turn restrictions + barriers,Хомутяновка,2.0,18.53,True,999,0

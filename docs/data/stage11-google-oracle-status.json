@@ -1,0 +1,25 @@
+{
+  "oracle": "Google Routes API v2 computeRoutes (PRIMARY)",
+  "qa_fallback": "local OSRM + own edge-valid graph (Stage 10D)",
+  "google_api_key_present": false,
+  "run_status": "NOT_RUN_GOOGLE_API_KEY_MISSING",
+  "control_routes_prepared": 8,
+  "field_mask": "routes.distanceMeters,routes.duration,routes.staticDuration,routes.polyline.encodedPolyline,routes.routeLabels,routes.warnings,routes.description,fallbackInfo",
+  "routing_preference": {
+    "zone_computation": "TRAFFIC_UNAWARE",
+    "live_order": "TRAFFIC_AWARE_OPTIMAL"
+  },
+  "requested_reference_routes": [
+    "SHORTER_DISTANCE"
+  ],
+  "disagreement_rule": ">10.0% distance -> ROUTER_DISAGREEMENT_OWNER_REVIEW",
+  "terms_of_service": {
+    "polyline_storage": "git-ignored data/interim/google-cache only",
+    "public_docs_or_release_polylines": [],
+    "guard_ok": true,
+    "note": "Google polylines are NOT copied into the public release or any non-Google map without a separate Google Maps Platform terms review"
+  },
+  "zones_changed": false,
+  "owner_action_needed": "export GOOGLE_MAPS_API_KEY and re-run scripts/stage11_google_routes.py",
+  "owner_review_required": true
+}

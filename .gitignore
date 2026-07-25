@@ -89,3 +89,7 @@ data/interim/osrm/
 # Stage 10C edge-graph cache (regenerable; keyed by PBF SHA-256)
 /data/interim/stage10c-graph-*.pkl
 /data/interim/stage10d-*.pkl
+
+# Google Routes cache — Google content, never committed
+/data/interim/google-cache/
+/data/interim/stage11-prepared-requests.json

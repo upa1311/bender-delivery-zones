@@ -1,0 +1,220 @@
+entry_id,district_or_settlement,basis,road_name,osm_way_id,entry_lon,entry_lat,highway,access,vehicle,motor_vehicle,oneway,maxspeed,surface,bridge,tunnel,layer,car_access_ok,connected_to_city_graph,owner_review_required
+Пар-000,Парканы,osm_admin_boundary,Бендерский мост,28584679,29.491285,46.832225,primary,,,,yes,110,asphalt,yes,,1,True,True,False
+Пар-001,Парканы,osm_admin_boundary,Бендерский мост,415353388,29.491253,46.832322,primary,,,,yes,90,asphalt,yes,,1,True,True,False
+Пар-002,Парканы,osm_admin_boundary,Кишинёв-Тирасполь,83039154,29.533922,46.836334,primary,,,,,70,asphalt,,,,True,True,False
+Пар-003,Парканы,osm_admin_boundary,,105866053,29.57089,46.939957,tertiary,,,,,,,,,,True,True,False
+Пар-004,Парканы,osm_admin_boundary,,160034573,29.526882,46.781672,service,,,,,,ground,,,,True,False,True
+Пар-005,Парканы,osm_admin_boundary,,223378401,29.532009,46.896726,residential,,,,,,,,,,True,True,False
+Пар-006,Парканы,osm_admin_boundary,,231780939,29.594368,46.903775,trunk,,,,,85,asphalt,,,,True,True,False
+Пар-007,Парканы,osm_admin_boundary,,235537088,29.64796,46.919275,trunk,,,,,90,asphalt,,,,True,True,False
+Пар-008,Парканы,osm_admin_boundary,улица Мира,237740890,29.482058,46.917176,residential,,,,,,,,,,True,False,True
+Пар-009,Парканы,osm_admin_boundary,Парканы-Бычок,243689878,29.487143,46.917002,primary,,,,,95,,,,,True,True,False
+Пар-010,Парканы,osm_admin_boundary,,287168121,29.518134,46.882923,residential,,,,,,,,,,True,True,False
+Пар-011,Парканы,osm_admin_boundary,,306229377,29.535444,46.821731,service,,,,,10,,,,,True,True,False
+Пар-012,Парканы,osm_admin_boundary,,427585248,29.534498,46.833151,service,,,,,,,,,,True,True,False
+Пар-013,Парканы,osm_admin_boundary,,776957823,29.571287,46.940054,trunk,,,,,90,asphalt,,,,True,True,False
+Пар-014,Парканы,osm_admin_boundary,,778519523,29.511815,46.922016,trunk,,,,,90,concrete:plates,,,,True,True,False
+Гис-015,Гиска,osm_admin_boundary,,115331369,29.476038,46.799618,service,destination,,,,,,,,,True,True,False
+Гис-016,Гиска,osm_admin_boundary,,115331381,29.476557,46.799336,service,destination,,,yes,,,,,,True,True,False
+Гис-017,Гиска,osm_admin_boundary,улица Ленина,223231541,29.460823,46.800285,secondary,,,,,,,,,,True,True,False
+Гис-018,Гиска,osm_admin_boundary,улица Мира,223968247,29.476478,46.790453,residential,,,,,,,,,,True,True,False
+Гис-019,Гиска,osm_admin_boundary,улица Суворова,223970305,29.476503,46.792173,residential,,,,,,,,,,True,True,False
+Гис-020,Гиска,osm_admin_boundary,,421840809,29.476548,46.798739,service,destination,,,yes,,,,,,True,True,False
+Гис-021,Гиска,osm_admin_boundary,,965407765,29.462873,46.802748,service,,,,,,earth,,,,True,True,False
+Гис-022,Гиска,osm_admin_boundary,,993169042,29.462491,46.802343,service,,,,,,,,,,True,True,False
+Гис-023,Гиска,osm_admin_boundary,Strada Ștefan cel Mare și Sfânt,90414304,29.402227,46.789332,tertiary,,,,,,,,,,True,True,False
+Гис-024,Гиска,osm_admin_boundary,улица 40 лет МССР,223433474,29.476295,46.78173,residential,,,,,,,,,,True,True,False
+Гис-025,Гиска,osm_admin_boundary,,531446213,29.47604,46.78428,service,,,,,,,,,,True,True,False
+Гис-026,Гиска,osm_admin_boundary,Гыска-Золотиевка,674138530,29.400109,46.775717,secondary,,,,,,ground,,,,True,True,False
+Гис-027,Гиска,osm_admin_boundary,,1190751147,29.476185,46.780447,service,,,,,,,,,,True,True,False
+Про-028,Протягайловка,osm_admin_boundary,Главная улица,60739688,29.45027,46.815936,residential,,,,,,,,,,True,True,False
+Про-029,Протягайловка,osm_admin_boundary,улица Интернационалистов,91850331,29.447572,46.830804,residential,,,,,50,asphalt,,,,True,True,False
+Про-030,Протягайловка,osm_admin_boundary,улица Кошевого,91850344,29.449523,46.826609,residential,,,,,,,,,,True,True,False
+Про-031,Протягайловка,osm_admin_boundary,Комсомольская улица,184989528,29.452682,46.81737,residential,,,,,,,,,,True,True,False
+Про-032,Протягайловка,osm_admin_boundary,Кишинёв-Тирасполь,185144051,29.451511,46.848671,primary,,,,,,,,,,True,True,False
+Про-033,Протягайловка,osm_admin_boundary,Санаторная улица,209668174,29.450435,46.824941,residential,,,,,,,,,,True,True,False
+Про-034,Протягайловка,osm_admin_boundary,Гербовецкая улица,222904315,29.451105,46.822561,tertiary,,,,no,,,,,,True,True,False
+Про-035,Протягайловка,osm_admin_boundary,переулок Куйбышева,223692025,29.455148,46.818624,residential,,,,,,,,,,True,True,False
+Про-036,Протягайловка,osm_admin_boundary,,224234433,29.453872,46.81955,service,no,,,,,,,,,False,True,True
+Про-037,Протягайловка,osm_admin_boundary,Пионерская улица,224691154,29.454004,46.836556,residential,,,,,,,,,,True,True,False
+Про-038,Протягайловка,osm_admin_boundary,переулок Полоза,230698195,29.448304,46.828928,residential,,,,,,,,,,True,True,False
+Про-039,Протягайловка,osm_admin_boundary,,290851752,29.447001,46.832976,unclassified,,,,,60,,,,,True,True,False
+Про-040,Протягайловка,osm_admin_boundary,,316913787,29.448158,46.831018,residential,,,,,20,,,,,True,True,False
+Про-041,Протягайловка,osm_admin_boundary,,316913788,29.446649,46.834376,unclassified,,,,,,,,,,True,True,False
+Про-042,Протягайловка,osm_admin_boundary,,352155378,29.4557,46.841477,service,,,,,,unpaved,,,,True,True,False
+Про-043,Протягайловка,osm_admin_boundary,,352671848,29.449606,46.835231,service,,,,,,,,,,True,True,False
+Про-044,Протягайловка,osm_admin_boundary,,352671852,29.447901,46.834716,service,,,,,,,,,,True,True,False
+Про-045,Протягайловка,osm_admin_boundary,,443454647,29.446689,46.833786,service,,,,,,,,,,True,True,False
+Про-046,Протягайловка,osm_admin_boundary,,706969525,29.44883,46.835019,service,,,,,,,,,,True,True,False
+Про-047,Протягайловка,osm_admin_boundary,,599815662,29.39751,46.834688,tertiary,,,,,,,,,,True,True,False
+Про-048,Протягайловка,osm_admin_boundary,Chișinău-Bender,883199041,29.438791,46.858255,primary,,,,,,asphalt,,,,True,True,False
+Бор-049,Борисовка,address_hull_buffer,Кишинёв-Тирасполь,28796004,29.476708,46.840533,primary,,,,yes,50,asphalt,yes,,2,True,True,False
+Бор-050,Борисовка,address_hull_buffer,,38633117,29.476599,46.840723,primary,,,,yes,50,asphalt,yes,,2,True,True,False
+Бор-051,Борисовка,address_hull_buffer,Ленинградская улица,41749664,29.469746,46.845129,tertiary,,,,no,,,,,,True,True,False
+Бор-052,Борисовка,address_hull_buffer,,41851868,29.478226,46.832931,service,,,,,,asphalt,,,,True,True,False
+Бор-053,Борисовка,address_hull_buffer,Железнодорожная улица,45858824,29.46182,46.830387,residential,,,,,,asphalt,,,,True,True,False
+Бор-054,Борисовка,address_hull_buffer,Кишинёвская улица,63221794,29.460185,46.84311,primary,,,,,60,,,,,True,True,False
+Бор-055,Борисовка,address_hull_buffer,улица Дзержинского,87497006,29.476431,46.831474,residential,,,,,,,,,,True,True,False
+Бор-056,Борисовка,address_hull_buffer,,87499732,29.475193,46.842196,residential,,,,,,,,,,True,True,False
+Бор-057,Борисовка,address_hull_buffer,улица Зои Космодемьянской,87499735,29.463462,46.845472,residential,,,,,50,,,,,True,True,False
+Бор-058,Борисовка,address_hull_buffer,улица Титова,87499736,29.470175,46.844993,residential,,,,,,asphalt,,,,True,True,False
+Бор-059,Борисовка,address_hull_buffer,Спортивная улица,87499738,29.468271,46.845408,residential,,,,,,,,,,True,True,False
+Бор-060,Борисовка,address_hull_buffer,улица Интернационалистов,91850331,29.450934,46.831701,residential,,,,,50,asphalt,,,,True,True,False
+Бор-061,Борисовка,address_hull_buffer,улица 50 лет ВЛКСМ,133068147,29.461395,46.830431,tertiary,,,,no,,,,,,True,True,False
+Бор-062,Борисовка,address_hull_buffer,,133068150,29.461743,46.830395,service,,,,yes,,asphalt,,,,True,True,False
+Бор-063,Борисовка,address_hull_buffer,,165445024,29.464806,46.845706,service,,,,,,,,,,True,True,False
+Бор-064,Борисовка,address_hull_buffer,,165445030,29.465418,46.845731,service,,,,,,,,,,True,True,False
+Бор-065,Борисовка,address_hull_buffer,Варницкий переулок,165445033,29.462671,46.844961,residential,,,,,20,,,,,True,True,False
+Бор-066,Борисовка,address_hull_buffer,,165765803,29.461375,46.844072,service,,,,,,,,,,True,True,False
+Бор-067,Борисовка,address_hull_buffer,,165765809,29.460842,46.843686,service,,,,,,,,,,True,True,False
+Бор-068,Борисовка,address_hull_buffer,улица Павлика Морозова,209668156,29.454551,46.831173,residential,,,,,,,,,,True,True,False
+Бор-069,Борисовка,address_hull_buffer,Пионерская улица,209668183,29.460521,46.830521,service,,,,,,,,,,True,True,False
+Бор-070,Борисовка,address_hull_buffer,,222632565,29.45656,46.830951,service,,,,,,,,,,True,True,False
+Бор-071,Борисовка,address_hull_buffer,,222986037,29.458819,46.830702,service,,,,,,,,,,True,True,False
+Бор-072,Борисовка,address_hull_buffer,переулок Осипенко,222986039,29.458176,46.830773,residential,,,,,,,,,,True,True,False
+Бор-073,Борисовка,address_hull_buffer,,222986072,29.451338,46.831541,service,,,,,,,,,,True,True,False
+Бор-074,Борисовка,address_hull_buffer,Пионерская улица,224691154,29.453295,46.837054,residential,,,,,,,,,,True,True,False
+Бор-075,Борисовка,address_hull_buffer,Деповская улица,224953397,29.470118,46.829527,residential,,,,,,,,,,True,True,False
+Бор-076,Борисовка,address_hull_buffer,Деповская улица,224958052,29.472417,46.829488,residential,,,,,,,,,,True,True,False
+Бор-077,Борисовка,address_hull_buffer,,315206360,29.457958,46.841152,service,,,,,,,,,,True,True,False
+Бор-078,Борисовка,address_hull_buffer,,326340253,29.46777,46.845497,service,,,,,,,,,,True,True,False
+Бор-079,Борисовка,address_hull_buffer,,326537538,29.451156,46.831596,service,,,,,20,,,,,True,True,False
+Бор-080,Борисовка,address_hull_buffer,,352155378,29.45601,46.83944,service,,,,,,unpaved,,,,True,True,False
+Бор-081,Борисовка,address_hull_buffer,,376224693,29.460538,46.84342,service,,,,,,,,,,True,True,False
+Бор-082,Борисовка,address_hull_buffer,,417217647,29.459002,46.84207,service,,,,,,,,,,True,True,False
+Бор-083,Борисовка,address_hull_buffer,,428742163,29.4546,46.831168,service,,,,,,,,,,True,True,False
+Бор-084,Борисовка,address_hull_buffer,,455693395,29.460995,46.843804,service,,,,,,,,,,True,True,False
+Бор-085,Борисовка,address_hull_buffer,,462669555,29.466392,46.845739,service,no,,,,,,,,,False,True,True
+Бор-086,Борисовка,address_hull_buffer,улица Бендерского Восстания,502309855,29.464489,46.83011,primary,,,,,,,,,,True,True,False
+Бор-087,Борисовка,address_hull_buffer,,535178968,29.450882,46.831731,service,,,,,,,,,,True,True,False
+Бор-088,Борисовка,address_hull_buffer,,694334102,29.459624,46.842617,service,,,,,20,asphalt,,,,True,True,False
+Бор-089,Борисовка,address_hull_buffer,,705773278,29.457492,46.840743,service,,,,,,,,,,True,True,False
+Бор-090,Борисовка,address_hull_buffer,,705773279,29.457795,46.841009,service,,,,,,,,,,True,True,False
+Бор-091,Борисовка,address_hull_buffer,улица Ермакова,746365743,29.462372,46.844765,primary,,,,,50,asphalt,,,,True,True,False
+Бор-092,Борисовка,address_hull_buffer,,762475574,29.473656,46.843749,service,,,,,,,,,,True,True,False
+Бор-093,Борисовка,address_hull_buffer,,836884711,29.477392,46.832253,service,,,,,,,,,,True,True,False
+Бор-094,Борисовка,address_hull_buffer,улица 40 лет Победы,953951507,29.46459,46.845697,tertiary,,,,,50,,,,,True,True,False
+Бор-095,Борисовка,address_hull_buffer,,982918093,29.474273,46.84313,service,,,,,,,,,,True,True,False
+Бор-096,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.472668,46.830529,level_crossing,,,,,,,,,,True,True,False
+Бор-097,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476381,46.837292,level_crossing,,,,,,,,,,True,True,False
+Бор-098,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476755,46.837301,level_crossing,,,,,,,,,,True,True,False
+Бор-099,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.473332,46.828807,level_crossing,,,,,,,,,,True,True,False
+Бор-100,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.475112,46.831705,level_crossing,,,,,,,,,,True,True,False
+Бор-101,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476648,46.831719,level_crossing,,,,,,,,,,True,True,False
+Бор-102,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.469605,46.829,level_crossing,,,,,,,,,,True,True,False
+Бор-103,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.475025,46.831732,level_crossing,,,,,,,,,,True,True,False
+Бор-104,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.474878,46.831776,level_crossing,,,,,,,,,,True,True,False
+Бор-105,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.474946,46.831756,level_crossing,,,,,,,,,,True,True,False
+Бор-106,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.474755,46.831816,level_crossing,,,,,,,,,,True,True,False
+Бор-107,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.475091,46.831711,level_crossing,,,,,,,,,,True,True,False
+Бор-108,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.473208,46.828847,level_crossing,,,,,,,,,,True,True,False
+Бор-109,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476641,46.831767,level_crossing,,,,,,,,,,True,True,False
+Бор-110,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.475175,46.831686,level_crossing,,,,,,,,,,True,True,False
+Бор-111,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476495,46.83542,level_crossing,,,,,,,,,,True,True,False
+Бор-112,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476426,46.835419,level_crossing,,,,,,,,,,True,True,False
+Бор-113,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476299,46.83729,level_crossing,,,,,,,,,,True,True,False
+Бор-114,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476234,46.837288,level_crossing,,,,,,,,,,True,True,False
+Бор-115,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476363,46.835417,level_crossing,,,,,,,,,,True,True,False
+Бор-116,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.47617,46.837286,level_crossing,,,,,,,,,,True,True,False
+Бор-117,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476788,46.835428,level_crossing,,,,,,,,,,True,True,False
+Бор-118,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476672,46.835425,level_crossing,,,,,,,,,,True,True,False
+Бор-119,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476596,46.837297,level_crossing,,,,,,,,,,True,True,False
+Бор-120,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476524,46.837295,level_crossing,,,,,,,,,,True,True,False
+Бор-121,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476629,46.835424,level_crossing,,,,,,,,,,True,True,False
+Бор-122,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476857,46.839543,level_crossing,,,,,,,,,,True,True,False
+Бор-123,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476737,46.835427,level_crossing,,,,,,,,,,True,True,False
+Бор-124,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476669,46.837299,level_crossing,,,,,,,,,,True,True,False
+Бор-125,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476894,46.837305,level_crossing,,,,,,,,,,True,True,False
+Бор-126,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476839,46.837303,level_crossing,,,,,,,,,,True,True,False
+Бор-127,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476957,46.837306,level_crossing,,,,,,,,,,True,True,False
+Бор-128,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476825,46.835429,level_crossing,,,,,,,,,,True,True,False
+Бор-129,Борисовка,rail_level_crossing_node,(railway level_crossing),,29.476353,46.835417,level_crossing,,,,,,,,,,True,True,False
+Хом-130,Хомутяновка,address_hull_buffer,Московская улица,41749657,29.473112,46.823375,residential,,,,no,50,,,,,True,True,False
+Хом-131,Хомутяновка,address_hull_buffer,улица Академика Фёдорова,41749661,29.473278,46.827907,residential,,,,no,,,,,,True,True,False
+Хом-132,Хомутяновка,address_hull_buffer,улица Георге Асаке,41749662,29.466202,46.817638,residential,,,,,,,,,,True,True,False
+Хом-133,Хомутяновка,address_hull_buffer,Кишинёвская улица,41749663,29.471941,46.831398,tertiary,,,,,,,,,,True,True,False
+Хом-134,Хомутяновка,address_hull_buffer,Главная улица,60739688,29.447987,46.817544,residential,,,,,,,,,,True,True,False
+Хом-135,Хомутяновка,address_hull_buffer,улица Ленина,87497002,29.473247,46.825854,residential,,,,no,,,,,,True,True,False
+Хом-136,Хомутяновка,address_hull_buffer,улица Дзержинского,87502089,29.470177,46.818895,residential,,,,,,,,,,True,True,False
+Хом-137,Хомутяновка,address_hull_buffer,улица Кавриаго,87502094,29.471576,46.819512,residential,,,,,,asphalt,,,,True,True,False
+Хом-138,Хомутяновка,address_hull_buffer,улица Интернационалистов,91850331,29.457156,46.833777,residential,,,,,50,asphalt,,,,True,True,False
+Хом-139,Хомутяновка,address_hull_buffer,Фонтанная улица,91850332,29.463002,46.833103,residential,,,,,,,,,,True,True,False
+Хом-140,Хомутяновка,address_hull_buffer,улица Ивана Шимкова,91850352,29.464244,46.832958,residential,,,,,,,,,,True,True,False
+Хом-141,Хомутяновка,address_hull_buffer,улица 12 Октября,91850365,29.462302,46.833184,residential,,,,,,,,,,True,True,False
+Хом-142,Хомутяновка,address_hull_buffer,Первомайская улица,161126083,29.466487,46.817728,residential,,,,,,,,,,True,True,False
+Хом-143,Хомутяновка,address_hull_buffer,,184989526,29.472998,46.830774,service,,,,,,,,,,True,True,False
+Хом-144,Хомутяновка,address_hull_buffer,Путейская улица,222764129,29.464339,46.817048,residential,,,,,,,,,,True,True,False
+Хом-145,Хомутяновка,address_hull_buffer,,222986052,29.455883,46.833911,service,,,,,,,,,,True,True,False
+Хом-146,Хомутяновка,address_hull_buffer,,223883048,29.454349,46.813931,service,,,,,,,,,,True,True,False
+Хом-147,Хомутяновка,address_hull_buffer,Пионерская улица,224691154,29.458315,46.833646,residential,,,,,,,,,,True,True,False
+Хом-148,Хомутяновка,address_hull_buffer,,224691155,29.448649,46.833176,residential,,,,,60,,,,,True,True,False
+Хом-149,Хомутяновка,address_hull_buffer,улица Чернышевского,224958524,29.453002,46.813513,residential,,,,,,,,,,True,True,False
+Хом-150,Хомутяновка,address_hull_buffer,,285072119,29.470238,46.818914,service,,,,,,,,,,True,True,False
+Хом-151,Хомутяновка,address_hull_buffer,,304375014,29.461752,46.816234,service,,,,,,,,,,True,True,False
+Хом-152,Хомутяновка,address_hull_buffer,,316913787,29.447583,46.83205,residential,,,,,20,,,,,True,True,False
+Хом-153,Хомутяновка,address_hull_buffer,,318122791,29.456443,46.814582,service,,,,,,,,,,True,True,False
+Хом-154,Хомутяновка,address_hull_buffer,,319401092,29.452299,46.83429,service,,,,,,,,,,True,True,False
+Хом-155,Хомутяновка,address_hull_buffer,,352669554,29.458398,46.833636,service,,,,,,,,,,True,True,False
+Хом-156,Хомутяновка,address_hull_buffer,,397628231,29.473254,46.826301,service,,,,,,,,,,True,True,False
+Хом-157,Хомутяновка,address_hull_buffer,Комсомольская улица,397628237,29.472567,46.82133,residential,,,,,,asphalt,,,,True,True,False
+Хом-158,Хомутяновка,address_hull_buffer,,398516175,29.454963,46.834009,service,,,,,,,,,,True,True,False
+Хом-159,Хомутяновка,address_hull_buffer,,443458841,29.467255,46.832351,service,no,,,,,,,,,False,True,True
+Хом-160,Хомутяновка,address_hull_buffer,,443458842,29.469275,46.83194,service,no,,,,,,,,,False,True,True
+Хом-161,Хомутяновка,address_hull_buffer,улица Бендерского Восстания,532560332,29.465524,46.832703,primary,,,,,,,,,,True,True,False
+Хом-162,Хомутяновка,address_hull_buffer,Протягайловская улица,657287120,29.453819,46.813767,residential,,,,,,,,,,True,True,False
+Хом-163,Хомутяновка,address_hull_buffer,улица Сергея Лазо,680056523,29.473268,46.82723,residential,,,,,60,asphalt,,,,True,True,False
+Хом-164,Хомутяновка,address_hull_buffer,улица Бендерского Восстания,680304257,29.45906,46.815394,primary,,,,,,,,,,True,True,False
+Хом-165,Хомутяновка,address_hull_buffer,,763136903,29.472572,46.831172,service,,,,,,,,,,True,True,False
+Хом-166,Хомутяновка,address_hull_buffer,,919770692,29.454752,46.814056,service,,,,,,,,,,True,True,False
+Хом-167,Хомутяновка,address_hull_buffer,Гербовецкий переулок,60739714,29.446931,46.822121,residential,,,,,,,,,,True,True,False
+Хом-168,Хомутяновка,address_hull_buffer,,209668166,29.446365,46.828667,residential,,,,,,,,,,True,True,False
+Хом-169,Хомутяновка,address_hull_buffer,улица 50 лет Победы,209668169,29.446671,46.830567,residential,,,,,,,,,,True,True,False
+Хом-170,Хомутяновка,address_hull_buffer,Гербовецкая улица,222904316,29.446777,46.822793,tertiary,,,,no,,,,,,True,True,False
+Хом-171,Хомутяновка,address_hull_buffer,,224903392,29.446711,46.830797,living_street,,,,,10,unpaved,,,,True,True,False
+Хом-172,Хомутяновка,address_hull_buffer,Луговая улица,224903408,29.446261,46.828027,residential,,,,,20,,,,,True,True,False
+Хом-173,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.468155,46.825947,level_crossing,,,,,,,,,,True,True,False
+Хом-174,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.472668,46.830529,level_crossing,,,,,,,,,,True,True,False
+Хом-175,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.465929,46.821258,level_crossing,,,,,,,,,,True,True,False
+Хом-176,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466563,46.821663,level_crossing,,,,,,,,,,True,True,False
+Хом-177,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.467533,46.824844,level_crossing,,,,,,,,,,True,True,False
+Хом-178,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471025,46.826732,level_crossing,,,,,,,,,,True,True,False
+Хом-179,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.46479,46.818544,level_crossing,,,,,,,,,,True,True,False
+Хом-180,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471219,46.826663,level_crossing,,,,,,,,,,True,True,False
+Хом-181,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.465046,46.818463,level_crossing,,,,,,,,,,True,True,False
+Хом-182,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471086,46.82671,level_crossing,,,,,,,,,,True,True,False
+Хом-183,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471614,46.826602,level_crossing,,,,,,,,,,True,True,False
+Хом-184,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.473332,46.828807,level_crossing,,,,,,,,,,True,True,False
+Хом-185,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.469605,46.829,level_crossing,,,,,,,,,,True,True,False
+Хом-186,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.468059,46.821237,level_crossing,,,,,,,,,,True,True,False
+Хом-187,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.464912,46.818501,level_crossing,,,,,,,,,,True,True,False
+Хом-188,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471299,46.826639,level_crossing,,,,,,,,,,True,True,False
+Хом-189,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471158,46.826687,level_crossing,,,,,,,,,,True,True,False
+Хом-190,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470858,46.826792,level_crossing,,,,,,,,,,True,True,False
+Хом-191,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471371,46.826615,level_crossing,,,,,,,,,,True,True,False
+Хом-192,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.471458,46.826583,level_crossing,,,,,,,,,,True,True,False
+Хом-193,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.473208,46.828847,level_crossing,,,,,,,,,,True,True,False
+Хом-194,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470971,46.826751,level_crossing,,,,,,,,,,True,True,False
+Хом-195,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470911,46.826774,level_crossing,,,,,,,,,,True,True,False
+Хом-196,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470804,46.826811,level_crossing,,,,,,,,,,True,True,False
+Хом-197,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470624,46.826772,level_crossing,,,,,,,,,,True,True,False
+Хом-198,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.47068,46.826751,level_crossing,,,,,,,,,,True,True,False
+Хом-199,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470571,46.82679,level_crossing,,,,,,,,,,True,True,False
+Хом-200,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.465376,46.823654,level_crossing,,,,,,,,,,True,True,False
+Хом-201,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.46754,46.823194,level_crossing,,,,,,,,,,True,True,False
+Хом-202,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.468441,46.824792,level_crossing,,,,,,,,,,True,True,False
+Хом-203,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.469333,46.827974,level_crossing,,,,,,,,,,True,True,False
+Хом-204,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.468688,46.828514,level_crossing,,,,,,,,,,True,True,False
+Хом-205,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470503,46.827451,level_crossing,,,,,,,,,,True,True,False
+Хом-206,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470164,46.826626,level_crossing,,,,,,,,,,True,True,False
+Хом-207,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.46835,46.824748,level_crossing,,,,,,,,,,True,True,False
+Хом-208,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466521,46.823785,level_crossing,,,,,,,,,,True,True,False
+Хом-209,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466641,46.823887,level_crossing,,,,,,,,,,True,True,False
+Хом-210,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.467589,46.82318,level_crossing,,,,,,,,,,True,True,False
+Хом-211,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.467368,46.823206,level_crossing,,,,,,,,,,True,True,False
+Хом-212,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466697,46.821716,level_crossing,,,,,,,,,,True,True,False
+Хом-213,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466043,46.821309,level_crossing,,,,,,,,,,True,True,False
+Хом-214,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.466118,46.821349,level_crossing,,,,,,,,,,True,True,False
+Хом-215,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.467583,46.82488,level_crossing,,,,,,,,,,True,True,False
+Хом-216,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.468511,46.82478,level_crossing,,,,,,,,,,True,True,False
+Хом-217,Хомутяновка,rail_level_crossing_node,(railway level_crossing),,29.470477,46.827452,level_crossing,,,,,,,,,,True,True,False
+Сев-218,Северный,no_osm_place_owner_review,,,,,,,,,,,,,,,,,True

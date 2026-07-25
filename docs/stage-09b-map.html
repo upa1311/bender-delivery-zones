@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stage 09B — въезды, маршруты и связность (Бендеры)</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0 330px 0 0; }
+    #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 330px;
+      overflow: auto; background: #fff; border-left: 1px solid #ccc; padding: 12px; font-size: 13px; }
+    h1 { font-size: 15px; margin: 0 0 6px; } h2 { font-size: 13px; margin: 12px 0 4px; }
+    .lyr { display: block; margin: 3px 0; } .note { color: #666; font-size: 12px; }
+    #info { margin-top: 10px; padding: 8px; background: #f6f8fa; border-radius: 6px;
+      white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; min-height: 60px; }
+    .sw { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="panel">
+    <h1>Stage 09B — въезды и маршрутная правда</h1>
+    <p class="note">Read-only аудит. Ни один immutable-релиз/цены/Direct не
+      изменены. Связность — по общему графовому узлу, не по геометрии. owner review.</p>
+    <h2>Контекст</h2>
+    <label class="lyr"><input type="checkbox" id="l-boundary" checked /> Граница Бендер (OSM)</label>
+    <label class="lyr"><input type="checkbox" id="l-zones" /> Зоны 1–4 (v1.1)</label>
+    <h2>Топология</h2>
+    <label class="lyr"><input type="checkbox" id="l-lc" checked /> Ж/д переезды (level_crossing)</label>
+    <label class="lyr"><input type="checkbox" id="l-cross" checked /> Road/rail crossings (класс)</label>
+    <label class="lyr"><input type="checkbox" id="l-entries" checked /> Найденные въезды</label>
+    <h2>Маршруты (репрезент. дома)</h2>
+    <label class="lyr"><input type="checkbox" id="l-fast" checked /> <span class="sw" style="background:#2563eb"></span>Global fastest-time</label>
+    <label class="lyr"><input type="checkbox" id="l-short" checked /> <span class="sw" style="background:#16a34a"></span>Shortest-distance</label>
+    <label class="lyr"><input type="checkbox" id="l-via" /> <span class="sw" style="background:#9ca3af"></span>Через каждый въезд</label>
+    <label class="lyr"><input type="checkbox" id="l-snap" checked /> Адрес + OSRM snap</label>
+    <div id="info">Наведите/кликните элемент.</div>
+  </div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script>
+    const ZC = {1:"#2a9d3f",2:"#f2c500",3:"#f07f14",4:"#d62828"};
+    const CLS = {LEVEL_CROSSING:"#16a34a",BRIDGE:"#2563eb",TUNNEL:"#7c3aed",
+      GEOMETRY_ONLY_NO_CONNECTION:"#dc2626",BROKEN_CONNECTIVITY:"#f59e0b",UNKNOWN_OWNER_REVIEW:"#6b7280"};
+    const map = L.map("map").setView([46.83, 29.475], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+    const info = document.getElementById("info");
+    const show = o => info.textContent = JSON.stringify(o,null,1);
+    async function gj(p){ try{const r=await fetch(p);return r.ok?r.json():null;}catch{return null;} }
+    function toggle(id,layer){const cb=document.getElementById(id);const s=()=>{if(!layer)return;cb.checked?layer.addTo(map):map.removeLayer(layer);};cb.addEventListener("change",s);s();}
+    const clicked=(f,l)=>l.on("click",()=>show(f.properties));
+
+    (async () => {
+      const bnd = await gj("data/source-boundaries.geojson");
+      if (bnd){const b={type:"FeatureCollection",features:bnd.features.filter(f=>f.properties.key==="bender")};
+        toggle("l-boundary",L.geoJSON(b,{style:{color:"#111",weight:2,dashArray:"6 4",fill:false}}));}
+      const zones = await gj("data/final-zone-polygons.geojson");
+      if (zones) toggle("l-zones",L.geoJSON(zones,{style:f=>({color:ZC[f.properties.zone_id]||"#888",weight:1,fillColor:ZC[f.properties.zone_id]||"#888",fillOpacity:0.1})}));
+
+      const lc = await gj("data/stage-09b-level-crossings.geojson");
+      if (lc) toggle("l-lc",L.geoJSON(lc,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:3,color:"#16a34a",weight:1,fillColor:"#4ade80",fillOpacity:0.9}),onEachFeature:clicked}));
+
+      // crossings CSV -> points
+      const csvTxt = await (await fetch("data/stage-09b-road-rail-crossings.csv")).text();
+      const lines = csvTxt.trim().split(/\r?\n/); const hdr = lines[0].split(",");
+      const ci = n=>hdr.indexOf(n);
+      const cf = lines.slice(1).map(r=>{const c=r.split(",");return {cls:c[ci("classification")],lon:+c[ci("lon")],lat:+c[ci("lat")],name:c[ci("car_name")],hw:c[ci("car_highway")]};}).filter(x=>x.lon);
+      toggle("l-cross",L.layerGroup(cf.map(x=>L.circleMarker([x.lat,x.lon],{radius:5,weight:1,color:"#333",fillColor:CLS[x.cls]||"#888",fillOpacity:0.85}).on("click",()=>show(x)))));
+
+      const ent = await gj("data/stage-09b-district-entries.geojson");
+      if (ent) toggle("l-entries",L.geoJSON(ent,{filter:f=>f.geometry,pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:4,weight:1,color:"#1e3a8a",fillColor:"#93c5fd",fillOpacity:0.9}),onEachFeature:clicked}));
+
+      const routes = await gj("data/stage-09b-map-routes.geojson");
+      if (routes){
+        const mk=(kind,color,dash)=>L.geoJSON(routes,{filter:f=>f.properties.kind===kind&&f.geometry.type==="LineString",
+          style:{color,weight:kind==="via_entry"?2:3,opacity:0.8,dashArray:dash},onEachFeature:clicked});
+        toggle("l-fast",mk("fastest_time","#2563eb",null));
+        toggle("l-short",mk("shortest_distance","#16a34a","5 3"));
+        toggle("l-via",mk("via_entry","#9ca3af","2 3"));
+        toggle("l-snap",L.geoJSON(routes,{filter:f=>f.geometry&&f.geometry.type==="Point",
+          pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:f.properties.kind==="osrm_snap"?5:4,weight:1,
+            color:f.properties.kind==="osrm_snap"?"#b91c1c":"#111",fillColor:f.properties.kind==="osrm_snap"?"#fca5a5":"#fde68a",fillOpacity:0.9}),onEachFeature:clicked}));
+      }
+    })();
+  </script>
+</body>
+</html>

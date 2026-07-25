@@ -85,3 +85,6 @@ data/interim/osrm/
 # Stage 10B routing-graph cache (regenerable from the full PBF)
 /data/interim/stage10b-cargraph.pkl
 /data/interim/stage10b-restrictions.json
+
+# Stage 10C edge-graph cache (regenerable; keyed by PBF SHA-256)
+/data/interim/stage10c-graph-*.pkl

@@ -1,0 +1,26 @@
+{
+  "pbf_path": "data\\raw\\moldova-latest.osm.pbf",
+  "pbf_sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+  "bbox": [
+    29.15,
+    46.6,
+    29.85,
+    47.02
+  ],
+  "graph_schema_version": "10c.1",
+  "access_profile_version": "delivery-vehicle.1",
+  "restriction_parser_version": "turn-restrictions.1",
+  "vehicle": "delivery van (access=delivery ALLOWED)",
+  "counts": {
+    "directed_edges": 193294,
+    "nodes": 91554,
+    "ways": 13856,
+    "barrier_nodes_blocking": 1387,
+    "access_blocked_ways": 1873,
+    "conditional_access_ways": 0,
+    "turn_restrictions_parsed": 2497,
+    "restrictions_via_node_no": 1546,
+    "restrictions_via_node_only": 421,
+    "restrictions_via_way": 2
+  }
+}

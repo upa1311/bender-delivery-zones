@@ -1,0 +1,189 @@
+{
+  "recorded_at_utc": "2026-07-25T07:04:03Z",
+  "provenance_mode": "recorded from the EXISTING build (no destructive rebuild was performed on the live graph)",
+  "source_pbf": {
+    "path": "data\\raw\\moldova-latest.osm.pbf",
+    "sha256": "09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c",
+    "bytes": 100293069
+  },
+  "osrm_version": [
+    "v26.7.3"
+  ],
+  "osrm_profile": {
+    "path": "vendor\\osrm\\profiles\\car.lua",
+    "sha256": "48bbb716c2b68ce6803a11a4151fcac050c6ea8240295e7dde111f15f8bd3984"
+  },
+  "build_commands_from_script": [
+    "#   osrm-extract -p car.lua  ->  osrm-partition  ->  osrm-customize  ->  osrm-routed",
+    "command -v \"$OSRM_BIN/osrm-extract.exe\" >/dev/null 2>&1 || \\",
+    "command -v \"$OSRM_BIN/osrm-extract\" >/dev/null 2>&1 || {",
+    "OSRM_VERSION=\"$(\"$(exe osrm-extract)\" --version 2>&1 | head -1 | tr -d '\\r')\"",
+    "EXTRACT_SHA=\"$(sha \"$(exe osrm-extract)\")\"",
+    "CMD_EXTRACT=\"osrm-extract -p car.lua $BASENAME.osm.pbf\"",
+    "CMD_PARTITION=\"osrm-partition $BASENAME\"",
+    "CMD_CUSTOMIZE=\"osrm-customize $BASENAME\"",
+    "echo \"==> osrm-extract\";   ( cd \"$WORK\" && \"$(exe osrm-extract)\"   -p \"$PROFILE\" \"$BASENAME.osm.pbf\" >/dev/null )",
+    "echo \"==> osrm-partition\"; ( cd \"$WORK\" && \"$(exe osrm-partition)\" \"$BASENAME\"   >/dev/null )",
+    "echo \"==> osrm-customize\"; ( cd \"$WORK\" && \"$(exe osrm-customize)\" \"$BASENAME\"   >/dev/null )"
+  ],
+  "outputs": [
+    {
+      "name": "moldova.osrm.cell_metrics",
+      "bytes": 42691584,
+      "sha256": "7f64ec1d2939f03013ede859d2293f4690ff05c41b1f0ed544c77875cbbc3dba",
+      "mtime_utc": "2026-07-24T00:47:52Z"
+    },
+    {
+      "name": "moldova.osrm.cells",
+      "bytes": 544768,
+      "sha256": "33c79ef8f945f66bd8c4195ef868f470df4864c2dbb67c43a961bbde0fb04590",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.cnbg",
+      "bytes": 6036992,
+      "sha256": "26b0e47727ec5f04e39fcd2f1d9dfb9560b3848b7aefc1ae48ac1ba469b00531",
+      "mtime_utc": "2026-07-24T00:47:32Z"
+    },
+    {
+      "name": "moldova.osrm.cnbg_to_ebg",
+      "bytes": 6036992,
+      "sha256": "cdb5c199f158777f95bbae665f9adbaf2e7e032806c0d8a8f3bd513f9c9f9eb6",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.datasource_names",
+      "bytes": 69632,
+      "sha256": "0f1b89ffd01d7ddb6a0dd3d9959b17884fbc8c9fe5b960e9381411666d677e72",
+      "mtime_utc": "2026-07-24T00:47:50Z"
+    },
+    {
+      "name": "moldova.osrm.ebg",
+      "bytes": 35553280,
+      "sha256": "5b5543a182e5bff20852e1c6872dfb32fae71233180351a9b97f507ed9c70428",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.ebg_nodes",
+      "bytes": 9055744,
+      "sha256": "4fd2b8ea93c61c8d8c0d2be8d144d0aeafc07335a40cc9adc38a6feb09f559d3",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.edges",
+      "bytes": 10380288,
+      "sha256": "7d57656bce42bd663a9adf901ec24dfeb32242dca890799e60af34ec89c3a121",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.enw",
+      "bytes": 8950784,
+      "sha256": "e546748eeef67ef39277bef14258b0472d8044939ba5def8591e2a2916816f94",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.fileIndex",
+      "bytes": 31584700,
+      "sha256": "5b66821483d98c61bb2d9c8434581b54b29ee1cd2ede2a9fc6632588ec64afda",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.geometry",
+      "bytes": 55222272,
+      "sha256": "ae145010457942c424ab10703ba93d2d38d6ec88b5d3cd0e7acf624d0c7b7d52",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.icd",
+      "bytes": 6038528,
+      "sha256": "8dcff3542f751b85c9dff104ab65eb28f2bccb69a53262be4be0dcd93fce7c54",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.maneuver_overrides",
+      "bytes": 5120,
+      "sha256": "3733c15a2d31218d2c545287f4543fd2d68dd8fa80a5482c310fc4df5623508d",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.mldgr",
+      "bytes": 36663808,
+      "sha256": "4ec1e24e0151399c1505217d1c18e41ba0b23490b1d023cd9c8fcfc58b55ca9c",
+      "mtime_utc": "2026-07-24T00:47:53Z"
+    },
+    {
+      "name": "moldova.osrm.names",
+      "bytes": 356352,
+      "sha256": "6b6bb96b8c1436b84be24ced6397383390f37879c560680ef549d9169f1bfe61",
+      "mtime_utc": "2026-07-24T00:47:28Z"
+    },
+    {
+      "name": "moldova.osrm.nbg_nodes",
+      "bytes": 19458560,
+      "sha256": "de986e0f79f0bed876efa4e40301863d6e2852188c289a83d839fa29622cb93d",
+      "mtime_utc": "2026-07-24T00:47:32Z"
+    },
+    {
+      "name": "moldova.osrm.partition",
+      "bytes": 5971456,
+      "sha256": "f876b23feb70fd5748e4656e2fda1b8b4283802293a158d1f29e557372e31076",
+      "mtime_utc": "2026-07-24T00:47:49Z"
+    },
+    {
+      "name": "moldova.osrm.properties",
+      "bytes": 6144,
+      "sha256": "b4db1d2d737462b46746b88c9fe558fed37629815bd0a6789aa3ea6ed60ad415",
+      "mtime_utc": "2026-07-24T00:47:28Z"
+    },
+    {
+      "name": "moldova.osrm.ramIndex",
+      "bytes": 131584,
+      "sha256": "68599045855cff86e506888f553ca572439e71c5d68902904c4ddfd0f14ca9f3",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.restrictions",
+      "bytes": 4096,
+      "sha256": "c0f04fead8397f2c334e2fea9a2dc6c3243e31d9f56bb1f6b8d970eee488d412",
+      "mtime_utc": "2026-07-24T00:47:36Z"
+    },
+    {
+      "name": "moldova.osrm.timestamp",
+      "bytes": 3584,
+      "sha256": "bbb9d9aabd97dcf37475742701b9d87c962039389f1ab85b3ac86b11d990e3a0",
+      "mtime_utc": "2026-07-24T00:47:14Z"
+    },
+    {
+      "name": "moldova.osrm.tld",
+      "bytes": 4096,
+      "sha256": "a2bb58d6fb620fdee9d2bdbe7e043ba180c73107b573e6e0a0dd76e111645bca",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.tls",
+      "bytes": 6144,
+      "sha256": "ccdf44daa075b45b6628d8a3da1d475ec4f15d397361734a9c631417862112a8",
+      "mtime_utc": "2026-07-24T00:47:41Z"
+    },
+    {
+      "name": "moldova.osrm.turn_duration_penalties",
+      "bytes": 2966016,
+      "sha256": "67128815dec565738d0e6a7d1c3ffbb76768e80bf6f49885a095b103f8f7d550",
+      "mtime_utc": "2026-07-24T00:47:36Z"
+    },
+    {
+      "name": "moldova.osrm.turn_penalties_index",
+      "bytes": 17776640,
+      "sha256": "5a0cdce084758f0d2bef5ae4b11732ea6a5f625f8035f5b2fde1d48d9b2fd062",
+      "mtime_utc": "2026-07-24T00:47:36Z"
+    },
+    {
+      "name": "moldova.osrm.turn_weight_penalties",
+      "bytes": 2966016,
+      "sha256": "c1544962b334b8fdfd870fefeee7d9181c377a204c59c6c2986731969d5cce14",
+      "mtime_utc": "2026-07-24T00:47:36Z"
+    }
+  ],
+  "output_count": 26,
+  "owner_review_required": true
+}

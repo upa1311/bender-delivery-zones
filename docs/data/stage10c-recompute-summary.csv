@@ -1,0 +1,7 @@
+addresses,basis,district,mean_off_road_m,overstated_gt_10pct,owner_review_required,routable,with_previous_km
+511,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Борисовка,18.89,171,True,469,469
+415,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Гиска,18.72,0,True,373,80
+3772,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Парканы,16.07,2,True,3752,88
+513,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Протягайловка,19.45,95,True,455,455
+7,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Северный,24.84,0,True,7,0
+999,edge-valid graph: turn restrictions + barriers + delivery access + edge snapping (partial edge length charged),Хомутяновка,18.25,36,True,937,937

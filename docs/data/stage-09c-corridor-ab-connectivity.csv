@@ -1,0 +1,7 @@
+hop,forward_km,forward_s,reverse_km,reverse_s,forward_in_osrm,reverse_in_osrm,asymmetric_oneway
+Московская->Первомайская,0.5875,58.7,0.375,32,True,True,True
+Первомайская->Некрасова,0.3723,36.9,1.1474,111.9,True,True,True
+Некрасова->Ечина,0.0967,14,0.0967,14,True,True,False
+Ечина->Главана,0.496,84.9,0.496,88.2,True,True,False
+Главана->Старого,0.6383,94.7,0.6383,96.1,True,True,False
+Старого->Мира,2.0883,217.4,2.7671,211.6,True,True,True

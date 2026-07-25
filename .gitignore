@@ -78,3 +78,6 @@ data/interim/osrm/
 *.osrm*
 
 .osrm/
+
+# Stage 09 routing cache (regenerable via scripts/stage09_route_all.py)
+/docs/data/stage-09-routed.jsonl

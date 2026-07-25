@@ -1,0 +1,214 @@
+{
+  "type": "FeatureCollection",
+  "note": "District QA markers by nearest real OSM place. No boundary is invented; Северный stays owner_review.",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.465056,
+          46.839237
+        ]
+      },
+      "properties": {
+        "district_ru": "Борисовка",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 511,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.461572,
+          46.824091
+        ]
+      },
+      "properties": {
+        "district_ru": "Хомутяновка",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 999,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.46483,
+          46.849424
+        ]
+      },
+      "properties": {
+        "district_ru": "Солнечный",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 118,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.456476,
+          46.844477
+        ]
+      },
+      "properties": {
+        "district_ru": "Птичник",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 50,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.46851,
+          46.802269
+        ]
+      },
+      "properties": {
+        "district_ru": "Ленинский",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 64,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.487187,
+          46.790543
+        ]
+      },
+      "properties": {
+        "district_ru": "Шёлковый",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 407,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.480155,
+          46.84622
+        ]
+      },
+      "properties": {
+        "district_ru": "Липканы",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 257,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.481791,
+          46.823417
+        ]
+      },
+      "properties": {
+        "district_ru": "Центр",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 701,
+        "in_owner_district_list": true,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.468583,
+          46.813598
+        ]
+      },
+      "properties": {
+        "district_ru": "Балка",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 974,
+        "in_owner_district_list": false,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.484333,
+          46.80655
+        ]
+      },
+      "properties": {
+        "district_ru": "Кавказ",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 470,
+        "in_owner_district_list": false,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.491366,
+          46.816315
+        ]
+      },
+      "properties": {
+        "district_ru": "Нижний Днестр",
+        "source": "osm_place_suburb_or_neighbourhood_node",
+        "labelling": "nearest_osm_place (marker only; boundary NOT asserted)",
+        "serviceable_homes_nearest": 533,
+        "in_owner_district_list": false,
+        "owner_review_required": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "district_ru": "Северный",
+        "source": "no_osm_place_object_named_by_marshrutka_relations_only",
+        "labelling": "owner_review (catalog district_ru is authoritative for the 57 Северный objects)",
+        "owner_review_required": true
+      }
+    }
+  ]
+}

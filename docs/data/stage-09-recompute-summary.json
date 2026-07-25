@@ -1,0 +1,39 @@
+{
+  "current_edges_km": [
+    2.424,
+    4.076,
+    5.577,
+    9.692
+  ],
+  "recomputed_raw_A_edges_km": [
+    2.477,
+    4.125,
+    5.727,
+    9.758
+  ],
+  "generalized_A_edges_km": [
+    3.523,
+    6.073,
+    8.376,
+    13.646
+  ],
+  "generalized_B_edges_km": [
+    3.478,
+    6.022,
+    8.326,
+    13.58
+  ],
+  "outside_city_multiplier": 1.6666666666666667,
+  "weighting_A": "central 0.85 / BAM 0.15 (current basis)",
+  "weighting_B": "central 0.85 / BAM 0.10 / outer 0.05 (actual origins)",
+  "zone_moves_A": 3839,
+  "zone_moves_B": 3814,
+  "n_addresses": 9784,
+  "provenance": {
+    "city_km_rate_owner_words": 6,
+    "outside_km_rate_owner_words": 10,
+    "switch_point": "exact point unknown; current Bender OSM boundary is a provisional proxy",
+    "owner_review_required": true,
+    "not_money": true
+  }
+}

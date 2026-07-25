@@ -1,0 +1,5024 @@
+{
+  "scenarios": {
+    "A_boundary": "switch at the Bender OSM boundary",
+    "B_minus300": "switch 300 m before the boundary (buffered inward)",
+    "C_plus300": "switch 300 m after the boundary (buffered outward)"
+  },
+  "generalized_A_edges_km": [
+    3.523,
+    6.073,
+    8.376,
+    13.646
+  ],
+  "crossing_addresses": 4727,
+  "zone_changes": {
+    "B_vs_A": 423,
+    "C_vs_A": 306
+  },
+  "unstable_count": 729,
+  "stable_count": 3998,
+  "unstable_addresses": [
+    {
+      "uid": "w531446214",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Шёлковый",
+      "street_ru": "1-й Измаильский переулок",
+      "housenumber": "175",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531446216",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Шёлковый",
+      "street_ru": "2-й Измаильский переулок",
+      "housenumber": "177",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531449255",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Шёлковый",
+      "street_ru": "2-й Измаильский переулок",
+      "housenumber": "181",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531449257",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Шёлковый",
+      "street_ru": "2-й Измаильский переулок",
+      "housenumber": "183",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531449258",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Шёлковый",
+      "street_ru": "2-й Измаильский переулок",
+      "housenumber": "185",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2337985509",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "1",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161715",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161714",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "10",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161713",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "12",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161711",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "14",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161710",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "16",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161708",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "18",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161709",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "20",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161707",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "22",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161706",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "24",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161705",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "26",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161717",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "28",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352161704",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "30",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352284664",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Санаторная улица",
+      "housenumber": "56",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352265835",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Санаторная улица",
+      "housenumber": "58",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352163177",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Санаторная улица",
+      "housenumber": "70",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352163171",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Санаторная улица",
+      "housenumber": "72",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352163169",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "Санаторная улица",
+      "housenumber": "74",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2337889960",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "44",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285811",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "46",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285810",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "48",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285809",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "50",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285807",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "54",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285806",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "56",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285804",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "58",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285589",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "60",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285588",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "62",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285587",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "64",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352285586",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Калашникова",
+      "housenumber": "66",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352265844",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "7",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352265846",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "9",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352265852",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "14",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352265853",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "16",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352326939",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "38",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2337889966",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Хомутяновка",
+      "street_ru": "улица Кошевого",
+      "housenumber": "42",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w407342982",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Солнечный",
+      "street_ru": "Strada Tighina",
+      "housenumber": "31/3",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w407342966",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Солнечный",
+      "street_ru": "Strada Tighina",
+      "housenumber": "31/6",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w407342964",
+      "settlement_ru": "Бендеры",
+      "district_ru": "Солнечный",
+      "street_ru": "Strada Tighina",
+      "housenumber": "31/7",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749484",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "12",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4905411576",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "12 В",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749486",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "14а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749485",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "16",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749465",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "24",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749466",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "31",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749475",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "47",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749472",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "52",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749447",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "53",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749473",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "54",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749445",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "55",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749469",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "56",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4905411564",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "63",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749467",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "78",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749471",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "87",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749470",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "89",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749468",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Госпитальная улица",
+      "housenumber": "105",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w406639375",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "51",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w222871672",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Первомайская улица",
+      "housenumber": "6",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w410936927",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Первомайская улица",
+      "housenumber": "29",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w410936926",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Первомайская улица",
+      "housenumber": "31",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w1011535183",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Первомайская улица",
+      "housenumber": "33",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w1011535184",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Первомайская улица",
+      "housenumber": "35",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5627150211",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Приднестровская улица",
+      "housenumber": "9",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w255958964",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Студенческая улица",
+      "housenumber": "7/A",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w222871674",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Студенческая улица",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w222864364",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Студенческая улица",
+      "housenumber": "9",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2341959256",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "1",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959262",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "2",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959259",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "5",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959265",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "6",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959268",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "7",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959277",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "10",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959271",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "13",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341959274",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "15",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956433",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "95",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956435",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "97",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956439",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "99а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956445",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Учительская улица",
+      "housenumber": "101",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956543",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Школьный переулок",
+      "housenumber": "2",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956546",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "Школьный переулок",
+      "housenumber": "4",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w531442969",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "70",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531442971",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "72",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531442972",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "74",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531442968",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "76",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531442965",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "78",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w511417418",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "82",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w511417416",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "86",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531449259",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "187",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531451246",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "189",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w531451247",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 40 лет МССР",
+      "housenumber": "191",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749452",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 60 лет Октября",
+      "housenumber": "1",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749451",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 60 лет Октября",
+      "housenumber": "2",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749453",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 60 лет Октября",
+      "housenumber": "28",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749454",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица 60 лет Октября",
+      "housenumber": "39",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749459",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "5",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749460",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "6",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749462",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "7",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749461",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "22",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749464",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "22а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749463",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "27",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749494",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "89",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749495",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Бориса Главана",
+      "housenumber": "91",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749390",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Интернационалистов",
+      "housenumber": "2",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749401",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Интернационалистов",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w353619644",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "19",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405169671",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "23",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w461204245",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "25",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w461204243",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "27",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w461204241",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "29",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w446100568",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "31",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2328051587",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "31а",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w402777360",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "36",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w402777361",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "38",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405112662",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "40",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405112663",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "42",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405169669",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "44",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405169667",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "46",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405169663",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "48",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w405169665",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Кирова",
+      "housenumber": "50",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749491",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Курило",
+      "housenumber": "1",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749490",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Курило",
+      "housenumber": "2",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749488",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Курило",
+      "housenumber": "13",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749489",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Курило",
+      "housenumber": "20",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w255960438",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "5",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749385",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "13",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749487",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "15",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749387",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "17",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749410",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "21",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749388",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "26",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749389",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "28",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2341956428",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "93",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749492",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "100",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749493",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "102",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956451",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "103",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956455",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "109",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956458",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "111а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4905410771",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "121",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2341956460",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Ленина",
+      "housenumber": "126",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749446",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Мира",
+      "housenumber": "30а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w256886090",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Мира",
+      "housenumber": "43",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4905411595",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Мира",
+      "housenumber": "51",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2321749386",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Суворова",
+      "housenumber": "62",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w256208269",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Суворова",
+      "housenumber": "62",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2321749391",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Суворова",
+      "housenumber": "75",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w256209152",
+      "settlement_ru": "Гиска",
+      "district_ru": "Гиска",
+      "street_ru": "улица Суворова",
+      "housenumber": "75",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457278445",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "60",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457402075",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "61",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457402078",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "63",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457278452",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "64",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457402081",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "65",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457278455",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "66",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457402085",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "67",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457278458",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "68",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457402037",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "69",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457441177",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "71",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457278414",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "72",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457441182",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "73",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457394273",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Комсомольская улица",
+      "housenumber": "74",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323674234",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "2",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265229",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "3",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265255",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "4",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265230",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "5",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265256",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "6",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265231",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "7",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265232",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "9",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265257",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "10",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265233",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "11",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265258",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "12",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265234",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "13",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265259",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "14",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459265260",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Молодёжная улица",
+      "housenumber": "16",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323343682",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Пионерская улица",
+      "housenumber": "103",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596518",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "64",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596519",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "66",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596520",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "68",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596521",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "70",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596522",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "72",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596523",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "74",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596495",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "87",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596496",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "89",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596497",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "91",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596499",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "95",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596500",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "97",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596501",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "99",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596502",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "101",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596503",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "101а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596504",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "103",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459596505",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Садовая улица",
+      "housenumber": "105",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323674245",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "2",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459281647",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "4",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459281650",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "6",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459281653",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "8",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459281656",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "10",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459281659",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "Степная улица",
+      "housenumber": "12",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323407151",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Благоева",
+      "housenumber": "49",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458462457",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Благоева",
+      "housenumber": "58",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458462454",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Благоева",
+      "housenumber": "60",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458462452",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Благоева",
+      "housenumber": "62",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323152130",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Будённого",
+      "housenumber": "155",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323152118",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "27",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733105",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "29",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733106",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "31",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453644685",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "32",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323152120",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "32а",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733107",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "33",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453644686",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "34",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733108",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "35",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733110",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "37",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453733111",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "39",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453643611",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "153",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323152131",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "157",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2453643612",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "159",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2453643613",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "161",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2453643615",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "162",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2453643616",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ворошилова",
+      "housenumber": "166",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323352018",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "19",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n7923584705",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "62",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n7923584706",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "64А",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n7913464568",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "64Б",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2460744758",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "66",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2460744760",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Гоголя",
+      "housenumber": "68",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2450934191",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "113",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450934192",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "115",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450934193",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "117",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450934194",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "119",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450934195",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "121",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450934196",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "123",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4886201799",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "129",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962239",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "132",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962240",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "134",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962241",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "136",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n4517725569",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "137",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962242",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "138",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962243",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "140",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962244",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "142",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962245",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "144",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962246",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "146",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962247",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "148",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2450962248",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Горького",
+      "housenumber": "150",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w285192064",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "1",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323352019",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "9",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284651579",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "10",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323352006",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "11",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284651581",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "12",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284651582",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "14",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323407211",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "30",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323407215",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "32",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458504596",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "34",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458504597",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "36",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458675457",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "113",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675456",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "115",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675455",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "117",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323407237",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "119",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684411",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "121",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684410",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "123",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323407244",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "125",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684409",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "127",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684408",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "129",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684415",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "131",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684416",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "133",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684417",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "135",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675464",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "156",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675463",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "158",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675462",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "160",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675461",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "162",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458675460",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "164",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323407240",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "166",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684404",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "168",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684403",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "170",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323407247",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "172",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684405",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "174",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684406",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "176",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684407",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "178",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684412",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "178а",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458684413",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Карла Маркса",
+      "housenumber": "180",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323589077",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "150",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323589100",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "154",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w460212930",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "154",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323589084",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "156",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w476163319",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "156",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457979557",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "158",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457979558",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Кирова",
+      "housenumber": "160",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2454871430",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "36",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871431",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "38",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653834966",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "38",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653835190",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "39",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871432",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "40",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653835277",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "40",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871465",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "41",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653835191",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "41",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871433",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "42",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653832211",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "42",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871467",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "43",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653834967",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "43",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871434",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "44",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653835192",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "44",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871468",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "45",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871435",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "46",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871469",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "47",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871436",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "48",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871470",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "49",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871437",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "50",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871471",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "51",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2454871472",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "53",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653834969",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "53",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n5653835447",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Котовского",
+      "housenumber": "60",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457591902",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "93",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457591903",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "95",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457591904",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "97",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457591905",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "99",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457591906",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "101",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323343683",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "105",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584936",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "106",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584937",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "108",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584938",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "110",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584939",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "112",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584940",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "114",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323343723",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "116",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2323343724",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "118",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457584921",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Ленина",
+      "housenumber": "120",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2457518557",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "32",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518558",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "34",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518559",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "36",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518560",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "38",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518561",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "40",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518562",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "42",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457518563",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "46",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323152066",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "48",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323152065",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "185",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323152064",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Маяковского",
+      "housenumber": "198",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317678",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "66",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317676",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "68",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317672",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "70",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317689",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "71",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317670",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "72",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317686",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "73",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317668",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "74",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317684",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "75",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317682",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "77",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458317674",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Мичурина",
+      "housenumber": "79",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459682666",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "3",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682667",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "5",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682647",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "6",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682668",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "7",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682648",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682669",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "9",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682649",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "10",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682670",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "11",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682650",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "12",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682671",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "13",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682651",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "14",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682672",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "15",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682652",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "16",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682653",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "18",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682654",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "20",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459682655",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "22",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n4818943288",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "98",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457979559",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "162",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457979560",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "162а",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2457979561",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Петра Николаева",
+      "housenumber": "164",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459459665",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "87",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459666",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "89",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459694",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "90",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459667",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "91",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459695",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "92",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459668",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "93",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459696",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "94",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459669",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "95",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459697",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "96",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459698",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "98",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459699",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "100",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459459700",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Пушкина",
+      "housenumber": "102",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2459760251",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "15",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459760264",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "16",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459760252",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "17",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459760265",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "18",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459760253",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "19",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780615",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "33",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780616",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "35",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780617",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "35а",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780618",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "37",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780619",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "39",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780620",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "41",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033758",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "42",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780621",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "43",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033757",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "44",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459780622",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "45",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033756",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "46",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033755",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "48",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033754",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "50",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033753",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "50а",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460033752",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Романенко",
+      "housenumber": "52",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323588984",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "1",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293614",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "3",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293599",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "4",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293615",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "5",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293600",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "6",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293601",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "8",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293616",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "9",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293602",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "10",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293617",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "11",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293603",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "12",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293618",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "13",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293604",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "14",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293619",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "15",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293605",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "18",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460293606",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "20",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460690887",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "43",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460690890",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "45",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460690926",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "60",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2460690927",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Русакова",
+      "housenumber": "62",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w294043073",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "17",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w294043076",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "19",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w294043081",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "20",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w294043077",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "21",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w294043080",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "22",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w288392735",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "23",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w285452242",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "24",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w288392730",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "25",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w288392731",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "26",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284829096",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Сергея Лазо",
+      "housenumber": "27",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458915135",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "87",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915136",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "89",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915137",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "91",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915128",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "92",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915142",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "93",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915132",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "94",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915141",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "95",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915134",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "96",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915140",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "97",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915138",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "98",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959240",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "99",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458915139",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "100",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959238",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "102",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959239",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "104",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959246",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "106",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959247",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "108",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458959248",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Суворова",
+      "housenumber": "110",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w284981822",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "3",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981823",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "5",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981828",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "6",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2452636916",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2452658345",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "9",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981824",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "9",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981827",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "10",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981833",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "11",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981829",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "12",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981835",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "13",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284981831",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "14",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982245",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "15",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982243",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "16",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982246",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "17",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982259",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "19",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982249",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "20",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w284982250",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "22",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2453641359",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "114",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w306082138",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Фрунзе",
+      "housenumber": "123",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459051362",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "30",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459051363",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "32",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459051364",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "34",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459051365",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "36",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459051366",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "38",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081276",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "40",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081279",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "42",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081282",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "44",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081103",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "79",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081098",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "81",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081093",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "83",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081089",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "85",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323674223",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "87",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2323674224",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "89",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081149",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "91",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081153",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "93",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081158",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "93а,б",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081162",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "95",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081167",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "97",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2459081173",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Чапаева",
+      "housenumber": "99",
+      "zone_A_boundary": 4,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2458498650",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "3",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498649",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "5",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498648",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "7",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498653",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "8",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498647",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "10",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498646",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "12",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2458498645",
+      "settlement_ru": "Парканы",
+      "district_ru": "Парканы",
+      "street_ru": "улица Энгельса",
+      "housenumber": "14",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w353259234",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Банный переулок",
+      "housenumber": "1",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w356957296",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Банный переулок",
+      "housenumber": "3",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2337938419",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Банный переулок",
+      "housenumber": "5",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2337938418",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Банный переулок",
+      "housenumber": "9",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "n2337938422",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Банный переулок",
+      "housenumber": "105",
+      "zone_A_boundary": 3,
+      "zone_B_minus300": 4,
+      "zone_C_plus300": 3
+    },
+    {
+      "uid": "w352162004",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "2",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "n2337964959",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "3",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352158436",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "32",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352158439",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "34",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352158450",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "36",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352158444",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "38",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    },
+    {
+      "uid": "w352158442",
+      "settlement_ru": "Протягайловка",
+      "district_ru": "Протягайловка",
+      "street_ru": "Гербовецкая улица",
+      "housenumber": "40",
+      "zone_A_boundary": 2,
+      "zone_B_minus300": 3,
+      "zone_C_plus300": 2
+    }
+  ],
+  "note": "Exact switch point is owner-unknown; unstable homes require owner review before any republish. Not money, not a Direct tariff.",
+  "owner_review_required": true
+}

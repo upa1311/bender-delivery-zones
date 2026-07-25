@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stage 09 / 09A — аудит зон и маршрутов (Бендеры)</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0 320px 0 0; }
+    #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 320px;
+      overflow: auto; background: #fff; border-left: 1px solid #ccc; padding: 12px; font-size: 13px; }
+    h1 { font-size: 16px; margin: 0 0 6px; } h2 { font-size: 13px; margin: 12px 0 4px; }
+    .lyr { display: block; margin: 3px 0; }
+    .note { color: #666; font-size: 12px; }
+    .z1{color:#2a9d3f}.z2{color:#f2c500}.z3{color:#f07f14}.z4{color:#d62828}
+    #info { margin-top: 10px; padding: 8px; background: #f6f8fa; border-radius: 6px;
+      white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; min-height: 60px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="panel">
+    <h1>Аудит зон Stage 09 / 09A</h1>
+    <p class="note">Провизорный аудит. Ни один immutable-релиз не изменён, цены и
+      Direct не затронуты. Зона = стоимость самого быстрого допустимого маршрута
+      (мин. время), город/загород по коэффициенту 1.667. Требуется owner review.</p>
+    <h2>Границы и зоны</h2>
+    <label class="lyr"><input type="checkbox" id="l-boundary" checked /> Граница Бендер (OSM)</label>
+    <label class="lyr"><input type="checkbox" id="l-zones" checked /> Зоны 1–4 (v1.1)</label>
+    <h2>Stage 09 — назначения</h2>
+    <label class="lyr"><input type="checkbox" id="l-current" /> Текущая зона v1.1</label>
+    <label class="lyr"><input type="checkbox" id="l-genA" checked /> Generalized сценарий A</label>
+    <label class="lyr"><input type="checkbox" id="l-genB" /> Generalized сценарий B</label>
+    <label class="lyr"><input type="checkbox" id="l-changed" checked /> Сменившие зону</label>
+    <label class="lyr"><input type="checkbox" id="l-unstable" checked /> Неустойчивые (switch-point)</label>
+    <h2>Stage 09A — маршрутный аудит</h2>
+    <label class="lyr"><input type="checkbox" id="l-control" /> Контрольные маршруты (fastest)</label>
+    <label class="lyr"><input type="checkbox" id="l-alts" /> OSRM alternatives</label>
+    <label class="lyr"><input type="checkbox" id="l-anom" checked /> Подозрительные адреса</label>
+    <label class="lyr"><input type="checkbox" id="l-origins" checked /> Restaurant origins</label>
+    <div id="info">Наведите/кликните точку или маршрут.</div>
+  </div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script>
+    const ZC = {1:"#2a9d3f",2:"#f2c500",3:"#f07f14",4:"#d62828"};
+    const map = L.map("map").setView([46.828, 29.48], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {maxZoom: 19, attribution: "© OpenStreetMap"}).addTo(map);
+    const info = document.getElementById("info");
+    const show = (o) => info.textContent = JSON.stringify(o, null, 1);
+    const layers = {};
+    async function gj(path){ try { const r = await fetch(path); return r.ok ? r.json() : null; } catch { return null; } }
+
+    function bindToggle(id, layer){
+      const cb = document.getElementById(id);
+      const sync = () => { if (!layer) return; cb.checked ? layer.addTo(map) : map.removeLayer(layer); };
+      cb.addEventListener("change", sync); layers[id]=layer; sync();
+    }
+    function ptLayer(fc, colorProp, filter){
+      return L.geoJSON(fc, {
+        filter: filter || (()=>true),
+        pointToLayer: (f,ll)=>L.circleMarker(ll,{radius:3,weight:0,
+          fillColor: ZC[f.properties[colorProp]]||"#888", fillOpacity:0.8}),
+        onEachFeature: (f,l)=>l.on("click",()=>show(f.properties))
+      });
+    }
+
+    (async () => {
+      const bnd = await gj("data/source-boundaries.geojson");
+      if (bnd){ const b={type:"FeatureCollection",features:bnd.features.filter(f=>f.properties.key==="bender")};
+        bindToggle("l-boundary", L.geoJSON(b,{style:{color:"#111",weight:2,dashArray:"6 4",fill:false}})); }
+      const zones = await gj("data/final-zone-polygons.geojson");
+      if (zones) bindToggle("l-zones", L.geoJSON(zones,{style:f=>({color:ZC[f.properties.zone_id]||"#888",
+        weight:1,fillColor:ZC[f.properties.zone_id]||"#888",fillOpacity:0.12})}));
+
+      const gen = await gj("data/stage-09-current-vs-generalized.geojson");
+      if (gen){
+        bindToggle("l-current", ptLayer(gen,"current_zone"));
+        bindToggle("l-genA", ptLayer(gen,"recalculated_zone_A"));
+        bindToggle("l-genB", ptLayer(gen,"recalculated_zone_B"));
+        bindToggle("l-changed", L.geoJSON(gen,{filter:f=>f.properties.changed_A,
+          pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:4,weight:1,color:"#000",
+            fillColor:ZC[f.properties.recalculated_zone_A]||"#888",fillOpacity:0.9}),
+          onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))}));
+      }
+      const sens = await gj("data/stage-09-sensitivity.json");
+      if (sens && gen){
+        const uids = new Set((sens.unstable_addresses||[]).map(u=>u.uid));
+        bindToggle("l-unstable", L.geoJSON(gen,{filter:f=>uids.has(f.properties.uid),
+          pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:5,weight:2,color:"#7c3aed",fillOpacity:0}),
+          onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))}));
+      } else bindToggle("l-unstable", L.layerGroup());
+
+      const ctrl = await gj("data/stage-09a-control-routes.geojson");
+      if (ctrl){
+        bindToggle("l-control", L.geoJSON(ctrl,{filter:f=>f.properties.kind==="fastest",
+          style:{color:"#2563eb",weight:3,opacity:0.7},onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))}));
+        bindToggle("l-alts", L.geoJSON(ctrl,{filter:f=>f.properties.kind!=="fastest",
+          style:{color:"#9ca3af",weight:2,dashArray:"4 3",opacity:0.7},onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))}));
+      } else { bindToggle("l-control", L.layerGroup()); bindToggle("l-alts", L.layerGroup()); }
+
+      const anom = await gj("data/stage-09a-routing-audit.geojson");
+      if (anom) bindToggle("l-anom", L.geoJSON(anom,{
+        pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:5,weight:1,color:"#b91c1c",
+          fillColor:"#fca5a5",fillOpacity:0.8}),
+        onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))}));
+      else bindToggle("l-anom", L.layerGroup());
+
+      const conn = await gj("data/stage-09a-road-connectivity.json");
+      if (conn){ const og={type:"FeatureCollection",features:(conn.origins||[]).map(o=>({type:"Feature",
+        geometry:{type:"Point",coordinates:[o.lon,o.lat]},properties:o}))};
+        bindToggle("l-origins", L.geoJSON(og,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:7,weight:2,
+          color:"#065f46",fillColor:"#10b981",fillOpacity:0.9}),
+          onEachFeature:(f,l)=>l.on("click",()=>show(f.properties))})); }
+      else bindToggle("l-origins", L.layerGroup());
+    })();
+  </script>
+</body>
+</html>

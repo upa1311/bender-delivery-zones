@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "input_sha256": "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817",
+  "invalid_coordinates": 0,
+  "osrm_base_url": "http://127.0.0.1:5000",
+  "processed_addresses": 9216,
+  "routable": 9216,
+  "router_errors": 0,
+  "started_at": "2026-07-26T07:03:40Z",
+  "total_addresses": 9216,
+  "unreachable": 0,
+  "updated_at": "2026-07-26T07:05:24Z"
+}

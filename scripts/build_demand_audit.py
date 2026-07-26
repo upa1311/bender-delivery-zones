@@ -573,6 +573,10 @@ def build(pbf: Path, repo_root: Path) -> int:
 
         diff[key] = {
             "display_ru": terr["display_ru"],
+            # a district of Бендеры is never a top-level settlement row
+            "is_district": terr.get("role") == "bender_district",
+            "parent_territory": ("bender_core"
+                                 if terr.get("role") == "bender_district" else None),
             "source_relation": rel,
             "source_area_km2": round(src_area / 1e6, 4),
             "candidate_area_km2": round(cand_area / 1e6, 4),
@@ -954,8 +958,7 @@ def _render_md(report, summary):
 
     # Only settlements are top-level rows. A district of Бендеры (Липканы) may
     # appear ONLY inside the "Районы Бендер" sub-section below, never as a peer.
-    district_of = {t["key"]: t.get("district_of") or "bender_core"
-                   for t in territories if t.get("role") == "bender_district"}
+    is_district = {k for k, v in report["territories"].items() if v.get("is_district")}
 
     def _row(key, v):
         return (f"| {v['display_ru']} (`{key}`) | {v['streets_tier_a']} | "
@@ -964,10 +967,10 @@ def _render_md(report, summary):
                 f"{v['candidate_area_km2']} км² (−{v['reduction_pct']}%) |")
 
     for key, v in report["territories"].items():
-        if key in district_of:
+        if key in is_district:
             continue
         lines.append(_row(key, v))
-    districts = [(k, v) for k, v in report["territories"].items() if k in district_of]
+    districts = [(k, v) for k, v in report["territories"].items() if k in is_district]
     if districts:
         lines += ["", "### Районы Бендер", "",
                   "Не отдельные населённые пункты: входят в Бендеры.", "",

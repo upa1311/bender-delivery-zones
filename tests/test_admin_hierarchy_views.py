@@ -81,8 +81,12 @@ def test_territory_path_builds_parent_arrow_child():
 # --- 4. statistics: districts only inside the "Районы Бендер" section --------
 
 def test_statistics_table_excludes_districts_from_top_level_rows():
-    assert "if key in district_of:" in AUDIT
-    assert "continue" in AUDIT
+    assert "if key in is_district:" in AUDIT
+    assert 'v.get("is_district")' in AUDIT
+
+
+def test_district_flag_is_recorded_from_the_territory_role():
+    assert '"is_district": terr.get("role") == "bender_district"' in AUDIT
 
 
 def test_statistics_has_a_bender_districts_subsection():

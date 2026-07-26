@@ -173,10 +173,9 @@ def test_last_completed_id_comes_from_the_newest_batch():
     assert cp["last_batch_size"] == len(last_batch)
 
 
-def test_progress_is_42_of_86_with_44_remaining():
+def test_progress_is_57_of_86_with_29_remaining():
     cp = checkpoint()
-    assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"]) \
-        == (86, 42, 44)
+    assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"])         == (86, 57, 29)  # noqa: E501
     assert cp["blocked_controls"] == 0
 
 
@@ -223,3 +222,53 @@ def test_destination_street_and_entry_are_separate_fields():
     for c in ("yandex_destination_street", "yandex_district_entry",
               "yandex_main_streets", "yandex_district_entry_confidence"):
         assert c in cols
+
+
+# --- entries are observed, never inferred from a shared street name ---------
+
+ORIGIN_STREETS = ("улица Сергея Лазо", "улица Суворова", "Первомайская улица",
+                  "Коммунистическая улица")
+
+
+def test_no_entry_is_inferred_from_a_globally_matching_street_name():
+    """A different OSM segment carrying the same name elsewhere proves nothing."""
+    for e in entries():
+        assert e["entry_method"] == "MANUAL_MAP_OBSERVATION", e["control_id"]
+
+
+def test_sergeya_lazo_is_not_a_confirmed_entry_to_parkany():
+    for e in entries():
+        if e["district"] == "Парканы":
+            assert e["confirmed_entry_street"] != "улица Сергея Лазо"
+
+
+def test_pervomayskaya_is_not_a_confirmed_entry_to_protyagailovka_without_evidence():
+    for e in entries():
+        if e["district"] == "Протягайловка":
+            assert e["confirmed_entry_street"] != "Первомайская улица"                 or e["entry_evidence"].strip()  # noqa: E501
+
+
+def test_a_bender_origin_street_is_never_a_confirmed_entry_elsewhere():
+    for e in entries():
+        if e["district"] in ("Парканы", "Гиска", "Протягайловка"):
+            assert e["confirmed_entry_street"] not in ORIGIN_STREETS, e["control_id"]
+
+
+def test_confirmed_entries_always_carry_method_and_evidence():
+    for e in entries():
+        assert e["confidence"] == "CONFIRMED"
+        assert e["entry_method"] == "MANUAL_MAP_OBSERVATION"
+        assert e["entry_evidence"].strip()
+
+
+def test_unknown_entries_are_never_published_as_confirmed():
+    published = {e["control_id"] for e in entries()}
+    for r in measurements():
+        if r["yandex_district_entry_confidence"] == "UNKNOWN":
+            assert r["control_id"] not in published
+
+
+def test_unconfirmed_rows_say_so_explicitly():
+    for r in measurements():
+        if r["yandex_district_entry_confidence"] == "UNKNOWN":
+            assert r["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"

@@ -41,8 +41,15 @@ CHECKPOINT = REPO / "data/interim/manual-yandex-checkpoint.json"
 BOUNDARIES = D / "source-boundaries.geojson"
 
 UNKNOWN = "UNKNOWN_REQUIRES_MAP_REVIEW"
-# districts of Бендеры have no boundary polygon of their own
-BOUNDARY_KEY = {"Парканы": "parkany", "Гиска": "giska", "Протягайловка": "protyagailovka"}
+
+# District entries are NEVER inferred. Grouping OSM segments by street NAME is
+# invalid: a different segment carrying the same name elsewhere on the map (e.g.
+# "улица Сергея Лазо" exists both in Бендеры and in Парканы) does not prove the
+# route crossed the boundary there. An entry counts only when a human looked at
+# the drawn route on the map and saw the crossing.
+#
+# control_id -> the observation. Empty until someone actually observes it.
+MANUAL_ENTRY_OBSERVATIONS: dict[str, dict] = {}
 
 
 def parse_label(label: str) -> tuple[str, str]:
@@ -73,57 +80,10 @@ def classify(our_street: str, our_house: str, y_street: str, y_house: str,
     return flags
 
 
-def street_geoms() -> dict[str, list]:
-    """name -> list of coordinate rings, from the cached Stage 10D graph."""
-    try:
-        from stage10d_graph import Graph
-        g = Graph.load()
-    except Exception:
-        return {}
-    out: dict[str, list] = {}
-    for u, v, _ln, wid, _c in g.phys:
-        nm = (g.way_tags.get(wid, {}).get("name") or "").strip()
-        if nm:
-            out.setdefault(nm, []).append((g.coords[u], g.coords[v]))
-    return out
-
-
 def boundaries() -> dict:
     from shapely.geometry import shape
     gj = json.loads(BOUNDARIES.read_text("utf-8"))
     return {f["properties"]["key"]: shape(f["geometry"]) for f in gj["features"]}
-
-
-def derive_entry(district: str, streets: list[str], geoms, bnds):
-    """First street whose geometry actually crosses the district boundary."""
-    key = BOUNDARY_KEY.get(district)
-    if not key or key not in bnds or not geoms:
-        return UNKNOWN, "", "UNKNOWN"
-    from shapely.geometry import LineString
-    poly = bnds[key]
-    crossing = []
-    for name in streets:
-        segs = geoms.get(name)
-        if not segs:
-            continue
-        inside = outside = False
-        for a, b in segs:
-            line = LineString([a, b])
-            if poly.intersects(line):
-                inside = True
-            if not poly.covers(line):
-                outside = True
-            if inside and outside:
-                break
-        if inside and outside:
-            crossing.append(name)
-    if not crossing:
-        return UNKNOWN, "ни одна улица маршрута не пересекает границу района", "UNKNOWN"
-    first = crossing[0]
-    conf = "CONFIRMED" if len(crossing) == 1 or first != streets[-1] else "PROBABLE"
-    return (first,
-            f"геометрия улицы пересекает границу «{district}»; "
-            f"пересекающих улиц в маршруте: {len(crossing)}", conf)
 
 
 def main() -> int:
@@ -131,7 +91,6 @@ def main() -> int:
     rows = list(csv.DictReader(MEAS.open(encoding="utf-8")))
     controls = {c["control_id"]: c for c in csv.DictReader(CONTROLS.open(encoding="utf-8"))}
     cids = set(controls)
-    geoms, bnds = street_geoms(), boundaries()
 
     cols = list(rows[0].keys())
     for extra in ("yandex_destination_street", "yandex_destination_house",
@@ -144,12 +103,11 @@ def main() -> int:
         y_street, y_house = parse_label(r["yandex_destination_label"])
         r["yandex_destination_street"] = y_street
         r["yandex_destination_house"] = y_house
-        streets = [s.strip() for s in (r["yandex_main_streets"] or "").split(";") if s.strip()]
-        district = r.get("district") or ""
-        entry, evidence, conf = derive_entry(district, streets, geoms, bnds)
-        r["yandex_district_entry"] = entry
-        r["yandex_district_entry_evidence"] = evidence
-        r["yandex_district_entry_confidence"] = conf
+        obs = MANUAL_ENTRY_OBSERVATIONS.get(r["control_id"])
+        r["yandex_district_entry"] = obs["street"] if obs else UNKNOWN
+        r["yandex_district_entry_evidence"] = obs["evidence"] if obs else (
+            "не подтверждено: требуется визуальный просмотр маршрута на карте")
+        r["yandex_district_entry_confidence"] = obs["confidence"] if obs else "UNKNOWN"
 
         c = controls.get(r["control_id"])
         our_street = (c["street"] if c else "").strip()
@@ -183,17 +141,25 @@ def main() -> int:
         w.writerows(disc)
 
     # confirmed entries: only CONFIRMED, never a destination street without evidence
-    ent = [{"district": r["district"], "confirmed_entry_street": r["yandex_district_entry"],
-            "control_id": r["control_id"],
-            "entry_evidence": r["yandex_district_entry_evidence"],
-            "confidence": r["yandex_district_entry_confidence"],
-            "source": "ручной замер в веб-интерфейсе Яндекс Карт + геометрия границы",
-            "owner_review_required": True}
-           for r in rows if r["yandex_district_entry_confidence"] == "CONFIRMED"]
+    ent = []
+    for r in rows:
+        obs = MANUAL_ENTRY_OBSERVATIONS.get(r["control_id"])
+        if not obs or obs["confidence"] != "CONFIRMED":
+            continue
+        ent.append({"district": r["district"], "control_id": r["control_id"],
+                    "confirmed_entry_street": obs["street"],
+                    "entry_previous_street": obs.get("previous", ""),
+                    "entry_next_street": obs.get("next", ""),
+                    "entry_landmark": obs.get("landmark", ""),
+                    "entry_method": "MANUAL_MAP_OBSERVATION",
+                    "entry_evidence": obs["evidence"], "confidence": "CONFIRMED",
+                    "source": "визуальный просмотр маршрута в бесплатных Яндекс Картах",
+                    "owner_review_required": True})
     with ENTRIES.open("w", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=["district", "confirmed_entry_street", "control_id",
-                                           "entry_evidence", "confidence", "source",
-                                           "owner_review_required"])
+        w = csv.DictWriter(fh, fieldnames=["district", "control_id", "confirmed_entry_street",
+                                           "entry_previous_street", "entry_next_street",
+                                           "entry_landmark", "entry_method", "entry_evidence",
+                                           "confidence", "source", "owner_review_required"])
         w.writeheader()
         w.writerows(ent)
 

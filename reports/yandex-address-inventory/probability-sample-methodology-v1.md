@@ -19,12 +19,19 @@ outcome-independent random review order. The link file contains 100 reviewed row
 from that pool, so every `NEW_RANDOM_BATCH` row has second-phase inclusion
 probability `100 / 367`.
 
+The second-phase selection rule is
+`FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER`: for batch size N, link rows must equal
+the first N rows in the physical probability-sample CSV order for which
+`already_reviewed == False` and `linked_forward_sample_id == ""`. Equality is
+position-by-position in link CSV order, not merely set membership. The analyzer
+rejects replacements, reordered links, and arbitrary eligible subsets.
+
 For every reviewed row, the analyzer derives and validates
 `first_stage_inclusion_probability`, `first_stage_weight`, `review_phase`,
 `second_phase_inclusion_probability`, and `final_analysis_weight`. The final weight
 is `first_stage_weight / second_phase_inclusion_probability`. The counts 33, 367,
 and 100 are derived from the sample and link files and checked for unique IDs,
-non-overlap, and valid observation links.
+non-overlap, frozen selection order, and valid observation links.
 
 The interim exact+normalized point estimate is the Hájek ratio
 `sum(final_analysis_weight * outcome) / sum(final_analysis_weight)`. A defensible

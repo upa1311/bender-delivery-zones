@@ -6,6 +6,8 @@
 | `PREEXISTING_LINKED` (derived from selection-time links) | 33 |
 | Eligible for new random review | 367 |
 | `NEW_RANDOM_BATCH` reviewed | 100 |
+| Second-phase selection rule | `FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER` |
+| Second-phase batch size | 100 |
 | Total reviewed | 133 |
 | Exact + normalized | 63 |
 | Descriptive unweighted reviewed rate | 47.37% |

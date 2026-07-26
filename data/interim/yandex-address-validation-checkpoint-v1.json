@@ -24,6 +24,8 @@
   "probability_new_review_eligible": 367,
   "probability_new_random_batch_reviewed": 100,
   "probability_new_second_phase_inclusion_probability": 0.2724795640326976,
+  "probability_second_phase_selection_rule": "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER",
+  "probability_second_phase_batch_size": 100,
   "probability_descriptive_unweighted_rate": 0.47368421052631576,
   "probability_two_phase_hajek_rate": 0.5573411385047288,
   "probability_interval_status": "UNAVAILABLE_PENDING_LARGER_OR_COMPLETE_PROBABILITY_REVIEW",

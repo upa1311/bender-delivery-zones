@@ -21,6 +21,7 @@ PROBABILITY_SAMPLE = ROOT / "data/interim/yandex-probability-sample-v1.csv"
 PROBABILITY_LINKS = ROOT / "data/interim/yandex-probability-observations-v1.csv"
 RECHECK = ROOT / "data/interim/yandex-canonical-conflict-recheck-v1.csv"
 RECONCILIATION = ROOT / "data/interim/yandex-address-number-reconciliation-v1.csv"
+SECOND_PHASE_SELECTION_RULE = "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER"
 
 VALID_STATUSES = {
     "EXACT_MATCH",
@@ -99,7 +100,7 @@ def weighted_rate(rows: list[dict[str, str]], positive: set[str]) -> tuple[float
 
 def probability_review_design(
     sample: list[dict[str, str]], links: list[dict[str, str]]
-) -> dict[str, int | float]:
+) -> dict[str, int | float | str]:
     """Derive and validate the current two-phase probability-review design."""
     sample_ids = [row["probability_sample_id"] for row in sample]
     link_ids = [row["probability_sample_id"] for row in links]
@@ -133,12 +134,21 @@ def probability_review_design(
         raise ValueError("No rows are eligible for the second review phase")
     if not links or len(links) > len(eligible_new):
         raise ValueError("Invalid second-phase probability-review size")
+    expected_new_batch_ids = [
+        row["probability_sample_id"] for row in eligible_new[: len(links)]
+    ]
+    if link_ids != expected_new_batch_ids:
+        raise ValueError(
+            "New probability links do not follow the frozen eligible sample order"
+        )
 
     return {
         "preexisting_linked": len(preexisting),
         "eligible_new": len(eligible_new),
         "new_random_batch_reviewed": len(links),
         "new_random_batch_inclusion_probability": len(links) / len(eligible_new),
+        "second_phase_selection_rule": SECOND_PHASE_SELECTION_RULE,
+        "second_phase_batch_size": len(links),
     }
 
 
@@ -406,6 +416,12 @@ def main() -> None:
         "probability_new_second_phase_inclusion_probability": probability_design[
             "new_random_batch_inclusion_probability"
         ],
+        "probability_second_phase_selection_rule": probability_design[
+            "second_phase_selection_rule"
+        ],
+        "probability_second_phase_batch_size": probability_design[
+            "second_phase_batch_size"
+        ],
         "probability_descriptive_unweighted_rate": probability_rate,
         "probability_two_phase_hajek_rate": probability_two_phase_rate,
         "probability_interval_status": (
@@ -479,6 +495,14 @@ def main() -> None:
     print(
         "probability_new_second_phase_inclusion_probability="
         f"{probability_design['new_random_batch_inclusion_probability']:.12f}"
+    )
+    print(
+        "probability_second_phase_selection_rule="
+        f"{probability_design['second_phase_selection_rule']}"
+    )
+    print(
+        "probability_second_phase_batch_size="
+        f"{probability_design['second_phase_batch_size']}"
     )
     print(f"probability_descriptive_unweighted_rate={probability_rate:.6f}")
     print(f"probability_two_phase_hajek_rate={probability_two_phase_rate:.6f}")

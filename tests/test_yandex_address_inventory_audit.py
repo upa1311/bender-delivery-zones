@@ -826,12 +826,62 @@ def test_65a_probability_review_design_is_derived_from_sample_and_links():
     design = ANALYZE.probability_review_design(sample, links)
     independently_linked = sum(row["already_reviewed"] == "True" for row in sample)
     independently_eligible = len(sample) - independently_linked
+    eligible_ids = [
+        row["probability_sample_id"]
+        for row in sample
+        if row["already_reviewed"] == "False"
+        and not row["linked_forward_sample_id"]
+    ]
+    actual_link_ids = [row["probability_sample_id"] for row in links]
     assert design["preexisting_linked"] == independently_linked == 33
     assert design["eligible_new"] == independently_eligible == 367
     assert design["new_random_batch_reviewed"] == len(links) == 100
+    assert actual_link_ids == eligible_ids[: len(links)]
     assert design["new_random_batch_inclusion_probability"] == pytest.approx(
         len(links) / independently_eligible
     )
+    assert design["second_phase_selection_rule"] == (
+        "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER"
+    )
+    assert design["second_phase_batch_size"] == len(links) == 100
+
+
+def test_65aa_replacing_one_link_with_another_eligible_id_is_rejected():
+    sample = _csv(PROBABILITY_SAMPLE)
+    links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
+    eligible_ids = [
+        row["probability_sample_id"]
+        for row in sample
+        if row["already_reviewed"] == "False"
+        and not row["linked_forward_sample_id"]
+    ]
+    links[-1]["probability_sample_id"] = eligible_ids[len(links)]
+    with pytest.raises(ValueError, match="frozen eligible sample order"):
+        ANALYZE.probability_review_design(sample, links)
+
+
+def test_65ab_reordering_link_rows_is_rejected():
+    sample = _csv(PROBABILITY_SAMPLE)
+    links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
+    links[0], links[1] = links[1], links[0]
+    with pytest.raises(ValueError, match="frozen eligible sample order"):
+        ANALYZE.probability_review_design(sample, links)
+
+
+def test_65ac_arbitrary_eligible_subset_is_rejected():
+    sample = _csv(PROBABILITY_SAMPLE)
+    links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
+    eligible_ids = [
+        row["probability_sample_id"]
+        for row in sample
+        if row["already_reviewed"] == "False"
+        and not row["linked_forward_sample_id"]
+    ]
+    handpicked_ids = eligible_ids[-len(links) :]
+    for link, probability_sample_id in zip(links, handpicked_ids, strict=True):
+        link["probability_sample_id"] = probability_sample_id
+    with pytest.raises(ValueError, match="frozen eligible sample order"):
+        ANALYZE.probability_review_design(sample, links)
 
 
 def test_65b_all_reviewed_probability_rows_have_two_phase_weights():
@@ -871,12 +921,21 @@ def test_65c_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
     assert ANALYZE.two_phase_hajek_rate(reviewed, positive) == pytest.approx(
         numerator / denominator
     )
+    assert ANALYZE.two_phase_hajek_rate(reviewed, positive) == pytest.approx(
+        0.5573411385047288
+    )
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     assert checkpoint["probability_two_phase_hajek_rate"] == pytest.approx(
         numerator / denominator
     )
     assert checkpoint["probability_interval_status"] == (
         "UNAVAILABLE_PENDING_LARGER_OR_COMPLETE_PROBABILITY_REVIEW"
+    )
+    assert checkpoint["probability_second_phase_selection_rule"] == (
+        "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER"
+    )
+    assert checkpoint["probability_second_phase_batch_size"] == len(
+        _csv(PROBABILITY_LINKS)
     )
 
 

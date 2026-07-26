@@ -23,12 +23,19 @@ territories:
     source_relation: 12463379
     role: bender_rest              # everything in Bender that is not Lipcani
 
+  # OWNER DECISION: Липканы is an ORDINARY MICRODISTRICT of Бендеры — not a
+  # separate settlement, not a suburb, not a separate delivery area, not a
+  # separate tariff direction. It keeps its own key only so buildings can be
+  # ATTRIBUTED to the district in statistics; it carries no suburb semantics, no
+  # city-exit multiplier and no settlement surcharge. Addresses are always
+  # settlement_ru="Бендеры", district_ru="Липканы".
   - key: bender_lipcani
     display_ru: Липканы
+    settlement_ru: Бендеры         # never a settlement of its own
+    district_ru: Липканы
     source_relation: 12463379      # part of Bender; no separate OSM boundary
-    role: bender_suburb
-    suburb_place_node: 2989167913  # place=suburb Липканы
-    must_connect_to: bender_core
+    role: bender_district          # was bender_suburb (cancelled by owner decision)
+    district_place_node: 2989167913  # place=suburb node, used only to attribute area
 
   - key: protyagailovka
     display_ru: Протягайловка

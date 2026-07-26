@@ -14,7 +14,7 @@ const OSM_ATTRIBUTION = "© OpenStreetMap contributors";
 
 const TERRITORY_LABEL = {
   bender_core: "Бендеры",
-  bender_lipcani: "Липканы",
+  bender_lipcani: "Бендеры, район Липканы",
   protyagailovka: "Протягайловка",
   giska: "Гиска",
   parkany: "Парканы",
@@ -47,7 +47,7 @@ const REASON_RU = {
 };
 
 const SETTLEMENT_OF = {
-  bender_core: "Бендеры", bender_lipcani: "Бендеры, Липканы",
+  bender_core: "Бендеры", bender_lipcani: "Бендеры",  // Липканы — район Бендер, не отдельный н.п.
   giska: "Гиска", parkany: "Парканы", protyagailovka: "Протягайловка",
 };
 

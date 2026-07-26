@@ -30,6 +30,48 @@ TERRITORY_ADDRESS = {
 
 UNKNOWN_SETTLEMENT = "не определён"
 
+# --- administrative classification (OWNER DECISION) -------------------------
+# Бендеры is one settlement. Its microdistricts — Липканы included — are
+# DISTRICTS of that settlement: never a settlement of their own, never a suburb,
+# never a separate delivery area, tariff direction or zone-edge set, and never a
+# reason for a city-exit multiplier or settlement surcharge. Only the three
+# entries below are settlements outside Бендеры.
+BENDER_SETTLEMENT = "Бендеры"
+EXTERNAL_SETTLEMENTS = ("Гиска", "Парканы", "Протягайловка")
+BENDER_DISTRICTS = ("Липканы", "БАМ", "Шёлковый", "Ленинский", "Северный",
+                    "Борисовка", "Хомутяновка")
+# Every spelling seen in sources for the Липканы microdistrict.
+LIPCANI_ALIASES = ("липканы", "липкань", "липкани", "lipcani", "lipkani", "lipcan",
+                   "lipcanii", "липканский")
+
+
+def is_external_settlement(settlement_ru: str | None) -> bool:
+    """True only for a settlement genuinely outside Бендеры."""
+    return (settlement_ru or "").strip() in EXTERNAL_SETTLEMENTS
+
+
+def is_lipcani(name: str | None) -> bool:
+    """Recognise the Липканы microdistrict under any known spelling."""
+    return normalize_text(name or "") in LIPCANI_ALIASES
+
+
+def normalize_admin_classification(settlement_ru: str | None,
+                                   district_ru: str | None) -> tuple[str | None, str | None]:
+    """Force the owner-approved classification of a Bender microdistrict.
+
+    Липканы given as a *settlement* anywhere in the pipeline is rewritten to
+    ``("Бендеры", "Липканы")``. Nothing else about the address is touched: the
+    uid, coordinates, street, house number, address_status, provenance and the
+    canonical key are all left exactly as they are (the key carries the district
+    only when it is needed to separate same-named streets, so this correction
+    changes no key).
+    """
+    if is_lipcani(settlement_ru):
+        return BENDER_SETTLEMENT, "Липканы"
+    if is_lipcani(district_ru):
+        return (settlement_ru or BENDER_SETTLEMENT), "Липканы"
+    return settlement_ru, district_ru
+
 # Shown when a street name repeats inside Bender and the other occurrence has no
 # district of its own — the spec's "улица Энгельса (Бендеры, другой район)".
 OTHER_DISTRICT_SUFFIX = "другой район"

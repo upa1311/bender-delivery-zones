@@ -447,8 +447,11 @@ def build(pbf: Path, repo_root: Path) -> int:
                         "boundary_m": to_metres(boundary_deg, proj),
                         "features": load_city_features(result.city_pbf, proj, poi_cfg)}
 
-    lipcani_node = next((t.get("suburb_place_node") for t in territories
-                         if t.get("role") == "bender_suburb"), None)
+    # Липканы is a DISTRICT of Бендеры (owner decision), not a suburb. The place
+    # node is used only to attribute area to the district in statistics.
+    lipcani_node = next((t.get("district_place_node") or t.get("suburb_place_node")
+                         for t in territories
+                         if t.get("role") in ("bender_district", "bender_suburb")), None)
 
     candidate_features, source_features, excluded_features = [], [], []
     sparse_features, question_features, tier_c_features = [], [], []
@@ -467,11 +470,11 @@ def build(pbf: Path, repo_root: Path) -> int:
             global_proj = proj
         region_m = src["boundary_m"]
 
-        if terr.get("role") in ("bender_suburb", "bender_rest"):
+        if terr.get("role") in ("bender_district", "bender_rest"):
             cell = _lipcani_cell(feats, lipcani_node, src["boundary_m"])
             if cell is None:
-                notes.append("Lipcani suburb node not found; Bender left unsplit.")
-            elif terr["role"] == "bender_suburb":
+                notes.append("Lipcani district node not found; Bender left unsplit.")
+            elif terr["role"] == "bender_district":
                 region_m = region_m.intersection(cell)
             else:
                 region_m = region_m.difference(cell)

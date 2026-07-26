@@ -1,0 +1,33 @@
+{
+  "objects_found": 480,
+  "objects_with_settlement_lipcani_before": 0,
+  "objects_with_settlement_lipcani_after": 0,
+  "settlement_ru_now": {
+    "Бендеры": 480
+  },
+  "district_ru_now": {
+    "Липканы": 480
+  },
+  "exact_addresses": 255,
+  "unaddressed": 219,
+  "service_status": {
+    "standard": 474,
+    "disputed": 6
+  },
+  "zone_id_unchanged": {
+    "2": 436,
+    "3": 38,
+    "None": 6
+  },
+  "canonical_keys_changed": 0,
+  "duplicate_canonical_keys_before": 7,
+  "duplicate_canonical_keys_after": 7,
+  "is_external_settlement": false,
+  "external_settlements": [
+    "Гиска",
+    "Парканы",
+    "Протягайловка"
+  ],
+  "bender_settlement": "Бендеры",
+  "migration_mapping": []
+}

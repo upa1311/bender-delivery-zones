@@ -2,18 +2,20 @@
 
 ## Result
 
-**INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY.** The audit now contains 153 forward
-observations, including 117/2,565 canonical sample rows, and 35/316 reverse street
-groups. Ten groups reached `COMPLETE_FOR_VISIBLE_MAP`, but coverage and statistical
-power remain insufficient for a full Yandex address estimate.
+**INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY.** The audit now contains 253 forward
+observations: 217 canonical addresses and 36 recovered candidates. The independent
+probability sample has 133/400 linked observations (100 newly reviewed), and the
+reverse audit covers 60/316 street groups, 25 completely for the visible map.
 
 | Evidence layer | Current evidence | Counting rule |
 |---|---|---|
 | Canonical population | 9,216 immutable address grains | Existing denominator; unchanged |
-| Canonical sample | 117 reviewed of 2,565 | Weighted checkpoint evidence only |
+| Targeted canonical sample | 117 reviewed of 2,565 | Diagnostic evidence only |
+| Probability sample | 133 reviewed of 400 | 47.37% exact+normalized; Wilson 95% 39.08–55.81%; weighted 55.13% |
 | Recovered exclusions | 36/36 reviewed | Separate layer; no automatic addition |
 | Yandex-only observations | 7 HIGH, 0 MEDIUM | Observed lower bound only; owner review required |
-| Reverse audit | 35 reviewed, 10 complete | Partial visible-map coverage |
+| Reverse audit | 60 reviewed, 25 complete | Partial visible-map coverage |
+| Number reconciliation | 7 gross Yandex-only; 5 gross canonical-only; 4 paired substitutions; 3 unresolved | Provisional net +3, not a city total |
 | Recovered owner review | 15 recommendations | No final owner decision made |
 
 The canonical classification still contains 9,078 `RESIDENTIAL` rows and 138

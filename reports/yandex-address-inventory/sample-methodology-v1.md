@@ -1,6 +1,6 @@
 # Yandex address validation sample v1
 
-Status: **PARTIAL — sample prepared; 117 canonical rows reviewed; browser review incomplete**
+Status: **PARTIAL — 117 targeted and 100 new probability canonical rows reviewed; browser review incomplete**
 
 ## Population and grain
 
@@ -88,10 +88,15 @@ separate audit population and are not added to the protected 9,216-row release.
 
 ## Population separation
 
-The forward file now contains 117 `CANONICAL_9216` observations and 36
+The forward file now contains 217 `CANONICAL_9216` observations and 36
 `RECOVERED_EXCLUSION_CANDIDATE` observations. Only the canonical observations receive
 sampling weights or contribute to the weighted canonical match rate. The 36 recovered
 records are a complete review of a known exclusion set, not a probability sample.
 
 The original YAV-0001 through YAV-0003 evidence is protected by the normalized
 fingerprint `a184e12c61488120f559419c3a66296d7ed0e40ed4f0392e6c7e008aa94f6380`.
+
+The additional 400-row probability sample is generated independently with seed
+`20260727` from all 9,216 canonical addresses. Its results are linked separately,
+so they do not alter the targeted-sample design or the protected first 153 forward
+observations.

@@ -17,6 +17,10 @@ CHECKPOINT = ROOT / "data/interim/yandex-address-validation-checkpoint-v1.json"
 RECOVERY = ROOT / "data/interim/recovered-nonresidential-address-candidates-v1.csv"
 REVERSE = ROOT / "data/interim/yandex-reverse-street-audit-v1.csv"
 OWNER_REVIEW = ROOT / "data/interim/recovered-candidate-owner-review-v1.csv"
+PROBABILITY_SAMPLE = ROOT / "data/interim/yandex-probability-sample-v1.csv"
+PROBABILITY_LINKS = ROOT / "data/interim/yandex-probability-observations-v1.csv"
+RECHECK = ROOT / "data/interim/yandex-canonical-conflict-recheck-v1.csv"
+RECONCILIATION = ROOT / "data/interim/yandex-address-number-reconciliation-v1.csv"
 
 VALID_STATUSES = {
     "EXACT_MATCH",
@@ -32,6 +36,21 @@ VALID_STATUSES = {
     "DUPLICATE_EXISTING_ADDRESS",
     "AMBIGUOUS_REQUIRES_REVIEW",
 }
+
+STATUS_ORDER = (
+    "EXACT_MATCH",
+    "NORMALIZED_EQUIVALENT",
+    "FACILITY_MATCH_WITH_ADDRESS",
+    "FACILITY_MATCH_WITHOUT_HOUSE_NUMBER",
+    "DIFFERENT_HOUSE_NUMBER",
+    "DIFFERENT_STREET",
+    "NEARBY_ADDRESS_ONLY",
+    "SETTLEMENT_ONLY",
+    "NOT_FOUND",
+    "AMBIGUOUS_REQUIRES_REVIEW",
+    "NON_DELIVERABLE_STRUCTURE",
+    "DUPLICATE_EXISTING_ADDRESS",
+)
 
 
 def eligible_for_deliverable_estimate(status: str) -> bool:
@@ -105,6 +124,42 @@ def reverse_group_can_be_complete(row: dict[str, str]) -> bool:
     return all(row[field] == "True" for field in fields)
 
 
+def status_counts(rows: list[dict[str, str]]) -> dict[str, int]:
+    counts = Counter(row["yandex_match_status"] for row in rows)
+    return {status: counts[status] for status in STATUS_ORDER}
+
+
+def probability_reviewed_rows(
+    sample: list[dict[str, str]],
+    links: list[dict[str, str]],
+    results: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    """Join independently selected probability rows to old or new observations."""
+    result_by_id = {row["sample_id"]: row for row in results}
+    link_by_probability_id = {row["probability_sample_id"]: row for row in links}
+    reviewed: list[dict[str, str]] = []
+    for row in sample:
+        forward_id = row["linked_forward_sample_id"]
+        if not forward_id:
+            link = link_by_probability_id.get(row["probability_sample_id"])
+            forward_id = link["forward_sample_id"] if link else ""
+        if not forward_id:
+            continue
+        result = result_by_id[forward_id]
+        if result["address_id"] != row["address_id"]:
+            raise ValueError(f"Probability address mismatch: {row['probability_sample_id']}")
+        reviewed.append(
+            {
+                **result,
+                "probability_sample_id": row["probability_sample_id"],
+                "sampling_weight": row["sampling_weight"],
+                "geographic_stratum": row["geographic_stratum"],
+                "street_group_size": row["street_group_size"],
+            }
+        )
+    return reviewed
+
+
 def main() -> None:
     classification = read_csv(CLASSIFICATION)
     sample = read_csv(SAMPLE)
@@ -113,7 +168,14 @@ def main() -> None:
     reverse = read_csv(REVERSE)
     owner_review = read_csv(OWNER_REVIEW)
     extras = read_csv(EXTRAS)
+    probability_sample = read_csv(PROBABILITY_SAMPLE)
+    probability_links = read_csv(PROBABILITY_LINKS)
+    rechecks = read_csv(RECHECK)
+    reconciliations = read_csv(RECONCILIATION)
     sample_by_id = {row["sample_id"]: row for row in sample}
+    probability_forward_ids = {
+        row["forward_sample_id"]: row for row in probability_links
+    }
     recovery_by_id = {row["candidate_id"]: row for row in recovery}
     if len(results) != len({row["sample_id"] for row in results}):
         raise ValueError("Duplicate forward-result sample IDs")
@@ -122,13 +184,16 @@ def main() -> None:
     for row in results:
         population_type = row["population_type"]
         if population_type == "CANONICAL_9216":
-            if row["sample_id"] not in sample_by_id:
-                raise ValueError(f"Canonical result outside sample: {row['sample_id']}")
-            if row["address_id"] != sample_by_id[row["sample_id"]]["address_id"]:
+            if row["sample_id"] in sample_by_id:
+                sample_address_id = sample_by_id[row["sample_id"]]["address_id"]
+            elif row["sample_id"] in probability_forward_ids:
+                sample_address_id = probability_forward_ids[row["sample_id"]]["address_id"]
+            else:
+                raise ValueError(f"Canonical result outside samples: {row['sample_id']}")
+            if row["address_id"] != sample_address_id:
                 raise ValueError(f"Address mismatch for {row['sample_id']}")
             if row["source_candidate_id"]:
                 raise ValueError(f"Canonical result has source candidate: {row['sample_id']}")
-            row["sampling_weight"] = sample_by_id[row["sample_id"]]["sampling_weight"]
             canonical_results.append(row)
         elif population_type == "RECOVERED_EXCLUSION_CANDIDATE":
             if row["address_id"]:
@@ -142,6 +207,19 @@ def main() -> None:
             raise ValueError(f"Invalid result status: {row['yandex_match_status']}")
 
     counts = Counter(row["yandex_match_status"] for row in results)
+    probability_reviewed = probability_reviewed_rows(
+        probability_sample, probability_links, results
+    )
+    canonical_counts = status_counts(canonical_results)
+    recovered_counts = status_counts(recovered_results)
+    combined_counts = status_counts(results)
+    paired_substitutions = sum(
+        row["net_inventory_effect"] == "ZERO_SUBSTITUTION"
+        for row in reconciliations
+    )
+    unresolved_reconciliations = sum(
+        row["relationship_type"] == "UNRESOLVED" for row in reconciliations
+    )
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     expected = {
         "sample_size": len(sample),
@@ -187,6 +265,27 @@ def main() -> None:
             row["source_recovery_status"] == "BLOCKED_SOURCE_NOT_FOUND"
             for row in recovery
         ),
+        "probability_sample_total": len(probability_sample),
+        "probability_sample_reviewed": len(probability_reviewed),
+        "targeted_sample_reviewed": sum(
+            row["sample_id"] in sample_by_id for row in canonical_results
+        ),
+        "canonical_status_counts": canonical_counts,
+        "recovered_status_counts": recovered_counts,
+        "combined_status_counts": combined_counts,
+        "gross_yandex_only_high": sum(
+            row["confidence"] == "HIGH" for row in extras
+        ),
+        "gross_canonical_only": sum(
+            row["gross_canonical_only"] == "True" for row in reconciliations
+        ),
+        "paired_number_substitutions": paired_substitutions,
+        "provisional_net_inventory_difference": sum(
+            row["net_inventory_effect"] == "PLUS_ONE" for row in reconciliations
+        )
+        + unresolved_reconciliations,
+        "unresolved_reconciliations": unresolved_reconciliations,
+        "canonical_conflicts_rechecked": len(rechecks),
     }
     for key, value in expected.items():
         if checkpoint[key] != value:
@@ -198,8 +297,27 @@ def main() -> None:
         if claims_complete and not reverse_group_can_be_complete(row):
             raise ValueError(f"Incomplete longitudinal review: {row['street_audit_id']}")
 
+    targeted_weighted = []
+    for row in canonical_results:
+        if row["sample_id"] in sample_by_id:
+            targeted_weighted.append(
+                {**row, "sampling_weight": sample_by_id[row["sample_id"]]["sampling_weight"]}
+            )
     rate, lower, upper = weighted_rate(
-        canonical_results, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+        targeted_weighted, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+    )
+    probability_successes = sum(
+        row["yandex_match_status"] in {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+        for row in probability_reviewed
+    )
+    probability_rate = probability_successes / len(probability_reviewed)
+    probability_lower, probability_upper = wilson_interval(
+        probability_successes, len(probability_reviewed)
+    )
+    probability_weighted_rate, probability_weighted_lower, probability_weighted_upper = (
+        weighted_rate(
+            probability_reviewed, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+        )
     )
     classes = Counter(row["deliverable_address_status"] for row in classification)
     print(f"population={len(classification)}")
@@ -219,6 +337,18 @@ def main() -> None:
         f"{sum(row['review_status'] == 'COMPLETE_FOR_VISIBLE_MAP' for row in reverse)}"
     )
     print(f"owner_candidates_reviewed={len(owner_review)}")
+    print(f"probability_sample_total={len(probability_sample)}")
+    print(f"probability_sample_reviewed={len(probability_reviewed)}")
+    print(f"probability_match_rate={probability_rate:.6f}")
+    print(f"probability_wilson_95={probability_lower:.6f},{probability_upper:.6f}")
+    print(f"probability_weighted_rate={probability_weighted_rate:.6f}")
+    print(
+        "probability_weighted_wilson_95="
+        f"{probability_weighted_lower:.6f},{probability_weighted_upper:.6f}"
+    )
+    print(f"canonical_conflicts_rechecked={len(rechecks)}")
+    print(f"paired_number_substitutions={paired_substitutions}")
+    print(f"unresolved_reconciliations={unresolved_reconciliations}")
     print("conclusion=INCONCLUSIVE")
 
 

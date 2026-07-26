@@ -22,6 +22,10 @@ CHECKPOINT = ROOT / "data/interim/yandex-address-validation-checkpoint-v1.json"
 RECOVERY = ROOT / "data/interim/recovered-nonresidential-address-candidates-v1.csv"
 REVERSE = ROOT / "data/interim/yandex-reverse-street-audit-v1.csv"
 OWNER_REVIEW = ROOT / "data/interim/recovered-candidate-owner-review-v1.csv"
+PROBABILITY_SAMPLE = ROOT / "data/interim/yandex-probability-sample-v1.csv"
+PROBABILITY_LINKS = ROOT / "data/interim/yandex-probability-observations-v1.csv"
+RECHECK = ROOT / "data/interim/yandex-canonical-conflict-recheck-v1.csv"
+RECONCILIATION = ROOT / "data/interim/yandex-address-number-reconciliation-v1.csv"
 EXCLUSIONS = ROOT / "docs/data/delivery-exceptions.csv"
 DELIVERY_UNITS = ROOT / "docs/data/delivery-units.csv"
 REGISTRY_SHA = "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817"
@@ -29,6 +33,9 @@ FIRST_THREE_FORWARD_SHA = (
     "a184e12c61488120f559419c3a66296d7ed0e40ed4f0392e6c7e008aa94f6380"
 )
 OLD_53_FORWARD_SHA = "2ace7cddce5423d3fdfc36cf5b292f12c8d7146847676cccb8f44e8db3508255"
+OLD_153_FORWARD_SHA = "c2c22da033082896a403cbf5669ff7891955dd935ba1aa2333b0b4fae6e4dec4"
+OLD_7_EXTRAS_SHA = "575f206c72519997b58cfa8a73ed820b67b9908ae35080b2a5f0f8be98277bb9"
+OLD_35_REVERSE_SHA = "84ede575db75e8a322fc592d3d2601fbc525e83faf138e14da85c26a7c4b10b1"
 
 
 def _load_module(name: str, relative_path: str):
@@ -44,6 +51,9 @@ ANALYZE = _load_module("analyze_yandex_inventory", "scripts/analyze_yandex_addre
 RECOVER = _load_module(
     "recover_nonresidential", "scripts/recover_nonresidential_address_candidates.py"
 )
+PROBABILITY_BUILD = _load_module(
+    "build_yandex_probability", "scripts/build_yandex_probability_sample.py"
+)
 
 
 def _csv(path: Path) -> list[dict[str, str]]:
@@ -53,6 +63,13 @@ def _csv(path: Path) -> list[dict[str, str]]:
 
 def _normalized_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
+def _rows_hash(rows: list[dict[str, str]]) -> str:
+    payload = json.dumps(
+        rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode()
+    return hashlib.sha256(payload).hexdigest()
 
 
 @pytest.fixture(scope="module")
@@ -511,8 +528,8 @@ def test_46_first_three_yandex_observations_are_unchanged():
 
 def test_47_new_forward_sample_ids_are_unique():
     rows = _csv(RESULTS)
-    assert len(rows) == 153
-    assert len({row["sample_id"] for row in rows}) == 153
+    assert len(rows) == 253
+    assert len({row["sample_id"] for row in rows}) == 253
 
 
 def test_47a_old_53_forward_observations_are_unchanged():
@@ -526,14 +543,14 @@ def test_48_canonical_and_recovered_populations_are_counted_separately():
     counts = defaultdict(int)
     for row in _csv(RESULTS):
         counts[row["population_type"]] += 1
-    assert counts == {"CANONICAL_9216": 117, "RECOVERED_EXCLUSION_CANDIDATE": 36}
+    assert counts == {"CANONICAL_9216": 217, "RECOVERED_EXCLUSION_CANDIDATE": 36}
 
 
 def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
     sample_by_id = {row["sample_id"]: row for row in sample_rows}
     canonical = []
     for row in _csv(RESULTS):
-        if row["population_type"] == "CANONICAL_9216":
+        if row["population_type"] == "CANONICAL_9216" and row["sample_id"] in sample_by_id:
             row["sampling_weight"] = sample_by_id[row["sample_id"]]["sampling_weight"]
             canonical.append(row)
     rate, _, _ = ANALYZE.weighted_rate(canonical, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"})
@@ -578,8 +595,8 @@ def test_51c_reverse_groups_are_unique_and_have_required_coverage():
     rows = _csv(REVERSE)
     keys = {(row["territory"], row["district"], row["street"]) for row in rows}
     complete = [row for row in rows if row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP"]
-    assert len(rows) == len(keys) >= 35
-    assert len(complete) >= 10
+    assert len(rows) == len(keys) >= 60
+    assert len(complete) >= 25
     assert all(ANALYZE.reverse_group_can_be_complete(row) for row in complete)
 
 
@@ -609,10 +626,10 @@ def test_52_checkpoint_matches_actual_csv_counts():
     recovery = _csv(RECOVERY)
     reverse = _csv(REVERSE)
     assert checkpoint["processed"] == checkpoint["forward_processed_total"] == len(results)
-    assert checkpoint["canonical_processed"] == 117
+    assert checkpoint["canonical_processed"] == 217
     assert checkpoint["recovered_candidate_processed"] == len(recovery) == 36
-    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 35
-    assert checkpoint["reverse_street_groups_complete"] == 10
+    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 60
+    assert checkpoint["reverse_street_groups_complete"] == 25
     assert checkpoint["medium_extras_rechecked"] == 6
     assert checkpoint["deliverable_candidates_owner_reviewed"] == 15
 
@@ -645,3 +662,145 @@ def test_55_zone_thresholds_are_unchanged():
     assert _normalized_hash(ROOT / "config/bands.yml") == (
         "ebec96536b0f68ad8b2d41a9a04874dfd29acab56eec20f42a5e188ad00b6c8e"
     )
+
+
+def test_56_protected_153_forward_observations_are_unchanged():
+    assert _rows_hash(_csv(RESULTS)[:153]) == OLD_153_FORWARD_SHA
+
+
+def test_57_protected_extras_and_reverse_prefix_are_unchanged():
+    assert _rows_hash(_csv(EXTRAS)) == OLD_7_EXTRAS_SHA
+    assert _rows_hash(_csv(REVERSE)[:35]) == OLD_35_REVERSE_SHA
+
+
+def test_58_every_canonical_conflict_has_a_separate_recheck():
+    conflict_statuses = {
+        "DIFFERENT_HOUSE_NUMBER",
+        "DIFFERENT_STREET",
+        "NEARBY_ADDRESS_ONLY",
+        "SETTLEMENT_ONLY",
+        "AMBIGUOUS_REQUIRES_REVIEW",
+        "NOT_FOUND",
+    }
+    expected = {
+        row["sample_id"]
+        for row in _csv(RESULTS)[:153]
+        if row["population_type"] == "CANONICAL_9216"
+        and row["yandex_match_status"] in conflict_statuses
+    }
+    rechecks = _csv(RECHECK)
+    assert len(expected) == len(rechecks) == 69
+    assert {row["original_sample_id"] for row in rechecks} == expected
+
+
+def test_59_nearest_result_is_not_absence_confirmation():
+    nearest = [
+        row
+        for row in _csv(RECHECK)
+        if row["resolved_conflict_type"] == "YANDEX_NEAREST_RESULT_ONLY"
+    ]
+    assert nearest
+    assert all(row["nearest_result_only"].lower() == "true" for row in nearest)
+    assert all(
+        row["requested_number_visible_anywhere"].lower() == "false" for row in nearest
+    )
+
+
+def test_60_settlement_or_not_found_recheck_has_two_queries_and_coordinate_review():
+    rows = [
+        row
+        for row in _csv(RECHECK)
+        if row["original_status"] in {"SETTLEMENT_ONLY", "NOT_FOUND"}
+    ]
+    assert rows
+    assert all(" || " in row["second_search_query"] for row in rows)
+    assert all(row["coordinate_click_label"] for row in rows)
+
+
+def test_61_all_seven_high_extras_are_reconciled_to_canonical_rows():
+    rows = _csv(RECONCILIATION)
+    assert len(rows) == 7
+    assert {row["yandex_observation_id"] for row in rows} == {
+        row["observation_id"] for row in _csv(EXTRAS)
+    }
+    canonical_ids = {
+        row["address_id"]
+        for row in _csv(CLASSIFICATION)
+    }
+    assert all(row["nearest_canonical_address_id"] in canonical_ids for row in rows)
+
+
+def test_62_zero_substitution_does_not_increase_provisional_net():
+    rows = _csv(RECONCILIATION)
+    paired = [row for row in rows if row["net_inventory_effect"] == "ZERO_SUBSTITUTION"]
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert len(paired) == checkpoint["paired_number_substitutions"] == 4
+    assert checkpoint["gross_yandex_only_high"] == 7
+    assert checkpoint["provisional_net_inventory_difference"] == 3
+
+
+def test_63_probability_sample_is_reproducible_and_unique():
+    rows = _csv(PROBABILITY_SAMPLE)
+    assert len(rows) == len({row["address_id"] for row in rows}) == 400
+    assert PROBABILITY_BUILD.build_probability_sample() == rows
+    assert {row["selection_seed"] for row in rows} == {"20260727"}
+
+
+def test_64_probability_weights_are_valid():
+    for row in _csv(PROBABILITY_SAMPLE):
+        probability = float(row["inclusion_probability"])
+        assert 0 < probability <= 1
+        assert float(row["sampling_weight"]) == pytest.approx(1 / probability)
+        assert "yandex_match_status" not in row
+
+
+def test_65_new_probability_observations_are_100_unique_canonical_rows():
+    links = _csv(PROBABILITY_LINKS)
+    forward = {row["sample_id"]: row for row in _csv(RESULTS)}
+    assert len(links) == 100
+    assert len({row["probability_sample_id"] for row in links}) == 100
+    assert len({row["address_id"] for row in links}) == 100
+    assert all(
+        forward[row["forward_sample_id"]]["population_type"] == "CANONICAL_9216"
+        for row in links
+    )
+
+
+def test_66_checkpoint_has_separate_population_and_probability_counts():
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert checkpoint["canonical_processed"] >= 217
+    assert checkpoint["forward_processed_total"] >= 253
+    assert checkpoint["probability_sample_total"] == 400
+    assert checkpoint["probability_sample_reviewed"] == 133
+    assert checkpoint["targeted_sample_reviewed"] == 117
+    assert sum(checkpoint["canonical_status_counts"].values()) == 217
+    assert sum(checkpoint["recovered_status_counts"].values()) == 36
+    assert sum(checkpoint["combined_status_counts"].values()) == 253
+
+
+def test_67_reverse_batch_has_required_complete_coverage():
+    rows = _csv(REVERSE)
+    complete = [row for row in rows if row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP"]
+    assert len(rows) >= 60
+    assert len(complete) >= 25
+    assert all(ANALYZE.reverse_group_can_be_complete(row) for row in complete)
+    assert all("start/25%/middle/75%/end" in row["segments_reviewed"] for row in complete[10:])
+
+
+def test_68_owner_decision_pack_lists_all_required_recommendations():
+    report = (ROOT / "reports/yandex-address-inventory/owner-decision-pack-v1.md").read_text(
+        encoding="utf-8"
+    )
+    for candidate in ("REC-002", "REC-013", "REC-018", "REC-023", "REC-026", "REC-027"):
+        assert candidate in report
+    for index in range(1, 8):
+        assert f"YOX-{index:04d}" in report or "YOX-0001` through `YOX-0007" in report
+
+
+def test_69_audit_remains_partial_and_publishes_no_full_yandex_total():
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    report_path = ROOT / "reports/yandex-address-inventory/final-address-count-estimate-v1.md"
+    report = report_path.read_text(encoding="utf-8")
+    assert checkpoint["complete"] is False
+    assert "INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY" in report
+    assert "Estimated full normal Yandex address range | unavailable" in report

@@ -1,5 +1,11 @@
 # Observed Yandex-only addresses v1 — PARTIAL
 
+## Reconciliation update — 2026-07-27
+
+All seven HIGH-confidence observations remain preserved as gross Yandex-only
+evidence. Four are provisional zero-effect number substitutions and three remain
+unresolved. The provisional net difference is +3 and is not a citywide total.
+
 All six formerly MEDIUM candidates were independently searched again in the visible
 Yandex Maps interface. Each repeat opened the same concrete address card. Their
 normalized address keys remain absent from both the canonical 9,216 and the recovered

@@ -19,3 +19,6 @@ address anchors that were actually reviewed and do not claim complete street lim
 This remains visible-map evidence, not an exhaustive licensed inventory. With
 281 street groups unreviewed, the overall conclusion remains
 `INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY`.
+
+Batch 03 supersedes the running totals in this historical report: 25 new groups
+bring coverage to 60 reviewed and 25 `COMPLETE_FOR_VISIBLE_MAP`.

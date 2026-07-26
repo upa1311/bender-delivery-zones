@@ -27,6 +27,11 @@ FOURTH_BATCH_IDS = [
     "MY-059", "MY-060", "MY-062", "MY-063", "MY-064",
     "MY-065", "MY-066", "MY-067", "MY-068", "MY-069",
 ]
+FIFTH_BATCH_IDS = [
+    "MY-071", "MY-072", "MY-073", "MY-074", "MY-075",
+    "MY-076", "MY-077", "MY-078", "MY-080", "MY-081",
+    "MY-082", "MY-083", "MY-084", "MY-086",
+]
 
 REBUILD_SPEC = importlib.util.spec_from_file_location(
     "rebuild_manual_yandex_outputs",
@@ -185,8 +190,8 @@ def test_measurement_dates_are_valid_and_not_in_the_future():
         assert date.fromisoformat(checked_date) <= date.today(), row["control_id"]
 
 
-def test_route_measurement_content_matches_the_pre_metadata_fix_snapshot():
-    rows = measurements()
+def test_preexisting_route_measurements_are_unchanged():
+    rows = measurements()[:-len(FIFTH_BATCH_IDS)]
     fields = [
         field for field in rows[0]
         if field not in {"checked_date", "manual_batch_id"}
@@ -220,21 +225,32 @@ def test_last_completed_id_comes_from_the_last_appended_batch():
     assert cp["last_completed_control_id"] == last_batch[-1]["control_id"]
     assert cp["last_batch_size"] == len(last_batch)
     assert cp["last_batch_checked_date"] == last_batch[-1]["checked_date"]
-    assert {r["manual_batch_id"] for r in last_batch} == {"YANDEX-MANUAL-BATCH-04"}
+    assert {r["manual_batch_id"] for r in last_batch} == {"YANDEX-MANUAL-BATCH-05"}
 
 
-def test_progress_is_72_of_86_with_14_remaining():
+def test_progress_is_86_of_86_with_none_remaining():
     cp = checkpoint()
     assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"]) \
-        == (86, 72, 14)
+        == (86, 86, 0)
     assert cp["blocked_controls"] == 0
     assert cp["extra_landmark_measurements"] == 4
-    assert cp["last_completed_control_id"] == "MY-069"
+    assert cp["last_completed_control_id"] == "MY-086"
+    assert cp["last_batch_size"] == 14
+    assert cp["last_batch_checked_date"] == "2026-07-26"
+    assert cp["next_control_ids"] == []
+
+
+def test_every_control_has_a_measurement_after_the_final_batch():
+    assert {m["control_id"] for m in measurements()} >= {
+        c["control_id"] for c in controls()
+    }
 
 
 def test_the_fourth_batch_holds_exactly_15_filled_routes():
-    rows = measurements()
-    batch = rows[-15:]
+    batch = [
+        row for row in measurements()
+        if row["manual_batch_id"] == "YANDEX-MANUAL-BATCH-04"
+    ]
     assert [r["control_id"] for r in batch] == FOURTH_BATCH_IDS
     assert len(batch) == 15
     for r in batch:
@@ -248,17 +264,41 @@ def test_the_fourth_batch_holds_exactly_15_filled_routes():
         assert r["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"
 
 
-def test_third_and_fourth_batches_have_exact_explicit_membership():
+def test_the_fifth_batch_holds_exactly_14_filled_routes():
+    batch = [
+        row for row in measurements()
+        if row["manual_batch_id"] == "YANDEX-MANUAL-BATCH-05"
+    ]
+    assert [r["control_id"] for r in batch] == FIFTH_BATCH_IDS
+    assert len(batch) == 14
+    for row in batch:
+        assert float(row["yandex_fastest_distance_km"]) > 0
+        assert float(row["yandex_shortest_distance_km"]) > 0
+        assert float(row["yandex_fastest_duration_min"]) > 0
+        assert float(row["yandex_shortest_duration_min"]) > 0
+        assert int(row["yandex_variant_count"]) >= 1
+        assert row["manual_entry_method"] == "EMPTY"
+        assert row["manual_entry_confidence"] == "UNKNOWN"
+        assert row["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"
+
+
+def test_manual_batches_have_exact_explicit_membership():
     rows = measurements()
     by_batch = {}
     for row in rows:
         if row["manual_batch_id"]:
             by_batch.setdefault(row["manual_batch_id"], []).append(row["control_id"])
-    assert set(by_batch) == {"YANDEX-MANUAL-BATCH-03", "YANDEX-MANUAL-BATCH-04"}
+    assert set(by_batch) == {
+        "YANDEX-MANUAL-BATCH-03",
+        "YANDEX-MANUAL-BATCH-04",
+        "YANDEX-MANUAL-BATCH-05",
+    }
     assert by_batch["YANDEX-MANUAL-BATCH-03"] == THIRD_BATCH_IDS
     assert by_batch["YANDEX-MANUAL-BATCH-04"] == FOURTH_BATCH_IDS
+    assert by_batch["YANDEX-MANUAL-BATCH-05"] == FIFTH_BATCH_IDS
     assert len(by_batch["YANDEX-MANUAL-BATCH-03"]) == 15
     assert len(by_batch["YANDEX-MANUAL-BATCH-04"]) == 15
+    assert len(by_batch["YANDEX-MANUAL-BATCH-05"]) == 14
 
 
 def test_explicit_batch_id_separates_adjacent_batches_with_the_same_date():
@@ -270,11 +310,15 @@ def test_explicit_batch_id_separates_adjacent_batches_with_the_same_date():
         {"control_id": cid, "checked_date": "2026-07-26",
          "manual_batch_id": "YANDEX-MANUAL-BATCH-04"}
         for cid in FOURTH_BATCH_IDS
+    ] + [
+        {"control_id": cid, "checked_date": "2026-07-26",
+         "manual_batch_id": "YANDEX-MANUAL-BATCH-05"}
+        for cid in FIFTH_BATCH_IDS
     ]
     batch = REBUILD.last_appended_batch(rows)
-    assert [row["control_id"] for row in batch] == FOURTH_BATCH_IDS
-    assert len(batch) == 15
-    assert batch[-1]["control_id"] == "MY-069"
+    assert [row["control_id"] for row in batch] == FIFTH_BATCH_IDS
+    assert len(batch) == 14
+    assert batch[-1]["control_id"] == "MY-086"
 
 
 def test_legacy_batch_falls_back_to_trailing_same_date_only():
@@ -405,3 +449,8 @@ def test_confirmed_manual_entry_requires_nonempty_evidence():
 def test_fourth_batch_does_not_publish_route_streets_as_entries():
     published = {row["control_id"] for row in entries()}
     assert published.isdisjoint(FOURTH_BATCH_IDS)
+
+
+def test_fifth_batch_does_not_publish_route_streets_as_entries():
+    published = {row["control_id"] for row in entries()}
+    assert published.isdisjoint(FIFTH_BATCH_IDS)

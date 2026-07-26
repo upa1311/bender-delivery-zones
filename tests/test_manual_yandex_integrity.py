@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import importlib.util
 import json
 import math
+import re
 from collections import Counter
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -14,6 +17,11 @@ import pytest
 REPO = Path(__file__).resolve().parents[1]
 D = REPO / "docs/data"
 TOL_M = 60.0
+THIRD_BATCH_IDS = [
+    "MY-036", "MY-037", "MY-038", "MY-039", "MY-040",
+    "MY-041", "MY-042", "MY-043", "MY-044", "MY-045",
+    "MY-046", "MY-047", "MY-048", "MY-049", "MY-051",
+]
 FOURTH_BATCH_IDS = [
     "MY-052", "MY-053", "MY-054", "MY-057", "MY-058",
     "MY-059", "MY-060", "MY-062", "MY-063", "MY-064",
@@ -27,6 +35,9 @@ REBUILD_SPEC = importlib.util.spec_from_file_location(
 assert REBUILD_SPEC and REBUILD_SPEC.loader
 REBUILD = importlib.util.module_from_spec(REBUILD_SPEC)
 REBUILD_SPEC.loader.exec_module(REBUILD)
+MEASUREMENT_CONTENT_FINGERPRINT = (
+    "a8655101f3a928beb40d6ea698736f299d96322abc0bc43246346dee31ae9b8f"
+)
 
 
 def controls():
@@ -167,6 +178,28 @@ def test_measurements_carry_real_numbers_not_placeholders():
         assert m["checked_date"]
 
 
+def test_measurement_dates_are_valid_and_not_in_the_future():
+    for row in measurements():
+        checked_date = row["checked_date"]
+        assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", checked_date), row["control_id"]
+        assert date.fromisoformat(checked_date) <= date.today(), row["control_id"]
+
+
+def test_route_measurement_content_matches_the_pre_metadata_fix_snapshot():
+    rows = measurements()
+    fields = [
+        field for field in rows[0]
+        if field not in {"checked_date", "manual_batch_id"}
+    ]
+    payload = [[row[field] for field in fields] for row in rows]
+    encoded = json.dumps(
+        {"fields": fields, "rows": payload},
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).encode()
+    assert hashlib.sha256(encoded).hexdigest() == MEASUREMENT_CONTENT_FINGERPRINT
+
+
 # --- batch-2 fixes: checkpoint, discrepancies, evidence-based entries -------
 
 def entries():
@@ -183,16 +216,11 @@ def test_last_completed_id_comes_from_the_last_appended_batch():
     rows = measurements()
     cids = {c["control_id"] for c in controls()}
     in_set = [r for r in rows if r["control_id"] in cids]
-    last_date = in_set[-1]["checked_date"]
-    last_batch = []
-    for row in reversed(in_set):
-        if row["checked_date"] != last_date:
-            break
-        last_batch.append(row)
-    last_batch.reverse()
+    last_batch = REBUILD.last_appended_batch(in_set)
     assert cp["last_completed_control_id"] == last_batch[-1]["control_id"]
     assert cp["last_batch_size"] == len(last_batch)
-    assert cp["last_batch_checked_date"] == last_date
+    assert cp["last_batch_checked_date"] == last_batch[-1]["checked_date"]
+    assert {r["manual_batch_id"] for r in last_batch} == {"YANDEX-MANUAL-BATCH-04"}
 
 
 def test_progress_is_72_of_86_with_14_remaining():
@@ -218,6 +246,46 @@ def test_the_fourth_batch_holds_exactly_15_filled_routes():
         assert r["manual_entry_method"] == "EMPTY"
         assert r["manual_entry_confidence"] == "UNKNOWN"
         assert r["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"
+
+
+def test_third_and_fourth_batches_have_exact_explicit_membership():
+    rows = measurements()
+    by_batch = {}
+    for row in rows:
+        if row["manual_batch_id"]:
+            by_batch.setdefault(row["manual_batch_id"], []).append(row["control_id"])
+    assert set(by_batch) == {"YANDEX-MANUAL-BATCH-03", "YANDEX-MANUAL-BATCH-04"}
+    assert by_batch["YANDEX-MANUAL-BATCH-03"] == THIRD_BATCH_IDS
+    assert by_batch["YANDEX-MANUAL-BATCH-04"] == FOURTH_BATCH_IDS
+    assert len(by_batch["YANDEX-MANUAL-BATCH-03"]) == 15
+    assert len(by_batch["YANDEX-MANUAL-BATCH-04"]) == 15
+
+
+def test_explicit_batch_id_separates_adjacent_batches_with_the_same_date():
+    rows = [
+        {"control_id": cid, "checked_date": "2026-07-26",
+         "manual_batch_id": "YANDEX-MANUAL-BATCH-03"}
+        for cid in THIRD_BATCH_IDS
+    ] + [
+        {"control_id": cid, "checked_date": "2026-07-26",
+         "manual_batch_id": "YANDEX-MANUAL-BATCH-04"}
+        for cid in FOURTH_BATCH_IDS
+    ]
+    batch = REBUILD.last_appended_batch(rows)
+    assert [row["control_id"] for row in batch] == FOURTH_BATCH_IDS
+    assert len(batch) == 15
+    assert batch[-1]["control_id"] == "MY-069"
+
+
+def test_legacy_batch_falls_back_to_trailing_same_date_only():
+    rows = [
+        {"control_id": "MY-A", "checked_date": "2026-07-25", "manual_batch_id": ""},
+        {"control_id": "MY-B", "checked_date": "2026-07-26", "manual_batch_id": ""},
+        {"control_id": "MY-C", "checked_date": "2026-07-26", "manual_batch_id": ""},
+    ]
+    assert [row["control_id"] for row in REBUILD.last_appended_batch(rows)] == [
+        "MY-B", "MY-C",
+    ]
 
 
 def test_every_explicit_address_mismatch_is_recorded():

@@ -156,6 +156,27 @@ def confirmed_entry(row: dict[str, str]) -> dict[str, str] | None:
     }
 
 
+def last_appended_batch(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Return the trailing explicit batch, with a same-date fallback for legacy rows."""
+    if not rows:
+        return []
+
+    last_row = rows[-1]
+    last_batch_id = (last_row.get("manual_batch_id") or "").strip()
+    last_date = last_row["checked_date"]
+    batch = []
+    for row in reversed(rows):
+        row_batch_id = (row.get("manual_batch_id") or "").strip()
+        if last_batch_id:
+            if row_batch_id != last_batch_id:
+                break
+        elif row_batch_id or row["checked_date"] != last_date:
+            break
+        batch.append(row)
+    batch.reverse()
+    return batch
+
+
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     rows = list(csv.DictReader(MEAS.open(encoding="utf-8")))
@@ -163,6 +184,8 @@ def main() -> int:
     cids = set(controls)
 
     cols = list(rows[0].keys())
+    if "manual_batch_id" not in cols:
+        cols.insert(cols.index("checked_date") + 1, "manual_batch_id")
     for extra in ("yandex_destination_street", "yandex_destination_house",
                   "yandex_district_entry_evidence", "yandex_district_entry_confidence"):
         if extra not in cols:
@@ -218,16 +241,12 @@ def main() -> int:
         w.writeheader()
         w.writerows(ent)
 
-    # Checkpoint — the last completed batch is the trailing same-date run in
-    # append order. Do not use lexicographic id or calendar max here.
+    # Checkpoint — prefer the explicit id of the trailing appended batch. Only
+    # legacy rows without an id may fall back to a trailing same-date run. Never
+    # use a lexicographic control id or the maximum calendar date.
     in_set = [r for r in rows if r["control_id"] in cids]
-    last_batch_date = in_set[-1]["checked_date"] if in_set else ""
-    last_batch = []
-    for row in reversed(in_set):
-        if row["checked_date"] != last_batch_date:
-            break
-        last_batch.append(row)
-    last_batch.reverse()
+    last_batch = last_appended_batch(in_set)
+    last_batch_date = last_batch[-1]["checked_date"] if last_batch else ""
     measured = {r["control_id"] for r in in_set}
     remaining = sorted(cids - measured)
     CHECKPOINT.write_text(json.dumps({

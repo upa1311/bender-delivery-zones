@@ -951,11 +951,29 @@ def _render_md(report, summary):
              f"**C (manual/fringe)**: {t['C']}", "",
              "| Территория | A | B | C | адреса | Δплощадь |",
              "|---|---:|---:|---:|---:|---:|"]
+
+    # Only settlements are top-level rows. A district of Бендеры (Липканы) may
+    # appear ONLY inside the "Районы Бендер" sub-section below, never as a peer.
+    district_of = {t["key"]: t.get("district_of") or "bender_core"
+                   for t in territories if t.get("role") == "bender_district"}
+
+    def _row(key, v):
+        return (f"| {v['display_ru']} (`{key}`) | {v['streets_tier_a']} | "
+                f"{v['streets_tier_b']} | {v['streets_tier_c']} | "
+                f"{v['addresses_inside']} | {v['source_area_km2']} → "
+                f"{v['candidate_area_km2']} км² (−{v['reduction_pct']}%) |")
+
     for key, v in report["territories"].items():
-        lines.append(f"| {v['display_ru']} (`{key}`) | {v['streets_tier_a']} | "
-                     f"{v['streets_tier_b']} | {v['streets_tier_c']} | "
-                     f"{v['addresses_inside']} | {v['source_area_km2']} → "
-                     f"{v['candidate_area_km2']} км² (−{v['reduction_pct']}%) |")
+        if key in district_of:
+            continue
+        lines.append(_row(key, v))
+    districts = [(k, v) for k, v in report["territories"].items() if k in district_of]
+    if districts:
+        lines += ["", "### Районы Бендер", "",
+                  "Не отдельные населённые пункты: входят в Бендеры.", "",
+                  "| Район Бендер | A | B | C | адреса | Δплощадь |",
+                  "|---|---:|---:|---:|---:|---:|"]
+        lines += [_row(k, v) for k, v in districts]
     s = report["summary"]
     lines += ["", "## Buildings excluded from demand", "",
               f"- outbuildings (сараи/гаражи/теплицы): **{s['excluded_outbuildings']}**",

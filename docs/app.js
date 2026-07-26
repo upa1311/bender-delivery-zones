@@ -12,20 +12,38 @@
 const START = { lat: 46.8218, lon: 29.4819, zoom: 13 }; // Bender
 const OSM_ATTRIBUTION = "© OpenStreetMap contributors";
 
+// ADMINISTRATIVE HIERARCHY. Only these four are settlements / service
+// territories the user sees at the top level. Липканы is a DISTRICT of Бендеры
+// and must never be rendered as a peer next to them.
+const TOP_LEVEL_TERRITORIES = ["bender_core", "parkany", "giska", "protyagailovka"];
+// technical attribution key -> parent territory (internal only, never a peer)
+const DISTRICT_OF = { bender_lipcani: "bender_core" };
+const DISTRICT_LABEL = { bender_lipcani: "Липканы" };
+
 const TERRITORY_LABEL = {
   bender_core: "Бендеры",
-  bender_lipcani: "Бендеры, район Липканы",
   protyagailovka: "Протягайловка",
   giska: "Гиска",
   parkany: "Парканы",
 };
 const TERRITORY_COLOR = {
   bender_core: "#2f6fed",
-  bender_lipcani: "#0e9488",
   protyagailovka: "#1f9d55",
   giska: "#e8730c",
   parkany: "#7c3aed",
 };
+
+const isDistrictKey = (key) => Object.hasOwn(DISTRICT_OF, key);
+/** Colour of a district is the colour of its parent settlement. */
+const territoryColor = (key) =>
+  TERRITORY_COLOR[isDistrictKey(key) ? DISTRICT_OF[key] : key];
+/** "Бендеры" for a settlement, "Бендеры → Липканы" for one of its districts. */
+function territoryPath(key) {
+  if (isDistrictKey(key)) {
+    return `${TERRITORY_LABEL[DISTRICT_OF[key]]} → ${DISTRICT_LABEL[key]}`;
+  }
+  return TERRITORY_LABEL[key] || key;
+}
 const EXCLUDED_COLOR = {
   farmland: "#c9a227",
   forest_or_park: "#3f8f4f",
@@ -103,7 +121,7 @@ function excludedPopup(p) {
     <table>
       ${p.name ? `<tr><td class="k">название</td><td>${esc(p.name)}</td></tr>` : ""}
       ${p.landuse ? `<tr><td class="k">landuse</td><td>${esc(p.landuse)}</td></tr>` : ""}
-      <tr><td class="k">территория</td><td>${esc(TERRITORY_LABEL[p.territory] || p.territory)}</td></tr>
+      <tr><td class="k">территория</td><td>${esc(territoryPath(p.territory))}</td></tr>
       <tr><td class="k">площадь</td><td>${(p.area_m2 / 10000).toFixed(2)} га</td></tr>
       ${p.note ? `<tr><td class="k">примечание</td><td>${esc(p.note)}</td></tr>` : ""}
     </table></div>`;
@@ -114,7 +132,7 @@ function sparsePopup(p) {
     <div class="popup-title">Редкая застройка <span class="badge review">проверить</span></div>
     <table>
       <tr><td class="k">зданий в группе</td><td>${p.buildings}</td></tr>
-      <tr><td class="k">территория</td><td>${esc(TERRITORY_LABEL[p.territory] || p.territory)}</td></tr>
+      <tr><td class="k">территория</td><td>${esc(territoryPath(p.territory))}</td></tr>
     </table>
     <p class="muted small">${esc(p.note)}</p></div>`;
 }
@@ -161,11 +179,15 @@ function addPermanentLabels(fc) {
     const key = f.properties.key;
     const layer = L.geoJSON(f);
     const c = layer.getBounds().getCenter();
+    // A district is labelled with its own name in a subordinate style; only the
+    // four top-level territories get a peer-level label.
+    const district = isDistrictKey(key);
     L.marker(c, {
       interactive: false,
       icon: L.divIcon({
-        className: "area-label",
-        html: `<span style="--c:${TERRITORY_COLOR[key] || "#333"}">${esc(TERRITORY_LABEL[key] || key)}</span>`,
+        className: district ? "area-label area-label-district" : "area-label",
+        html: `<span style="--c:${territoryColor(key) || "#333"}">`
+          + `${esc(district ? DISTRICT_LABEL[key] : TERRITORY_LABEL[key] || key)}</span>`,
         iconSize: [0, 0],
       }),
     }).addTo(labelLayer);
@@ -177,7 +199,7 @@ function tierCPopup(p) {
     <div class="popup-title">${esc(p.street_ru)}
       <span class="badge review">Tier C — не обслуживается</span></div>
     <table>
-      <tr><td class="k">территория</td><td>${esc(TERRITORY_LABEL[p.settlement] || p.settlement)}</td></tr>
+      <tr><td class="k">территория</td><td>${esc(territoryPath(p.settlement))}</td></tr>
       <tr><td class="k">адресов</td><td>${p.confirmed_addresses}</td></tr>
       <tr><td class="k">вероятных жилых</td><td>${p.probable_residential_buildings}</td></tr>
       <tr><td class="k">связь с ядром</td><td>${p.connected_to_core ? "да" : "нет"}</td></tr>
@@ -327,15 +349,15 @@ async function init() {
 
     // Source OSM boundaries — dashed, reference only.
     overlays["Исходные границы OSM"] = L.geoJSON(source, {
-      style: (f) => ({ color: TERRITORY_COLOR[f.properties.key] || "#6b7280",
+      style: (f) => ({ color: territoryColor(f.properties.key) || "#6b7280",
         weight: 2, dashArray: "7 6", fill: false, opacity: 0.9 }),
       onEachFeature: (f, l) => l.bindPopup(sourcePopup(f.properties)),
     }).addTo(map);
 
     // Candidate working area — solid.
     overlays["Рабочая территория"] = L.geoJSON(candidate, {
-      style: (f) => ({ color: TERRITORY_COLOR[f.properties.key] || "#2f6fed",
-        weight: 3, fillColor: TERRITORY_COLOR[f.properties.key], fillOpacity: 0.18 }),
+      style: (f) => ({ color: territoryColor(f.properties.key) || "#2f6fed",
+        weight: 3, fillColor: territoryColor(f.properties.key), fillOpacity: 0.18 }),
       onEachFeature: (f, l) => l.bindPopup(candidatePopup(f.properties)),
     }).addTo(map);
     addPermanentLabels(candidate);
@@ -366,7 +388,7 @@ async function init() {
       onEachFeature: (f, l) => l.bindPopup(
         `<div class="popup"><b>${f.properties.inside_candidate
           ? "Здания внутри рабочей территории" : "Здания вне рабочей территории"}</b><br>` +
-        `${esc(TERRITORY_LABEL[f.properties.territory] || f.properties.territory)}: ` +
+        `${esc(territoryPath(f.properties.territory))}: ` +
         `${f.properties.count}</div>`),
     });
 

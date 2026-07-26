@@ -1,6 +1,6 @@
 # Yandex address validation sample v1
 
-Status: **PARTIAL — sample prepared; browser review incomplete**
+Status: **PARTIAL — sample prepared; 17 canonical rows reviewed; browser review incomplete**
 
 ## Population and grain
 
@@ -79,8 +79,19 @@ coordinates, exclusions, and territory assignments remain unchanged.
 
 There is also an upstream coverage defect: `docs/data/delivery-exceptions.csv` contains
 36 address nodes rejected as `address_inside_nonresidential_building`—34 generically
-non-residential, one outbuilding, and one abandoned/ruin. The 34 non-residential rows
-are potential deliverable destinations under the clarified rule, but their street,
-house number, facility type, and name were not retained in the release artifacts.
-They therefore require a separate source-data recovery review and are not silently
-added to the protected 9,216-row population in this audit commit.
+non-residential, one outbuilding, and one abandoned/ruin. All 36 source records were
+recovered from the exact pinned Geofabrik file `moldova-260722.osm.pbf`, whose SHA-256
+is `09ba0c058e89faacac7e1b1e7c8d0fbb14b4df66061b43abdce590b65ce8813c`.
+Recovery produced 15 potential additional deliverable address candidates, 20 duplicate
+address grains, and one lifecycle non-deliverable object. These records remain a
+separate audit population and are not added to the protected 9,216-row release.
+
+## Population separation
+
+The forward file now contains 17 `CANONICAL_9216` observations and 36
+`RECOVERED_EXCLUSION_CANDIDATE` observations. Only the canonical observations receive
+sampling weights or contribute to the weighted canonical match rate. The 36 recovered
+records are a complete review of a known exclusion set, not a probability sample.
+
+The original YAV-0001 through YAV-0003 evidence is protected by the normalized
+fingerprint `a184e12c61488120f559419c3a66296d7ed0e40ed4f0392e6c7e008aa94f6380`.

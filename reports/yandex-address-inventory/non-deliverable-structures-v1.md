@@ -1,53 +1,29 @@
 # Non-deliverable structures audit v1 — PARTIAL
 
-## Population evidence
+The immutable canonical registry still contains 9,216 address grains: 9,078
+`DELIVERABLE`, zero source-confirmed `NON_DELIVERABLE_STRUCTURE`, and 138
+`UNKNOWN_REQUIRES_REVIEW`. Detailed auxiliary-building tags were not retained in that
+release, so zero is not evidence that such structures do not exist.
 
-The immutable `bender-zones-v1.1` registry contains 9,216 unique address keys. Its
-coordinate join in `docs/data/delivery-units.csv` preserves only two relevant source
-classes: 9,078 `addressed_residential_building` rows and 138
-`standalone_address_node` rows. It does not preserve detailed OSM building tags for
-garage, shed, barn, outbuilding, construction, ruins, or technical structures.
+The exact pinned source was recovered for all 36 legacy
+`address_inside_nonresidential_building` exclusions. Generic non-residential geometry
+was not treated as evidence of non-deliverability.
 
-| Classification | Count |
+| Recovery classification | Count |
 |---|---:|
-| DELIVERABLE | 9,078 |
-| NON_DELIVERABLE_STRUCTURE | 0 confirmed from retained metadata |
-| UNKNOWN_REQUIRES_REVIEW | 138 |
-| Total | 9,216 |
+| DELIVERABLE_CANDIDATE | 15 |
+| DUPLICATE_EXISTING_ADDRESS | 20 |
+| NON_DELIVERABLE_AUXILIARY | 0 |
+| NON_DELIVERABLE_LIFECYCLE | 1 |
+| UNKNOWN_REQUIRES_REVIEW | 0 |
 
-## Requested structure counts
+The lifecycle result, REC-011 at Славянская улица 64, is classified from explicit
+source lifecycle evidence and was also not shown as a normal addressed building in
+the manual Yandex review. The legacy outbuilding row REC-001 has a distinct recovered
+address and a retail/fuel destination, so it is not automatically discarded merely
+because its old unit type contained `outbuilding`.
 
-| Structure class | Confirmed in the 9,216-row release | Evidence limitation |
-|---|---:|---|
-| garage / garages / garage box | 0 | Detailed source type was not retained. |
-| shed | 0 | Detailed source type was not retained. |
-| barn / outbuilding | 0 | Detailed source type was not retained. |
-| construction / ruins | 0 | Detailed source type was not retained. |
-| technical structure | 0 | Detailed source type was not retained. |
-| unclear object | 138 | Address nodes do not establish a building type. |
-
-Zero means “not confirmed by the retained evidence,” not proof that the canonical
-population contains no such structure. The 138 unclear rows remain in the audit and
-were not deleted. Excluding confirmed non-deliverable structures therefore changes
-the count by zero at this checkpoint; excluding the unclear rows would be unsupported.
-
-Industrial, commercial, warehouse, civic, public, school, and hospital types are not
-auxiliary structures under the clarified rule. When they have a separate address or
-independent delivery entrance, they are deliverable. A tag in one of those categories
-is never sufficient evidence for exclusion.
-
-Three sampled address nodes were inspected in the visible Yandex Maps interface. All
-three opened address-building cards and none was labelled as a garage or shed. This
-small observation does not resolve the remaining 135 unclear rows.
-
-No canonical file or immutable release was changed.
-
-## Upstream exclusions requiring recovery
-
-The protected source pipeline previously excluded 36 address nodes merely because
-they fell inside a polygon classified as non-residential: 34 generic non-residential,
-one outbuilding, and one abandoned/ruin. The 34 generic rows are a high-severity
-coverage gap because they may include hospitals, schools, enterprises, warehouses, or
-shops. Their address and facility attributes are absent from the retained artifacts,
-so this audit flags them but does not guess categories or reinsert them into the
-immutable release.
+Medical, industrial, retail, office, hospitality, food-service, government, and
+public-service destinations remain legitimate delivery candidates when they have a
+separate address or delivery entrance. No canonical file, exclusion, or immutable
+release was changed.

@@ -1,30 +1,45 @@
 # Forward Yandex address validation v1 — PARTIAL
 
-The free visible Yandex Maps interface was used interactively. Each processed sample
-was searched separately and its address card and map were visually inspected. No API,
-scraping, protection bypass, OSRM substitution, or copied neighbouring result was used.
+The free visible Yandex Maps interface was used interactively. Every new object was
+searched separately and its visible address or organization card was inspected. No
+Yandex API, bulk HTTP collection, scraping, OSRM substitution, or copied neighbouring
+result was used.
 
-| Metric | Checkpoint value |
+## Progress
+
+| Population | Prepared | Reviewed | Remaining |
+|---|---:|---:|---:|
+| Canonical 9,216 sample | 2,565 | 17 | 2,548 |
+| Recovered exclusion candidates | 36 | 36 | 0 |
+| Combined forward observations | — | 53 | — |
+
+This run added 14 canonical observations and 36 recovered-candidate observations: 50
+new browser observations. The recovered rows do not receive sampling weights and do
+not count toward canonical statistical sufficiency.
+
+| Match status | Count |
 |---|---:|
-| Prepared sample | 2,565 |
-| Processed | 3 |
-| Remaining | 2,562 |
-| Unique street groups processed | 3 |
-| EXACT_MATCH | 3 |
+| EXACT_MATCH | 7 |
 | NORMALIZED_EQUIVALENT | 0 |
-| NEARBY_ADDRESS_ONLY | 0 |
-| DIFFERENT_STREET | 0 |
-| DIFFERENT_HOUSE_NUMBER | 0 |
-| SETTLEMENT_ONLY | 0 |
+| FACILITY_MATCH_WITH_ADDRESS | 7 |
+| FACILITY_MATCH_WITHOUT_HOUSE_NUMBER | 0 |
+| NEARBY_ADDRESS_ONLY | 2 |
+| DIFFERENT_STREET | 1 |
+| DIFFERENT_HOUSE_NUMBER | 15 |
+| SETTLEMENT_ONLY | 3 |
 | NOT_FOUND | 0 |
-| NON_DELIVERABLE_STRUCTURE | 0 |
-| AMBIGUOUS_REQUIRES_REVIEW | 0 |
+| NON_DELIVERABLE_STRUCTURE | 1 |
+| DUPLICATE_EXISTING_ADDRESS | 16 |
+| AMBIGUOUS_REQUIRES_REVIEW | 1 |
 
-The three coordinate differences are 1.6 m, 32.6 m, and 27.8 m. All three visible
-cards represented addressed buildings. Organizations displayed inside the second
-building were not counted as additional addresses.
+The explicit address disagreements are 1 different-street and 15 different-house
+observations. The seven facility matches show real deliverable destinations, but do
+not automatically add a new address when the address grain is already canonical.
 
-The checkpoint weighted exact+normalized rate is 100%. With three equal-weight
-observations, the effective-sample Wilson 95% interval is 43.85%–100%. This is a
-descriptive checkpoint only: 3/2,565 reviewed rows do not support extrapolation to the
-9,216-row population. Territory-, street-, and building-type estimates are withheld.
+For the 17 canonical observations only, the weighted exact+normalized rate is 32.98%
+and the effective-sample Wilson 95% interval is 14.79%–58.23%. This is checkpoint
+evidence, not a population estimate: canonical review remains far below 1,000 and the
+mandatory and deterministic selections are not a simple random sample.
+
+YAV-0001 through YAV-0003 retain their original evidence unchanged; the schema-only
+population fields do not alter those observations.

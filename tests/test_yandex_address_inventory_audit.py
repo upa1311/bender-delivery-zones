@@ -19,7 +19,14 @@ SAMPLE = ROOT / "data/interim/yandex-address-validation-sample-v1.csv"
 RESULTS = ROOT / "data/interim/yandex-forward-address-validation-v1.csv"
 EXTRAS = ROOT / "data/interim/yandex-observed-extra-addresses-v1.csv"
 CHECKPOINT = ROOT / "data/interim/yandex-address-validation-checkpoint-v1.json"
+RECOVERY = ROOT / "data/interim/recovered-nonresidential-address-candidates-v1.csv"
+REVERSE = ROOT / "data/interim/yandex-reverse-street-audit-v1.csv"
+EXCLUSIONS = ROOT / "docs/data/delivery-exceptions.csv"
+DELIVERY_UNITS = ROOT / "docs/data/delivery-units.csv"
 REGISTRY_SHA = "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817"
+FIRST_THREE_FORWARD_SHA = (
+    "a184e12c61488120f559419c3a66296d7ed0e40ed4f0392e6c7e008aa94f6380"
+)
 
 
 def _load_module(name: str, relative_path: str):
@@ -32,6 +39,9 @@ def _load_module(name: str, relative_path: str):
 
 BUILD = _load_module("build_yandex_inventory", "scripts/build_yandex_address_inventory_sample.py")
 ANALYZE = _load_module("analyze_yandex_inventory", "scripts/analyze_yandex_address_inventory.py")
+RECOVER = _load_module(
+    "recover_nonresidential", "scripts/recover_nonresidential_address_candidates.py"
+)
 
 
 def _csv(path: Path) -> list[dict[str, str]]:
@@ -128,7 +138,8 @@ def test_09_sample_ids_are_unique(sample_rows):
 def test_10_forward_results_have_no_duplicate_rows():
     results = _csv(RESULTS)
     assert len(results) == len({row["sample_id"] for row in results})
-    assert len(results) == len({row["address_id"] for row in results})
+    canonical = [row for row in results if row["population_type"] == "CANONICAL_9216"]
+    assert len(canonical) == len({row["address_id"] for row in canonical})
 
 
 def test_11_every_processed_result_has_an_allowed_status():
@@ -177,7 +188,7 @@ def test_16_wilson_confidence_interval_is_correct():
 def test_17_partial_audit_cannot_be_complete(sample_rows):
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     assert checkpoint["complete"] is False
-    assert not ANALYZE.audit_can_be_complete(len(sample_rows), 3, 3, 316, False)
+    assert not ANALYZE.audit_can_be_complete(len(sample_rows), 17, 10, 316, False)
 
 
 def test_18_exact_yandex_total_requires_a_licensed_full_source():
@@ -327,3 +338,246 @@ def test_34_classification_and_report_expose_facility_categories():
     report = report_path.read_text(encoding="utf-8")
     for category in ("RESIDENTIAL", "MEDICAL", "EDUCATION", "INDUSTRIAL", "WAREHOUSE"):
         assert category in report
+
+
+def test_35_all_36_legacy_exclusions_are_in_recovery_file():
+    legacy = {
+        row["uid"]
+        for row in _csv(EXCLUSIONS)
+        if row["reason"] == "address_inside_nonresidential_building"
+    }
+    recovery = _csv(RECOVERY)
+    assert len(legacy) == len(recovery) == 36
+    assert {row["exception_row_id"] for row in recovery} == legacy
+
+
+def test_36_no_exclusion_was_lost_or_blocked():
+    recovery = _csv(RECOVERY)
+    assert len({row["exception_row_id"] for row in recovery}) == 36
+    assert {row["source_recovery_status"] for row in recovery} == {
+        "RECOVERED_FROM_PINNED_SOURCE"
+    }
+
+
+def test_37_generic_nonresidential_is_not_automatically_non_deliverable():
+    status = RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category="UNKNOWN",
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    )
+    assert status == "UNKNOWN_REQUIRES_REVIEW"
+
+
+def test_38_hospital_or_clinic_with_address_is_a_candidate():
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category="MEDICAL",
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "DELIVERABLE_CANDIDATE"
+
+
+@pytest.mark.parametrize("source_type", ["school", "kindergarten"])
+def test_39_school_or_kindergarten_with_address_is_a_candidate(source_type):
+    category = RECOVER.facility_category({"amenity": source_type})
+    assert category == "EDUCATION"
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category=category,
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "DELIVERABLE_CANDIDATE"
+
+
+@pytest.mark.parametrize("source_type", ["enterprise", "factory", "industrial"])
+def test_40_factory_or_enterprise_with_address_is_a_candidate(source_type):
+    category = RECOVER.facility_category({"building": source_type})
+    assert category == "INDUSTRIAL"
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category=category,
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "DELIVERABLE_CANDIDATE"
+
+
+@pytest.mark.parametrize(
+    ("tags", "category"),
+    [
+        ({"building": "warehouse"}, "WAREHOUSE"),
+        ({"shop": "supermarket"}, "RETAIL"),
+        ({"office": "company"}, "OFFICE"),
+    ],
+)
+def test_41_warehouse_shop_or_office_with_address_is_a_candidate(tags, category):
+    assert RECOVER.facility_category(tags) == category
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category=category,
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "DELIVERABLE_CANDIDATE"
+
+
+def test_42_unaddressed_outbuilding_is_auxiliary():
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_outbuilding",
+        category="UNKNOWN",
+        has_address=False,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "NON_DELIVERABLE_AUXILIARY"
+
+
+def test_43_lifecycle_status_requires_positive_source_evidence():
+    common = {
+        "unit_type": "address_in_non_residential",
+        "category": "UNKNOWN",
+        "has_address": True,
+        "has_entrance": False,
+        "is_duplicate": False,
+    }
+    assert RECOVER.classify_candidate(**common, lifecycle="") == "UNKNOWN_REQUIRES_REVIEW"
+    assert (
+        RECOVER.classify_candidate(**common, lifecycle="ruins")
+        == "NON_DELIVERABLE_LIFECYCLE"
+    )
+
+
+def test_44_named_facility_without_house_number_remains_unknown():
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category="MEDICAL",
+        has_address=False,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=False,
+    ) == "UNKNOWN_REQUIRES_REVIEW"
+
+
+def test_45_canonical_duplicate_does_not_increase_address_count():
+    assert RECOVER.classify_candidate(
+        unit_type="address_in_non_residential",
+        category="RETAIL",
+        has_address=True,
+        has_entrance=False,
+        lifecycle="",
+        is_duplicate=True,
+    ) == "DUPLICATE_EXISTING_ADDRESS"
+
+
+def test_46_first_three_yandex_observations_are_unchanged():
+    fields = [
+        "sample_id",
+        "address_id",
+        "checked_date",
+        "our_territory",
+        "our_street",
+        "our_house_number",
+        "our_lat",
+        "our_lon",
+        "yandex_search_query",
+        "yandex_displayed_label",
+        "yandex_displayed_street",
+        "yandex_displayed_house_number",
+        "yandex_displayed_settlement",
+        "yandex_match_status",
+        "coordinate_distance_m",
+        "visible_object_type",
+        "is_normal_deliverable_building",
+        "notes",
+        "owner_review_required",
+    ]
+    protected = [{field: row[field] for field in fields} for row in _csv(RESULTS)[:3]]
+    payload = json.dumps(
+        protected, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode()
+    assert hashlib.sha256(payload).hexdigest() == FIRST_THREE_FORWARD_SHA
+
+
+def test_47_new_forward_sample_ids_are_unique():
+    rows = _csv(RESULTS)
+    assert len(rows) == 53
+    assert len({row["sample_id"] for row in rows}) == 53
+
+
+def test_48_canonical_and_recovered_populations_are_counted_separately():
+    counts = defaultdict(int)
+    for row in _csv(RESULTS):
+        counts[row["population_type"]] += 1
+    assert counts == {"CANONICAL_9216": 17, "RECOVERED_EXCLUSION_CANDIDATE": 36}
+
+
+def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
+    sample_by_id = {row["sample_id"]: row for row in sample_rows}
+    canonical = []
+    for row in _csv(RESULTS):
+        if row["population_type"] == "CANONICAL_9216":
+            row["sampling_weight"] = sample_by_id[row["sample_id"]]["sampling_weight"]
+            canonical.append(row)
+    rate, _, _ = ANALYZE.weighted_rate(canonical, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"})
+    assert rate == pytest.approx(0.3297639613)
+    assert all("sampling_weight" not in row for row in _csv(RESULTS))
+
+
+def test_50_high_confidence_extras_are_absent_from_recovered_keys():
+    recovered = {
+        BUILD.address_grain_key(row["settlement"], row["street"], row["house_number"])
+        for row in _csv(RECOVERY)
+        if row["street"] and row["house_number"]
+    }
+    high = [row for row in _csv(EXTRAS) if row["confidence"] == "HIGH"]
+    assert len(high) == 1
+    for row in high:
+        key = BUILD.address_grain_key(row["territory"], row["street"], row["house_number"])
+        assert key not in recovered
+
+
+def test_51_reverse_audit_cannot_be_complete_without_start_middle_and_end():
+    for row in _csv(REVERSE):
+        if not ANALYZE.reverse_group_can_be_complete(row):
+            assert row["review_status"] != "COMPLETE_FOR_VISIBLE_MAP"
+
+
+def test_52_checkpoint_matches_actual_csv_counts():
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    results = _csv(RESULTS)
+    recovery = _csv(RECOVERY)
+    reverse = _csv(REVERSE)
+    assert checkpoint["processed"] == checkpoint["forward_processed_total"] == len(results)
+    assert checkpoint["canonical_processed"] == 17
+    assert checkpoint["recovered_candidate_processed"] == len(recovery) == 36
+    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 10
+
+
+def test_53_complete_stays_false_below_1000_canonical_observations():
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert checkpoint["canonical_processed"] < 1000
+    assert checkpoint["complete"] is False
+
+
+def test_54_all_9216_ids_and_coordinates_are_unchanged():
+    assert _normalized_hash(DELIVERY_UNITS) == (
+        "7f52e5119db0bfeb8a68464ad79ed1288a070c3563d887c088f72283c85c4250"
+    )
+
+
+def test_55_zone_thresholds_are_unchanged():
+    assert _normalized_hash(ROOT / "docs/data/final-zone-polygons.geojson") == (
+        "cfc80697a7300890321319845704f1601f9a35317d80c99ec909d4be68e9db00"
+    )
+    assert _normalized_hash(ROOT / "config/bands.yml") == (
+        "ebec96536b0f68ad8b2d41a9a04874dfd29acab56eec20f42a5e188ad00b6c8e"
+    )

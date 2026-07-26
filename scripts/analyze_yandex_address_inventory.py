@@ -16,6 +16,7 @@ EXTRAS = ROOT / "data/interim/yandex-observed-extra-addresses-v1.csv"
 CHECKPOINT = ROOT / "data/interim/yandex-address-validation-checkpoint-v1.json"
 RECOVERY = ROOT / "data/interim/recovered-nonresidential-address-candidates-v1.csv"
 REVERSE = ROOT / "data/interim/yandex-reverse-street-audit-v1.csv"
+OWNER_REVIEW = ROOT / "data/interim/recovered-candidate-owner-review-v1.csv"
 
 VALID_STATUSES = {
     "EXACT_MATCH",
@@ -93,8 +94,14 @@ def audit_can_be_complete(
 
 
 def reverse_group_can_be_complete(row: dict[str, str]) -> bool:
-    """Require evidence from all three longitudinal parts of a street."""
-    fields = ("start_reviewed", "middle_reviewed", "end_reviewed")
+    """Require longitudinal, branch, and facility evidence for a complete group."""
+    fields = (
+        "start_reviewed",
+        "middle_reviewed",
+        "end_reviewed",
+        "side_branches_reviewed",
+        "facility_sites_reviewed",
+    )
     return all(row[field] == "True" for field in fields)
 
 
@@ -104,6 +111,8 @@ def main() -> None:
     results = read_csv(RESULTS)
     recovery = read_csv(RECOVERY)
     reverse = read_csv(REVERSE)
+    owner_review = read_csv(OWNER_REVIEW)
+    extras = read_csv(EXTRAS)
     sample_by_id = {row["sample_id"]: row for row in sample}
     recovery_by_id = {row["candidate_id"]: row for row in recovery}
     if len(results) != len({row["sample_id"] for row in results}):
@@ -158,9 +167,17 @@ def main() -> None:
         "forward_processed_total": len(results),
         "reverse_street_groups_total": 316,
         "reverse_street_groups_reviewed": len(reverse),
-        "high_confidence_yandex_only": sum(
-            row["confidence"] == "HIGH" for row in read_csv(EXTRAS)
+        "reverse_street_groups_complete": sum(
+            row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP" for row in reverse
         ),
+        "medium_extras_rechecked": 6,
+        "high_confidence_yandex_only": sum(
+            row["confidence"] == "HIGH" for row in extras
+        ),
+        "rejected_yandex_only": sum(
+            row["confidence"].startswith("REJECTED_") for row in extras
+        ),
+        "deliverable_candidates_owner_reviewed": len(owner_review),
         "source_exclusions_total": len(recovery),
         "source_exclusions_recovered": sum(
             row["source_recovery_status"].startswith("RECOVERED_FROM_")
@@ -185,7 +202,6 @@ def main() -> None:
         canonical_results, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
     )
     classes = Counter(row["deliverable_address_status"] for row in classification)
-    extras = read_csv(EXTRAS)
     print(f"population={len(classification)}")
     print(f"deliverable={classes['DELIVERABLE']}")
     print(f"non_deliverable={classes['NON_DELIVERABLE_STRUCTURE']}")
@@ -197,6 +213,12 @@ def main() -> None:
     print(f"weighted_match_rate={rate:.6f}")
     print(f"wilson_95={lower:.6f},{upper:.6f}")
     print(f"observed_extras={len(extras)}")
+    print(f"reverse_groups_reviewed={len(reverse)}")
+    print(
+        "reverse_groups_complete="
+        f"{sum(row['review_status'] == 'COMPLETE_FOR_VISIBLE_MAP' for row in reverse)}"
+    )
+    print(f"owner_candidates_reviewed={len(owner_review)}")
     print("conclusion=INCONCLUSIVE")
 
 

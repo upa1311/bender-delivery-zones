@@ -1,61 +1,33 @@
-# Yandex address inventory comparison v1 - PARTIAL EVIDENCE ONLY
+# Yandex address inventory comparison v1 — PARTIAL EVIDENCE ONLY
 
 ## Result
 
-**INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY.** The audit now has 53 forward observations
-and an initial reverse review of 10 street groups, but only 17/2,565 canonical sample
-rows have been reviewed and no street group has complete reverse coverage. Publishing
-an exact or estimated full Yandex address total would be unsupported.
+**INCONCLUSIVE / PARTIAL_EVIDENCE_ONLY.** The audit now contains 153 forward
+observations, including 117/2,565 canonical sample rows, and 35/316 reverse street
+groups. Ten groups reached `COMPLETE_FOR_VISIBLE_MAP`, but coverage and statistical
+power remain insufficient for a full Yandex address estimate.
 
-## Strictly separated evidence layers
-
-| Layer | Current evidence | Counting rule |
+| Evidence layer | Current evidence | Counting rule |
 |---|---|---|
-| 1. Canonical population | 9,216 immutable address grains | Existing release denominator; unchanged |
-| 2. Recovered exclusions | 36/36 source records recovered: 15 candidates, 20 duplicates, 1 lifecycle object | Separate audit layer; no automatic canonical addition |
-| 3. Yandex-only observations | 1 HIGH and 6 MEDIUM candidates | Observed candidates only; owner approval required |
-| 4. Non-deliverable structures | 1 explicit recovered lifecycle object; 0 confirmed in retained canonical metadata | Exclude only with positive evidence |
-| 5. Unresolved facilities without official address | Conflicting or incomplete evidence remains in forward rows and owner-review flags | Do not add or exclude automatically |
+| Canonical population | 9,216 immutable address grains | Existing denominator; unchanged |
+| Canonical sample | 117 reviewed of 2,565 | Weighted checkpoint evidence only |
+| Recovered exclusions | 36/36 reviewed | Separate layer; no automatic addition |
+| Yandex-only observations | 7 HIGH, 0 MEDIUM | Observed lower bound only; owner review required |
+| Reverse audit | 35 reviewed, 10 complete | Partial visible-map coverage |
+| Recovered owner review | 15 recommendations | No final owner decision made |
 
-## Forward evidence
+The canonical classification still contains 9,078 `RESIDENTIAL` rows and 138
+`UNKNOWN_REQUIRES_REVIEW` rows. Recovered evidence continues to expose the
+`MEDICAL`, `EDUCATION`, `INDUSTRIAL`, and `WAREHOUSE` facility categories without
+turning non-residential use into an automatic exclusion.
 
-| Metric | Current value |
-|---|---:|
-| Canonical sample prepared / reviewed | 2,565 / 17 |
-| Recovered candidates reviewed | 36 / 36 |
-| Combined forward processed | 53 |
-| EXACT_MATCH | 7 |
-| NORMALIZED_EQUIVALENT | 0 |
-| Facility matches with address | 7 |
-| Explicit address disagreements | 16 |
-| NOT_FOUND | 0 |
-| Canonical-only weighted exact+normalized rate | 32.98% checkpoint-only |
-| Wilson 95% interval | 14.79%–58.23% checkpoint-only |
-
-## Recovered facility evidence
-
-The 36 recovered records include 3 MEDICAL, 0 EDUCATION, 4 INDUSTRIAL, 0 WAREHOUSE,
-12 RETAIL, 2 OFFICE, 2 GOVERNMENT, 4 PUBLIC_SERVICE, 6 FOOD_SERVICE, 1 HOSPITALITY,
-and 2 UNKNOWN source categories. At the unique address-grain level, 15 remain
-`DELIVERABLE_CANDIDATE`; 20 are duplicates and one is lifecycle non-deliverable.
-
-These numbers describe the known legacy exclusion set, not the complete facility
-population. Potential additions require owner review and a future mutable release;
-none was inserted into the protected release here.
-
-The retained canonical metadata still labels 9,078 rows as `RESIDENTIAL`. The
-recovered layer explicitly reports `MEDICAL`, `EDUCATION`, `INDUSTRIAL`, and
-`WAREHOUSE` categories without pretending they describe the full territory.
-
-## Reverse evidence and limitations
-
-Ten of 316 street groups were partially reviewed. Советская улица 31 is the only
-HIGH-confidence Yandex-only address because it was independently searched twice and
-is absent from canonical and recovered keys. Six other concrete candidates remain
-MEDIUM. No group is complete, so reverse coverage cannot support an uplift estimate.
+The 15 owner-review recommendations are: 6 `APPROVE_FOR_FUTURE_RELEASE`, 1
+`REJECT_DUPLICATE`, 5 `HOLD_ADDRESS_CONFLICT`, 1 `HOLD_OPERATIONAL_STATUS`, and 2
+`HOLD_INSUFFICIENT_EVIDENCE`. These are recommendations only and do not modify any
+release.
 
 Estimated full normal Yandex address range | unavailable
 
-The canonical database, all 9,216 IDs and coordinates, existing exclusions, zones,
+Canonical 9,216, address IDs and coordinates, existing exclusions, zones,
 thresholds, Kishinevskaya, Severny/Varnita data, routing graph and restrictions,
-Direct, prices, tariff matrix, and immutable releases were not changed.
+Direct, prices, tariff matrix, and immutable releases remain unchanged.

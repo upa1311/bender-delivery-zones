@@ -1,6 +1,6 @@
 # Yandex address validation sample v1
 
-Status: **PARTIAL — sample prepared; 17 canonical rows reviewed; browser review incomplete**
+Status: **PARTIAL — sample prepared; 117 canonical rows reviewed; browser review incomplete**
 
 ## Population and grain
 
@@ -88,7 +88,7 @@ separate audit population and are not added to the protected 9,216-row release.
 
 ## Population separation
 
-The forward file now contains 17 `CANONICAL_9216` observations and 36
+The forward file now contains 117 `CANONICAL_9216` observations and 36
 `RECOVERED_EXCLUSION_CANDIDATE` observations. Only the canonical observations receive
 sampling weights or contribute to the weighted canonical match rate. The 36 recovered
 records are a complete review of a known exclusion set, not a probability sample.

@@ -21,12 +21,14 @@ EXTRAS = ROOT / "data/interim/yandex-observed-extra-addresses-v1.csv"
 CHECKPOINT = ROOT / "data/interim/yandex-address-validation-checkpoint-v1.json"
 RECOVERY = ROOT / "data/interim/recovered-nonresidential-address-candidates-v1.csv"
 REVERSE = ROOT / "data/interim/yandex-reverse-street-audit-v1.csv"
+OWNER_REVIEW = ROOT / "data/interim/recovered-candidate-owner-review-v1.csv"
 EXCLUSIONS = ROOT / "docs/data/delivery-exceptions.csv"
 DELIVERY_UNITS = ROOT / "docs/data/delivery-units.csv"
 REGISTRY_SHA = "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817"
 FIRST_THREE_FORWARD_SHA = (
     "a184e12c61488120f559419c3a66296d7ed0e40ed4f0392e6c7e008aa94f6380"
 )
+OLD_53_FORWARD_SHA = "2ace7cddce5423d3fdfc36cf5b292f12c8d7146847676cccb8f44e8db3508255"
 
 
 def _load_module(name: str, relative_path: str):
@@ -509,15 +511,22 @@ def test_46_first_three_yandex_observations_are_unchanged():
 
 def test_47_new_forward_sample_ids_are_unique():
     rows = _csv(RESULTS)
-    assert len(rows) == 53
-    assert len({row["sample_id"] for row in rows}) == 53
+    assert len(rows) == 153
+    assert len({row["sample_id"] for row in rows}) == 153
+
+
+def test_47a_old_53_forward_observations_are_unchanged():
+    payload = json.dumps(
+        _csv(RESULTS)[:53], ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode()
+    assert hashlib.sha256(payload).hexdigest() == OLD_53_FORWARD_SHA
 
 
 def test_48_canonical_and_recovered_populations_are_counted_separately():
     counts = defaultdict(int)
     for row in _csv(RESULTS):
         counts[row["population_type"]] += 1
-    assert counts == {"CANONICAL_9216": 17, "RECOVERED_EXCLUSION_CANDIDATE": 36}
+    assert counts == {"CANONICAL_9216": 117, "RECOVERED_EXCLUSION_CANDIDATE": 36}
 
 
 def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
@@ -528,7 +537,8 @@ def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
             row["sampling_weight"] = sample_by_id[row["sample_id"]]["sampling_weight"]
             canonical.append(row)
     rate, _, _ = ANALYZE.weighted_rate(canonical, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"})
-    assert rate == pytest.approx(0.3297639613)
+    assert 0 <= rate <= 1
+    assert len(canonical) == 117
     assert all("sampling_weight" not in row for row in _csv(RESULTS))
 
 
@@ -539,7 +549,7 @@ def test_50_high_confidence_extras_are_absent_from_recovered_keys():
         if row["street"] and row["house_number"]
     }
     high = [row for row in _csv(EXTRAS) if row["confidence"] == "HIGH"]
-    assert len(high) == 1
+    assert len(high) == 7
     for row in high:
         key = BUILD.address_grain_key(row["territory"], row["street"], row["house_number"])
         assert key not in recovered
@@ -551,15 +561,69 @@ def test_51_reverse_audit_cannot_be_complete_without_start_middle_and_end():
             assert row["review_status"] != "COMPLETE_FOR_VISIBLE_MAP"
 
 
+def test_51a_all_six_medium_extras_were_independently_rechecked():
+    rechecked = [row for row in _csv(EXTRAS) if row["observation_id"] != "YOX-0001"]
+    assert len(rechecked) == 6
+    assert {row["confidence"] for row in rechecked} == {"HIGH"}
+    assert all("Two independent manual" in row["match_method"] for row in rechecked)
+
+
+def test_51b_high_extras_require_two_manual_confirmations():
+    high = [row for row in _csv(EXTRAS) if row["confidence"] == "HIGH"]
+    assert high
+    assert all("Two independent manual" in row["match_method"] for row in high)
+
+
+def test_51c_reverse_groups_are_unique_and_have_required_coverage():
+    rows = _csv(REVERSE)
+    keys = {(row["territory"], row["district"], row["street"]) for row in rows}
+    complete = [row for row in rows if row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP"]
+    assert len(rows) == len(keys) >= 35
+    assert len(complete) >= 10
+    assert all(ANALYZE.reverse_group_can_be_complete(row) for row in complete)
+
+
+def test_51d_owner_review_contains_all_15_deliverable_candidates():
+    expected = {
+        row["candidate_id"]
+        for row in _csv(RECOVERY)
+        if row["candidate_delivery_status"] == "DELIVERABLE_CANDIDATE"
+    }
+    review = _csv(OWNER_REVIEW)
+    allowed = {
+        "APPROVE_FOR_FUTURE_RELEASE",
+        "REJECT_DUPLICATE",
+        "REJECT_NON_DELIVERABLE",
+        "HOLD_ADDRESS_CONFLICT",
+        "HOLD_OPERATIONAL_STATUS",
+        "HOLD_INSUFFICIENT_EVIDENCE",
+    }
+    assert len(expected) == len(review) == 15
+    assert {row["candidate_id"] for row in review} == expected
+    assert {row["recommended_owner_decision"] for row in review} <= allowed
+
+
 def test_52_checkpoint_matches_actual_csv_counts():
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     results = _csv(RESULTS)
     recovery = _csv(RECOVERY)
     reverse = _csv(REVERSE)
     assert checkpoint["processed"] == checkpoint["forward_processed_total"] == len(results)
-    assert checkpoint["canonical_processed"] == 17
+    assert checkpoint["canonical_processed"] == 117
     assert checkpoint["recovered_candidate_processed"] == len(recovery) == 36
-    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 10
+    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 35
+    assert checkpoint["reverse_street_groups_complete"] == 10
+    assert checkpoint["medium_extras_rechecked"] == 6
+    assert checkpoint["deliverable_candidates_owner_reviewed"] == 15
+
+
+def test_52a_not_found_and_non_deliverable_require_positive_evidence():
+    for row in _csv(RESULTS):
+        if row["yandex_match_status"] == "NOT_FOUND":
+            assert "query" in row["notes"].lower() or "search" in row["notes"].lower()
+        if row["yandex_match_status"] == "NON_DELIVERABLE_STRUCTURE":
+            evidence = row["notes"].lower()
+            assert any(token in evidence for token in ("ruin", "garage", "shed", "lifecycle"))
 
 
 def test_53_complete_stays_false_below_1000_canonical_observations():

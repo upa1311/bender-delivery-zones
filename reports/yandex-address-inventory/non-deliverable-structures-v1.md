@@ -31,8 +31,23 @@ population contains no such structure. The 138 unclear rows remain in the audit 
 were not deleted. Excluding confirmed non-deliverable structures therefore changes
 the count by zero at this checkpoint; excluding the unclear rows would be unsupported.
 
+Industrial, commercial, warehouse, civic, public, school, and hospital types are not
+auxiliary structures under the clarified rule. When they have a separate address or
+independent delivery entrance, they are deliverable. A tag in one of those categories
+is never sufficient evidence for exclusion.
+
 Three sampled address nodes were inspected in the visible Yandex Maps interface. All
 three opened address-building cards and none was labelled as a garage or shed. This
 small observation does not resolve the remaining 135 unclear rows.
 
 No canonical file or immutable release was changed.
+
+## Upstream exclusions requiring recovery
+
+The protected source pipeline previously excluded 36 address nodes merely because
+they fell inside a polygon classified as non-residential: 34 generic non-residential,
+one outbuilding, and one abandoned/ruin. The 34 generic rows are a high-severity
+coverage gap because they may include hospitals, schools, enterprises, warehouses, or
+shops. Their address and facility attributes are absent from the retained artifacts,
+so this audit flags them but does not guess categories or reinsert them into the
+immutable release.

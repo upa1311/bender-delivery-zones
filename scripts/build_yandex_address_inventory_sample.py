@@ -38,8 +38,14 @@ CLASSIFICATION_FIELDS = [
     "lon",
     "source_object_type",
     "normalized_object_type",
+    "facility_category",
+    "facility_name",
+    "public_or_commercial_destination",
+    "independent_delivery_entrance",
+    "shared_address_with_other_pois",
     "deliverable_address_status",
     "exclusion_reason",
+    "deliverable_reason",
     "manual_review_required",
 ]
 SAMPLE_FIELDS = [
@@ -75,6 +81,74 @@ NON_DELIVERABLE_TYPES = {
     "technical_building",
     "transformer_house",
 }
+DESTINATION_TYPES = {
+    "RESIDENTIAL": {
+        "addressed_residential_building",
+        "residential",
+        "apartments",
+        "house",
+        "detached",
+        "semidetached_house",
+        "terrace",
+        "dormitory",
+        "bungalow",
+    },
+    "MEDICAL": {"hospital", "clinic", "doctors", "pharmacy", "medical_centre"},
+    "EDUCATION": {"school", "kindergarten", "college", "university"},
+    "INDUSTRIAL": {"industrial", "factory", "manufacture", "enterprise"},
+    "WAREHOUSE": {"warehouse", "storage"},
+    "RETAIL": {"retail", "supermarket", "shop", "commercial"},
+    "FOOD_SERVICE": {"restaurant", "cafe", "fast_food"},
+    "OFFICE": {"office"},
+    "GOVERNMENT": {"government", "administrative"},
+    "PUBLIC_SERVICE": {"civic", "public", "fire_station", "police", "post_office", "bank"},
+    "HOSPITALITY": {"hotel"},
+    "RELIGIOUS": {"place_of_worship", "church", "chapel", "synagogue", "mosque", "temple"},
+    "SPORTS": {"sports_centre", "sports_hall", "stadium"},
+    "TRANSPORT": {"train_station", "bus_station", "transportation"},
+}
+PUBLIC_OR_COMMERCIAL_CATEGORIES = {
+    "MEDICAL",
+    "EDUCATION",
+    "INDUSTRIAL",
+    "WAREHOUSE",
+    "RETAIL",
+    "FOOD_SERVICE",
+    "OFFICE",
+    "GOVERNMENT",
+    "PUBLIC_SERVICE",
+    "HOSPITALITY",
+    "RELIGIOUS",
+    "SPORTS",
+    "TRANSPORT",
+    "OTHER_DELIVERABLE",
+}
+FACILITY_CATEGORIES = {
+    "RESIDENTIAL",
+    "MEDICAL",
+    "EDUCATION",
+    "INDUSTRIAL",
+    "WAREHOUSE",
+    "RETAIL",
+    "FOOD_SERVICE",
+    "OFFICE",
+    "GOVERNMENT",
+    "PUBLIC_SERVICE",
+    "HOSPITALITY",
+    "RELIGIOUS",
+    "SPORTS",
+    "TRANSPORT",
+    "OTHER_DELIVERABLE",
+    "NON_DELIVERABLE_AUXILIARY",
+    "UNKNOWN",
+}
+LIFECYCLE_NON_DELIVERABLE_TYPES = {
+    "collapsed",
+    "ruins",
+    "ruin",
+    "demolished",
+    "abandoned",
+}
 
 
 def normalized_sha256(path: Path) -> str:
@@ -108,30 +182,131 @@ def address_grain_key(territory: str, street: str, house_number: str) -> tuple[s
     return territory.casefold().strip(), street.casefold().strip(), house_number.casefold().strip()
 
 
-def classify_source_object_type(source_type: str) -> tuple[str, str, str, str]:
-    """Map retained or future detailed types without treating uncertainty as deliverable."""
+def _facility_category(source_type: str) -> str:
     normalized = source_type.casefold().strip().replace(" ", "_")
-    if normalized == "addressed_residential_building":
-        return "RESIDENTIAL_BUILDING", "DELIVERABLE", "", "False"
+    for category, values in DESTINATION_TYPES.items():
+        if normalized in values:
+            return category
+    return "UNKNOWN"
+
+
+def classify_delivery_destination(
+    source_type: str,
+    *,
+    has_separate_address: bool,
+    named_facility: bool = False,
+    independent_delivery_entrance: bool = False,
+    internal_structure: bool = False,
+) -> dict[str, str]:
+    """Classify a destination without excluding it merely for being non-residential."""
+    normalized = source_type.casefold().strip().replace(" ", "_")
+    category = _facility_category(normalized)
+    public_or_commercial = "True" if category in PUBLIC_OR_COMMERCIAL_CATEGORIES else "False"
+
+    if internal_structure and not (has_separate_address or independent_delivery_entrance):
+        return {
+            "normalized_object_type": normalized.upper() or "INTERNAL_STRUCTURE",
+            "facility_category": "NON_DELIVERABLE_AUXILIARY",
+            "public_or_commercial_destination": public_or_commercial,
+            "deliverable_address_status": "NON_DELIVERABLE_STRUCTURE",
+            "exclusion_reason": "internal_structure_without_independent_delivery_address",
+            "deliverable_reason": "",
+            "manual_review_required": "False",
+        }
+    if normalized in LIFECYCLE_NON_DELIVERABLE_TYPES:
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": "NON_DELIVERABLE_AUXILIARY",
+            "public_or_commercial_destination": "False",
+            "deliverable_address_status": "NON_DELIVERABLE_STRUCTURE",
+            "exclusion_reason": f"non_deliverable_lifecycle:{normalized}",
+            "deliverable_reason": "",
+            "manual_review_required": "False",
+        }
+    if normalized in NON_DELIVERABLE_TYPES and not (
+        has_separate_address or independent_delivery_entrance
+    ):
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": "NON_DELIVERABLE_AUXILIARY",
+            "public_or_commercial_destination": "False",
+            "deliverable_address_status": "NON_DELIVERABLE_STRUCTURE",
+            "exclusion_reason": f"auxiliary_without_independent_address:{normalized}",
+            "deliverable_reason": "",
+            "manual_review_required": "False",
+        }
     if normalized in NON_DELIVERABLE_TYPES:
-        return (
-            normalized.upper(),
-            "NON_DELIVERABLE_STRUCTURE",
-            f"non_deliverable_structure:{normalized}",
-            "False",
-        )
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": "UNKNOWN",
+            "public_or_commercial_destination": "UNKNOWN",
+            "deliverable_address_status": "UNKNOWN_REQUIRES_REVIEW",
+            "exclusion_reason": "",
+            "deliverable_reason": "separately_addressed_auxiliary_requires_manual_review",
+            "manual_review_required": "True",
+        }
+    if category != "UNKNOWN" and (has_separate_address or independent_delivery_entrance):
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": category,
+            "public_or_commercial_destination": public_or_commercial,
+            "deliverable_address_status": "DELIVERABLE",
+            "exclusion_reason": "",
+            "deliverable_reason": "separate_address_or_delivery_entrance",
+            "manual_review_required": "False",
+        }
+    if category != "UNKNOWN" and named_facility:
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": category,
+            "public_or_commercial_destination": public_or_commercial,
+            "deliverable_address_status": "UNKNOWN_REQUIRES_REVIEW",
+            "exclusion_reason": "",
+            "deliverable_reason": "named_destination_without_house_number_requires_review",
+            "manual_review_required": "True",
+        }
+    if category != "UNKNOWN":
+        return {
+            "normalized_object_type": normalized.upper(),
+            "facility_category": category,
+            "public_or_commercial_destination": public_or_commercial,
+            "deliverable_address_status": "UNKNOWN_REQUIRES_REVIEW",
+            "exclusion_reason": "",
+            "deliverable_reason": "potential_destination_without_independent_address_evidence",
+            "manual_review_required": "True",
+        }
     if normalized == "standalone_address_node":
-        return (
-            "ADDRESS_NODE_WITHOUT_BUILDING_TYPE",
-            "UNKNOWN_REQUIRES_REVIEW",
-            "source_does_not_identify_a_building",
-            "True",
-        )
+        return {
+            "normalized_object_type": "ADDRESS_NODE_WITHOUT_BUILDING_TYPE",
+            "facility_category": "UNKNOWN",
+            "public_or_commercial_destination": "UNKNOWN",
+            "deliverable_address_status": "UNKNOWN_REQUIRES_REVIEW",
+            "exclusion_reason": "source_does_not_identify_a_building",
+            "deliverable_reason": "canonical_address_exists_but_destination_type_is_unverified",
+            "manual_review_required": "True",
+        }
+    return {
+        "normalized_object_type": "UNMAPPED_SOURCE_OBJECT_TYPE",
+        "facility_category": "UNKNOWN",
+        "public_or_commercial_destination": "UNKNOWN",
+        "deliverable_address_status": "UNKNOWN_REQUIRES_REVIEW",
+        "exclusion_reason": "unmapped_source_object_type",
+        "deliverable_reason": "destination_evidence_is_insufficient",
+        "manual_review_required": "True",
+    }
+
+
+def classify_source_object_type(source_type: str) -> tuple[str, str, str, str]:
+    """Backward-compatible tuple used by earlier audit tests."""
+    result = classify_delivery_destination(
+        source_type,
+        has_separate_address=source_type == "addressed_residential_building",
+    )
     return (
-        "UNMAPPED_SOURCE_OBJECT_TYPE",
-        "UNKNOWN_REQUIRES_REVIEW",
-        "unmapped_source_object_type",
-        "True",
+        result["normalized_object_type"],
+        result["deliverable_address_status"],
+        result["exclusion_reason"],
+        result["manual_review_required"],
     )
 
 
@@ -180,7 +355,7 @@ def build_classification() -> tuple[list[dict[str, str]], dict[str, dict[str, ob
         if unit is None or not unit["lat"] or not unit["lon"]:
             raise ValueError(f"Missing protected coordinates for {uid}")
         source_type = unit["unit_type"]
-        normalized_type, status, exclusion_reason, review = classify_source_object_type(source_type)
+        destination = classify_delivery_destination(source_type, has_separate_address=True)
         row = {
             "address_id": uid,
             "territory": address["settlement_ru"],
@@ -189,10 +364,18 @@ def build_classification() -> tuple[list[dict[str, str]], dict[str, dict[str, ob
             "lat": unit["lat"],
             "lon": unit["lon"],
             "source_object_type": source_type,
-            "normalized_object_type": normalized_type,
-            "deliverable_address_status": status,
-            "exclusion_reason": exclusion_reason,
-            "manual_review_required": review,
+            "normalized_object_type": destination["normalized_object_type"],
+            "facility_category": destination["facility_category"],
+            "facility_name": "",
+            "public_or_commercial_destination": destination[
+                "public_or_commercial_destination"
+            ],
+            "independent_delivery_entrance": "UNKNOWN",
+            "shared_address_with_other_pois": "UNKNOWN",
+            "deliverable_address_status": destination["deliverable_address_status"],
+            "exclusion_reason": destination["exclusion_reason"],
+            "deliverable_reason": destination["deliverable_reason"],
+            "manual_review_required": destination["manual_review_required"],
         }
         rows.append(row)
         metadata[uid] = {

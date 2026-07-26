@@ -29,6 +29,15 @@ Coordinates and retained object type are joined by immutable ID from
 `NON_DELIVERABLE_STRUCTURE` is zero because detailed building tags are unavailable,
 not because zero has been proven visually.
 
+The classification schema also carries `facility_category`, `facility_name`,
+`public_or_commercial_destination`, `independent_delivery_entrance`,
+`shared_address_with_other_pois`, and `deliverable_reason`. A complete address for a
+hospital, school, factory, warehouse, shop, office, government building, or other real
+destination is classified as `DELIVERABLE`; non-residential type alone is never an
+exclusion. A named destination without a house number remains
+`UNKNOWN_REQUIRES_REVIEW` until its address or independent delivery entrance is
+confirmed.
+
 ## Deterministic selection
 
 `scripts/build_yandex_address_inventory_sample.py` produces 2,565 rows with fixed
@@ -67,3 +76,11 @@ terminal-branch membership is also unavailable on the requested base commit.
 
 These missing strata are disclosed rather than inferred. The source registry,
 coordinates, exclusions, and territory assignments remain unchanged.
+
+There is also an upstream coverage defect: `docs/data/delivery-exceptions.csv` contains
+36 address nodes rejected as `address_inside_nonresidential_building`—34 generically
+non-residential, one outbuilding, and one abandoned/ruin. The 34 non-residential rows
+are potential deliverable destinations under the clarified rule, but their street,
+house number, facility type, and name were not retained in the release artifacts.
+They therefore require a separate source-data recovery review and are not silently
+added to the protected 9,216-row population in this audit commit.

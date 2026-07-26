@@ -226,3 +226,104 @@ def test_22_immutable_releases_are_unchanged():
     assert len(files) == 27
     assert digest.hexdigest() == "f6b666d433dab96d9c71c1a3567d6f9d95b30d07f3b9d7deff3dd05ee08748e2"
     assert BASE == "4a1c2a86b08e22f6a8d83ba8b5983a89f309e7b6"
+
+
+@pytest.mark.parametrize("source_type", ["hospital", "medical_centre"])
+def test_23_medical_destination_with_separate_address_is_deliverable(source_type):
+    result = BUILD.classify_delivery_destination(source_type, has_separate_address=True)
+    assert result["facility_category"] == "MEDICAL"
+    assert result["deliverable_address_status"] == "DELIVERABLE"
+
+
+def test_24_clinic_with_separate_address_is_deliverable():
+    result = BUILD.classify_delivery_destination("clinic", has_separate_address=True)
+    assert result["facility_category"] == "MEDICAL"
+    assert result["deliverable_address_status"] == "DELIVERABLE"
+
+
+@pytest.mark.parametrize("source_type", ["school", "kindergarten"])
+def test_25_education_destination_with_separate_address_is_deliverable(source_type):
+    result = BUILD.classify_delivery_destination(source_type, has_separate_address=True)
+    assert result["facility_category"] == "EDUCATION"
+    assert result["deliverable_address_status"] == "DELIVERABLE"
+
+
+@pytest.mark.parametrize("source_type", ["industrial", "factory", "enterprise"])
+def test_26_industrial_destination_with_separate_address_is_deliverable(source_type):
+    result = BUILD.classify_delivery_destination(source_type, has_separate_address=True)
+    assert result["facility_category"] == "INDUSTRIAL"
+    assert result["deliverable_address_status"] == "DELIVERABLE"
+
+
+def test_27_warehouse_with_separate_address_is_deliverable():
+    result = BUILD.classify_delivery_destination("warehouse", has_separate_address=True)
+    assert result["facility_category"] == "WAREHOUSE"
+    assert result["deliverable_address_status"] == "DELIVERABLE"
+
+
+def test_28_industrial_tag_alone_is_not_an_exclusion_reason():
+    result = BUILD.classify_delivery_destination("industrial", has_separate_address=False)
+    assert result["facility_category"] == "INDUSTRIAL"
+    assert result["deliverable_address_status"] == "UNKNOWN_REQUIRES_REVIEW"
+    assert result["deliverable_address_status"] != "NON_DELIVERABLE_STRUCTURE"
+
+
+def test_29_multiple_organizations_at_one_address_do_not_increase_address_count():
+    organization_keys = [
+        BUILD.address_grain_key("Бендеры", "улица Титова", "80"),
+        BUILD.address_grain_key("Бендеры", "улица Титова", "80"),
+        BUILD.address_grain_key("Бендеры", "улица Титова", "80"),
+    ]
+    assert len(set(organization_keys)) == 1
+
+
+def test_30_separately_addressed_gates_or_buildings_can_be_separate_addresses():
+    keys = {
+        BUILD.address_grain_key("Бендеры", "Промышленная улица", "1"),
+        BUILD.address_grain_key("Бендеры", "Промышленная улица", "1А"),
+    }
+    assert len(keys) == 2
+
+
+def test_31_unaddressed_internal_building_is_not_a_new_address():
+    result = BUILD.classify_delivery_destination(
+        "industrial",
+        has_separate_address=False,
+        internal_structure=True,
+    )
+    assert result["deliverable_address_status"] == "NON_DELIVERABLE_STRUCTURE"
+
+
+@pytest.mark.parametrize("source_type", ["garage", "shed"])
+def test_32_unaddressed_garage_or_shed_is_not_deliverable(source_type):
+    result = BUILD.classify_delivery_destination(source_type, has_separate_address=False)
+    assert result["facility_category"] == "NON_DELIVERABLE_AUXILIARY"
+    assert result["deliverable_address_status"] == "NON_DELIVERABLE_STRUCTURE"
+
+
+def test_33_named_facility_without_house_number_is_kept_for_review():
+    result = BUILD.classify_delivery_destination(
+        "hospital",
+        has_separate_address=False,
+        named_facility=True,
+    )
+    assert result["deliverable_address_status"] == "UNKNOWN_REQUIRES_REVIEW"
+    assert result["manual_review_required"] == "True"
+
+
+def test_34_classification_and_report_expose_facility_categories():
+    rows = _csv(CLASSIFICATION)
+    expected_fields = {
+        "facility_category",
+        "facility_name",
+        "public_or_commercial_destination",
+        "independent_delivery_entrance",
+        "shared_address_with_other_pois",
+        "deliverable_reason",
+    }
+    assert expected_fields <= set(rows[0])
+    assert {row["facility_category"] for row in rows} <= BUILD.FACILITY_CATEGORIES
+    report_path = ROOT / "reports/yandex-address-inventory/final-address-count-estimate-v1.md"
+    report = report_path.read_text(encoding="utf-8")
+    for category in ("RESIDENTIAL", "MEDICAL", "EDUCATION", "INDUSTRIAL", "WAREHOUSE"):
+        assert category in report

@@ -4,7 +4,11 @@
 
 All seven HIGH-confidence observations remain preserved as gross Yandex-only
 evidence. Four are provisional zero-effect number substitutions and three remain
-unresolved. The provisional net difference is +3 and is not a citywide total.
+unresolved.
+
+Known provisional net effect: 0. Three reconciliations remain unresolved and are excluded from the numeric net effect.
+
+This is not a citywide total.
 
 All six formerly MEDIUM candidates were independently searched again in the visible
 Yandex Maps interface. Each repeat opened the same concrete address card. Their

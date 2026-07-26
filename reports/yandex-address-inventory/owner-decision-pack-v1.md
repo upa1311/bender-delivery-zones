@@ -13,6 +13,8 @@ canonical registry.
 substitutions; three remain unresolved. The owner must decide whether each is a
 replacement, a distinct delivery address, or insufficient evidence.
 
+Known provisional net effect: 0. Three reconciliations remain unresolved and are excluded from the numeric net effect.
+
 ## C. HOLD_ADDRESS_CONFLICT
 
 `REC-001`, `REC-017`, `REC-021`, `REC-024`, `REC-036`.

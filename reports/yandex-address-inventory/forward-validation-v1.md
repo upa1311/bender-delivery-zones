@@ -42,6 +42,7 @@ not a population estimate: the review is far below 1,000 and includes mandatory,
 non-random strata.
 
 The independently selected probability subset has 133 linked observations. Its
-unweighted exact+normalized rate is 47.37% (Wilson 95%: 39.08%–55.81%) and its
-design-weighted rate is 55.13%. Fewer than 300 probability addresses have been
+descriptive unweighted exact+normalized rate is 47.37%, and the corrected two-phase
+Hájek estimate is 55.73%. A design-based interval is unavailable pending a larger or
+completed probability review. Fewer than 300 probability addresses have been
 reviewed, so this is not a final estimate for all 9,216 addresses.

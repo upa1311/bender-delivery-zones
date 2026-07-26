@@ -36,6 +36,12 @@ OLD_53_FORWARD_SHA = "2ace7cddce5423d3fdfc36cf5b292f12c8d7146847676cccb8f44e8db3
 OLD_153_FORWARD_SHA = "c2c22da033082896a403cbf5669ff7891955dd935ba1aa2333b0b4fae6e4dec4"
 OLD_7_EXTRAS_SHA = "575f206c72519997b58cfa8a73ed820b67b9908ae35080b2a5f0f8be98277bb9"
 OLD_35_REVERSE_SHA = "84ede575db75e8a322fc592d3d2601fbc525e83faf138e14da85c26a7c4b10b1"
+OLD_100_PROBABILITY_OBSERVATIONS_SHA = (
+    "5cdd275aa347f2cdbbe0e21f40e922484de67cb7588e842d6d31a5c57616739e"
+)
+OLD_69_CONFLICT_RECHECKS_SHA = (
+    "e4e26f7cdf15d0908bac118fceb4702abf2d8957d36f59c9049aa123a9cf16dd"
+)
 
 
 def _load_module(name: str, relative_path: str):
@@ -553,8 +559,18 @@ def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
         if row["population_type"] == "CANONICAL_9216" and row["sample_id"] in sample_by_id:
             row["sampling_weight"] = sample_by_id[row["sample_id"]]["sampling_weight"]
             canonical.append(row)
-    rate, _, _ = ANALYZE.weighted_rate(canonical, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"})
-    assert 0 <= rate <= 1
+    positive = {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+    numerator = sum(
+        float(row["sampling_weight"])
+        for row in canonical
+        if row["yandex_match_status"] in positive
+    )
+    denominator = sum(float(row["sampling_weight"]) for row in canonical)
+    expected_rate = numerator / denominator
+    rate, _, _ = ANALYZE.weighted_rate(canonical, positive)
+    assert numerator > 0
+    assert denominator > numerator
+    assert rate == pytest.approx(expected_rate)
     assert len(canonical) == 117
     assert all("sampling_weight" not in row for row in _csv(RESULTS))
 
@@ -691,6 +707,7 @@ def test_58_every_canonical_conflict_has_a_separate_recheck():
     rechecks = _csv(RECHECK)
     assert len(expected) == len(rechecks) == 69
     assert {row["original_sample_id"] for row in rechecks} == expected
+    assert _rows_hash(rechecks) == OLD_69_CONFLICT_RECHECKS_SHA
 
 
 def test_59_nearest_result_is_not_absence_confirmation():
@@ -730,13 +747,49 @@ def test_61_all_seven_high_extras_are_reconciled_to_canonical_rows():
     assert all(row["nearest_canonical_address_id"] in canonical_ids for row in rows)
 
 
-def test_62_zero_substitution_does_not_increase_provisional_net():
+def test_62_reconciliation_checkpoint_separates_known_net_from_unresolved():
     rows = _csv(RECONCILIATION)
     paired = [row for row in rows if row["net_inventory_effect"] == "ZERO_SUBSTITUTION"]
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     assert len(paired) == checkpoint["paired_number_substitutions"] == 4
     assert checkpoint["gross_yandex_only_high"] == 7
-    assert checkpoint["provisional_net_inventory_difference"] == 3
+    assert checkpoint["gross_canonical_only"] == 5
+    assert checkpoint["unresolved_reconciliations"] == 3
+    assert ANALYZE.provisional_net_inventory_difference(rows) == 0
+    assert checkpoint["provisional_net_inventory_difference"] == 0
+
+
+def test_62a_all_net_effect_values_have_the_required_sign():
+    rows = [
+        {"net_inventory_effect": "PLUS_ONE"},
+        {"net_inventory_effect": "MINUS_ONE"},
+        {"net_inventory_effect": "ZERO_SUBSTITUTION"},
+        {"net_inventory_effect": "UNKNOWN"},
+        {"net_inventory_effect": "UNRESOLVED"},
+    ]
+    assert ANALYZE.provisional_net_inventory_difference(rows) == 0
+    assert ANALYZE.provisional_net_inventory_difference(rows[:1]) == 1
+    assert ANALYZE.provisional_net_inventory_difference(rows[1:2]) == -1
+    for row in rows[2:]:
+        assert ANALYZE.provisional_net_inventory_difference([row]) == 0
+
+
+def test_62b_reports_exclude_unresolved_rows_from_the_numeric_net():
+    statement = (
+        "Known provisional net effect: 0. Three reconciliations remain unresolved "
+        "and are excluded from the numeric net effect."
+    )
+    report_names = (
+        "address-number-reconciliation-v1.md",
+        "final-address-count-estimate-v1.md",
+        "observed-extra-addresses-v1.md",
+        "owner-decision-pack-v1.md",
+    )
+    for report_name in report_names:
+        report = (ROOT / "reports/yandex-address-inventory" / report_name).read_text(
+            encoding="utf-8"
+        )
+        assert statement in report
 
 
 def test_63_probability_sample_is_reproducible_and_unique():
@@ -763,6 +816,67 @@ def test_65_new_probability_observations_are_100_unique_canonical_rows():
     assert all(
         forward[row["forward_sample_id"]]["population_type"] == "CANONICAL_9216"
         for row in links
+    )
+    assert _rows_hash(links) == OLD_100_PROBABILITY_OBSERVATIONS_SHA
+
+
+def test_65a_probability_review_design_is_derived_from_sample_and_links():
+    sample = _csv(PROBABILITY_SAMPLE)
+    links = _csv(PROBABILITY_LINKS)
+    design = ANALYZE.probability_review_design(sample, links)
+    independently_linked = sum(row["already_reviewed"] == "True" for row in sample)
+    independently_eligible = len(sample) - independently_linked
+    assert design["preexisting_linked"] == independently_linked == 33
+    assert design["eligible_new"] == independently_eligible == 367
+    assert design["new_random_batch_reviewed"] == len(links) == 100
+    assert design["new_random_batch_inclusion_probability"] == pytest.approx(
+        len(links) / independently_eligible
+    )
+
+
+def test_65b_all_reviewed_probability_rows_have_two_phase_weights():
+    sample = _csv(PROBABILITY_SAMPLE)
+    links = _csv(PROBABILITY_LINKS)
+    reviewed = ANALYZE.probability_reviewed_rows(sample, links, _csv(RESULTS))
+    assert len(reviewed) == 133
+    assert {row["review_phase"] for row in reviewed} == {
+        "PREEXISTING_LINKED",
+        "NEW_RANDOM_BATCH",
+    }
+    for row in reviewed:
+        first_probability = float(row["first_stage_inclusion_probability"])
+        first_weight = float(row["first_stage_weight"])
+        second_probability = float(row["second_phase_inclusion_probability"])
+        assert first_weight == pytest.approx(1 / first_probability)
+        if row["review_phase"] == "PREEXISTING_LINKED":
+            assert second_probability == 1
+        else:
+            assert second_probability == pytest.approx(100 / 367)
+        assert float(row["final_analysis_weight"]) == pytest.approx(
+            first_weight / second_probability
+        )
+
+
+def test_65c_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
+    reviewed = ANALYZE.probability_reviewed_rows(
+        _csv(PROBABILITY_SAMPLE), _csv(PROBABILITY_LINKS), _csv(RESULTS)
+    )
+    positive = {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+    numerator = sum(
+        float(row["final_analysis_weight"])
+        for row in reviewed
+        if row["yandex_match_status"] in positive
+    )
+    denominator = sum(float(row["final_analysis_weight"]) for row in reviewed)
+    assert ANALYZE.two_phase_hajek_rate(reviewed, positive) == pytest.approx(
+        numerator / denominator
+    )
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert checkpoint["probability_two_phase_hajek_rate"] == pytest.approx(
+        numerator / denominator
+    )
+    assert checkpoint["probability_interval_status"] == (
+        "UNAVAILABLE_PENDING_LARGER_OR_COMPLETE_PROBABILITY_REVIEW"
     )
 
 

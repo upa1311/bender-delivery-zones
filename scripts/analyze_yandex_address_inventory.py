@@ -97,6 +97,85 @@ def weighted_rate(rows: list[dict[str, str]], positive: set[str]) -> tuple[float
     return rate, lower, upper
 
 
+def probability_review_design(
+    sample: list[dict[str, str]], links: list[dict[str, str]]
+) -> dict[str, int | float]:
+    """Derive and validate the current two-phase probability-review design."""
+    sample_ids = [row["probability_sample_id"] for row in sample]
+    link_ids = [row["probability_sample_id"] for row in links]
+    if len(sample_ids) != len(set(sample_ids)):
+        raise ValueError("Duplicate probability-sample IDs")
+    if len(link_ids) != len(set(link_ids)):
+        raise ValueError("Duplicate probability-observation links")
+    sample_by_id = {row["probability_sample_id"]: row for row in sample}
+    if unknown_links := set(link_ids) - set(sample_by_id):
+        raise ValueError(f"Probability links outside sample: {sorted(unknown_links)}")
+
+    preexisting = []
+    eligible_new = []
+    for row in sample:
+        already_reviewed = row["already_reviewed"]
+        linked_forward_id = row["linked_forward_sample_id"]
+        if already_reviewed == "True" and linked_forward_id:
+            preexisting.append(row)
+        elif already_reviewed == "False" and not linked_forward_id:
+            eligible_new.append(row)
+        else:
+            raise ValueError(
+                "Probability sample has inconsistent selection-time review state: "
+                f"{row['probability_sample_id']}"
+            )
+
+    eligible_new_ids = {row["probability_sample_id"] for row in eligible_new}
+    if not set(link_ids) <= eligible_new_ids:
+        raise ValueError("New probability links overlap selection-time observations")
+    if not eligible_new:
+        raise ValueError("No rows are eligible for the second review phase")
+    if not links or len(links) > len(eligible_new):
+        raise ValueError("Invalid second-phase probability-review size")
+
+    return {
+        "preexisting_linked": len(preexisting),
+        "eligible_new": len(eligible_new),
+        "new_random_batch_reviewed": len(links),
+        "new_random_batch_inclusion_probability": len(links) / len(eligible_new),
+    }
+
+
+def two_phase_hajek_rate(
+    rows: list[dict[str, str | float]], positive: set[str]
+) -> float:
+    """Return the two-phase Hájek ratio estimate for reviewed probability rows."""
+    if not rows:
+        raise ValueError("At least one reviewed probability row is required")
+    weights = [float(row["final_analysis_weight"]) for row in rows]
+    denominator = sum(weights)
+    numerator = sum(
+        weight
+        for row, weight in zip(rows, weights, strict=True)
+        if row["yandex_match_status"] in positive
+    )
+    return numerator / denominator
+
+
+def provisional_net_inventory_difference(rows: list[dict[str, str]]) -> int:
+    """Count known signed effects while excluding unknown or unresolved effects."""
+    effect_values = {
+        "PLUS_ONE": 1,
+        "MINUS_ONE": -1,
+        "ZERO_SUBSTITUTION": 0,
+        "UNKNOWN": 0,
+        "UNRESOLVED": 0,
+    }
+    total = 0
+    for row in rows:
+        effect = row["net_inventory_effect"]
+        if effect not in effect_values:
+            raise ValueError(f"Invalid net inventory effect: {effect}")
+        total += effect_values[effect]
+    return total
+
+
 def audit_can_be_complete(
     sample_size: int,
     processed: int,
@@ -133,26 +212,65 @@ def probability_reviewed_rows(
     sample: list[dict[str, str]],
     links: list[dict[str, str]],
     results: list[dict[str, str]],
-) -> list[dict[str, str]]:
+) -> list[dict[str, str | float]]:
     """Join independently selected probability rows to old or new observations."""
+    design = probability_review_design(sample, links)
+    new_probability = float(design["new_random_batch_inclusion_probability"])
     result_by_id = {row["sample_id"]: row for row in results}
     link_by_probability_id = {row["probability_sample_id"]: row for row in links}
-    reviewed: list[dict[str, str]] = []
+    if len(result_by_id) != len(results):
+        raise ValueError("Duplicate forward-result sample IDs")
+    if len({row["forward_sample_id"] for row in links}) != len(links):
+        raise ValueError("Duplicate forward IDs in probability-observation links")
+    reviewed: list[dict[str, str | float]] = []
     for row in sample:
         forward_id = row["linked_forward_sample_id"]
+        review_phase = "PREEXISTING_LINKED"
+        second_probability = 1.0
         if not forward_id:
             link = link_by_probability_id.get(row["probability_sample_id"])
             forward_id = link["forward_sample_id"] if link else ""
+            review_phase = "NEW_RANDOM_BATCH"
+            second_probability = new_probability
         if not forward_id:
             continue
+        if forward_id not in result_by_id:
+            raise ValueError(f"Unknown forward observation: {forward_id}")
         result = result_by_id[forward_id]
         if result["address_id"] != row["address_id"]:
             raise ValueError(f"Probability address mismatch: {row['probability_sample_id']}")
+        if review_phase == "NEW_RANDOM_BATCH":
+            link = link_by_probability_id[row["probability_sample_id"]]
+            if link["address_id"] != row["address_id"]:
+                raise ValueError(
+                    f"Probability link address mismatch: {row['probability_sample_id']}"
+                )
+            if not math.isclose(
+                float(link["sampling_weight"]),
+                float(row["sampling_weight"]),
+                rel_tol=1e-12,
+            ):
+                raise ValueError(
+                    f"Probability link weight mismatch: {row['probability_sample_id']}"
+                )
+        first_probability = float(row["inclusion_probability"])
+        first_weight = float(row["sampling_weight"])
+        if not 0 < first_probability <= 1 or not math.isclose(
+            first_weight, 1 / first_probability, rel_tol=1e-9
+        ):
+            raise ValueError(
+                f"Invalid first-stage weight: {row['probability_sample_id']}"
+            )
         reviewed.append(
             {
                 **result,
                 "probability_sample_id": row["probability_sample_id"],
                 "sampling_weight": row["sampling_weight"],
+                "first_stage_inclusion_probability": first_probability,
+                "first_stage_weight": first_weight,
+                "review_phase": review_phase,
+                "second_phase_inclusion_probability": second_probability,
+                "final_analysis_weight": first_weight / second_probability,
                 "geographic_stratum": row["geographic_stratum"],
                 "street_group_size": row["street_group_size"],
             }
@@ -220,6 +338,19 @@ def main() -> None:
     unresolved_reconciliations = sum(
         row["relationship_type"] == "UNRESOLVED" for row in reconciliations
     )
+    provisional_net = provisional_net_inventory_difference(reconciliations)
+    probability_design = probability_review_design(
+        probability_sample, probability_links
+    )
+    probability_positive = {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
+    probability_successes = sum(
+        row["yandex_match_status"] in probability_positive
+        for row in probability_reviewed
+    )
+    probability_rate = probability_successes / len(probability_reviewed)
+    probability_two_phase_rate = two_phase_hajek_rate(
+        probability_reviewed, probability_positive
+    )
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     expected = {
         "sample_size": len(sample),
@@ -267,6 +398,19 @@ def main() -> None:
         ),
         "probability_sample_total": len(probability_sample),
         "probability_sample_reviewed": len(probability_reviewed),
+        "probability_preexisting_linked": probability_design["preexisting_linked"],
+        "probability_new_review_eligible": probability_design["eligible_new"],
+        "probability_new_random_batch_reviewed": probability_design[
+            "new_random_batch_reviewed"
+        ],
+        "probability_new_second_phase_inclusion_probability": probability_design[
+            "new_random_batch_inclusion_probability"
+        ],
+        "probability_descriptive_unweighted_rate": probability_rate,
+        "probability_two_phase_hajek_rate": probability_two_phase_rate,
+        "probability_interval_status": (
+            "UNAVAILABLE_PENDING_LARGER_OR_COMPLETE_PROBABILITY_REVIEW"
+        ),
         "targeted_sample_reviewed": sum(
             row["sample_id"] in sample_by_id for row in canonical_results
         ),
@@ -280,10 +424,7 @@ def main() -> None:
             row["gross_canonical_only"] == "True" for row in reconciliations
         ),
         "paired_number_substitutions": paired_substitutions,
-        "provisional_net_inventory_difference": sum(
-            row["net_inventory_effect"] == "PLUS_ONE" for row in reconciliations
-        )
-        + unresolved_reconciliations,
+        "provisional_net_inventory_difference": provisional_net,
         "unresolved_reconciliations": unresolved_reconciliations,
         "canonical_conflicts_rechecked": len(rechecks),
     }
@@ -306,19 +447,6 @@ def main() -> None:
     rate, lower, upper = weighted_rate(
         targeted_weighted, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
     )
-    probability_successes = sum(
-        row["yandex_match_status"] in {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
-        for row in probability_reviewed
-    )
-    probability_rate = probability_successes / len(probability_reviewed)
-    probability_lower, probability_upper = wilson_interval(
-        probability_successes, len(probability_reviewed)
-    )
-    probability_weighted_rate, probability_weighted_lower, probability_weighted_upper = (
-        weighted_rate(
-            probability_reviewed, {"EXACT_MATCH", "NORMALIZED_EQUIVALENT"}
-        )
-    )
     classes = Counter(row["deliverable_address_status"] for row in classification)
     print(f"population={len(classification)}")
     print(f"deliverable={classes['DELIVERABLE']}")
@@ -339,16 +467,29 @@ def main() -> None:
     print(f"owner_candidates_reviewed={len(owner_review)}")
     print(f"probability_sample_total={len(probability_sample)}")
     print(f"probability_sample_reviewed={len(probability_reviewed)}")
-    print(f"probability_match_rate={probability_rate:.6f}")
-    print(f"probability_wilson_95={probability_lower:.6f},{probability_upper:.6f}")
-    print(f"probability_weighted_rate={probability_weighted_rate:.6f}")
     print(
-        "probability_weighted_wilson_95="
-        f"{probability_weighted_lower:.6f},{probability_weighted_upper:.6f}"
+        "probability_preexisting_linked="
+        f"{probability_design['preexisting_linked']}"
+    )
+    print(f"probability_new_review_eligible={probability_design['eligible_new']}")
+    print(
+        "probability_new_random_batch_reviewed="
+        f"{probability_design['new_random_batch_reviewed']}"
+    )
+    print(
+        "probability_new_second_phase_inclusion_probability="
+        f"{probability_design['new_random_batch_inclusion_probability']:.12f}"
+    )
+    print(f"probability_descriptive_unweighted_rate={probability_rate:.6f}")
+    print(f"probability_two_phase_hajek_rate={probability_two_phase_rate:.6f}")
+    print(
+        "probability_interval="
+        "UNAVAILABLE_PENDING_LARGER_OR_COMPLETE_PROBABILITY_REVIEW"
     )
     print(f"canonical_conflicts_rechecked={len(rechecks)}")
     print(f"paired_number_substitutions={paired_substitutions}")
     print(f"unresolved_reconciliations={unresolved_reconciliations}")
+    print(f"provisional_net_inventory_difference={provisional_net}")
     print("conclusion=INCONCLUSIVE")
 
 

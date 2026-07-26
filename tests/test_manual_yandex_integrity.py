@@ -149,3 +149,77 @@ def test_measurements_carry_real_numbers_not_placeholders():
         assert float(m["yandex_fastest_distance_km"]) > 0
         assert float(m["yandex_fastest_duration_min"]) > 0
         assert m["checked_date"]
+
+
+# --- batch-2 fixes: checkpoint, discrepancies, evidence-based entries -------
+
+def entries():
+    return list(csv.DictReader((D / "manual-yandex-confirmed-entries.csv").open(encoding="utf-8")))
+
+
+def discrepancies():
+    return list(csv.DictReader(
+        (D / "manual-yandex-address-discrepancies.csv").open(encoding="utf-8")))
+
+
+def test_last_completed_id_comes_from_the_newest_batch():
+    cp = checkpoint()
+    rows = measurements()
+    cids = {c["control_id"] for c in controls()}
+    in_set = [r for r in rows if r["control_id"] in cids]
+    newest = max(r["checked_date"] for r in in_set)
+    last_batch = [r for r in in_set if r["checked_date"] == newest]
+    assert cp["last_completed_control_id"] == last_batch[-1]["control_id"]
+    assert cp["last_batch_size"] == len(last_batch)
+
+
+def test_progress_is_42_of_86_with_44_remaining():
+    cp = checkpoint()
+    assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"]) \
+        == (86, 42, 44)
+    assert cp["blocked_controls"] == 0
+
+
+def test_the_newest_batch_holds_exactly_15_filled_routes():
+    rows = measurements()
+    newest = max(r["checked_date"] for r in rows)
+    batch = [r for r in rows if r["checked_date"] == newest]
+    assert len(batch) == 15
+    for r in batch:
+        assert float(r["yandex_fastest_distance_km"]) > 0
+        assert float(r["yandex_shortest_distance_km"]) > 0
+        assert int(r["yandex_variant_count"]) >= 1
+
+
+def test_every_explicit_address_mismatch_is_recorded():
+    recorded = {d["control_id"] for d in discrepancies()}
+    for cid in ("MY-006", "MY-007", "MY-013", "MY-014", "MY-016", "MY-019"):
+        assert cid in recorded, cid
+
+
+def test_house_number_mismatches_are_flagged_as_such():
+    by = {d["control_id"]: d["flag"] for d in discrepancies()}
+    assert "HOUSE_NUMBER_DISAGREEMENT" in by.get("MY-014", "")
+    assert "HOUSE_NUMBER_DISAGREEMENT" in by.get("MY-019", "")
+
+
+def test_confirmed_entries_contain_no_unknown():
+    for e in entries():
+        assert e["confidence"] == "CONFIRMED"
+        assert e["confirmed_entry_street"] != "UNKNOWN_REQUIRES_MAP_REVIEW"
+
+
+def test_entry_is_never_the_destination_street_without_evidence():
+    for r in measurements():
+        entry = r["yandex_district_entry"]
+        if entry == "UNKNOWN_REQUIRES_MAP_REVIEW":
+            assert r["yandex_district_entry_confidence"] == "UNKNOWN"
+            continue
+        assert r["yandex_district_entry_evidence"].strip(), r["control_id"]
+
+
+def test_destination_street_and_entry_are_separate_fields():
+    cols = measurements()[0].keys()
+    for c in ("yandex_destination_street", "yandex_district_entry",
+              "yandex_main_streets", "yandex_district_entry_confidence"):
+        assert c in cols

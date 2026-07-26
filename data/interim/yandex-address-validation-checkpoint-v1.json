@@ -1,0 +1,15 @@
+{
+  "sample_size": 2565,
+  "processed": 3,
+  "exact_match": 3,
+  "normalized_equivalent": 0,
+  "nearby_only": 0,
+  "different_street": 0,
+  "different_house": 0,
+  "settlement_only": 0,
+  "not_found": 0,
+  "non_deliverable": 0,
+  "ambiguous": 0,
+  "updated_at": "2026-07-26",
+  "complete": false
+}

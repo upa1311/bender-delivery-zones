@@ -3,14 +3,30 @@
 from __future__ import annotations
 
 import csv
+import importlib.util
 import json
 import math
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[1]
 D = REPO / "docs/data"
 TOL_M = 60.0
+FOURTH_BATCH_IDS = [
+    "MY-052", "MY-053", "MY-054", "MY-057", "MY-058",
+    "MY-059", "MY-060", "MY-062", "MY-063", "MY-064",
+    "MY-065", "MY-066", "MY-067", "MY-068", "MY-069",
+]
+
+REBUILD_SPEC = importlib.util.spec_from_file_location(
+    "rebuild_manual_yandex_outputs",
+    REPO / "scripts/rebuild_manual_yandex_outputs.py",
+)
+assert REBUILD_SPEC and REBUILD_SPEC.loader
+REBUILD = importlib.util.module_from_spec(REBUILD_SPEC)
+REBUILD_SPEC.loader.exec_module(REBUILD)
 
 
 def controls():
@@ -162,32 +178,46 @@ def discrepancies():
         (D / "manual-yandex-address-discrepancies.csv").open(encoding="utf-8")))
 
 
-def test_last_completed_id_comes_from_the_newest_batch():
+def test_last_completed_id_comes_from_the_last_appended_batch():
     cp = checkpoint()
     rows = measurements()
     cids = {c["control_id"] for c in controls()}
     in_set = [r for r in rows if r["control_id"] in cids]
-    newest = max(r["checked_date"] for r in in_set)
-    last_batch = [r for r in in_set if r["checked_date"] == newest]
+    last_date = in_set[-1]["checked_date"]
+    last_batch = []
+    for row in reversed(in_set):
+        if row["checked_date"] != last_date:
+            break
+        last_batch.append(row)
+    last_batch.reverse()
     assert cp["last_completed_control_id"] == last_batch[-1]["control_id"]
     assert cp["last_batch_size"] == len(last_batch)
+    assert cp["last_batch_checked_date"] == last_date
 
 
-def test_progress_is_57_of_86_with_29_remaining():
+def test_progress_is_72_of_86_with_14_remaining():
     cp = checkpoint()
-    assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"])         == (86, 57, 29)  # noqa: E501
+    assert (cp["total_controls"], cp["measured_controls"], cp["remaining_controls"]) \
+        == (86, 72, 14)
     assert cp["blocked_controls"] == 0
+    assert cp["extra_landmark_measurements"] == 4
+    assert cp["last_completed_control_id"] == "MY-069"
 
 
-def test_the_newest_batch_holds_exactly_15_filled_routes():
+def test_the_fourth_batch_holds_exactly_15_filled_routes():
     rows = measurements()
-    newest = max(r["checked_date"] for r in rows)
-    batch = [r for r in rows if r["checked_date"] == newest]
+    batch = rows[-15:]
+    assert [r["control_id"] for r in batch] == FOURTH_BATCH_IDS
     assert len(batch) == 15
     for r in batch:
         assert float(r["yandex_fastest_distance_km"]) > 0
         assert float(r["yandex_shortest_distance_km"]) > 0
+        assert float(r["yandex_fastest_duration_min"]) > 0
+        assert float(r["yandex_shortest_duration_min"]) > 0
         assert int(r["yandex_variant_count"]) >= 1
+        assert r["manual_entry_method"] == "EMPTY"
+        assert r["manual_entry_confidence"] == "UNKNOWN"
+        assert r["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"
 
 
 def test_every_explicit_address_mismatch_is_recorded():
@@ -272,3 +302,38 @@ def test_unconfirmed_rows_say_so_explicitly():
     for r in measurements():
         if r["yandex_district_entry_confidence"] == "UNKNOWN":
             assert r["yandex_district_entry"] == "UNKNOWN_REQUIRES_MAP_REVIEW"
+
+
+def test_measurements_support_manual_entry_evidence_fields():
+    fields = measurements()[0].keys()
+    for field in REBUILD.MANUAL_ENTRY_DEFAULTS:
+        assert field in fields
+
+
+def test_confirmed_manual_entry_requires_manual_map_observation():
+    row = {
+        "control_id": "MY-TEST",
+        "manual_entry_street": "улица Тестовая",
+        "manual_entry_evidence": "граница визуально отмечена на карте",
+        "manual_entry_method": "EMPTY",
+        "manual_entry_confidence": "CONFIRMED",
+    }
+    with pytest.raises(ValueError, match="MANUAL_MAP_OBSERVATION"):
+        REBUILD.apply_manual_entry(row)
+
+
+def test_confirmed_manual_entry_requires_nonempty_evidence():
+    row = {
+        "control_id": "MY-TEST",
+        "manual_entry_street": "улица Тестовая",
+        "manual_entry_evidence": "",
+        "manual_entry_method": "MANUAL_MAP_OBSERVATION",
+        "manual_entry_confidence": "CONFIRMED",
+    }
+    with pytest.raises(ValueError, match="non-empty evidence"):
+        REBUILD.apply_manual_entry(row)
+
+
+def test_fourth_batch_does_not_publish_route_streets_as_entries():
+    published = {row["control_id"] for row in entries()}
+    assert published.isdisjoint(FOURTH_BATCH_IDS)

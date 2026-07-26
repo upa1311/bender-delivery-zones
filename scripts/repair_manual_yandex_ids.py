@@ -82,11 +82,21 @@ def main() -> int:
         w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
         w.writeheader()
         w.writerows(meas)
+    # The migration file is a HISTORICAL record of every id repair. Re-running the
+    # script after the ids are already correct must not erase it, so previously
+    # recorded rows are preserved and only genuinely new ones are appended.
+    cols = ["old_control_id", "new_control_id", "label", "destination_lat",
+            "destination_lon", "reason"]
+    previous = (list(csv.DictReader(MIGRATION.open(encoding="utf-8")))
+                if MIGRATION.exists() else [])
+    seen = {(r["old_control_id"], r["new_control_id"]) for r in previous}
+    fresh = [r for r in migration
+             if r["old_control_id"] != r["new_control_id"]
+             and (r["old_control_id"], r["new_control_id"]) not in seen]
     with MIGRATION.open("w", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=["old_control_id", "new_control_id", "label",
-                                           "destination_lat", "destination_lon", "reason"])
+        w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
         w.writeheader()
-        w.writerows(migration)
+        w.writerows(previous + fresh)
 
     measured_ids = {m["control_id"] for m in meas if m["control_id"].startswith("MY-")
                     and not m["control_id"].startswith("MY-X")}

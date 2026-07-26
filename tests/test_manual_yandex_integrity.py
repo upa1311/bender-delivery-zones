@@ -75,8 +75,23 @@ def test_migration_records_the_my_002_split():
         assert r["reason"].strip()
 
 
-def test_migration_covers_every_measurement():
-    assert len(migration()) == len(measurements())
+def test_migration_is_a_historical_repair_log():
+    """It records every id that CHANGED (and keeps them across re-runs); it is not
+    a per-measurement index, so it must not be regenerated empty."""
+    rows = migration()
+    assert rows, "the repair history must survive a re-run"
+    changed = [r for r in rows if r["old_control_id"] != r["new_control_id"]]
+    assert changed, "at least the MY-002 split must stay on record"
+    for r in changed:
+        assert r["reason"].strip()
+        assert r["destination_lat"] and r["destination_lon"]
+
+
+def test_every_renamed_id_is_still_present_in_the_measurements():
+    current = {m["control_id"] for m in measurements()}
+    for r in migration():
+        if r["old_control_id"] != r["new_control_id"]:
+            assert r["new_control_id"] in current, r["new_control_id"]
 
 
 # --- one measurement <-> one control, coordinates agree ---------------------

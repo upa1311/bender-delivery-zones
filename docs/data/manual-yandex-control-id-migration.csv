@@ -1,0 +1,17 @@
+old_control_id,new_control_id,label,destination_lat,destination_lon,reason
+MY-002,MY-002,Борисовка: Кишинёвская 1,46.83524,29.46735,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-002,MY-X01,Борисовка: Титова,46.84045,29.47431,no control point within 60 m (nearest 116 m) — kept as an extra landmark measurement outside the 86
+MY-003,MY-003,Борисовка: дальняя часть (рынок),46.83333,29.45134,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-079,MY-079,Хомутяновка: Пивзавод (ближайший дом),46.8003,29.47484,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-070,MY-070,Хомутяновка: Главана,46.81723,29.45868,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-085,MY-085,Хомутяновка: Старого,46.82183,29.46083,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-007,MY-X02,Хомутяновка: Московская,46.82075,29.48213,no control point within 60 m (nearest 843 m) — kept as an extra landmark measurement outside the 86
+MY-008,MY-X03,Хомутяновка: Первомайская,46.81492,29.48,no control point within 60 m (nearest 958 m) — kept as an extra landmark measurement outside the 86
+MY-009,MY-X04,Хомутяновка: Некрасова,46.80904,29.48073,no control point within 60 m (nearest 586 m) — kept as an extra landmark measurement outside the 86
+MY-050,MY-050,Протягайловка: Мира,46.81843,29.45364,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-023,MY-023,Парканы: начало,46.83471,29.50995,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-018,MY-018,Гиска: начало,46.79347,29.47698,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-055,MY-055,Северный: контроль 1,46.88045,29.47674,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-056,MY-056,Северный: Strada Tighina 31/2,46.8774,29.4757,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-061,MY-061,Северный: Strada Tighina 31/7,46.87594,29.47546,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback
+MY-011,MY-011,Гиска: дальняя западная часть (Ленина 329),46.78922,29.40238,re-matched to the control point by coordinate (0.0 m); the old id came from a row-index fallback

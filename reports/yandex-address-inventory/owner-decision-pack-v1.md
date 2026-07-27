@@ -10,10 +10,11 @@ canonical registry.
 ## B. Seven HIGH Yandex-only observations
 
 `YOX-0001` through `YOX-0007`. Four are provisional zero-effect number
-substitutions; three remain unresolved. The owner must decide whether each is a
-replacement, a distinct delivery address, or insufficient evidence.
+substitutions; two have separate visible Yandex cards from their canonical
+neighbors; one remains unresolved. The owner must decide whether each is accepted
+for a future release.
 
-Known provisional net effect: 0. Three reconciliations remain unresolved and are excluded from the numeric net effect.
+Known provisional net effect: 2. One reconciliation remains unresolved and is excluded from the numeric net effect.
 
 ## C. HOLD_ADDRESS_CONFLICT
 

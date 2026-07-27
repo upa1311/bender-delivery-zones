@@ -15,9 +15,9 @@ observations are linked only after selection and therefore cannot affect inclusi
 The current review checkpoint is explicitly two-phase. The sample file derives 33
 `PREEXISTING_LINKED` rows from its frozen selection-time links; their second-phase
 inclusion probability is 1. The remaining 367 rows form the eligible pool for the
-outcome-independent random review order. The link file contains 100 reviewed rows
-from that pool, so every `NEW_RANDOM_BATCH` row has second-phase inclusion
-probability `100 / 367`.
+outcome-independent random review order. The link file now contains 267 reviewed
+rows from that pool, so every `NEW_RANDOM_BATCH` row has second-phase inclusion
+probability `267 / 367`.
 
 The second-phase selection rule is
 `FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER`: for batch size N, link rows must equal
@@ -30,7 +30,7 @@ For every reviewed row, the analyzer derives and validates
 `first_stage_inclusion_probability`, `first_stage_weight`, `review_phase`,
 `second_phase_inclusion_probability`, and `final_analysis_weight`. The final weight
 is `first_stage_weight / second_phase_inclusion_probability`. The counts 33, 367,
-and 100 are derived from the sample and link files and checked for unique IDs,
+and 267 are derived from the sample and link files and checked for unique IDs,
 non-overlap, frozen selection order, and valid observation links.
 
 The interim exact+normalized point estimate is the Hájek ratio

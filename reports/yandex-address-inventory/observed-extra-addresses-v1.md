@@ -3,10 +3,10 @@
 ## Reconciliation update — 2026-07-27
 
 All seven HIGH-confidence observations remain preserved as gross Yandex-only
-evidence. Four are provisional zero-effect number substitutions and three remain
-unresolved.
+evidence. Four are provisional zero-effect number substitutions, two are confirmed
+distinct visible additions, and one remains unresolved.
 
-Known provisional net effect: 0. Three reconciliations remain unresolved and are excluded from the numeric net effect.
+Known provisional net effect: 2. One reconciliation remains unresolved and is excluded from the numeric net effect.
 
 This is not a citywide total.
 

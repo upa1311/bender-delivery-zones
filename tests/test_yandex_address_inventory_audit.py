@@ -34,8 +34,10 @@ FIRST_THREE_FORWARD_SHA = (
 )
 OLD_53_FORWARD_SHA = "2ace7cddce5423d3fdfc36cf5b292f12c8d7146847676cccb8f44e8db3508255"
 OLD_153_FORWARD_SHA = "c2c22da033082896a403cbf5669ff7891955dd935ba1aa2333b0b4fae6e4dec4"
+OLD_253_FORWARD_SHA = "52c17e9976bfcb7179872c95f375b78b6fb945483e8a5ec739a569879ee8011e"
 OLD_7_EXTRAS_SHA = "575f206c72519997b58cfa8a73ed820b67b9908ae35080b2a5f0f8be98277bb9"
 OLD_35_REVERSE_SHA = "84ede575db75e8a322fc592d3d2601fbc525e83faf138e14da85c26a7c4b10b1"
+OLD_60_REVERSE_SHA = "ddec018cab99f2705099e444cd433b954569f969ebb92d9c9781477f1473ac3a"
 OLD_100_PROBABILITY_OBSERVATIONS_SHA = (
     "5cdd275aa347f2cdbbe0e21f40e922484de67cb7588e842d6d31a5c57616739e"
 )
@@ -534,8 +536,8 @@ def test_46_first_three_yandex_observations_are_unchanged():
 
 def test_47_new_forward_sample_ids_are_unique():
     rows = _csv(RESULTS)
-    assert len(rows) == 253
-    assert len({row["sample_id"] for row in rows}) == 253
+    assert len(rows) == 420
+    assert len({row["sample_id"] for row in rows}) == 420
 
 
 def test_47a_old_53_forward_observations_are_unchanged():
@@ -549,7 +551,7 @@ def test_48_canonical_and_recovered_populations_are_counted_separately():
     counts = defaultdict(int)
     for row in _csv(RESULTS):
         counts[row["population_type"]] += 1
-    assert counts == {"CANONICAL_9216": 217, "RECOVERED_EXCLUSION_CANDIDATE": 36}
+    assert counts == {"CANONICAL_9216": 384, "RECOVERED_EXCLUSION_CANDIDATE": 36}
 
 
 def test_49_recovered_rows_do_not_enter_weighted_canonical_rate(sample_rows):
@@ -642,9 +644,9 @@ def test_52_checkpoint_matches_actual_csv_counts():
     recovery = _csv(RECOVERY)
     reverse = _csv(REVERSE)
     assert checkpoint["processed"] == checkpoint["forward_processed_total"] == len(results)
-    assert checkpoint["canonical_processed"] == 217
+    assert checkpoint["canonical_processed"] == 384
     assert checkpoint["recovered_candidate_processed"] == len(recovery) == 36
-    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 60
+    assert checkpoint["reverse_street_groups_reviewed"] == len(reverse) == 143
     assert checkpoint["reverse_street_groups_complete"] == 25
     assert checkpoint["medium_extras_rechecked"] == 6
     assert checkpoint["deliverable_candidates_owner_reviewed"] == 15
@@ -684,9 +686,14 @@ def test_56_protected_153_forward_observations_are_unchanged():
     assert _rows_hash(_csv(RESULTS)[:153]) == OLD_153_FORWARD_SHA
 
 
+def test_56a_protected_253_forward_observations_are_unchanged():
+    assert _rows_hash(_csv(RESULTS)[:253]) == OLD_253_FORWARD_SHA
+
+
 def test_57_protected_extras_and_reverse_prefix_are_unchanged():
     assert _rows_hash(_csv(EXTRAS)) == OLD_7_EXTRAS_SHA
     assert _rows_hash(_csv(REVERSE)[:35]) == OLD_35_REVERSE_SHA
+    assert _rows_hash(_csv(REVERSE)[:60]) == OLD_60_REVERSE_SHA
 
 
 def test_58_every_canonical_conflict_has_a_separate_recheck():
@@ -754,9 +761,9 @@ def test_62_reconciliation_checkpoint_separates_known_net_from_unresolved():
     assert len(paired) == checkpoint["paired_number_substitutions"] == 4
     assert checkpoint["gross_yandex_only_high"] == 7
     assert checkpoint["gross_canonical_only"] == 5
-    assert checkpoint["unresolved_reconciliations"] == 3
-    assert ANALYZE.provisional_net_inventory_difference(rows) == 0
-    assert checkpoint["provisional_net_inventory_difference"] == 0
+    assert checkpoint["unresolved_reconciliations"] == 1
+    assert ANALYZE.provisional_net_inventory_difference(rows) == 2
+    assert checkpoint["provisional_net_inventory_difference"] == 2
 
 
 def test_62a_all_net_effect_values_have_the_required_sign():
@@ -776,8 +783,8 @@ def test_62a_all_net_effect_values_have_the_required_sign():
 
 def test_62b_reports_exclude_unresolved_rows_from_the_numeric_net():
     statement = (
-        "Known provisional net effect: 0. Three reconciliations remain unresolved "
-        "and are excluded from the numeric net effect."
+        "Known provisional net effect: 2. One reconciliation remains unresolved "
+        "and is excluded from the numeric net effect."
     )
     report_names = (
         "address-number-reconciliation-v1.md",
@@ -807,20 +814,32 @@ def test_64_probability_weights_are_valid():
         assert "yandex_match_status" not in row
 
 
-def test_65_new_probability_observations_are_100_unique_canonical_rows():
+def test_65_probability_observations_are_267_unique_canonical_rows():
     links = _csv(PROBABILITY_LINKS)
     forward = {row["sample_id"]: row for row in _csv(RESULTS)}
-    assert len(links) == 100
-    assert len({row["probability_sample_id"] for row in links}) == 100
-    assert len({row["address_id"] for row in links}) == 100
+    assert len(links) == 267
+    assert len({row["probability_sample_id"] for row in links}) == 267
+    assert len({row["address_id"] for row in links}) == 267
     assert all(
         forward[row["forward_sample_id"]]["population_type"] == "CANONICAL_9216"
         for row in links
     )
-    assert _rows_hash(links) == OLD_100_PROBABILITY_OBSERVATIONS_SHA
+    assert _rows_hash(links[:100]) == OLD_100_PROBABILITY_OBSERVATIONS_SHA
 
 
-def test_65a_probability_review_design_is_derived_from_sample_and_links():
+def test_65a_new_probability_batch_has_167_rows_and_sequential_ids():
+    links = _csv(PROBABILITY_LINKS)[100:]
+    forward = _csv(RESULTS)[253:]
+    assert len(links) == len(forward) == 167
+    assert [row["forward_sample_id"] for row in links] == [
+        f"YAP-{index:04d}" for index in range(101, 268)
+    ]
+    assert [row["sample_id"] for row in forward] == [
+        f"YAP-{index:04d}" for index in range(101, 268)
+    ]
+
+
+def test_65b_probability_review_design_is_derived_from_sample_and_links():
     sample = _csv(PROBABILITY_SAMPLE)
     links = _csv(PROBABILITY_LINKS)
     design = ANALYZE.probability_review_design(sample, links)
@@ -835,7 +854,7 @@ def test_65a_probability_review_design_is_derived_from_sample_and_links():
     actual_link_ids = [row["probability_sample_id"] for row in links]
     assert design["preexisting_linked"] == independently_linked == 33
     assert design["eligible_new"] == independently_eligible == 367
-    assert design["new_random_batch_reviewed"] == len(links) == 100
+    assert design["new_random_batch_reviewed"] == len(links) == 267
     assert actual_link_ids == eligible_ids[: len(links)]
     assert design["new_random_batch_inclusion_probability"] == pytest.approx(
         len(links) / independently_eligible
@@ -843,10 +862,10 @@ def test_65a_probability_review_design_is_derived_from_sample_and_links():
     assert design["second_phase_selection_rule"] == (
         "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER"
     )
-    assert design["second_phase_batch_size"] == len(links) == 100
+    assert design["second_phase_batch_size"] == len(links) == 267
 
 
-def test_65aa_replacing_one_link_with_another_eligible_id_is_rejected():
+def test_65ba_replacing_one_link_with_another_eligible_id_is_rejected():
     sample = _csv(PROBABILITY_SAMPLE)
     links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
     eligible_ids = [
@@ -860,7 +879,7 @@ def test_65aa_replacing_one_link_with_another_eligible_id_is_rejected():
         ANALYZE.probability_review_design(sample, links)
 
 
-def test_65ab_reordering_link_rows_is_rejected():
+def test_65bb_reordering_link_rows_is_rejected():
     sample = _csv(PROBABILITY_SAMPLE)
     links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
     links[0], links[1] = links[1], links[0]
@@ -868,7 +887,7 @@ def test_65ab_reordering_link_rows_is_rejected():
         ANALYZE.probability_review_design(sample, links)
 
 
-def test_65ac_arbitrary_eligible_subset_is_rejected():
+def test_65bc_arbitrary_eligible_subset_is_rejected():
     sample = _csv(PROBABILITY_SAMPLE)
     links = [dict(row) for row in _csv(PROBABILITY_LINKS)]
     eligible_ids = [
@@ -884,11 +903,11 @@ def test_65ac_arbitrary_eligible_subset_is_rejected():
         ANALYZE.probability_review_design(sample, links)
 
 
-def test_65b_all_reviewed_probability_rows_have_two_phase_weights():
+def test_65c_all_reviewed_probability_rows_have_two_phase_weights():
     sample = _csv(PROBABILITY_SAMPLE)
     links = _csv(PROBABILITY_LINKS)
     reviewed = ANALYZE.probability_reviewed_rows(sample, links, _csv(RESULTS))
-    assert len(reviewed) == 133
+    assert len(reviewed) == 300
     assert {row["review_phase"] for row in reviewed} == {
         "PREEXISTING_LINKED",
         "NEW_RANDOM_BATCH",
@@ -901,13 +920,13 @@ def test_65b_all_reviewed_probability_rows_have_two_phase_weights():
         if row["review_phase"] == "PREEXISTING_LINKED":
             assert second_probability == 1
         else:
-            assert second_probability == pytest.approx(100 / 367)
+            assert second_probability == pytest.approx(267 / 367)
         assert float(row["final_analysis_weight"]) == pytest.approx(
             first_weight / second_probability
         )
 
 
-def test_65c_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
+def test_65d_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
     reviewed = ANALYZE.probability_reviewed_rows(
         _csv(PROBABILITY_SAMPLE), _csv(PROBABILITY_LINKS), _csv(RESULTS)
     )
@@ -922,7 +941,7 @@ def test_65c_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
         numerator / denominator
     )
     assert ANALYZE.two_phase_hajek_rate(reviewed, positive) == pytest.approx(
-        0.5573411385047288
+        0.5197651199056238
     )
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     assert checkpoint["probability_two_phase_hajek_rate"] == pytest.approx(
@@ -941,20 +960,20 @@ def test_65c_two_phase_hajek_rate_is_independently_recomputed_from_raw_rows():
 
 def test_66_checkpoint_has_separate_population_and_probability_counts():
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
-    assert checkpoint["canonical_processed"] >= 217
-    assert checkpoint["forward_processed_total"] >= 253
+    assert checkpoint["canonical_processed"] == 384
+    assert checkpoint["forward_processed_total"] == 420
     assert checkpoint["probability_sample_total"] == 400
-    assert checkpoint["probability_sample_reviewed"] == 133
+    assert checkpoint["probability_sample_reviewed"] == 300
     assert checkpoint["targeted_sample_reviewed"] == 117
-    assert sum(checkpoint["canonical_status_counts"].values()) == 217
+    assert sum(checkpoint["canonical_status_counts"].values()) == 384
     assert sum(checkpoint["recovered_status_counts"].values()) == 36
-    assert sum(checkpoint["combined_status_counts"].values()) == 253
+    assert sum(checkpoint["combined_status_counts"].values()) == 420
 
 
 def test_67_reverse_batch_has_required_complete_coverage():
     rows = _csv(REVERSE)
     complete = [row for row in rows if row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP"]
-    assert len(rows) >= 60
+    assert len(rows) == 143
     assert len(complete) >= 25
     assert all(ANALYZE.reverse_group_can_be_complete(row) for row in complete)
     assert all("start/25%/middle/75%/end" in row["segments_reviewed"] for row in complete[10:])

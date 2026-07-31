@@ -1,30 +1,27 @@
-# CITY_K4 analysis v1
+# CITY_K4 analysis v1 (fixed-origin)
 
-City deployable model (4,866 city addresses; natural-break DP over city
-`expected_km`). Full-population 4R is a diagnostic only — see
-`zone-model-comparison-v1.md`.
+City deployable model over the fixed-origin km (route from 46.82388, 29.48313),
+4,866 city addresses, natural-break DP.
 
-## Zones (CITY_K4R natural breaks)
+## Zones
 
-| Zone | Route km | City addresses | Share | BALANCED fee руб |
+| Zone | Fixed-origin km | City addresses | Share | BALANCED fee руб |
 |---|---|---:|---:|---:|
-| 1 | ≤ 2.025 | 1338 | 27.5 % | 12 |
-| 2 | 2.025–3.275 | 1243 | 25.5 % | 13 |
-| 3 | 3.275–4.525 | 820 | 16.9 % | 17 |
-| 4 | > 4.525 | 1465 | 30.1 % | 25 |
+| 1 | ≤ 1.725 | 1349 | 28 % | 11 |
+| 2 | 1.725–3.275 | 1192 | 24 % | 12 |
+| 3 | 3.275–4.975 | 1321 | 27 % | 22 |
+| 4 | > 4.975 | 1004 | 21 % | 32 |
 
-Three policies (руб.): DRIVER_CONSERVATIVE 13/14/18/26 · BALANCED 12/13/17/25 ·
-CUSTOMER_FIRST 15/16/20/26.
+Policies (руб.): DRIVER_CONSERVATIVE 11/12/23/34 · BALANCED 11/12/22/32 ·
+CUSTOMER_FIRST 11/12/20/28.
 
-## Strengths
-- **Most stable on the real controls:** 89 % router/Yandex agreement (3 flips of
-  28 city controls).
-- **Fewest neighbour price discontinuities:** 1,750 different-zone pairs within
-  100 m, max jump 13 руб.
+## Read
+- On the fixed-origin metric K=4 is **well balanced** (max share 28 %), unlike the
+  earlier blended-metric K=4 (one 40 % zone).
+- **Most stable and fewest neighbour discontinuities:** 25/28 manual agreement
+  (flips MY-002, MY-079, MY-085); 1,667 different-zone neighbour pairs within
+  100 m — the lowest of any K.
 - Simplest to explain and support.
 
-## Weakness
-- Zone 4 (> 4.525 km) holds 30 % of city addresses in one band, so the far-city
-  client at 4.6 km and at 6 km pay the same 25 руб.
-
-CITY_K4 is the simplest, most stable option, at the cost of one broad far zone.
+CITY_K4 is the simplest, tied for most stable, with the fewest neighbour price
+differences — the safe fallback.

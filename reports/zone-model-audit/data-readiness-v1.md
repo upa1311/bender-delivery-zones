@@ -34,11 +34,17 @@ City total = **4,866**; external total = **4,350**.
 | Reproduces released `zone_id` | **9,211 / 9,216 (99.95 %)** | binning `expected_km` by baseline edges |
 | Route duration | **not available per address** | no per-address duration field exists — left blank, not invented |
 
-`expected_km` is the production origin-weighted OSRM road distance (origin
-46.82388, 29.48313). It is the only field that reproduces the released zones, so
-it is the route metric for all models. `central_km` (88 %) and `bam_km` (28 %) are
-alternative diagnostics and are **not** the zoning metric. The 5 non-reproducing
-addresses sit within rounding distance of a threshold and are flagged, not forced.
+**Metric correction (this round).** `expected_km` is **not** a clean single-origin
+route: `scripts/stage09_engine.py` routes every address from three origins and
+`expected_km` is a **0.85 / 0.10 / 0.05 blend** of central + bam + outer. The clean
+route **from the fixed dispatch origin 46.82388, 29.48313** already exists as
+**`central_km`** (the 0.85-weight "central" origin), full 9,216 coverage. City
+models are therefore now built on **`fixed_origin_km = central_km`**
+(`data/interim/fixed-origin-address-routes-v1.csv`, provenance recorded, not
+invented). `expected_km` is retained only as **LEGACY_RELEASE_DIAGNOSTIC** for the
+full-population 4R/5R/6R diagnostics. Fixed-origin vs blend differ materially
+(median |Δ| 0.24 km, max 2.89 km). Boundary convention is unified to
+`[lower_bound, upper_bound)`.
 
 Route distance distribution (km): min 0.403, median 4.642, p90 6.357, max 9.692.
 Straight-line distance is **not** used as a route substitute anywhere.

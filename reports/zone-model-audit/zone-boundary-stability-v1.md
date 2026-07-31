@@ -1,57 +1,62 @@
 # Zone boundary stability v1
 
-Two independent checks: (1) real validation against the manual Yandex controls,
-and (2) geometric near-threshold / same-street / neighbour-discontinuity density.
-Route perturbation is reported only as a supplementary geometric sensitivity — it
-is **not** called manual validation.
+Two independent checks: (1) real validation against the manual Yandex controls
+using the **fixed-origin** router km, and (2) geometric neighbour-discontinuity
+density. Route perturbation is a supplementary geometric indicator only — it is
+**not** called manual validation.
 
-## 1. Real manual-control validation (router expected_km vs Yandex km)
+## 1. Real manual-control validation (fixed-origin router km vs Yandex km)
 
 Source: `docs/data/manual-yandex-route-controls.csv` (86) +
-`docs/data/manual-yandex-measurements.csv` (90 Yandex measurements).
-`data/interim/zone-model-manual-control-validation-v1.csv` holds every row.
+`docs/data/manual-yandex-measurements.csv` (90). Full rows:
+`data/interim/zone-model-manual-control-validation-v1.csv`. Router km is now the
+**fixed-origin** central_km (route from 46.82388, 29.48313), which is
+apples-to-apples with Yandex's single-origin measurement.
 
-**Honest coverage:** only **76** of 86 controls have a `uid` inside the 9,216
-population (10 are Северный / Балка / Кавказ / Ленинский, outside it), and only
-**28** of those are core-city (Бендеры). All 86 control addresses lie in outer
-districts — there is **no** manual control in the dense city centre. So city
-models are validated on 28 real controls, not 90.
+**Honest coverage:** only **28** of the 90 controls are core-city (Бендеры); the
+rest are outer districts or outside the 9,216 population. City models are
+validated on 28 real controls.
 
-For each control: router zone = zone of the address `expected_km`; Yandex zone =
-zone of the manually measured Yandex km; a "flip" is a zone disagreement.
+| Model | Controls | Same zone | Flips | Flip control IDs |
+|---|---:|---:|---:|---|
+| CITY_K4R | 28 | 25 (89 %) | 3 | MY-002, MY-079, MY-085 |
+| CITY_K5R | 28 | 25 (89 %) | 3 | MY-002, MY-073, MY-081 |
+| CITY_K6R | 28 | 24 (86 %) | 4 | MY-002, MY-063, MY-073, MY-085 |
 
-| Model | Controls | Same zone | 1-zone flip | Multi-zone flip | Flip control IDs |
-|---|---:|---:|---:|---:|---|
-| CITY_K4R (city) | 28 | 25 (89 %) | 3 | 0 | MY-001, MY-004, MY-062 |
-| CITY_K5R (city) | 28 | 22 (79 %) | 6 | 0 | MY-001, MY-002, MY-064, MY-081, MY-083, MY-085 |
-| CITY_K6R (city) | 28 | 18 (64 %) | 10 | 0 | MY-001, MY-002, MY-004, MY-064, MY-065, MY-066, MY-072, MY-081, MY-083, MY-085 |
-| BASELINE_4 (all 76) | 76 | 61 (80 %) | 15 | 0 | (see CSV) |
-| K5R full (all 76) | 76 | 60 (79 %) | 16 | 0 | (see CSV) |
+**Key correction from the previous (blended-metric) round:** on the fixed-origin
+metric **CITY_K5 is exactly as stable as CITY_K4** (both 25/28). The earlier
+finding that K5 was less stable (79 %) was an artefact of the blended
+`expected_km`, not a real property of five zones.
 
-**Reading:** on the real controls, more zones = more Yandex/router disagreements.
-CITY_K4R is the most robust (89 % agreement, 3 flips); CITY_K5R drops to 79 %;
-CITY_K6R to 64 %. This is measured, not simulated.
+## 2. Neighbour price discontinuity (city models, fixed-origin)
 
-## 2. Geometric density (city models)
+`data/interim/zone-neighbour-discontinuities-v1.csv` (235,842 city pairs ≤ 250 m):
 
-| Model | ≤50 m of threshold | same-street splits | diff-zone pairs ≤100 m | max price jump руб |
-|---|---:|---:|---:|---:|
-| CITY_K4R | — | — | 1,750 | 13 |
-| CITY_K5R | — | — | 2,766 | 15 |
-| CITY_K6R | — | — | 4,163 | 15 |
+| Model | diff-zone pairs ≤100 m | max price jump руб | p90 jump |
+|---|---:|---:|---:|
+| CITY_K4R | 1,667 | 15 | 8 |
+| CITY_K5R | 2,628 | 17 | 7 |
+| CITY_K6R | 2,424 | 19 | 6 |
 
-Neighbour discontinuities (`data/interim/zone-neighbour-discontinuities-v1.csv`,
-235,842 city pairs within 250 m) rise sharply with K: K=4 splits the fewest close
-neighbours into different-price zones, K=6 more than doubles it.
+K=4 splits the fewest close neighbours into different-price zones; K=5 more, K=6
+the sharpest single jumps.
 
-## 3. Supplementary perturbation (geometry only, NOT validation)
+## 3. Operational rounding (recomputed, not just rounded edges)
 
-Route ±3 % / ±5 % / ±10 % flip counts are a geometric fragility indicator and are
-**not** a substitute for the manual-control check in section 1. They are retained
-only to show that flip counts grow with K, consistent with the manual result.
+For CITY_K5R the 0.1 / 0.25 / 0.5 km rounded thresholds were re-run end-to-end
+(counts, ±5 % flips, same-street splits) — see
+`_route-model-summary-v1.json` → `rounding_recompute`. Rounding to 0.25 km barely
+moves counts and slightly *reduces* same-street splits, so a 0.25 km operational
+grid is a safe simplification.
+
+## 4. Supplementary perturbation (geometry only, NOT validation)
+
+Route ±3/5/10 % flip counts are retained as a geometric fragility indicator and
+are **not** presented as manual validation.
 
 ## Conclusion
 
-Both the real manual controls and the geometric density agree: **K=4 is the most
-stable, K=6 the least.** K=5 is intermediate — the balance-vs-stability trade the
-owner decides on.
+On the corrected fixed-origin metric, **CITY_K4 and CITY_K5 are equally stable
+(89 %)**; K5 additionally gives finer, fairer pricing. K4 wins only on fewer
+neighbour discontinuities. K=6 is the least stable. The K4-vs-K5 call is the
+owner's.

@@ -11,18 +11,18 @@
   "current_fee_policy_specific": {
     "fee": 25.0,
     "city_addresses": 4866,
-    "client_overpays": 3191,
-    "gap_gt_2": 490,
-    "gap_gt_3": 355,
-    "gap_gt_5": 131,
-    "gap_gt_10pct": 381,
-    "gap_gt_15pct": 189,
-    "client_overpays_share": 0.6558,
-    "gap_gt_2_share": 0.1007,
-    "gap_gt_3_share": 0.073,
-    "gap_gt_5_share": 0.0269,
-    "gap_gt_10pct_share": 0.0783,
-    "gap_gt_15pct_share": 0.0388
+    "client_overpays": 3051,
+    "gap_gt_2": 692,
+    "gap_gt_3": 560,
+    "gap_gt_5": 348,
+    "gap_gt_10pct": 587,
+    "gap_gt_15pct": 407,
+    "client_overpays_share": 0.627,
+    "gap_gt_2_share": 0.1422,
+    "gap_gt_3_share": 0.1151,
+    "gap_gt_5_share": 0.0715,
+    "gap_gt_10pct_share": 0.1206,
+    "gap_gt_15pct_share": 0.0836
   },
   "scenario_rows": 5184,
   "external_bracket_rows": 180,
@@ -30,26 +30,26 @@
     "CITY_K4R_dp_optimal_jenks": {
       "pairs_100m": 48350,
       "pairs_250m": 235842,
-      "diff_zone_100m": 1750,
-      "diff_zone_250m": 18829,
-      "max_price_jump_rub": 13,
+      "diff_zone_100m": 1667,
+      "diff_zone_250m": 18294,
+      "max_price_jump_rub": 15,
       "p90_price_jump_rub": 8.0
     },
     "CITY_K5R_dp_optimal_jenks": {
       "pairs_100m": 48350,
       "pairs_250m": 235842,
-      "diff_zone_100m": 2766,
-      "diff_zone_250m": 28485,
-      "max_price_jump_rub": 15,
+      "diff_zone_100m": 2628,
+      "diff_zone_250m": 27033,
+      "max_price_jump_rub": 17,
       "p90_price_jump_rub": 7.0
     },
     "CITY_K6R_dp_optimal_jenks": {
       "pairs_100m": 48350,
       "pairs_250m": 235842,
-      "diff_zone_100m": 4163,
-      "diff_zone_250m": 41977,
-      "max_price_jump_rub": 15,
-      "p90_price_jump_rub": 7.0
+      "diff_zone_100m": 2424,
+      "diff_zone_250m": 24679,
+      "max_price_jump_rub": 19,
+      "p90_price_jump_rub": 6.0
     }
   },
   "policy_rows": 90

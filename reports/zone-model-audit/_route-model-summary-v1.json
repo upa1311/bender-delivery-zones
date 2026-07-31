@@ -10,12 +10,12 @@
       ],
       "zone_counts": [
         1659,
-        1903,
-        3416,
-        2238
+        1902,
+        3413,
+        2242
       ],
       "min_share": 0.18,
-      "max_share": 0.3707
+      "max_share": 0.3703
     },
     "K4R_quantile": {
       "k": 4,
@@ -26,13 +26,13 @@
         5.546
       ],
       "zone_counts": [
-        2305,
-        2305,
-        2303,
-        2303
+        2304,
+        2304,
+        2302,
+        2306
       ],
-      "min_share": 0.2499,
-      "max_share": 0.2501
+      "min_share": 0.2498,
+      "max_share": 0.2502
     },
     "K4R_kmeans": {
       "k": 4,
@@ -43,13 +43,13 @@
         5.75
       ],
       "zone_counts": [
-        1693,
-        1962,
-        3688,
-        1873
+        1692,
+        1963,
+        3685,
+        1876
       ],
-      "min_share": 0.1837,
-      "max_share": 0.4002
+      "min_share": 0.1836,
+      "max_share": 0.3998
     },
     "K4R_dp_optimal_jenks": {
       "k": 4,
@@ -60,13 +60,13 @@
         5.775
       ],
       "zone_counts": [
-        1708,
-        1979,
-        3701,
-        1828
+        1705,
+        1982,
+        3700,
+        1829
       ],
-      "min_share": 0.1853,
-      "max_share": 0.4016
+      "min_share": 0.185,
+      "max_share": 0.4015
     },
     "K5R_quantile": {
       "k": 5,
@@ -78,14 +78,14 @@
         5.767
       ],
       "zone_counts": [
-        1847,
-        1840,
-        1848,
-        1840,
-        1841
+        1843,
+        1842,
+        1843,
+        1844,
+        1844
       ],
-      "min_share": 0.1997,
-      "max_share": 0.2005
+      "min_share": 0.1999,
+      "max_share": 0.2001
     },
     "K5R_kmeans": {
       "k": 5,
@@ -97,14 +97,14 @@
         6.222
       ],
       "zone_counts": [
-        1433,
-        1573,
-        2656,
-        2414,
-        1140
+        1430,
+        1575,
+        2652,
+        2417,
+        1142
       ],
-      "min_share": 0.1237,
-      "max_share": 0.2882
+      "min_share": 0.1239,
+      "max_share": 0.2878
     },
     "K5R_dp_optimal_jenks": {
       "k": 5,
@@ -117,13 +117,13 @@
       ],
       "zone_counts": [
         1420,
-        1570,
-        2605,
-        2483,
-        1138
+        1567,
+        2608,
+        2482,
+        1139
       ],
-      "min_share": 0.1235,
-      "max_share": 0.2827
+      "min_share": 0.1236,
+      "max_share": 0.283
     },
     "K6R_quantile": {
       "k": 6,
@@ -136,15 +136,15 @@
         5.937
       ],
       "zone_counts": [
-        1537,
-        1538,
+        1536,
+        1536,
+        1536,
         1535,
-        1535,
-        1537,
-        1534
+        1536,
+        1537
       ],
-      "min_share": 0.1664,
-      "max_share": 0.1669
+      "min_share": 0.1666,
+      "max_share": 0.1668
     },
     "K6R_kmeans": {
       "k": 6,
@@ -159,9 +159,9 @@
       "zone_counts": [
         1351,
         1285,
-        1616,
+        1615,
         2709,
-        1918,
+        1919,
         337
       ],
       "min_share": 0.0366,
@@ -179,14 +179,14 @@
       ],
       "zone_counts": [
         1358,
-        1306,
-        1651,
-        2655,
-        1909,
+        1305,
+        1650,
+        2656,
+        1910,
         337
       ],
       "min_share": 0.0366,
-      "max_share": 0.2881
+      "max_share": 0.2882
     }
   },
   "city_models": {
@@ -194,477 +194,874 @@
       "k": 4,
       "method": "quantile",
       "edges": [
-        1.877,
-        3.129,
-        4.714
+        1.555,
+        2.954,
+        4.718
       ],
       "zone_counts": [
-        1220,
         1214,
-        1217,
-        1215
+        1219,
+        1216,
+        1217
       ],
       "min_share": 0.2495,
-      "max_share": 0.2507,
-      "rounding": {
-        "0.1": [
-          1.9,
-          3.1,
-          4.7
-        ],
-        "0.25": [
-          2.0,
-          3.25,
-          4.75
-        ],
-        "0.5": [
-          2.0,
-          3.0,
-          4.5
-        ]
+      "max_share": 0.2505,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.6,
+            3.0,
+            4.7
+          ],
+          "counts": [
+            1260,
+            1185,
+            1188,
+            1233
+          ],
+          "instability_5pct": 680,
+          "same_street_splits": 49
+        },
+        "0.25": {
+          "edges": [
+            1.5,
+            3.0,
+            4.75
+          ],
+          "counts": [
+            1151,
+            1294,
+            1232,
+            1189
+          ],
+          "instability_5pct": 698,
+          "same_street_splits": 50
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.0,
+            4.5
+          ],
+          "counts": [
+            1151,
+            1294,
+            998,
+            1423
+          ],
+          "instability_5pct": 791,
+          "same_street_splits": 56
+        }
       }
     },
     "CITY_K4R_kmeans": {
       "k": 4,
       "method": "kmeans",
       "edges": [
-        2.041,
-        3.27,
-        4.526
+        1.737,
+        3.286,
+        4.954
       ],
       "zone_counts": [
-        1347,
-        1232,
-        822,
-        1465
+        1350,
+        1196,
+        1297,
+        1023
       ],
-      "min_share": 0.1689,
-      "max_share": 0.3011,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.3,
-          4.5
-        ],
-        "0.25": [
-          2.0,
-          3.25,
-          4.5
-        ],
-        "0.5": [
-          2.0,
-          3.5,
-          4.5
-        ]
+      "min_share": 0.2102,
+      "max_share": 0.2774,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            3.3,
+            5.0
+          ],
+          "counts": [
+            1339,
+            1210,
+            1334,
+            983
+          ],
+          "instability_5pct": 729,
+          "same_street_splits": 50
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.25,
+            5.0
+          ],
+          "counts": [
+            1356,
+            1176,
+            1351,
+            983
+          ],
+          "instability_5pct": 688,
+          "same_street_splits": 48
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.5,
+            5.0
+          ],
+          "counts": [
+            1151,
+            1544,
+            1188,
+            983
+          ],
+          "instability_5pct": 830,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K4R_dp_optimal_jenks": {
       "k": 4,
       "method": "dp_optimal_jenks",
       "edges": [
-        2.025,
+        1.725,
         3.275,
-        4.525
+        4.975
       ],
       "zone_counts": [
-        1338,
-        1243,
-        820,
-        1465
+        1349,
+        1192,
+        1321,
+        1004
       ],
-      "min_share": 0.1685,
-      "max_share": 0.3011,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.3,
-          4.5
-        ],
-        "0.25": [
-          2.0,
-          3.25,
-          4.5
-        ],
-        "0.5": [
-          2.0,
-          3.5,
-          4.5
-        ]
+      "min_share": 0.2063,
+      "max_share": 0.2772,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            3.3,
+            5.0
+          ],
+          "counts": [
+            1339,
+            1210,
+            1334,
+            983
+          ],
+          "instability_5pct": 729,
+          "same_street_splits": 50
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.25,
+            5.0
+          ],
+          "counts": [
+            1356,
+            1176,
+            1351,
+            983
+          ],
+          "instability_5pct": 688,
+          "same_street_splits": 48
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.5,
+            5.0
+          ],
+          "counts": [
+            1151,
+            1544,
+            1188,
+            983
+          ],
+          "instability_5pct": 830,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K4R_business": {
       "k": 4,
       "method": "business_constrained(min_share=0.12)",
       "edges": [
-        2.025,
+        1.725,
         3.275,
-        4.525
+        4.975
       ],
       "zone_counts": [
-        1338,
-        1243,
-        820,
-        1465
+        1349,
+        1192,
+        1321,
+        1004
       ],
-      "min_share": 0.1685,
-      "max_share": 0.3011,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.3,
-          4.5
-        ],
-        "0.25": [
-          2.0,
-          3.25,
-          4.5
-        ],
-        "0.5": [
-          2.0,
-          3.5,
-          4.5
-        ]
+      "min_share": 0.2063,
+      "max_share": 0.2772,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            3.3,
+            5.0
+          ],
+          "counts": [
+            1339,
+            1210,
+            1334,
+            983
+          ],
+          "instability_5pct": 729,
+          "same_street_splits": 50
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.25,
+            5.0
+          ],
+          "counts": [
+            1356,
+            1176,
+            1351,
+            983
+          ],
+          "instability_5pct": 688,
+          "same_street_splits": 48
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.5,
+            5.0
+          ],
+          "counts": [
+            1151,
+            1544,
+            1188,
+            983
+          ],
+          "instability_5pct": 830,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K5R_quantile": {
       "k": 5,
       "method": "quantile",
       "edges": [
-        1.673,
-        2.642,
-        3.741,
-        4.89
+        1.363,
+        2.308,
+        3.946,
+        5.005
       ],
       "zone_counts": [
-        974,
-        973,
-        973,
-        973,
-        973
+        972,
+        972,
+        975,
+        971,
+        976
       ],
-      "min_share": 0.2,
-      "max_share": 0.2002,
-      "rounding": {
-        "0.1": [
-          1.7,
-          2.6,
-          3.7,
-          4.9
-        ],
-        "0.25": [
-          1.75,
-          2.75,
-          3.75,
-          5.0
-        ],
-        "0.5": [
-          1.5,
-          2.5,
-          3.5,
-          5.0
-        ]
+      "min_share": 0.1995,
+      "max_share": 0.2006,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.4,
+            2.3,
+            3.9,
+            5.0
+          ],
+          "counts": [
+            1016,
+            911,
+            968,
+            988,
+            983
+          ],
+          "instability_5pct": 1199,
+          "same_street_splits": 73
+        },
+        "0.25": {
+          "edges": [
+            1.25,
+            2.25,
+            4.0,
+            5.0
+          ],
+          "counts": [
+            842,
+            1000,
+            1102,
+            939,
+            983
+          ],
+          "instability_5pct": 1165,
+          "same_street_splits": 80
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            2.5,
+            4.0,
+            5.0
+          ],
+          "counts": [
+            1151,
+            1072,
+            721,
+            939,
+            983
+          ],
+          "instability_5pct": 1083,
+          "same_street_splits": 78
+        }
       }
     },
     "CITY_K5R_kmeans": {
       "k": 5,
       "method": "kmeans",
       "edges": [
-        1.963,
-        3.049,
-        4.15,
-        5.17
+        1.667,
+        2.881,
+        4.106,
+        5.31
       ],
       "zone_counts": [
-        1291,
-        1079,
-        815,
-        1031,
-        650
+        1314,
+        1081,
+        615,
+        1143,
+        713
       ],
-      "min_share": 0.1336,
-      "max_share": 0.2653,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.0,
-          4.2,
-          5.2
-        ],
-        "0.25": [
-          2.0,
-          3.0,
-          4.25,
-          5.25
-        ],
-        "0.5": [
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.1264,
+      "max_share": 0.27,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            2.9,
+            4.1,
+            5.3
+          ],
+          "counts": [
+            1339,
+            1067,
+            603,
+            1133,
+            724
+          ],
+          "instability_5pct": 958,
+          "same_street_splits": 63
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.0,
+            4.0,
+            5.25
+          ],
+          "counts": [
+            1356,
+            1089,
+            499,
+            1151,
+            771
+          ],
+          "instability_5pct": 888,
+          "same_street_splits": 59
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.0,
+            4.0,
+            5.5
+          ],
+          "counts": [
+            1151,
+            1294,
+            499,
+            1362,
+            560
+          ],
+          "instability_5pct": 931,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K5R_dp_optimal_jenks": {
       "k": 5,
       "method": "dp_optimal_jenks",
       "edges": [
-        1.975,
-        3.075,
-        4.175,
-        5.175
+        1.675,
+        2.875,
+        4.125,
+        5.325
       ],
       "zone_counts": [
-        1302,
-        1083,
-        807,
-        1028,
-        646
+        1322,
+        1072,
+        629,
+        1141,
+        702
       ],
-      "min_share": 0.1328,
-      "max_share": 0.2676,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.1,
-          4.2,
-          5.2
-        ],
-        "0.25": [
-          2.0,
-          3.0,
-          4.25,
-          5.25
-        ],
-        "0.5": [
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.1293,
+      "max_share": 0.2717,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            2.9,
+            4.1,
+            5.3
+          ],
+          "counts": [
+            1339,
+            1067,
+            603,
+            1133,
+            724
+          ],
+          "instability_5pct": 958,
+          "same_street_splits": 63
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.0,
+            4.0,
+            5.25
+          ],
+          "counts": [
+            1356,
+            1089,
+            499,
+            1151,
+            771
+          ],
+          "instability_5pct": 888,
+          "same_street_splits": 59
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.0,
+            4.0,
+            5.5
+          ],
+          "counts": [
+            1151,
+            1294,
+            499,
+            1362,
+            560
+          ],
+          "instability_5pct": 931,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K5R_business": {
       "k": 5,
       "method": "business_constrained(min_share=0.12)",
       "edges": [
-        1.975,
-        3.025,
+        1.675,
+        2.875,
         4.125,
-        5.175
+        5.325
       ],
       "zone_counts": [
-        1302,
-        1049,
-        826,
-        1043,
-        646
+        1322,
+        1072,
+        629,
+        1141,
+        702
       ],
-      "min_share": 0.1328,
-      "max_share": 0.2676,
-      "rounding": {
-        "0.1": [
-          2.0,
-          3.0,
-          4.1,
-          5.2
-        ],
-        "0.25": [
-          2.0,
-          3.0,
-          4.0,
-          5.25
-        ],
-        "0.5": [
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.1293,
+      "max_share": 0.2717,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            2.9,
+            4.1,
+            5.3
+          ],
+          "counts": [
+            1339,
+            1067,
+            603,
+            1133,
+            724
+          ],
+          "instability_5pct": 958,
+          "same_street_splits": 63
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            3.0,
+            4.0,
+            5.25
+          ],
+          "counts": [
+            1356,
+            1089,
+            499,
+            1151,
+            771
+          ],
+          "instability_5pct": 888,
+          "same_street_splits": 59
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.0,
+            4.0,
+            5.5
+          ],
+          "counts": [
+            1151,
+            1294,
+            499,
+            1362,
+            560
+          ],
+          "instability_5pct": 931,
+          "same_street_splits": 63
+        }
       }
     },
     "CITY_K6R_quantile": {
       "k": 6,
       "method": "quantile",
       "edges": [
-        1.533,
-        2.389,
-        3.129,
-        4.298,
-        5.024
+        1.227,
+        2.058,
+        2.954,
+        4.354,
+        5.201
       ],
       "zone_counts": [
-        813,
-        811,
-        810,
         811,
         811,
-        810
+        811,
+        811,
+        811,
+        811
       ],
-      "min_share": 0.1665,
-      "max_share": 0.1671,
-      "rounding": {
-        "0.1": [
-          1.5,
-          2.4,
-          3.1,
-          4.3,
-          5.0
-        ],
-        "0.25": [
-          1.5,
-          2.5,
-          3.25,
-          4.25,
-          5.0
-        ],
-        "0.5": [
-          1.5,
-          2.5,
-          3.0,
-          4.5,
-          5.0
-        ]
+      "min_share": 0.1667,
+      "max_share": 0.1667,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.2,
+            2.1,
+            3.0,
+            4.4,
+            5.2
+          ],
+          "counts": [
+            766,
+            897,
+            782,
+            860,
+            748,
+            813
+          ],
+          "instability_5pct": 1449,
+          "same_street_splits": 89
+        },
+        "0.25": {
+          "edges": [
+            1.25,
+            2.0,
+            3.0,
+            4.25,
+            5.25
+          ],
+          "counts": [
+            842,
+            725,
+            878,
+            679,
+            971,
+            771
+          ],
+          "instability_5pct": 1332,
+          "same_street_splits": 85
+        },
+        "0.5": {
+          "edges": [
+            1.0,
+            2.0,
+            3.0,
+            4.5,
+            5.0
+          ],
+          "counts": [
+            494,
+            1073,
+            878,
+            998,
+            440,
+            983
+          ],
+          "instability_5pct": 1369,
+          "same_street_splits": 89
+        }
       }
     },
     "CITY_K6R_kmeans": {
       "k": 6,
       "method": "kmeans",
       "edges": [
-        1.476,
-        2.218,
-        3.123,
-        4.174,
-        5.175
+        1.162,
+        1.905,
+        2.974,
+        4.165,
+        5.339
       ],
       "zone_counts": [
-        740,
-        713,
-        976,
-        763,
-        1028,
-        646
+        707,
+        759,
+        973,
+        612,
+        1128,
+        687
       ],
-      "min_share": 0.1328,
-      "max_share": 0.2113,
-      "rounding": {
-        "0.1": [
-          1.5,
-          2.2,
-          3.1,
-          4.2,
-          5.2
-        ],
-        "0.25": [
-          1.5,
-          2.25,
-          3.0,
-          4.25,
-          5.25
-        ],
-        "0.5": [
-          1.5,
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.1258,
+      "max_share": 0.2318,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.2,
+            1.9,
+            3.0,
+            4.2,
+            5.3
+          ],
+          "counts": [
+            766,
+            694,
+            985,
+            632,
+            1065,
+            724
+          ],
+          "instability_5pct": 1286,
+          "same_street_splits": 81
+        },
+        "0.25": {
+          "edges": [
+            1.25,
+            2.0,
+            3.0,
+            4.25,
+            5.25
+          ],
+          "counts": [
+            842,
+            725,
+            878,
+            679,
+            971,
+            771
+          ],
+          "instability_5pct": 1332,
+          "same_street_splits": 85
+        },
+        "0.5": {
+          "edges": [
+            1.0,
+            2.0,
+            3.0,
+            4.0,
+            5.5
+          ],
+          "counts": [
+            494,
+            1073,
+            878,
+            499,
+            1362,
+            560
+          ],
+          "instability_5pct": 1081,
+          "same_street_splits": 77
+        }
       }
     },
     "CITY_K6R_dp_optimal_jenks": {
       "k": 6,
       "method": "dp_optimal_jenks",
       "edges": [
-        1.475,
-        2.225,
-        3.125,
-        4.175,
-        5.175
+        1.675,
+        2.825,
+        3.925,
+        4.875,
+        5.825
       ],
       "zone_counts": [
-        739,
-        717,
-        974,
-        762,
-        1028,
-        646
+        1322,
+        1052,
+        532,
+        873,
+        736,
+        351
       ],
-      "min_share": 0.1328,
-      "max_share": 0.2113,
-      "rounding": {
-        "0.1": [
-          1.5,
-          2.2,
-          3.1,
-          4.2,
-          5.2
-        ],
-        "0.25": [
-          1.5,
-          2.25,
-          3.0,
-          4.25,
-          5.25
-        ],
-        "0.5": [
-          1.5,
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.0721,
+      "max_share": 0.2717,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.7,
+            2.8,
+            3.9,
+            4.9,
+            5.8
+          ],
+          "counts": [
+            1339,
+            1023,
+            533,
+            904,
+            698,
+            369
+          ],
+          "instability_5pct": 1146,
+          "same_street_splits": 66
+        },
+        "0.25": {
+          "edges": [
+            1.75,
+            2.75,
+            4.0,
+            5.0,
+            5.75
+          ],
+          "counts": [
+            1356,
+            990,
+            598,
+            939,
+            582,
+            401
+          ],
+          "instability_5pct": 1185,
+          "same_street_splits": 79
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            3.0,
+            4.0,
+            5.0,
+            6.0
+          ],
+          "counts": [
+            1151,
+            1294,
+            499,
+            939,
+            698,
+            285
+          ],
+          "instability_5pct": 1225,
+          "same_street_splits": 76
+        }
       }
     },
     "CITY_K6R_business": {
       "k": 6,
       "method": "business_constrained(min_share=0.12)",
       "edges": [
-        1.475,
-        2.225,
-        3.125,
-        4.175,
-        5.175
+        1.625,
+        2.675,
+        3.925,
+        4.725,
+        5.425
       ],
       "zone_counts": [
-        739,
-        717,
-        974,
-        762,
-        1028,
-        646
+        1278,
+        1045,
+        583,
+        751,
+        593,
+        616
       ],
-      "min_share": 0.1328,
-      "max_share": 0.2113,
-      "rounding": {
-        "0.1": [
-          1.5,
-          2.2,
-          3.1,
-          4.2,
-          5.2
-        ],
-        "0.25": [
-          1.5,
-          2.25,
-          3.0,
-          4.25,
-          5.25
-        ],
-        "0.5": [
-          1.5,
-          2.0,
-          3.0,
-          4.0,
-          5.0
-        ]
+      "min_share": 0.1198,
+      "max_share": 0.2626,
+      "rounding_recompute": {
+        "0.1": {
+          "edges": [
+            1.6,
+            2.7,
+            3.9,
+            4.7,
+            5.4
+          ],
+          "counts": [
+            1260,
+            1072,
+            563,
+            738,
+            600,
+            633
+          ],
+          "instability_5pct": 1311,
+          "same_street_splits": 73
+        },
+        "0.25": {
+          "edges": [
+            1.5,
+            2.75,
+            4.0,
+            4.75,
+            5.5
+          ],
+          "counts": [
+            1151,
+            1195,
+            598,
+            733,
+            629,
+            560
+          ],
+          "instability_5pct": 1336,
+          "same_street_splits": 82
+        },
+        "0.5": {
+          "edges": [
+            1.5,
+            2.5,
+            4.0,
+            4.5,
+            5.5
+          ],
+          "counts": [
+            1151,
+            1072,
+            721,
+            499,
+            863,
+            560
+          ],
+          "instability_5pct": 1567,
+          "same_street_splits": 93
+        }
       }
     }
   },
-  "rounding": {},
   "readiness": {
     "canonical_population": 9216,
-    "route_km_field": "expected_km",
-    "baseline_zone_reproduction_le": 9211,
-    "baseline_zone_reproduction_strict": 9216,
+    "analytic_metric": "fixed_origin_km (central_km, route from 46.82388,29.48313)",
+    "legacy_metric": "expected_km blend (central/bam/outer) = LEGACY_RELEASE_DIAGNOSTIC",
+    "boundary_convention": "[lower_bound, upper_bound)",
+    "baseline_reproduction_unified": 9216,
+    "baseline_reproduction_legacy_le": 9211,
     "baseline_mismatch_count": 5,
     "baseline_mismatch_ids": [
       "n2337889957",
@@ -673,9 +1070,7 @@
       "w306081930",
       "w352111747"
     ],
-    "baseline_mismatch_reasons": [
-      "threshold_inclusivity"
-    ],
+    "baseline_mismatch_all_resolved": true,
     "baseline_edges": [
       2.424,
       4.076,
@@ -696,10 +1091,10 @@
     },
     "city_addresses": 4866,
     "external_addresses": 4350,
-    "route_km_min": 0.403,
-    "route_km_median": 4.642,
-    "route_km_p90": 6.357,
-    "route_km_max": 9.692,
+    "fixed_origin_km_min": 0.032,
+    "fixed_origin_km_median": 4.592,
+    "fixed_origin_km_p90": 6.421,
+    "fixed_origin_km_max": 9.371,
     "manual_controls_total": 76,
     "manual_controls_city": 28,
     "admin_boundary_relation_ids": [
@@ -708,72 +1103,24 @@
     ]
   },
   "manual_validation": {
-    "BASELINE_4": {
-      "controls": 76,
-      "same_zone": 61,
-      "one_zone_flip": 15,
+    "CITY_K4R_dp_optimal_jenks": {
+      "controls": 28,
+      "same_zone": 25,
+      "one_zone_flip": 3,
       "multi_zone_flip": 0,
-      "within_50m": 12,
-      "within_100m": 17,
-      "within_250m": 21,
+      "within_50m": 0,
+      "within_100m": 1,
+      "within_250m": 5,
       "by_territory": {
-        "Бендеры": 28,
-        "Гиска": 15,
-        "Парканы": 14,
-        "Протягайловка": 19
+        "Бендеры": 28
       },
       "flip_ids": [
         "MY-002",
-        "MY-005",
-        "MY-014",
-        "MY-015",
-        "MY-018",
-        "MY-019",
-        "MY-021",
-        "MY-026",
-        "MY-028",
-        "MY-033",
-        "MY-039",
-        "MY-051",
-        "MY-080",
-        "MY-083",
-        "MY-084"
-      ]
-    },
-    "K5R_dp_optimal_jenks": {
-      "controls": 76,
-      "same_zone": 60,
-      "one_zone_flip": 16,
-      "multi_zone_flip": 0,
-      "within_50m": 6,
-      "within_100m": 14,
-      "within_250m": 19,
-      "by_territory": {
-        "Бендеры": 28,
-        "Гиска": 15,
-        "Парканы": 14,
-        "Протягайловка": 19
-      },
-      "flip_ids": [
-        "MY-002",
-        "MY-005",
-        "MY-018",
-        "MY-019",
-        "MY-020",
-        "MY-043",
-        "MY-044",
-        "MY-046",
-        "MY-047",
-        "MY-048",
-        "MY-049",
-        "MY-050",
-        "MY-053",
-        "MY-054",
-        "MY-063",
+        "MY-079",
         "MY-085"
       ]
     },
-    "CITY_K4R_dp_optimal_jenks": {
+    "CITY_K5R_dp_optimal_jenks": {
       "controls": 28,
       "same_zone": 25,
       "one_zone_flip": 3,
@@ -785,52 +1132,26 @@
         "Бендеры": 28
       },
       "flip_ids": [
-        "MY-001",
-        "MY-004",
-        "MY-062"
-      ]
-    },
-    "CITY_K5R_dp_optimal_jenks": {
-      "controls": 28,
-      "same_zone": 22,
-      "one_zone_flip": 6,
-      "multi_zone_flip": 0,
-      "within_50m": 2,
-      "within_100m": 3,
-      "within_250m": 10,
-      "by_territory": {
-        "Бендеры": 28
-      },
-      "flip_ids": [
-        "MY-001",
         "MY-002",
-        "MY-064",
-        "MY-081",
-        "MY-083",
-        "MY-085"
+        "MY-073",
+        "MY-081"
       ]
     },
     "CITY_K6R_dp_optimal_jenks": {
       "controls": 28,
-      "same_zone": 18,
-      "one_zone_flip": 10,
-      "multi_zone_flip": 0,
-      "within_50m": 2,
-      "within_100m": 4,
-      "within_250m": 12,
+      "same_zone": 24,
+      "one_zone_flip": 3,
+      "multi_zone_flip": 1,
+      "within_50m": 0,
+      "within_100m": 2,
+      "within_250m": 6,
       "by_territory": {
         "Бендеры": 28
       },
       "flip_ids": [
-        "MY-001",
         "MY-002",
-        "MY-004",
-        "MY-064",
-        "MY-065",
-        "MY-066",
-        "MY-072",
-        "MY-081",
-        "MY-083",
+        "MY-063",
+        "MY-073",
         "MY-085"
       ]
     }

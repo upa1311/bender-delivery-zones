@@ -1,62 +1,59 @@
 # Customer / driver balance v1
 
-City addresses only (4,866; owner assumptions). External territories carry a
-bracket, not a price. Full sensitivity grid:
-`data/interim/zone-economics-scenarios-v1.csv` (5,184 rows). Exact per-zone prices
-for the three policies: `data/interim/zone-policy-prices-v1.csv`.
+City addresses only (4,866; owner assumptions), on the **fixed-origin** km metric
+(route from 46.82388, 29.48313). External territories carry a bracket, not a price.
+Full grid: `data/interim/zone-economics-scenarios-v1.csv`. Exact per-zone policy
+prices: `data/interim/zone-policy-prices-v1.csv`.
 
-## Commission benchmark — corrected
+## Commission benchmark
 
-`driver_best_taxi_take = max(taxi_reference - 5, 0.65 × taxi_reference)`.
+`driver_best_taxi_take = max(taxi_reference - 5, 0.65 × taxi_reference)`. The two
+cross over at `taxi_reference = 5 / 0.35 = 14.29 руб`. Because the minimum fare is
+18 руб, every city taxi_reference ≥ 18 > 14.29, so the fixed-5 model wins for
+**100 % (4,866 / 4,866)** of city trips. The correct driver benchmark is
+**`taxi_reference - 5`** in every zone, not `0.65 × taxi_reference`.
 
-The two models cross over at `taxi_reference = 5 / 0.35 = 14.29 руб`. Because the
-minimum fare is 18 руб, **every** city taxi_reference is ≥ 18 > 14.29, so the
-fixed-5 model wins for **100 % (4,866 / 4,866)** of city trips. The correct driver
-benchmark is therefore **`taxi_reference − 5`** in every zone — *not*
-`0.65 × taxi_reference`. (An earlier draft wrongly attributed the balanced fee to
-the 65 % platform; that is fixed here.)
+## Price policies — constraint-driven over ALL zone addresses
+
+Each fee is the most client-favourable integer whose driver-gap constraint holds
+for the required fraction of **all** addresses in the zone (not the median), then
+clamped so **CUSTOMER_FIRST ≤ BALANCED ≤ DRIVER_CONSERVATIVE** and monotone.
+
+Example CITY_K5R (thresholds 1.675 / 2.875 / 4.125 / 5.325 km):
+
+| Policy | Zone fees руб | Driver rule |
+|---|---|---|
+| DRIVER_CONSERVATIVE | 11 / 11 / 18 / 25 / 35 | gap ≤ 2, cover ≥ 95 % |
+| BALANCED | 11 / 11 / 18 / 24 / 33 | gap ≤ 3 and ≤ 10 %, cover ≥ 90 % |
+| CUSTOMER_FIRST | 11 / 11 / 16 / 22 / 29 | gap ≤ 5 and ≤ 15 %, cover ≥ 80 % |
+
+Near zones pin at the 18 руб taxi floor, so all policies meet at 11 руб there; the
+policies separate in the farther zones.
 
 ## The current flat 25 руб — policy-specific (city, 4,866)
 
 | Test | Addresses | Share |
 |---|---:|---:|
-| Client overpays (25 > equivalent taxi) | 3,191 | 65.6 % |
-| Driver gap > 2 руб | 490 | 10.1 % |
-| Driver gap > 3 руб | 355 | 7.3 % |
-| Driver gap > 5 руб | 131 | 2.7 % |
-| Driver gap > 10 % | 381 | 7.8 % |
-| Driver gap > 15 % | 189 | 3.9 % |
+| Client overpays (25 > equivalent taxi) | 3,051 | 62.7 % |
+| Driver gap > 2 руб | 692 | 14.2 % |
+| Driver gap > 3 руб | 560 | 11.5 % |
+| Driver gap > 5 руб | 348 | 7.2 % |
+| Driver gap > 10 % | 587 | 12.1 % |
+| Driver gap > 15 % | 407 | 8.4 % |
 
-A flat 25 руб is dearer than an equivalent taxi for **two thirds** of city
-addresses (the near zones), and leaves the driver more than 5 руб short on only
-2.7 %. It behaves like a "far-zone" price applied to everyone.
+A flat 25 руб is dearer than an equivalent taxi for ~63 % of city addresses and
+leaves the driver >5 руб short on ~7 %. It behaves like a far-zone price applied
+to everyone.
 
-## Three price policies (example: CITY_K5R natural breaks, руб.)
+## Sensitivity envelope
 
-Thresholds 1.975 / 3.075 / 4.175 / 5.175 km; zone city counts 1302 / 1083 / 807 /
-1028 / 646.
-
-| Policy | Zone fees | Driver-gap rule |
-|---|---|---|
-| DRIVER_CONSERVATIVE | 13 / 14 / 17 / 24 / 28 | gap ≤ 2 руб |
-| BALANCED | 12 / 13 / 16 / 23 / 27 | gap ≤ 3 руб and ≤ 10 % |
-| CUSTOMER_FIRST | 15 / 16 / 18 / 24 / 28 | gap ≤ 5 руб and ≤ 15 % |
-
-Note: in the near zones the taxi reference is pinned at the 18 руб floor, so all
-three policies converge to ~12–16 руб there; the policies separate only in the
-farther zones. Every fee is integer, monotone and below the equivalent taxi
-(joint constraint coverage per zone is in the policy CSV).
-
-## Sensitivity (feasibility envelope, owner baseline city 6 / min 18 / fixed 5)
-
-Under the owner's own assumptions almost any modest discount keeps both sides
-satisfied; only an aggressive 20 % client discount with a zero driver gap fails
-(≈ 66 % of addresses). Full grid in the scenarios CSV.
+`zone-economics-scenarios-v1.csv` (5,184 rows). Under the owner's baseline (city 6
+/ min 18 / fixed 5) almost any modest discount satisfies both sides; only an
+aggressive 20 % client discount with a zero driver gap fails for a large share.
 
 ## External territories — bracket only (NOT a price)
 
-No proven city/outside split. `data/interim/zone-external-bracket-scenarios-v1.csv`
-gives, per territory × city_rate(5/6/7) × outside_rate(8–12) × min_fare(15/18/20/25),
-a lower bracket (whole route at the city rate) and an upper bracket (whole route
-at the outside rate), each `RANGE_ONLY_NOT_TARIFF`. These are never used as a
-tariff or a threshold. The owner must confirm the external boundary on a map first.
+`data/interim/zone-external-bracket-scenarios-v1.csv`: per territory × city_rate
+(5/6/7) × outside_rate (8–12) × min_fare (15/18/20/25), a lower bracket (whole
+route at the city rate) and an upper bracket (whole route at the outside rate),
+each `RANGE_ONLY_NOT_TARIFF`. Never a tariff, never a threshold.

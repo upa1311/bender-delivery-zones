@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bender Delivery Zones — city zone decision dashboard v1</title>
+<title>Bender Delivery Zones — city zone decision dashboard v1 (fixed-origin)</title>
 <style>
   :root { --bg:#0f1115; --card:#171a21; --fg:#e8eaed; --muted:#9aa4b2;
           --z1:#2a9d3f; --z2:#f2c500; --z3:#f07f14; --z4:#d62828; --z5:#7b2cbf; --z6:#555; }
@@ -26,28 +26,28 @@
 </head>
 <body>
 <header>
-  <h1>Bender Delivery Zones — city zone decision dashboard v1</h1>
-  <div class="muted">City decision over 4,866 city addresses · route metric <code>expected_km</code> · <span class="warn">candidate, NOT connected to production, no prices applied</span></div>
+  <h1>Bender Delivery Zones — city zone decision (fixed-origin)</h1>
+  <div class="muted">4,866 city addresses · metric = <code>fixed_origin_km</code> (route from 46.82388, 29.48313) · <span class="warn">candidate, NOT connected to production, no prices applied</span></div>
 </header>
 <main>
   <section class="card">
-    <h2>City zone shares (city models)</h2>
-    <div class="muted">CITY_K4 — most stable</div>
+    <h2>City zone shares (fixed-origin)</h2>
+    <div class="muted">CITY_K4</div>
     <div class="bar">
-      <div class="seg" style="width:27.5%;background:var(--z1)">27%</div>
-      <div class="seg" style="width:25.5%;background:var(--z2)">26%</div>
-      <div class="seg" style="width:16.9%;background:var(--z3)">17%</div>
-      <div class="seg" style="width:30.1%;background:var(--z4)">30%</div>
+      <div class="seg" style="width:28%;background:var(--z1)">28%</div>
+      <div class="seg" style="width:24%;background:var(--z2)">24%</div>
+      <div class="seg" style="width:27%;background:var(--z3)">27%</div>
+      <div class="seg" style="width:21%;background:var(--z4)">21%</div>
     </div>
-    <div class="muted">CITY_K5 — fairest by distance</div>
+    <div class="muted">CITY_K5</div>
     <div class="bar">
-      <div class="seg" style="width:26.8%;background:var(--z1)">27%</div>
-      <div class="seg" style="width:22.3%;background:var(--z2)">22%</div>
-      <div class="seg" style="width:16.6%;background:var(--z3)">17%</div>
-      <div class="seg" style="width:21.1%;background:var(--z4)">21%</div>
-      <div class="seg" style="width:13.3%;background:var(--z5)">13%</div>
+      <div class="seg" style="width:27%;background:var(--z1)">27%</div>
+      <div class="seg" style="width:22%;background:var(--z2)">22%</div>
+      <div class="seg" style="width:13%;background:var(--z3)">13%</div>
+      <div class="seg" style="width:23%;background:var(--z4)">23%</div>
+      <div class="seg" style="width:14%;background:var(--z5)">14%</div>
     </div>
-    <p class="muted">Full-population 4R/5R/6R are diagnostics only, not city tariffs.</p>
+    <p class="muted">expected_km (a 3-origin blend) kept as legacy diagnostic only.</p>
   </section>
 
   <section class="card">
@@ -55,52 +55,52 @@
     <table>
       <tr><th>Model</th><th>Router↔Yandex agree</th><th>flips</th></tr>
       <tr><td>CITY_K4</td><td>89%</td><td>3</td></tr>
-      <tr><td>CITY_K5</td><td>79%</td><td>6</td></tr>
-      <tr><td>CITY_K6</td><td>64%</td><td>10</td></tr>
+      <tr><td>CITY_K5</td><td>89%</td><td>3</td></tr>
+      <tr><td>CITY_K6</td><td>86%</td><td>4</td></tr>
     </table>
-    <p class="muted">Measured against manual Yandex km, not a perturbation proxy. Only 28 of 90 controls are core-city — honest coverage.</p>
+    <p class="muted">On the fixed-origin metric K5 is as stable as K4 (the earlier "K5 worse" result was a blended-metric artefact). Router km = fixed-origin, apples-to-apples with Yandex.</p>
   </section>
 
   <section class="card">
     <h2>City fees — BALANCED (руб.)</h2>
     <table>
       <tr><th>Zone</th><th>K4</th><th>K5</th></tr>
-      <tr><td>1</td><td>12</td><td>12</td></tr>
-      <tr><td>2</td><td>13</td><td>13</td></tr>
-      <tr><td>3</td><td>17</td><td>16</td></tr>
-      <tr><td>4</td><td>25</td><td>23</td></tr>
-      <tr><td>5</td><td>—</td><td>27</td></tr>
+      <tr><td>1</td><td>11</td><td>11</td></tr>
+      <tr><td>2</td><td>12</td><td>11</td></tr>
+      <tr><td>3</td><td>22</td><td>18</td></tr>
+      <tr><td>4</td><td>32</td><td>24</td></tr>
+      <tr><td>5</td><td>—</td><td>33</td></tr>
     </table>
-    <p class="muted">Driver benchmark = <code>taxi_reference - 5</code> (fixed-5 wins 100% of city trips; crossover 14.29). Three policies in zone-policy-prices CSV.</p>
+    <p class="muted">Constraint-driven over ALL zone addresses; ordered CUSTOMER ≤ BALANCED ≤ CONSERVATIVE. Driver benchmark = <code>taxi_reference - 5</code> (fixed-5 wins 100%).</p>
   </section>
 
   <section class="card">
     <h2>Current flat 25 руб — policy-specific (city)</h2>
     <table>
-      <tr><td>Client overpays vs taxi</td><td>65.6%</td></tr>
-      <tr><td>Driver gap &gt; 3 руб</td><td>7.3%</td></tr>
-      <tr><td>Driver gap &gt; 5 руб</td><td>2.7%</td></tr>
+      <tr><td>Client overpays vs taxi</td><td>62.7%</td></tr>
+      <tr><td>Driver gap &gt; 3 руб</td><td>11.5%</td></tr>
+      <tr><td>Driver gap &gt; 5 руб</td><td>7.2%</td></tr>
     </table>
-    <p class="muted">Flat 25 руб is dearer than an equivalent taxi for two thirds of city addresses.</p>
+    <p class="muted">Flat 25 руб is dearer than an equivalent taxi for ~63% of city addresses.</p>
   </section>
 
   <section class="card">
     <h2>Neighbour price discontinuity (≤100 m, different zone)</h2>
     <table>
       <tr><th>Model</th><th>pairs</th><th>max jump</th></tr>
-      <tr><td>CITY_K4</td><td>1,750</td><td>13</td></tr>
-      <tr><td>CITY_K5</td><td>2,766</td><td>15</td></tr>
-      <tr><td>CITY_K6</td><td>4,163</td><td>15</td></tr>
+      <tr><td>CITY_K4</td><td>1,667</td><td>15</td></tr>
+      <tr><td>CITY_K5</td><td>2,628</td><td>17</td></tr>
+      <tr><td>CITY_K6</td><td>2,424</td><td>19</td></tr>
     </table>
-    <p class="muted">K=6 more than doubles neighbours priced differently — not recommended.</p>
+    <p class="muted">K=4 splits the fewest close neighbours; K=6 has the sharpest single jump.</p>
   </section>
 
   <section class="card">
     <h2>External territories — bracket only</h2>
-    <p class="muted">Парканы/Гиска/Протягайловка: no proven city/outside split → range only (RANGE_ONLY_NOT_TARIFF), not a tariff. Kotovskogo GAI post not in data → owner map confirmation required.</p>
+    <p class="muted">Парканы/Гиска/Протягайловка: no proven city/outside split → range only (RANGE_ONLY_NOT_TARIFF). Kotovskogo GAI post not in data → owner map confirmation required.</p>
     <h2>Verdict</h2>
     <p><strong>ANALYSIS_COMPLETE / OWNER_DECISION_REQUIRED.</strong></p>
-    <p class="muted">Primary CITY_K5 (fairness), fallback CITY_K4 (stability); K6 not recommended. Nothing applied to production.</p>
+    <p class="muted">Primary CITY_K5 (equal stability + fairer), fallback CITY_K4 (fewest neighbour jumps); K6 not recommended. Nothing applied to production.</p>
   </section>
 </main>
 </body>

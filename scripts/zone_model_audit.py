@@ -31,6 +31,7 @@ ROUTE_CONTROLS = ROOT / "docs/data/manual-yandex-route-controls.csv"
 MEASUREMENTS = ROOT / "docs/data/manual-yandex-measurements.csv"
 
 OUT_DIR = ROOT / "data/interim"
+FIXED_ORIGIN_CSV = OUT_DIR / "fixed-origin-address-routes-v1.csv"
 FEATURES_CSV = OUT_DIR / "zone-model-address-features-v1.csv"
 CANDIDATES_CSV = OUT_DIR / "zone-model-candidates-v1.csv"
 ANCHORS_CSV = OUT_DIR / "external-tariff-boundary-anchors-v1.csv"
@@ -46,6 +47,12 @@ ORIGIN_LAT, ORIGIN_LON = 46.82388, 29.48313
 
 CITY_SETTLEMENT = "Бендеры"
 EXTERNAL_SETTLEMENTS = ("Гиска", "Парканы", "Протягайловка")
+
+# Fixed dispatch origin = the 0.85-weight "central" restaurant origin from
+# scripts/stage09_engine.py. central_km is the OSRM road route FROM this exact
+# point; it is the fixed-origin metric. expected_km is a 0.85/0.10/0.05 blend of
+# central + bam + outer origins and is kept only as LEGACY_RELEASE_DIAGNOSTIC.
+FIXED_ORIGIN_LAT, FIXED_ORIGIN_LON = 46.82388, 29.48313
 
 # Owner-provided operational evidence (DERIVED ASSUMPTION, not a confirmed tariff).
 TAXI_MIN_FARE = 18.0
@@ -67,19 +74,24 @@ def load_addresses() -> list[dict]:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))["addresses"]
     points = json.loads(POINTS.read_text(encoding="utf-8"))["features"]
     coords_by_uid: dict[str, tuple[float, float]] = {}
-    km_by_uid: dict[str, float] = {}
+    props_by_uid: dict[str, dict] = {}
     for feature in points:
         props = feature["properties"]
         uid = props["uid"]
         lon, lat = feature["geometry"]["coordinates"]
         coords_by_uid[uid] = (lat, lon)
-        km_by_uid[uid] = props.get("expected_km")
+        props_by_uid[uid] = props
 
     rows: list[dict] = []
     for entry in registry:
         uid = entry["uid"]
-        if uid not in coords_by_uid or km_by_uid.get(uid) is None:
+        props = props_by_uid.get(uid)
+        if uid not in coords_by_uid or props is None:
             raise ValueError(f"Registry uid missing coords/km: {uid}")
+        fixed_origin = props.get("central_km")   # route FROM 46.82388, 29.48313
+        legacy = props.get("expected_km")        # blended legacy release metric
+        if fixed_origin is None or legacy is None:
+            raise ValueError(f"Missing central_km/expected_km for {uid}")
         lat, lon = coords_by_uid[uid]
         settlement = entry["settlement_ru"]
         rows.append(
@@ -91,7 +103,9 @@ def load_addresses() -> list[dict]:
                 "house": entry["housenumber"],
                 "lat": lat,
                 "lon": lon,
-                "route_km": float(km_by_uid[uid]),
+                "route_km": float(fixed_origin),          # analytic metric
+                "fixed_origin_km": float(fixed_origin),
+                "legacy_expected_km": float(legacy),
                 "zone_id": int(entry["zone_id"]),
                 "is_city": settlement == CITY_SETTLEMENT,
                 "service_status": entry["service_status"],
@@ -102,17 +116,21 @@ def load_addresses() -> list[dict]:
 
 
 def zone_for(km: float, edges: list[float]) -> int:
-    """Zone by the <= convention (threshold belongs to the lower zone)."""
+    """Unified boundary convention [lower_bound, upper_bound):
+
+    a value exactly on a threshold belongs to the UPPER zone. This matches the
+    released dataset (strict `<`) and is used everywhere in this audit.
+    """
     for index, edge in enumerate(edges):
-        if km <= edge:
+        if km < edge:
             return index + 1
     return len(edges) + 1
 
 
-def zone_for_released(km: float, edges: list[float]) -> int:
-    """Released convention: a value exactly on a threshold falls in the UPPER zone."""
+# Legacy <= convention, kept only to document the former baseline mismatches.
+def zone_for_le(km: float, edges: list[float]) -> int:
     for index, edge in enumerate(edges):
-        if km < edge:
+        if km <= edge:
             return index + 1
     return len(edges) + 1
 
@@ -279,10 +297,11 @@ def _percentile(ordered: list[float], q: float) -> float:
     return ordered[low] * (1 - frac) + ordered[high] * frac
 
 
-def zone_members(rows: list[dict], edges: list[float]) -> list[list[dict]]:
+def zone_members(rows: list[dict], edges: list[float],
+                 metric: str = "route_km") -> list[list[dict]]:
     buckets: list[list[dict]] = [[] for _ in range(len(edges) + 1)]
     for row in rows:
-        buckets[zone_for(row["route_km"], edges) - 1].append(row)
+        buckets[zone_for(row[metric], edges) - 1].append(row)
     return buckets
 
 
@@ -291,41 +310,49 @@ def rounding_variants(edges: list[float]) -> dict:
             for step in ROUNDING_STEPS_KM}
 
 
-def boundary_instability(rows: list[dict], edges: list[float], pct: float) -> int:
+def boundary_instability_metric(rows, edges, pct, metric):
     flips = 0
     for row in rows:
-        base = zone_for(row["route_km"], edges)
-        if (zone_for(row["route_km"] * (1 + pct), edges) != base
-                or zone_for(row["route_km"] * (1 - pct), edges) != base):
+        km = row[metric]
+        base = zone_for(km, edges)
+        if zone_for(km * (1 + pct), edges) != base or zone_for(km * (1 - pct), edges) != base:
             flips += 1
     return flips
+
+
+def boundary_instability(rows: list[dict], edges: list[float], pct: float) -> int:
+    return boundary_instability_metric(rows, edges, pct, "route_km")
 
 
 # ----------------------- baseline mismatch audit -----------------------
 
 def baseline_mismatches(rows: list[dict]) -> list[dict]:
+    """Released zones were assigned on legacy expected_km. Under the unified
+    [lower, upper) convention the recompute reproduces all 9,216. The five former
+    mismatches (which only appeared under the old <= convention) are enumerated
+    here and marked RESOLVED so the audit trail is preserved.
+    """
     out = []
     for row in rows:
-        rc = zone_for(row["route_km"], BASELINE_EDGES)
-        if rc == row["zone_id"]:
+        km = row["legacy_expected_km"]
+        unified = zone_for(km, BASELINE_EDGES)
+        former = zone_for_le(km, BASELINE_EDGES)
+        if unified == row["zone_id"] and former == row["zone_id"]:
             continue
-        km = row["route_km"]
         nearest = min(BASELINE_EDGES, key=lambda e: abs(km - e))
-        on_edge = abs(km - nearest) < 1e-9
-        released = zone_for_released(km, BASELINE_EDGES)
-        reason = ("threshold_inclusivity" if on_edge and released == row["zone_id"]
-                  else "unresolved")
+        resolved = unified == row["zone_id"]
         out.append({
             "address_id": row["uid"], "territory": row["settlement"],
             "district": row["district"], "street": row["street"],
             "house_number": row["house"], "expected_km": _round(km),
-            "registry_zone_id": row["zone_id"], "recomputed_zone_id": rc,
+            "registry_zone_id": row["zone_id"],
+            "recomputed_zone_id_unified": unified,
+            "recomputed_zone_id_legacy_le": former,
             "nearest_threshold_km": _round(nearest),
             "distance_to_threshold_km": _round(km - nearest),
             "source_file": "releases/bender-zones-v1.1/address-registry.json",
-            "reason": reason,
-            "status": "explained_by_inclusivity_convention"
-            if reason == "threshold_inclusivity" else "UNRESOLVED",
+            "reason": "threshold_inclusivity",
+            "status": "RESOLVED_UNDER_LOWER_UPPER_CONVENTION" if resolved else "UNRESOLVED",
         })
     out.sort(key=lambda r: r["address_id"])
     return out
@@ -333,9 +360,9 @@ def baseline_mismatches(rows: list[dict]) -> list[dict]:
 
 def write_mismatches(mismatches: list[dict]) -> None:
     header = ["address_id", "territory", "district", "street", "house_number",
-              "expected_km", "registry_zone_id", "recomputed_zone_id",
-              "nearest_threshold_km", "distance_to_threshold_km", "source_file",
-              "reason", "status"]
+              "expected_km", "registry_zone_id", "recomputed_zone_id_unified",
+              "recomputed_zone_id_legacy_le", "nearest_threshold_km",
+              "distance_to_threshold_km", "source_file", "reason", "status"]
     with MISMATCH_CSV.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=header, lineterminator="\n")
         writer.writeheader()
@@ -429,8 +456,8 @@ def _read_csv(path: Path) -> list[dict]:
 
 
 def _zone_row(model_id, method, k, metric, scope, zi, lower, upper,
-              members, all_rows, city_rows_all) -> dict:
-    kms = sorted(r["route_km"] for r in members)
+              members, all_rows, city_rows_all, metric_key="route_km") -> dict:
+    kms = sorted(r[metric_key] for r in members)
     all_n = len(all_rows)
     city_n = len(city_rows_all)
     city_members = sum(1 for r in members if r["is_city"])
@@ -466,9 +493,29 @@ CANDIDATE_HEADER = [
 ]
 
 
+def _rounding_recompute(city: list[dict], edges: list[float]) -> dict:
+    """Recompute counts, instability and same-street splits for rounded thresholds."""
+    out = {}
+    street_by = {r["uid"]: r["street"] for r in city}
+    for step in ROUNDING_STEPS_KM:
+        red = _monotone([_round(round(e / step) * step) for e in edges])
+        buckets = zone_members(city, red)
+        streets: dict[str, set] = defaultdict(set)
+        for r in city:
+            streets[street_by[r["uid"]]].add(zone_for(r["route_km"], red))
+        out[str(step)] = {
+            "edges": red, "counts": [len(b) for b in buckets],
+            "instability_5pct": boundary_instability(city, red, 0.05),
+            "same_street_splits": sum(1 for zs in streets.values() if len(zs) > 1),
+        }
+    return out
+
+
 def build_all_models(rows: list[dict]) -> tuple[list[dict], dict]:
     city = [r for r in rows if r["is_city"]]
-    all_values = [r["route_km"] for r in rows]
+    # Full-population diagnostics stay on the LEGACY blended metric; city
+    # deployable models use the fixed-origin metric (route_km == central_km).
+    legacy_values = [r["legacy_expected_km"] for r in rows]
     city_values = [r["route_km"] for r in city]
     method_funcs = {
         "quantile": thresholds_quantile,
@@ -477,23 +524,23 @@ def build_all_models(rows: list[dict]) -> tuple[list[dict], dict]:
     }
 
     candidate_rows: list[dict] = []
-    summary: dict = {"models": {}, "city_models": {}, "rounding": {}}
+    summary: dict = {"models": {}, "city_models": {}}
 
-    # full-population diagnostics
     diagnostics = [("BASELINE_4", "released", BASELINE_EDGES)]
     for k in (4, 5, 6):
         for method, func in method_funcs.items():
-            diagnostics.append((f"K{k}R_{method}", method, func(all_values, k)))
+            diagnostics.append((f"K{k}R_{method}", method, func(legacy_values, k)))
     for model_id, method, edges in diagnostics:
         k = len(edges) + 1
-        buckets = zone_members(rows, edges)
+        buckets = zone_members(rows, edges, "legacy_expected_km")
         bounds = [0.0, *edges, None]
-        inst = boundary_instability(rows, edges, 0.05)
+        inst = boundary_instability_metric(rows, edges, 0.05, "legacy_expected_km")
         for zi in range(k):
-            row = _zone_row(model_id, method, k, "route_km", "FULL", zi + 1,
-                            bounds[zi], bounds[zi + 1], buckets[zi], rows, city)
+            row = _zone_row(model_id, method, k, "legacy_expected_km", "FULL", zi + 1,
+                            bounds[zi], bounds[zi + 1], buckets[zi], rows, city,
+                            metric_key="legacy_expected_km")
             row["boundary_instability_count"] = inst
-            row["notes"] = "full-population route diagnostic; NOT a city tariff"
+            row["notes"] = "LEGACY_RELEASE_DIAGNOSTIC (blended metric); NOT a city tariff"
             candidate_rows.append(row)
         summary["models"][model_id] = {
             "k": k, "method": method, "edges": edges,
@@ -502,7 +549,6 @@ def build_all_models(rows: list[dict]) -> tuple[list[dict], dict]:
             "max_share": _round(max(len(b) for b in buckets) / len(rows), 4),
         }
 
-    # city deployable candidates
     city_specs = []
     for k in (4, 5, 6):
         for method, func in method_funcs.items():
@@ -515,17 +561,17 @@ def build_all_models(rows: list[dict]) -> tuple[list[dict], dict]:
         bounds = [0.0, *edges, None]
         inst = boundary_instability(city, edges, 0.05)
         for zi in range(k):
-            row = _zone_row(model_id, method, k, "route_km", "CITY", zi + 1,
+            row = _zone_row(model_id, method, k, "fixed_origin_km", "CITY", zi + 1,
                             bounds[zi], bounds[zi + 1], buckets[zi], rows, city)
             row["boundary_instability_count"] = inst
-            row["notes"] = "city deployable candidate (outside_km=0)"
+            row["notes"] = "city deployable (fixed-origin km; outside_km=0)"
             candidate_rows.append(row)
         summary["city_models"][model_id] = {
             "k": k, "method": method, "edges": edges,
             "zone_counts": [len(b) for b in buckets],
             "min_share": _round(min(len(b) for b in buckets) / len(city), 4),
             "max_share": _round(max(len(b) for b in buckets) / len(city), 4),
-            "rounding": rounding_variants(edges),
+            "rounding_recompute": _rounding_recompute(city, edges),
         }
     return candidate_rows, summary
 
@@ -535,6 +581,27 @@ def write_candidates(candidate_rows: list[dict]) -> None:
         writer = csv.DictWriter(handle, fieldnames=CANDIDATE_HEADER, lineterminator="\n")
         writer.writeheader()
         writer.writerows(candidate_rows)
+
+
+def write_fixed_origin_routes(rows: list[dict]) -> None:
+    """The fixed-origin route metric, sourced (not invented) from central_km."""
+    header = ["address_id", "territory", "district", "street", "house_number",
+              "lat", "lon", "fixed_origin_lat", "fixed_origin_lon",
+              "fixed_origin_km", "metric_source", "legacy_expected_km",
+              "delta_fixed_minus_legacy_km", "provenance"]
+    with FIXED_ORIGIN_CSV.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(header)
+        for row in sorted(rows, key=lambda r: r["uid"]):
+            writer.writerow([
+                row["uid"], row["settlement"], row["district"], row["street"],
+                row["house"], _round(row["lat"], 6), _round(row["lon"], 6),
+                FIXED_ORIGIN_LAT, FIXED_ORIGIN_LON, _round(row["fixed_origin_km"]),
+                "central_km", _round(row["legacy_expected_km"]),
+                _round(row["fixed_origin_km"] - row["legacy_expected_km"]),
+                "stage09 OSRM route from the 0.85-weight central origin "
+                "(scripts/stage09_engine.py); not invented",
+            ])
 
 
 def taxi_reference_a(in_city_km: float, outside_km: float) -> float:
@@ -549,8 +616,8 @@ def taxi_reference_b(in_city_km: float, outside_km: float) -> float:
 def write_features(rows: list[dict]) -> None:
     header = [
         "address_id", "territory", "district", "street", "house_number", "lat", "lon",
-        "route_km", "route_duration_min", "route_metric_status", "in_city_km",
-        "outside_city_km", "outside_split_status", "boundary_anchor_id",
+        "route_km", "legacy_expected_km", "route_duration_min", "route_metric_status",
+        "in_city_km", "outside_city_km", "outside_split_status", "boundary_anchor_id",
         "effective_km_1667", "taxi_model_a_reference_rub", "taxi_model_b_reference_rub",
         "driver_take_fixed_a_rub", "driver_take_percent_a_rub",
         "driver_best_taxi_take_a_rub", "current_zone_id", "data_confidence",
@@ -561,6 +628,7 @@ def write_features(rows: list[dict]) -> None:
         writer.writerow(header)
         for row in sorted(rows, key=lambda r: r["uid"]):
             route_km = row["route_km"]
+            legacy = _round(row["legacy_expected_km"])
             if row["is_city"]:
                 ref_a = _round(taxi_reference_a(route_km, 0.0), 2)
                 ref_b = _round(taxi_reference_b(route_km, 0.0), 2)
@@ -570,7 +638,8 @@ def write_features(rows: list[dict]) -> None:
                 writer.writerow([
                     row["uid"], row["settlement"], row["district"], row["street"],
                     row["house"], _round(row["lat"], 6), _round(row["lon"], 6),
-                    _round(route_km), "", "expected_km_osrm", _round(route_km), 0.0,
+                    _round(route_km), legacy, "", "fixed_origin_central_km",
+                    _round(route_km), 0.0,
                     "CITY_ALL_IN", "", _round(route_km), ref_a, ref_b, fixed, percent,
                     best, row["zone_id"], "CITY_OWNER_ASSUMPTION",
                     "outside_city_km=0 by city doctrine; taxi = owner assumption",
@@ -579,7 +648,7 @@ def write_features(rows: list[dict]) -> None:
                 writer.writerow([
                     row["uid"], row["settlement"], row["district"], row["street"],
                     row["house"], _round(row["lat"], 6), _round(row["lon"], 6),
-                    _round(route_km), "", "expected_km_osrm", "", "",
+                    _round(route_km), legacy, "", "fixed_origin_central_km", "", "",
                     "OUTSIDE_SPLIT_UNKNOWN", "", "", "", "", "", "", "",
                     row["zone_id"], "EXTERNAL_SPLIT_UNKNOWN",
                     "external territory; in/out split unproven; bracket only",
@@ -635,12 +704,14 @@ def main() -> None:
     assert all(r["settlement"] != "Варница" for r in rows), "Varnita must not be present"
 
     city = [r for r in rows if r["is_city"]]
-    reproduction = sum(1 for r in rows
-                       if zone_for(r["route_km"], BASELINE_EDGES) == r["zone_id"])
-    reproduction_strict = sum(1 for r in rows
-                              if zone_for_released(r["route_km"], BASELINE_EDGES) == r["zone_id"])
+    # reproduction measured on the LEGACY metric the zones were built on
+    repro_unified = sum(1 for r in rows
+                        if zone_for(r["legacy_expected_km"], BASELINE_EDGES) == r["zone_id"])
+    repro_le = sum(1 for r in rows
+                   if zone_for_le(r["legacy_expected_km"], BASELINE_EDGES) == r["zone_id"])
     mismatches = baseline_mismatches(rows)
     write_mismatches(mismatches)
+    write_fixed_origin_routes(rows)
 
     candidate_rows, summary = build_all_models(rows)
     write_features(rows)
@@ -650,9 +721,9 @@ def main() -> None:
     reg_by_uid = {r["uid"]: r for r in rows}
     controls = load_manual_controls(reg_by_uid)
     cm = summary["city_models"]
+    # manual validation compares Yandex km to the FIXED-ORIGIN router km,
+    # for the deployable city models only.
     model_defs = [
-        ("BASELINE_4", BASELINE_EDGES, "FULL"),
-        ("K5R_dp_optimal_jenks", summary["models"]["K5R_dp_optimal_jenks"]["edges"], "FULL"),
         ("CITY_K4R_dp_optimal_jenks", cm["CITY_K4R_dp_optimal_jenks"]["edges"], "CITY"),
         ("CITY_K5R_dp_optimal_jenks", cm["CITY_K5R_dp_optimal_jenks"]["edges"], "CITY"),
         ("CITY_K6R_dp_optimal_jenks", cm["CITY_K6R_dp_optimal_jenks"]["edges"], "CITY"),
@@ -660,21 +731,26 @@ def main() -> None:
     manual_rows = manual_validation_rows(controls, model_defs)
     write_manual_validation(manual_rows)
 
-    kms = sorted(r["route_km"] for r in rows)
+    fkm = sorted(r["fixed_origin_km"] for r in rows)
     summary["readiness"] = {
         "canonical_population": len(rows),
-        "route_km_field": "expected_km",
-        "baseline_zone_reproduction_le": reproduction,
-        "baseline_zone_reproduction_strict": reproduction_strict,
+        "analytic_metric": "fixed_origin_km (central_km, route from 46.82388,29.48313)",
+        "legacy_metric": "expected_km blend (central/bam/outer) = LEGACY_RELEASE_DIAGNOSTIC",
+        "boundary_convention": "[lower_bound, upper_bound)",
+        "baseline_reproduction_unified": repro_unified,
+        "baseline_reproduction_legacy_le": repro_le,
         "baseline_mismatch_count": len(mismatches),
         "baseline_mismatch_ids": [m["address_id"] for m in mismatches],
-        "baseline_mismatch_reasons": sorted({m["reason"] for m in mismatches}),
+        "baseline_mismatch_all_resolved":
+            all(m["status"].startswith("RESOLVED") for m in mismatches),
         "baseline_edges": BASELINE_EDGES, "baseline_max_km": BASELINE_MAX_KM,
         "registry_zone_counts": dict(sorted(Counter(r["zone_id"] for r in rows).items())),
         "territory_counts": dict(Counter(r["settlement"] for r in rows)),
         "city_addresses": len(city), "external_addresses": len(rows) - len(city),
-        "route_km_min": _round(kms[0]), "route_km_median": _round(_percentile(kms, 0.5)),
-        "route_km_p90": _round(_percentile(kms, 0.9)), "route_km_max": _round(kms[-1]),
+        "fixed_origin_km_min": _round(fkm[0]),
+        "fixed_origin_km_median": _round(_percentile(fkm, 0.5)),
+        "fixed_origin_km_p90": _round(_percentile(fkm, 0.9)),
+        "fixed_origin_km_max": _round(fkm[-1]),
         "manual_controls_total": len(controls),
         "manual_controls_city": sum(1 for c in controls if c["is_city"]),
         "admin_boundary_relation_ids": admin_ids,

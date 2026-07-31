@@ -91,9 +91,10 @@ def zone_of_city(km, edges):
 
 
 def monotone_int(fees):
+    """Non-decreasing integer sequence (equal adjacent values allowed)."""
     out, last = [], -1
     for fee in fees:
-        fee = max(int(round(fee)), last + 1)
+        fee = max(int(round(fee)), last)
         out.append(fee)
         last = fee
     return out
@@ -141,6 +142,32 @@ def current_fee_policy_specific(city):
             **{f"{k}_share": round(v / n, 4) for k, v in buckets.items()}}
 
 
+# policy -> (abs gap limit, pct gap limit, driver-coverage target over ALL addrs)
+POLICY_RULES = {
+    "DRIVER_CONSERVATIVE": (2, None, 0.95),
+    "BALANCED": (3, 0.10, 0.90),
+    "CUSTOMER_FIRST": (5, 0.15, 0.80),
+}
+
+
+def _driver_coverage(fee, bests, gap_abs, gap_pct):
+    ok = 0
+    for best in bests:
+        gap = best - fee
+        good = gap <= gap_abs and (gap_pct is None or gap <= gap_pct * best)
+        ok += 1 if good else 0
+    return ok / len(bests)
+
+
+def _lowest_fee_meeting_driver(bests, gap_abs, gap_pct, target, hi):
+    """Lowest integer fee whose driver-constraint coverage over ALL addresses in
+    the zone reaches the target. Coverage is non-decreasing in fee."""
+    for fee in range(1, hi + 1):
+        if _driver_coverage(fee, bests, gap_abs, gap_pct) >= target:
+            return fee
+    return hi
+
+
 def build_policy_prices(city, candidates):
     rows = []
     for model_id in CITY_MODELS:
@@ -156,36 +183,30 @@ def build_policy_prices(city, candidates):
             bests = sorted(driver_best(taxi_ref_a(float(r["route_km"]))) for r in members)
             zone_stats.append({"members": members, "refs": refs, "bests": bests})
         bounds = [0.0, *edges, ""]
-        for policy in ("DRIVER_CONSERVATIVE", "BALANCED", "CUSTOMER_FIRST"):
-            raw = []
-            for st in zone_stats:
-                med_ref = _pct(st["refs"], 0.5)
-                med_best = _pct(st["bests"], 0.5)
-                if policy == "DRIVER_CONSERVATIVE":
-                    raw.append(med_best)               # gap ~0, protect driver
-                elif policy == "BALANCED":
-                    raw.append(med_best - 1)            # ~1 extra client saving
-                else:
-                    raw.append(med_ref * 0.85)          # 15% off taxi
-            fees = monotone_int(raw)
+        hi = int(max((max(st["refs"]) for st in zone_stats if st["refs"]), default=40)) + 1
+
+        # constraint-driven fee over ALL addresses in each zone
+        raw_fee = {}
+        for policy, (gap_abs, gap_pct, target) in POLICY_RULES.items():
+            raw_fee[policy] = monotone_int([
+                _lowest_fee_meeting_driver(st["bests"], gap_abs, gap_pct, target, hi)
+                if st["bests"] else 0 for st in zone_stats])
+        # enforce CUSTOMER_FIRST <= BALANCED <= DRIVER_CONSERVATIVE per zone.
+        # min of two non-decreasing sequences stays non-decreasing.
+        cons = raw_fee["DRIVER_CONSERVATIVE"]
+        bal = [min(a, b) for a, b in zip(raw_fee["BALANCED"], cons, strict=True)]
+        cust = [min(a, b) for a, b in zip(raw_fee["CUSTOMER_FIRST"], bal, strict=True)]
+        fee_by_policy = {"DRIVER_CONSERVATIVE": cons, "BALANCED": bal,
+                         "CUSTOMER_FIRST": cust}
+
+        for policy, (gap_limit_abs, gap_limit_pct, _t) in POLICY_RULES.items():
             for zi, st in enumerate(zone_stats):
                 members, refs, bests = st["members"], st["refs"], st["bests"]
-                fee = fees[zi]
                 if not members:
                     continue
-                gap_limit_abs = {"DRIVER_CONSERVATIVE": 2, "BALANCED": 3,
-                                 "CUSTOMER_FIRST": 5}[policy]
-                gap_limit_pct = {"DRIVER_CONSERVATIVE": None, "BALANCED": 0.10,
-                                 "CUSTOMER_FIRST": 0.15}[policy]
+                fee = fee_by_policy[policy][zi]
                 client_ok = sum(1 for ref in refs if fee < ref) / len(refs)
-                driver_ok = 0
-                for best in bests:
-                    gap = best - fee
-                    ok = gap <= gap_limit_abs
-                    if gap_limit_pct is not None:
-                        ok = ok and gap <= gap_limit_pct * best
-                    driver_ok += 1 if ok else 0
-                driver_ok /= len(bests)
+                driver_ok = _driver_coverage(fee, bests, gap_limit_abs, gap_limit_pct)
                 joint = 0
                 for ref, best in zip(refs, bests, strict=True):
                     gap = best - fee

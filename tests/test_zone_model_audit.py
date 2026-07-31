@@ -147,9 +147,10 @@ def test_09_address_ids_unique_and_match_registry():
 
 def test_10_route_metric_has_provenance_and_no_invented_duration():
     for r in FEAT:
-        assert r["route_metric_status"] == "expected_km_osrm"
+        assert r["route_metric_status"] == "fixed_origin_central_km"
         assert float(r["route_km"]) > 0
         assert r["route_duration_min"] == ""
+        assert r["legacy_expected_km"] != ""  # legacy kept alongside, labelled
 
 
 def test_11_varnita_absent_lipcani_city():
@@ -169,19 +170,23 @@ def test_13_severny_no_automatic_classification():
 
 
 # ---- 8: baseline mismatch exact ----
-def test_14_baseline_mismatch_count_and_ids_exact():
+def test_14_baseline_mismatch_set_exact_and_resolved():
     assert len(MIS) == 5
     assert sorted(r["address_id"] for r in MIS) == BASELINE_MISMATCH_IDS
     assert all(r["reason"] == "threshold_inclusivity" for r in MIS)
     assert all(abs(float(r["distance_to_threshold_km"])) < 1e-9 for r in MIS)
+    # under the unified [lower, upper) convention all five reproduce the release
+    assert all(r["status"] == "RESOLVED_UNDER_LOWER_UPPER_CONVENTION" for r in MIS)
+    assert all(int(r["recomputed_zone_id_unified"]) == int(r["registry_zone_id"]) for r in MIS)
 
 
-def test_15_baseline_reproduction_le_and_strict_exact():
+def test_15_baseline_reproduction_unified_and_legacy():
     rows = ZM.load_addresses()
-    le = sum(1 for r in rows if ZM.zone_for(r["route_km"], ZM.BASELINE_EDGES) == r["zone_id"])
-    strict = sum(1 for r in rows
-                 if ZM.zone_for_released(r["route_km"], ZM.BASELINE_EDGES) == r["zone_id"])
-    assert le == 9211 and strict == 9216  # inclusivity is the ONLY cause
+    unified = sum(1 for r in rows
+                  if ZM.zone_for(r["legacy_expected_km"], ZM.BASELINE_EDGES) == r["zone_id"])
+    legacy_le = sum(1 for r in rows
+                    if ZM.zone_for_le(r["legacy_expected_km"], ZM.BASELINE_EDGES) == r["zone_id"])
+    assert unified == 9216 and legacy_le == 9211  # [lower,upper) reproduces exactly
 
 
 # ---- 9: no mixing of full-population counts with city economics ----
@@ -434,3 +439,82 @@ def test_44_sensitivity_grid_city_scoped_and_sized():
     scen = _csv(SCENARIOS)
     assert len(scen) == 5184
     assert all(r["scope"] == "CITY_ONLY_OWNER_ASSUMPTION" for r in scen)
+
+
+# ---- fixed-origin metric, boundary convention, price ordering, rounding ----
+FIXED_ORIGIN = ROOT / "data/interim/fixed-origin-address-routes-v1.csv"
+FIX = _csv(FIXED_ORIGIN)
+
+
+def test_45_fixed_origin_metric_sourced_not_invented():
+    assert len(FIX) == 9216
+    for r in FIX:
+        assert float(r["fixed_origin_lat"]) == 46.82388
+        assert float(r["fixed_origin_lon"]) == 29.48313
+        assert r["metric_source"] == "central_km"
+        assert "not invented" in r["provenance"]
+        assert float(r["fixed_origin_km"]) > 0
+
+
+def test_46_fixed_origin_differs_from_legacy_blend():
+    # expected_km is a multi-origin blend; the fixed-origin metric is materially
+    # different, so the earlier expected_km models were not a clean single origin.
+    deltas = [abs(float(r["delta_fixed_minus_legacy_km"])) for r in FIX]
+    assert max(deltas) > 1.0 and sum(1 for d in deltas if d > 0.01) > 8000
+
+
+def test_47_city_models_use_fixed_origin_metric():
+    for r in CAND:
+        if r["economic_scope"] == "CITY_DEPLOYABLE":
+            assert r["metric"] == "fixed_origin_km"
+        else:
+            assert r["metric"] == "legacy_expected_km"
+
+
+def test_48_boundary_convention_is_lower_upper_half_open():
+    # value exactly on a threshold falls in the UPPER zone
+    edges = [2.0, 4.0]
+    assert ZM.zone_for(2.0, edges) == 2
+    assert ZM.zone_for(1.999, edges) == 1
+    assert ZM.zone_for(4.0, edges) == 3
+
+
+def test_49_policy_prices_ordered_customer_le_balanced_le_conservative():
+    byz = {}
+    for r in POL:
+        byz.setdefault((r["model_id"], int(r["zone_id"])), {})[r["policy"]] = \
+            int(r["candidate_fee_rub"])
+    for fees in byz.values():
+        assert fees["CUSTOMER_FIRST"] <= fees["BALANCED"] <= fees["DRIVER_CONSERVATIVE"]
+
+
+def test_50_hard_constraints_computed_over_all_addresses():
+    # driver_constraint_coverage must be the real fraction over all zone addresses,
+    # not a median shortcut — recompute one row independently.
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    city = [r for r in reg.values() if r["is_city"]]
+    edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 5)
+    row = next(r for r in POL if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+               and r["policy"] == "DRIVER_CONSERVATIVE" and int(r["zone_id"]) == 5)
+    fee = int(row["candidate_fee_rub"])
+    members = [r for r in city if ZM.zone_for(r["route_km"], edges) == 5]
+    ok = sum(1 for r in members
+             if ZE.driver_best(ZE.taxi_ref_a(r["route_km"])) - fee <= 2)
+    assert round(ok / len(members), 4) == float(row["driver_constraint_coverage"])
+
+
+def test_51_operational_rounding_recomputes_counts_and_flips():
+    summary = json.loads(
+        (ROOT / "reports/zone-model-audit/_route-model-summary-v1.json").read_text(
+            encoding="utf-8"))
+    rr = summary["city_models"]["CITY_K5R_dp_optimal_jenks"]["rounding_recompute"]
+    for step in ("0.1", "0.25", "0.5"):
+        assert sum(rr[step]["counts"]) == 4866
+        assert "instability_5pct" in rr[step] and "same_street_splits" in rr[step]
+
+
+def test_52_manual_validation_uses_fixed_origin_router_km():
+    # router_km in the manual CSV must equal the address fixed-origin km
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    for r in MAN:
+        assert abs(float(r["router_km"]) - round(reg[r["uid"]]["fixed_origin_km"], 3)) < 1e-6

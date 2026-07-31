@@ -1,32 +1,29 @@
-# CITY_K6 analysis v1
+# CITY_K6 analysis v1 (fixed-origin)
 
-City deployable model (4,866 city addresses; natural-break DP over city
-`expected_km`).
+City deployable model over the fixed-origin km (route from 46.82388, 29.48313),
+4,866 city addresses, natural-break DP.
 
-## Zones (CITY_K6R natural breaks)
+## Zones
 
-| Zone | Route km | City addresses | Share | BALANCED fee руб |
+| Zone | Fixed-origin km | City addresses | Share | BALANCED fee руб |
 |---|---|---:|---:|---:|
-| 1 | ≤ 1.475 | 739 | 15.2 % | 12 |
-| 2 | 1.475–2.225 | 717 | 14.7 % | 13 |
-| 3 | 2.225–3.125 | 974 | 20.0 % | 14 |
-| 4 | 3.125–4.175 | 762 | 15.7 % | 16 |
-| 5 | 4.175–5.175 | 1028 | 21.1 % | 23 |
-| 6 | > 5.175 | 646 | 13.3 % | 27 |
+| 1 | ≤ 1.675 | 1322 | 27 % | 11 |
+| 2 | 1.675–2.825 | 1052 | 22 % | 11 |
+| 3 | 2.825–3.925 | 532 | 11 % | 17 |
+| 4 | 3.925–4.875 | 873 | 18 % | 22 |
+| 5 | 4.875–5.825 | 736 | 15 % | 27 |
+| 6 | > 5.825 | 351 | **7 %** | 34 |
 
-Three policies (руб.): DRIVER_CONSERVATIVE 13/14/15/17/24/28 · BALANCED
-12/13/14/16/23/27 · CUSTOMER_FIRST 15/16/17/18/24/28.
+Policies (руб.): DRIVER_CONSERVATIVE 11/11/17/22/28/36 · BALANCED 11/11/17/22/27/34 ·
+CUSTOMER_FIRST 11/11/15/20/25/31.
 
 ## Read
+- Zone 6 holds only **7 % (351 addresses)** — a near-sliver far zone.
+- **Least stable:** 24/28 manual agreement (4 flips) and the **sharpest** single
+  neighbour jump (19 руб).
+- Near zones (1–2) are identical (11 руб), so K=6 adds a boundary that buys no
+  pricing resolution there.
 
-- Unlike the full-population K=6 (which produced a 3.7 % external sliver), the
-  city-only K=6 has no sliver (min share 13.3 %) — the sliver was an external-tail
-  artefact. So K=6 is geometrically *feasible* for the city.
-- **But it is the least stable:** only **64 % router/Yandex agreement** on the 28
-  city controls (10 flips), and **4,163** different-zone neighbour pairs within
-  100 m — more than double K=4.
-- The near zones (1–4) differ by only 1–2 руб (12/13/14/16), so K=6 buys very
-  little pricing resolution for a large stability cost.
-
-**CITY_K6 is not recommended:** it adds boundaries and neighbour churn without a
-meaningful pricing gain, and is the least robust against real Yandex divergence.
+**CITY_K6 is not recommended:** it over-segments the tail into a near-sliver, is
+the least robust against real Yandex divergence, and adds sharper neighbour jumps
+without a pricing gain.

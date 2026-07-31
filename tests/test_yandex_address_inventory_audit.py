@@ -54,7 +54,11 @@ BASE_RECONCILIATION_SHA = (
     "1c41f93ac2d346c851f2cd20f1ff3941641697e50d677959bbc62cb69ed8edce"
 )
 RECHECK_OVERLAY_SHA = (
-    "d349e92192d21fefd03208bf1a6492225f4bce7877cc256437717c9f78beb4f8"
+    "dc047276fa6298cc5a1ff31282a92ce8b98f583a3a16264ab8695fbeda46a181"
+)
+# The first 143 reverse-street rows are frozen; new work may only be appended.
+OLD_143_REVERSE_PREFIX_SHA = (
+    "94d084550800e26ee470e0c4f63df7d35de6e951f2d5d17860c05de8369a1aa5"
 )
 
 
@@ -839,6 +843,17 @@ def test_62d_recheck_overlay_layer_is_append_only_and_well_formed():
         assert r["yandex_observation_id"] == base["yandex_observation_id"]
 
 
+def test_62d1_rck0004_preserves_verbatim_pinned_source_flag():
+    # Provenance: the relocated recheck must match commit 7493b2a byte-for-byte.
+    # The original row carried yandex_number_present_in_pinned_source = False and
+    # it must never be silently flipped without a fresh manual recheck.
+    rck = {row["recheck_id"]: row for row in _csv(RECONCILIATION_RECHECK)}["RCK-0004"]
+    assert rck["yandex_number_present_in_pinned_source"] == "False"
+    assert rck["resolved_relationship_type"] == "UNRESOLVED"
+    assert rck["resolved_net_inventory_effect"] == "UNKNOWN"
+    assert rck["resolution_confidence"] == "LOW"
+
+
 def test_62e_overlay_produces_seven_effective_rows_with_expected_effects():
     effective = ANALYZE.build_effective_reconciliations(
         _csv(RECONCILIATION), _csv(RECONCILIATION_RECHECK)
@@ -905,6 +920,25 @@ def test_62k_checkpoint_exposes_overlay_bookkeeping_fields():
         "ZERO_SUBSTITUTION": 4,
         "UNKNOWN": 1,
     }
+
+
+def _reverse_prefix_hash(row_count: int) -> str:
+    raw = REVERSE.read_bytes().replace(b"\r\n", b"\n")
+    lines = raw.split(b"\n")
+    prefix = b"\n".join(lines[: row_count + 1]) + b"\n"  # header + first N data rows
+    return hashlib.sha256(prefix).hexdigest()
+
+
+def test_62l_first_143_reverse_rows_are_frozen_prefix():
+    rows = _csv(REVERSE)
+    reviewed = len(rows)
+    complete = sum(row["review_status"] == "COMPLETE_FOR_VISIBLE_MAP" for row in rows)
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert reviewed == checkpoint["reverse_street_groups_reviewed"] == 143
+    assert complete == checkpoint["reverse_street_groups_complete"] == 25
+    assert checkpoint["complete"] is False
+    # The first 143 rows must stay byte-equivalent; new work may only be appended.
+    assert _reverse_prefix_hash(143) == OLD_143_REVERSE_PREFIX_SHA
 
 
 def test_63_probability_sample_is_reproducible_and_unique():

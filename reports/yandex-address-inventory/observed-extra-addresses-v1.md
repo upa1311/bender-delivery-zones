@@ -8,6 +8,8 @@ distinct visible additions, and one remains unresolved.
 
 Known provisional net effect: 2. One reconciliation remains unresolved and is excluded from the numeric net effect.
 
+The base reconciliation file remains immutable; the two confirmed additions come from an append-only recheck overlay (see `address-number-reconciliation-recheck-v1.md`), not from editing the original observations.
+
 This is not a citywide total.
 
 All six formerly MEDIUM candidates were independently searched again in the visible

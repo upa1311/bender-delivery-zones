@@ -82,6 +82,16 @@
   "provisional_net_inventory_difference": 2,
   "unresolved_reconciliations": 1,
   "canonical_conflicts_rechecked": 69,
+  "reconciliation_base_total": 7,
+  "reconciliation_recheck_total": 3,
+  "reconciliation_effective_total": 7,
+  "reconciliation_effective_status_counts": {
+    "PLUS_ONE": 2,
+    "MINUS_ONE": 0,
+    "ZERO_SUBSTITUTION": 4,
+    "UNKNOWN": 1
+  },
+  "reconciliation_overlay_applied": true,
   "source_exclusions_total": 36,
   "source_exclusions_recovered": 36,
   "source_exclusions_blocked": 0,

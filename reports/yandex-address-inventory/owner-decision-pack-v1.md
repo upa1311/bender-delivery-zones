@@ -16,6 +16,8 @@ for a future release.
 
 Known provisional net effect: 2. One reconciliation remains unresolved and is excluded from the numeric net effect.
 
+The base reconciliation file remains immutable; the two confirmed additions come from an append-only recheck overlay (see `address-number-reconciliation-recheck-v1.md`), not from editing the original observations.
+
 ## C. HOLD_ADDRESS_CONFLICT
 
 `REC-001`, `REC-017`, `REC-021`, `REC-024`, `REC-036`.

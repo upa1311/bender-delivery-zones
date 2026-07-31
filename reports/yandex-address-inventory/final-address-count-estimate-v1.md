@@ -32,6 +32,8 @@ Estimated full normal Yandex address range | unavailable
 
 Known provisional net effect: 2. One reconciliation remains unresolved and is excluded from the numeric net effect.
 
+The base reconciliation file remains immutable; the two confirmed additions come from an append-only recheck overlay (see `address-number-reconciliation-recheck-v1.md`), not from editing the original observations.
+
 Canonical 9,216, address IDs and coordinates, existing exclusions, zones,
 thresholds, Kishinevskaya, Severny/Varnita data, routing graph and restrictions,
 Direct, prices, tariff matrix, and immutable releases remain unchanged.

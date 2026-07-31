@@ -26,6 +26,9 @@ PROBABILITY_SAMPLE = ROOT / "data/interim/yandex-probability-sample-v1.csv"
 PROBABILITY_LINKS = ROOT / "data/interim/yandex-probability-observations-v1.csv"
 RECHECK = ROOT / "data/interim/yandex-canonical-conflict-recheck-v1.csv"
 RECONCILIATION = ROOT / "data/interim/yandex-address-number-reconciliation-v1.csv"
+RECONCILIATION_RECHECK = (
+    ROOT / "data/interim/yandex-address-number-reconciliation-recheck-v1.csv"
+)
 EXCLUSIONS = ROOT / "docs/data/delivery-exceptions.csv"
 DELIVERY_UNITS = ROOT / "docs/data/delivery-units.csv"
 REGISTRY_SHA = "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817"
@@ -43,6 +46,15 @@ OLD_100_PROBABILITY_OBSERVATIONS_SHA = (
 )
 OLD_69_CONFLICT_RECHECKS_SHA = (
     "e4e26f7cdf15d0908bac118fceb4702abf2d8957d36f59c9049aa123a9cf16dd"
+)
+# Base reconciliation observations are immutable and pinned byte-for-byte to the
+# parent commit 75544b3d9c65ddc279ecd55b1f36d8e7b58f56d2. Later rechecks live in
+# an append-only overlay and never rewrite these seven rows.
+BASE_RECONCILIATION_SHA = (
+    "1c41f93ac2d346c851f2cd20f1ff3941641697e50d677959bbc62cb69ed8edce"
+)
+RECHECK_OVERLAY_SHA = (
+    "d349e92192d21fefd03208bf1a6492225f4bce7877cc256437717c9f78beb4f8"
 )
 
 
@@ -755,14 +767,17 @@ def test_61_all_seven_high_extras_are_reconciled_to_canonical_rows():
 
 
 def test_62_reconciliation_checkpoint_separates_known_net_from_unresolved():
-    rows = _csv(RECONCILIATION)
-    paired = [row for row in rows if row["net_inventory_effect"] == "ZERO_SUBSTITUTION"]
+    base = _csv(RECONCILIATION)
+    effective = ANALYZE.build_effective_reconciliations(base, _csv(RECONCILIATION_RECHECK))
+    paired = [
+        row for row in effective if row["net_inventory_effect"] == "ZERO_SUBSTITUTION"
+    ]
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     assert len(paired) == checkpoint["paired_number_substitutions"] == 4
     assert checkpoint["gross_yandex_only_high"] == 7
     assert checkpoint["gross_canonical_only"] == 5
     assert checkpoint["unresolved_reconciliations"] == 1
-    assert ANALYZE.provisional_net_inventory_difference(rows) == 2
+    assert ANALYZE.provisional_net_inventory_difference(effective) == 2
     assert checkpoint["provisional_net_inventory_difference"] == 2
 
 
@@ -797,6 +812,99 @@ def test_62b_reports_exclude_unresolved_rows_from_the_numeric_net():
             encoding="utf-8"
         )
         assert statement in report
+
+
+def test_62c_base_reconciliation_file_is_immutable_and_pinned():
+    # Byte-for-byte identical to parent 75544b3; the seven observations are frozen.
+    assert _normalized_hash(RECONCILIATION) == BASE_RECONCILIATION_SHA
+    base = _csv(RECONCILIATION)
+    assert len(base) == 7
+    frozen = {row["reconciliation_id"]: row for row in base}
+    for ynr in ("YNR-0001", "YNR-0002", "YNR-0004"):
+        row = frozen[ynr]
+        assert row["relationship_type"] == "UNRESOLVED"
+        assert row["net_inventory_effect"] == "UNKNOWN"
+        assert row["confidence"] == "LOW"
+
+
+def test_62d_recheck_overlay_layer_is_append_only_and_well_formed():
+    assert _normalized_hash(RECONCILIATION_RECHECK) == RECHECK_OVERLAY_SHA
+    rechecks = _csv(RECONCILIATION_RECHECK)
+    assert len(rechecks) == 3
+    assert [r["recheck_id"] for r in rechecks] == ["RCK-0001", "RCK-0002", "RCK-0004"]
+    assert len({r["recheck_id"] for r in rechecks}) == 3  # unique recheck ids
+    base_by_id = {row["reconciliation_id"]: row for row in _csv(RECONCILIATION)}
+    for r in rechecks:
+        base = base_by_id[r["original_reconciliation_id"]]  # references existing base
+        assert r["yandex_observation_id"] == base["yandex_observation_id"]
+
+
+def test_62e_overlay_produces_seven_effective_rows_with_expected_effects():
+    effective = ANALYZE.build_effective_reconciliations(
+        _csv(RECONCILIATION), _csv(RECONCILIATION_RECHECK)
+    )
+    assert len(effective) == 7
+    effects = [row["net_inventory_effect"] for row in effective]
+    assert effects.count("PLUS_ONE") == 2
+    assert effects.count("ZERO_SUBSTITUTION") == 4
+    assert effects.count("UNKNOWN") == 1
+    assert effects.count("MINUS_ONE") == 0
+    assert ANALYZE.provisional_net_inventory_difference(effective) == 2
+    unresolved = sum(row["relationship_type"] == "UNRESOLVED" for row in effective)
+    assert unresolved == 1
+
+
+def test_62f_overlay_never_mutates_the_base_rows():
+    base = _csv(RECONCILIATION)
+    snapshot = [dict(row) for row in base]
+    ANALYZE.build_effective_reconciliations(base, _csv(RECONCILIATION_RECHECK))
+    assert base == snapshot  # build must not mutate the immutable base observations
+
+
+def test_62g_without_overlay_effective_result_collapses_to_the_base_state():
+    # Proves the analytical +2 / unresolved=1 come from the overlay, not hard-coding.
+    base = _csv(RECONCILIATION)
+    effective = ANALYZE.build_effective_reconciliations(base, [])
+    assert ANALYZE.provisional_net_inventory_difference(effective) == 0
+    assert sum(row["relationship_type"] == "UNRESOLVED" for row in effective) == 3
+
+
+def test_62h_overlay_rejects_duplicate_recheck_ids():
+    base = _csv(RECONCILIATION)
+    rechecks = _csv(RECONCILIATION_RECHECK)
+    dup = rechecks + [dict(rechecks[0])]
+    with pytest.raises(ValueError):
+        ANALYZE.build_effective_reconciliations(base, dup)
+
+
+def test_62i_overlay_rejects_unknown_original_reconciliation_id():
+    base = _csv(RECONCILIATION)
+    rechecks = _csv(RECONCILIATION_RECHECK)
+    bad = [dict(rechecks[0], recheck_id="RCK-9999", original_reconciliation_id="YNR-9999")]
+    with pytest.raises(ValueError):
+        ANALYZE.build_effective_reconciliations(base, bad)
+
+
+def test_62j_overlay_rejects_mismatched_yandex_observation_id():
+    base = _csv(RECONCILIATION)
+    rechecks = _csv(RECONCILIATION_RECHECK)
+    bad = [dict(rechecks[0], yandex_observation_id="YOX-9999")]
+    with pytest.raises(ValueError):
+        ANALYZE.build_effective_reconciliations(base, bad)
+
+
+def test_62k_checkpoint_exposes_overlay_bookkeeping_fields():
+    checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
+    assert checkpoint["reconciliation_base_total"] == 7
+    assert checkpoint["reconciliation_recheck_total"] == 3
+    assert checkpoint["reconciliation_effective_total"] == 7
+    assert checkpoint["reconciliation_overlay_applied"] is True
+    assert checkpoint["reconciliation_effective_status_counts"] == {
+        "PLUS_ONE": 2,
+        "MINUS_ONE": 0,
+        "ZERO_SUBSTITUTION": 4,
+        "UNKNOWN": 1,
+    }
 
 
 def test_63_probability_sample_is_reproducible_and_unique():

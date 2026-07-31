@@ -21,6 +21,9 @@ PROBABILITY_SAMPLE = ROOT / "data/interim/yandex-probability-sample-v1.csv"
 PROBABILITY_LINKS = ROOT / "data/interim/yandex-probability-observations-v1.csv"
 RECHECK = ROOT / "data/interim/yandex-canonical-conflict-recheck-v1.csv"
 RECONCILIATION = ROOT / "data/interim/yandex-address-number-reconciliation-v1.csv"
+RECONCILIATION_RECHECK = (
+    ROOT / "data/interim/yandex-address-number-reconciliation-recheck-v1.csv"
+)
 SECOND_PHASE_SELECTION_RULE = "FIRST_N_ELIGIBLE_IN_FROZEN_SAMPLE_ORDER"
 
 VALID_STATUSES = {
@@ -168,6 +171,66 @@ def two_phase_hajek_rate(
     return numerator / denominator
 
 
+def build_effective_reconciliations(
+    base_rows: list[dict[str, str]],
+    recheck_rows: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    """Overlay append-only rechecks onto immutable base observations.
+
+    The base rows are never mutated. For each reconciliation the latest valid
+    recheck (deterministic order: ``checked_date`` then ``recheck_id``) supplies
+    the current analytical conclusion; reconciliations without a recheck keep
+    their base observation unchanged. Exactly one effective row per base row.
+    """
+    base_by_id = {row["reconciliation_id"]: row for row in base_rows}
+    if len(base_by_id) != len(base_rows):
+        raise ValueError("Duplicate base reconciliation_id")
+
+    seen_recheck_ids: set[str] = set()
+    latest_by_reconciliation: dict[str, dict[str, str]] = {}
+    for recheck in sorted(
+        recheck_rows, key=lambda r: (r["checked_date"], r["recheck_id"])
+    ):
+        recheck_id = recheck["recheck_id"]
+        if recheck_id in seen_recheck_ids:
+            raise ValueError(f"Duplicate recheck_id: {recheck_id}")
+        seen_recheck_ids.add(recheck_id)
+        original_id = recheck["original_reconciliation_id"]
+        base = base_by_id.get(original_id)
+        if base is None:
+            raise ValueError(f"Unknown original_reconciliation_id: {original_id}")
+        if recheck["yandex_observation_id"] != base["yandex_observation_id"]:
+            raise ValueError(
+                f"Recheck {recheck_id} yandex_observation_id does not match base "
+                f"{original_id}"
+            )
+        latest_by_reconciliation[original_id] = recheck
+
+    effective: list[dict[str, str]] = []
+    for base in base_rows:
+        recheck = latest_by_reconciliation.get(base["reconciliation_id"])
+        if recheck is None:
+            effective.append(dict(base))
+            continue
+        row = dict(base)
+        row["canonical_yandex_status"] = recheck["rechecked_yandex_status"]
+        row["canonical_number_visible_in_yandex"] = recheck[
+            "canonical_number_visible_in_yandex"
+        ]
+        row["yandex_number_present_in_pinned_source"] = recheck[
+            "yandex_number_present_in_pinned_source"
+        ]
+        row["same_building_or_parcel"] = recheck["same_building_or_parcel"]
+        row["numbering_pattern"] = recheck["numbering_pattern"]
+        row["relationship_type"] = recheck["resolved_relationship_type"]
+        row["net_inventory_effect"] = recheck["resolved_net_inventory_effect"]
+        row["confidence"] = recheck["resolution_confidence"]
+        row["evidence_summary"] = recheck["evidence_summary"]
+        row["notes"] = recheck["notes"]
+        effective.append(row)
+    return effective
+
+
 def provisional_net_inventory_difference(rows: list[dict[str, str]]) -> int:
     """Count known signed effects while excluding unknown or unresolved effects."""
     effect_values = {
@@ -300,6 +363,10 @@ def main() -> None:
     probability_links = read_csv(PROBABILITY_LINKS)
     rechecks = read_csv(RECHECK)
     reconciliations = read_csv(RECONCILIATION)
+    reconciliation_rechecks = read_csv(RECONCILIATION_RECHECK)
+    effective_reconciliations = build_effective_reconciliations(
+        reconciliations, reconciliation_rechecks
+    )
     sample_by_id = {row["sample_id"]: row for row in sample}
     probability_forward_ids = {
         row["forward_sample_id"]: row for row in probability_links
@@ -343,12 +410,20 @@ def main() -> None:
     combined_counts = status_counts(results)
     paired_substitutions = sum(
         row["net_inventory_effect"] == "ZERO_SUBSTITUTION"
-        for row in reconciliations
+        for row in effective_reconciliations
     )
     unresolved_reconciliations = sum(
-        row["relationship_type"] == "UNRESOLVED" for row in reconciliations
+        row["relationship_type"] == "UNRESOLVED"
+        for row in effective_reconciliations
     )
-    provisional_net = provisional_net_inventory_difference(reconciliations)
+    provisional_net = provisional_net_inventory_difference(effective_reconciliations)
+    effective_status_counts = {
+        effect: sum(
+            row["net_inventory_effect"] == effect
+            for row in effective_reconciliations
+        )
+        for effect in ("PLUS_ONE", "MINUS_ONE", "ZERO_SUBSTITUTION", "UNKNOWN")
+    }
     probability_design = probability_review_design(
         probability_sample, probability_links
     )
@@ -443,6 +518,11 @@ def main() -> None:
         "provisional_net_inventory_difference": provisional_net,
         "unresolved_reconciliations": unresolved_reconciliations,
         "canonical_conflicts_rechecked": len(rechecks),
+        "reconciliation_base_total": len(reconciliations),
+        "reconciliation_recheck_total": len(reconciliation_rechecks),
+        "reconciliation_effective_total": len(effective_reconciliations),
+        "reconciliation_effective_status_counts": effective_status_counts,
+        "reconciliation_overlay_applied": len(reconciliation_rechecks) > 0,
     }
     for key, value in expected.items():
         if checkpoint[key] != value:
@@ -514,6 +594,12 @@ def main() -> None:
     print(f"paired_number_substitutions={paired_substitutions}")
     print(f"unresolved_reconciliations={unresolved_reconciliations}")
     print(f"provisional_net_inventory_difference={provisional_net}")
+    print(
+        f"reconciliation_overlay base={len(reconciliations)} "
+        f"recheck={len(reconciliation_rechecks)} "
+        f"effective={len(effective_reconciliations)} "
+        f"status={effective_status_counts}"
+    )
     print("conclusion=INCONCLUSIVE")
 
 

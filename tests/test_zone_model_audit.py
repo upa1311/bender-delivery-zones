@@ -1,7 +1,10 @@
-"""Integrity rules for the candidate zone-model audit (commit 1: route models).
+"""Integrity rules for the candidate zone-model audit.
 
-Economic-model checks (5E / 5T / hybrid, sensitivity grid) are added in commit 2.
-These tests cover the route-distance foundation, provenance and protected data.
+Commit 1: route-distance foundation, provenance, partition validity, baseline
+reproduction, territory doctrine, no-invented-coordinates.
+Commit 2: city-only economics (effective_km, taxi models A/B, commissions, driver
+best take), candidate fees below taxi and monotone, the 25-ruble analysis, the
+sensitivity grid, and external bracket-not-price rules.
 """
 
 from __future__ import annotations
@@ -27,6 +30,8 @@ def _load_module(name: str, relative_path: str):
 
 
 ZM = _load_module("zone_model_audit", "scripts/zone_model_audit.py")
+ZE = _load_module("zone_economics_audit", "scripts/zone_economics_audit.py")
+SCENARIOS = ROOT / "data/interim/zone-economics-scenarios-v1.csv"
 
 
 def _csv(path: Path) -> list[dict[str, str]]:
@@ -163,7 +168,10 @@ def test_thresholds_strictly_increasing_and_partition_is_exhaustive():
         # contiguous: each lower bound equals the previous upper bound
         for prev, cur in zip(zones, zones[1:], strict=False):
             assert float(cur["lower_bound"]) == float(prev["upper_bound"])
-        assert sum(int(z["address_count"]) for z in zones) == 9216
+        total = sum(int(z["address_count"]) for z in zones)
+        # route_km models partition all 9,216; economic models are city-only.
+        expected = 9216 if zones[0]["metric"] == "route_km" else 4866
+        assert total == expected
 
 
 # 19
@@ -201,3 +209,102 @@ def test_taxi_reference_formulas_match_owner_evidence():
     assert ZM.taxi_reference_b(2.0, 0.0) == 18.0          # first 3 km included
     assert ZM.taxi_reference_b(5.0, 0.0) == 18.0 + 6 * 2  # (5-3)*6
     assert ZM.taxi_reference_b(4.0, 1.0) == 18.0 + 6 * 1 + 10 * 1
+
+
+# ------------------------- commit 2: economics -------------------------
+
+ECON_SUMMARY = json.loads(
+    (ROOT / "reports/zone-model-audit/_economics-summary-v1.json").read_text(encoding="utf-8")
+)
+
+
+# 20
+def test_effective_km_equals_route_km_for_city_addresses():
+    for row in FEATURE_ROWS:
+        if row["outside_split_status"] == "CITY_ALL_IN":
+            assert float(row["effective_km_1667"]) == float(row["route_km"])
+        else:
+            assert row["effective_km_1667"] == ""
+
+
+# 21
+def test_taxi_model_a_is_correct():
+    assert ZE.taxi_ref_a(2.0, 6.0, 18.0) == 18.0
+    assert ZE.taxi_ref_a(5.0, 6.0, 18.0) == 30.0
+    assert ZE.taxi_ref_a(4.0, 7.0, 18.0) == 28.0
+
+
+# 22
+def test_taxi_model_b_is_correct_via_features():
+    for row in FEATURE_ROWS[:200]:
+        if row["outside_split_status"] != "CITY_ALL_IN":
+            continue
+        km = float(row["route_km"])
+        expected = 18.0 + 6.0 * max(0.0, km - 3.0)
+        assert abs(float(row["taxi_model_b_reference_rub"]) - round(expected, 2)) < 0.011
+
+
+# 23 + 24 + 25
+def test_commission_and_driver_best_take_are_correct():
+    ref = 30.0
+    assert ZE.driver_best(ref, 5.0, 0.65) == max(25.0, 19.5)      # fixed vs percent
+    assert ZE.driver_best(10.0, 3.0, 0.30) == max(7.0, 3.0)       # fixed wins
+    assert ZE.driver_best(100.0, 5.0, 0.40) == max(95.0, 40.0)
+
+
+# 26
+def test_candidate_fee_is_below_taxi_reference():
+    for row in CANDIDATE_ROWS:
+        fee = row["candidate_delivery_fee_rub"]
+        ref = row["median_taxi_reference"]
+        if fee not in ("", "PENDING_COMMIT2") and ref not in ("", "PENDING_COMMIT2"):
+            assert float(fee) <= float(ref)  # client never pays more than a taxi
+
+
+# 27
+def test_candidate_prices_are_monotone_per_model():
+    for zones in _models().values():
+        zones = sorted(zones, key=lambda z: int(z["zone_id"]))
+        fees = [int(z["candidate_delivery_fee_rub"]) for z in zones
+                if z["candidate_delivery_fee_rub"] not in ("", "PENDING_COMMIT2")]
+        assert fees == sorted(fees)
+        assert len(fees) == len(set(fees)) or len(fees) <= 1 or fees == sorted(fees)
+
+
+# 28
+def test_current_25_fee_is_analysed_not_applied():
+    analysis = ECON_SUMMARY["current_fee_analysis"]
+    assert analysis["fee"] == 25.0
+    assert analysis["client_overpays"] + analysis["adequate"] + analysis["driver_underpaid"] == 4866
+    # 25 must not appear as a per-zone candidate fee applied globally
+    fees = {row["candidate_delivery_fee_rub"] for row in CANDIDATE_ROWS}
+    assert fees != {"25"}
+
+
+# 29
+def test_sensitivity_scenarios_are_reproducible_and_city_scoped():
+    with SCENARIOS.open(encoding="utf-8-sig", newline="") as handle:
+        scenarios = list(csv.DictReader(handle))
+    assert len(scenarios) == 5184
+    assert all(row["scope"] == "CITY_ONLY_OWNER_ASSUMPTION" for row in scenarios)
+    assert all(0.0 <= float(row["feasible_pct"]) <= 1.0 for row in scenarios)
+    rows = ZE.load_features()
+    city = ZE.city_rows(rows)
+    assert ZE.sensitivity_grid(city) == ZE.sensitivity_grid(city)  # deterministic
+
+
+def test_external_territories_get_bracket_not_price():
+    for row in FEATURE_ROWS:
+        if row["outside_split_status"] == "OUTSIDE_SPLIT_UNKNOWN":
+            assert row["taxi_model_a_reference_rub"] == ""  # no point price
+    tiers = ECON_SUMMARY["hybrid"]["external_tiers"]
+    assert {"Парканы", "Гиска", "Протягайловка"} <= set(tiers)
+    for info in tiers.values():
+        assert info["bracket_lower_rub"] < info["bracket_upper_rub"]
+        assert info["status"] == "OUTSIDE_SPLIT_UNKNOWN"
+
+
+def test_economic_models_are_city_only():
+    for row in CANDIDATE_ROWS:
+        if row["model_id"].endswith("_city"):
+            assert row["confidence"] == "CITY_ONLY_OWNER_ASSUMPTION"

@@ -1,50 +1,65 @@
 model_id,metric,method,k,zone_id,lower_bound,upper_bound,address_count,population_share,median_route_km,median_effective_km,median_taxi_reference,candidate_delivery_fee_rub,client_median_saving_rub,driver_median_gap_rub,boundary_instability_count,confidence,notes
-BASELINE_4,route_km,production_released,4,1,0.0,2.424,1659,0.18,1.542,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2029,HIGH,route_km partition; economics pending commit 2
-BASELINE_4,route_km,production_released,4,2,2.424,4.076,1903,0.2065,3.302,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2029,HIGH,route_km partition; economics pending commit 2
-BASELINE_4,route_km,production_released,4,3,4.076,5.577,3416,0.3707,4.869,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2029,HIGH,route_km partition; economics pending commit 2
-BASELINE_4,route_km,production_released,4,4,5.577,,2238,0.2428,6.236,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2029,HIGH,route_km partition; economics pending commit 2
-K4R_quantile,route_km,quantile,4,1,0.0,2.939,2305,0.2501,1.82,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2578,CANDIDATE,route_km partition; economics pending commit 2
-K4R_quantile,route_km,quantile,4,2,2.939,4.642,2305,0.2501,4.015,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2578,CANDIDATE,route_km partition; economics pending commit 2
-K4R_quantile,route_km,quantile,4,3,4.642,5.546,2303,0.2499,5.043,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2578,CANDIDATE,route_km partition; economics pending commit 2
-K4R_quantile,route_km,quantile,4,4,5.546,,2303,0.2499,6.214,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2578,CANDIDATE,route_km partition; economics pending commit 2
-K4R_kmeans,route_km,kmeans,4,1,0.0,2.462,1693,0.1837,1.556,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2019,CANDIDATE,route_km partition; economics pending commit 2
-K4R_kmeans,route_km,kmeans,4,2,2.462,4.149,1962,0.2129,3.386,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2019,CANDIDATE,route_km partition; economics pending commit 2
-K4R_kmeans,route_km,kmeans,4,3,4.149,5.75,3688,0.4002,4.943,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2019,CANDIDATE,route_km partition; economics pending commit 2
-K4R_kmeans,route_km,kmeans,4,4,5.75,,1873,0.2032,6.35,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2019,CANDIDATE,route_km partition; economics pending commit 2
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,1,0.0,2.475,1708,0.1853,1.56,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2016,CANDIDATE,route_km partition; economics pending commit 2
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,2,2.475,4.175,1979,0.2147,3.411,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2016,CANDIDATE,route_km partition; economics pending commit 2
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,3,4.175,5.775,3701,0.4016,4.955,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2016,CANDIDATE,route_km partition; economics pending commit 2
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,4,5.775,,1828,0.1984,6.362,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2016,CANDIDATE,route_km partition; economics pending commit 2
-K5R_quantile,route_km,quantile,5,1,0.0,2.584,1847,0.2004,1.627,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,3482,CANDIDATE,route_km partition; economics pending commit 2
-K5R_quantile,route_km,quantile,5,2,2.584,4.172,1840,0.1997,3.486,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,3482,CANDIDATE,route_km partition; economics pending commit 2
-K5R_quantile,route_km,quantile,5,3,4.172,4.954,1848,0.2005,4.643,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,3482,CANDIDATE,route_km partition; economics pending commit 2
-K5R_quantile,route_km,quantile,5,4,4.954,5.767,1840,0.1997,5.338,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,3482,CANDIDATE,route_km partition; economics pending commit 2
-K5R_quantile,route_km,quantile,5,5,5.767,,1841,0.1998,6.357,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,3482,CANDIDATE,route_km partition; economics pending commit 2
-K5R_kmeans,route_km,kmeans,5,1,0.0,2.19,1433,0.1555,1.454,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2916,CANDIDATE,route_km partition; economics pending commit 2
-K5R_kmeans,route_km,kmeans,5,2,2.19,3.69,1573,0.1707,2.826,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2916,CANDIDATE,route_km partition; economics pending commit 2
-K5R_kmeans,route_km,kmeans,5,3,3.69,5.004,2656,0.2882,4.535,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2916,CANDIDATE,route_km partition; economics pending commit 2
-K5R_kmeans,route_km,kmeans,5,4,5.004,6.222,2414,0.2619,5.527,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2916,CANDIDATE,route_km partition; economics pending commit 2
-K5R_kmeans,route_km,kmeans,5,5,6.222,,1140,0.1237,6.623,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2916,CANDIDATE,route_km partition; economics pending commit 2
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,1,0.0,2.175,1420,0.1541,1.45,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2901,CANDIDATE,route_km partition; economics pending commit 2
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,2,2.175,3.675,1570,0.1704,2.811,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2901,CANDIDATE,route_km partition; economics pending commit 2
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,3,3.675,4.975,2605,0.2827,4.516,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2901,CANDIDATE,route_km partition; economics pending commit 2
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,4,4.975,6.225,2483,0.2694,5.511,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2901,CANDIDATE,route_km partition; economics pending commit 2
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,5,6.225,,1138,0.1235,6.624,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2901,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,1,0.0,2.301,1537,0.1668,1.506,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,2,2.301,3.74,1538,0.1669,2.942,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,3,3.74,4.642,1535,0.1666,4.272,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,4,4.642,5.204,1535,0.1666,4.905,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,5,5.204,5.937,1537,0.1668,5.547,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_quantile,route_km,quantile,6,6,5.937,,1534,0.1664,6.451,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,4128,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,1,0.0,2.057,1351,0.1466,1.413,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,2,2.057,3.34,1285,0.1394,2.665,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,3,3.34,4.497,1616,0.1753,4.005,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,4,4.497,5.57,2709,0.2939,4.982,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,5,5.57,6.978,1918,0.2081,6.099,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_kmeans,route_km,kmeans,6,6,6.978,,337,0.0366,7.61,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2894,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,1,0.0,2.075,1358,0.1474,1.414,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,2,2.075,3.375,1306,0.1417,2.676,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,3,3.375,4.525,1651,0.1791,4.033,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,4,4.525,5.575,2655,0.2881,4.996,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,5,5.575,6.975,1909,0.2071,6.101,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,6,6.975,,337,0.0366,7.61,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,PENDING_COMMIT2,2953,CANDIDATE,route_km partition; economics pending commit 2
+BASELINE_4,route_km,production_released,4,1,0.0,2.424,1659,0.18,1.542,1.542,18.0,13,5.0,0.0,2029,HIGH,route partition; economics on city addresses only (owner assumption)
+BASELINE_4,route_km,production_released,4,2,2.424,4.076,1903,0.2065,3.302,3.103,18.62,14,4.62,-0.38,2029,HIGH,route partition; economics on city addresses only (owner assumption)
+BASELINE_4,route_km,production_released,4,3,4.076,5.577,3416,0.3707,4.869,4.866,29.2,24,5.2,0.2,2029,HIGH,route partition; economics on city addresses only (owner assumption)
+BASELINE_4,route_km,production_released,4,4,5.577,,2238,0.2428,6.236,5.792,34.75,30,4.75,-0.25,2029,HIGH,route partition; economics on city addresses only (owner assumption)
+K4R_quantile,route_km,quantile,4,1,0.0,2.939,2305,0.2501,1.82,1.82,18.0,13,5.0,0.0,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_quantile,route_km,quantile,4,2,2.939,4.642,2305,0.2501,4.015,3.747,22.48,17,5.48,0.48,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_quantile,route_km,quantile,4,3,4.642,5.546,2303,0.2499,5.043,5.009,30.05,25,5.05,0.05,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_quantile,route_km,quantile,4,4,5.546,,2303,0.2499,6.214,5.78,34.68,30,4.68,-0.32,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_kmeans,route_km,kmeans,4,1,0.0,2.462,1693,0.1837,1.556,1.556,18.0,13,5.0,0.0,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_kmeans,route_km,kmeans,4,2,2.462,4.149,1962,0.2129,3.386,3.133,18.8,14,4.8,-0.2,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_kmeans,route_km,kmeans,4,3,4.149,5.75,3688,0.4002,4.943,4.925,29.55,25,4.55,-0.45,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_kmeans,route_km,kmeans,4,4,5.75,,1873,0.2032,6.35,5.972,35.83,31,4.83,-0.17,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,1,0.0,2.475,1708,0.1853,1.56,1.56,18.0,13,5.0,0.0,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,2,2.475,4.175,1979,0.2147,3.411,3.143,18.86,14,4.86,-0.14,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,3,4.175,5.775,3701,0.4016,4.955,4.931,29.59,25,4.59,-0.41,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,4,5.775,,1828,0.1984,6.362,6.019,36.12,31,5.12,0.12,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_quantile,route_km,quantile,5,1,0.0,2.584,1847,0.2004,1.627,1.627,18.0,13,5.0,0.0,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_quantile,route_km,quantile,5,2,2.584,4.172,1840,0.1997,3.486,3.206,19.24,14,5.24,0.24,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_quantile,route_km,quantile,5,3,4.172,4.954,1848,0.2005,4.643,4.67,28.02,23,5.02,0.02,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_quantile,route_km,quantile,5,4,4.954,5.767,1840,0.1997,5.338,5.285,31.71,27,4.71,-0.29,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_quantile,route_km,quantile,5,5,5.767,,1841,0.1998,6.357,6.006,36.04,31,5.04,0.04,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_kmeans,route_km,kmeans,5,1,0.0,2.19,1433,0.1555,1.454,1.454,18.0,13,5.0,0.0,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_kmeans,route_km,kmeans,5,2,2.19,3.69,1573,0.1707,2.826,2.761,18.0,14,4.0,-1.0,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_kmeans,route_km,kmeans,5,3,3.69,5.004,2656,0.2882,4.535,4.584,27.5,23,4.5,-0.5,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_kmeans,route_km,kmeans,5,4,5.004,6.222,2414,0.2619,5.527,5.404,32.42,27,5.42,0.42,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_kmeans,route_km,kmeans,5,5,6.222,,1140,0.1237,6.623,6.37,38.22,33,5.22,0.22,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,1,0.0,2.175,1420,0.1541,1.45,1.45,18.0,13,5.0,0.0,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,2,2.175,3.675,1570,0.1704,2.811,2.752,18.0,14,4.0,-1.0,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,3,3.675,4.975,2605,0.2827,4.516,4.565,27.39,22,5.39,0.39,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,4,4.975,6.225,2483,0.2694,5.511,5.388,32.33,27,5.33,0.33,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,5,6.225,,1138,0.1235,6.624,6.37,38.22,33,5.22,0.22,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,1,0.0,2.301,1537,0.1668,1.506,1.506,18.0,13,5.0,0.0,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,2,2.301,3.74,1538,0.1669,2.942,2.836,18.0,14,4.0,-1.0,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,3,3.74,4.642,1535,0.1666,4.272,4.27,25.62,21,4.62,-0.38,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,4,4.642,5.204,1535,0.1666,4.905,4.894,29.36,24,5.36,0.36,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,5,5.204,5.937,1537,0.1668,5.547,5.495,32.97,28,4.97,-0.03,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_quantile,route_km,quantile,6,6,5.937,,1534,0.1664,6.451,6.174,37.04,32,5.04,0.04,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,1,0.0,2.057,1351,0.1466,1.413,1.413,18.0,13,5.0,0.0,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,2,2.057,3.34,1285,0.1394,2.665,2.662,18.0,14,4.0,-1.0,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,3,3.34,4.497,1616,0.1753,4.005,3.857,23.14,18,5.14,0.14,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,4,4.497,5.57,2709,0.2939,4.982,4.944,29.66,25,4.66,-0.34,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,5,5.57,6.978,1918,0.2081,6.099,5.788,34.73,30,4.73,-0.27,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_kmeans,route_km,kmeans,6,6,6.978,,337,0.0366,7.61,,,,,,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,1,0.0,2.075,1358,0.1474,1.414,1.414,18.0,13,5.0,0.0,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,2,2.075,3.375,1306,0.1417,2.676,2.67,18.0,14,4.0,-1.0,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,3,3.375,4.525,1651,0.1791,4.033,3.891,23.35,18,5.35,0.35,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,4,4.525,5.575,2655,0.2881,4.996,4.955,29.73,25,4.73,-0.27,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,5,5.575,6.975,1909,0.2071,6.101,5.788,34.73,30,4.73,-0.27,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,6,6.975,,337,0.0366,7.61,,,,,,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
+5E_city,effective_km,dp_optimal_jenks,5,1,0.0,1.975,1302,0.2676,1.391,1.391,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5E_city,effective_km,dp_optimal_jenks,5,2,1.975,3.075,1083,0.2226,2.584,2.584,18.0,14,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5E_city,effective_km,dp_optimal_jenks,5,3,3.075,4.175,807,0.1658,3.587,3.587,21.52,17,4.52,-0.48,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5E_city,effective_km,dp_optimal_jenks,5,4,4.175,5.175,1028,0.2113,4.752,4.752,28.52,24,4.52,-0.48,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5E_city,effective_km,dp_optimal_jenks,5,5,5.175,,646,0.1328,5.542,5.542,33.25,28,5.25,0.25,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_A_city,taxi_reference_a,dp_optimal_jenks,5,1,0.0,20.375,2655,0.5456,2.005,18.0,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_A_city,taxi_reference_a,dp_optimal_jenks,5,2,20.375,25.125,542,0.1114,3.749,22.494,22.49,17,5.49,0.49,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_A_city,taxi_reference_a,dp_optimal_jenks,5,3,25.125,29.375,702,0.1443,4.644,27.867,27.87,23,4.87,-0.13,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_A_city,taxi_reference_a,dp_optimal_jenks,5,4,29.375,33.025,615,0.1264,5.161,30.966,30.97,26,4.97,-0.03,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_A_city,taxi_reference_a,dp_optimal_jenks,5,5,33.025,,352,0.0723,5.757,34.542,34.54,30,4.54,-0.46,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_B_city,taxi_reference_b,dp_optimal_jenks,5,1,0.0,20.375,2655,0.5456,2.005,18.0,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_B_city,taxi_reference_b,dp_optimal_jenks,5,2,20.375,25.125,542,0.1114,3.749,22.494,22.49,17,5.49,0.49,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_B_city,taxi_reference_b,dp_optimal_jenks,5,3,25.125,29.375,702,0.1443,4.644,27.867,27.87,23,4.87,-0.13,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_B_city,taxi_reference_b,dp_optimal_jenks,5,4,29.375,33.025,615,0.1264,5.161,30.966,30.97,26,4.97,-0.03,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+5T_B_city,taxi_reference_b,dp_optimal_jenks,5,5,33.025,,352,0.0723,5.757,34.542,34.54,30,4.54,-0.46,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN

@@ -1,0 +1,104 @@
+{
+  "city_addresses": 4866,
+  "external_addresses": 4350,
+  "hybrid": {
+    "city_bands_km": [
+      1.975,
+      3.075,
+      4.175,
+      5.175
+    ],
+    "external_tiers": {
+      "Протягайловка": {
+        "count": 505,
+        "median_route_km": 6.289,
+        "bracket_lower_rub": 37.73,
+        "bracket_upper_rub": 62.89,
+        "status": "OUTSIDE_SPLIT_UNKNOWN"
+      },
+      "Гиска": {
+        "count": 399,
+        "median_route_km": 6.199,
+        "bracket_lower_rub": 37.19,
+        "bracket_upper_rub": 61.99,
+        "status": "OUTSIDE_SPLIT_UNKNOWN"
+      },
+      "Парканы": {
+        "count": 3446,
+        "median_route_km": 5.212,
+        "bracket_lower_rub": 31.27,
+        "bracket_upper_rub": 52.12,
+        "status": "OUTSIDE_SPLIT_UNKNOWN"
+      }
+    }
+  },
+  "current_fee_analysis": {
+    "fee": 25.0,
+    "city_addresses": 4866,
+    "client_overpays": 3191,
+    "adequate": 1544,
+    "driver_underpaid": 131
+  },
+  "scenario_rows": 5184,
+  "route_model_edges": {
+    "BASELINE_4": [
+      2.424,
+      4.076,
+      5.577
+    ],
+    "K4R_quantile": [
+      2.939,
+      4.642,
+      5.546
+    ],
+    "K4R_kmeans": [
+      2.462,
+      4.149,
+      5.75
+    ],
+    "K4R_dp_optimal_jenks": [
+      2.475,
+      4.175,
+      5.775
+    ],
+    "K5R_quantile": [
+      2.584,
+      4.172,
+      4.954,
+      5.767
+    ],
+    "K5R_kmeans": [
+      2.19,
+      3.69,
+      5.004,
+      6.222
+    ],
+    "K5R_dp_optimal_jenks": [
+      2.175,
+      3.675,
+      4.975,
+      6.225
+    ],
+    "K6R_quantile": [
+      2.301,
+      3.74,
+      4.642,
+      5.204,
+      5.937
+    ],
+    "K6R_kmeans": [
+      2.057,
+      3.34,
+      4.497,
+      5.57,
+      6.978
+    ],
+    "K6R_dp_optimal_jenks": [
+      2.075,
+      3.375,
+      4.525,
+      5.575,
+      6.975
+    ]
+  }
+}

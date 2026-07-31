@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bender Delivery Zones — candidate zone-model dashboard v1</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --fg:#e8eaed; --muted:#9aa4b2;
+          --z1:#2a9d3f; --z2:#f2c500; --z3:#f07f14; --z4:#d62828; --z5:#7b2cbf; --z6:#555; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:20px; border-bottom:1px solid #2a2f3a; }
+  h1 { margin:0 0 4px; font-size:20px; }
+  .warn { color:var(--z2); font-weight:600; }
+  main { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); padding:16px; }
+  .card { background:var(--card); border:1px solid #2a2f3a; border-radius:10px; padding:16px; }
+  .card h2 { margin:0 0 10px; font-size:15px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { text-align:right; padding:3px 6px; border-bottom:1px solid #232833; }
+  th:first-child,td:first-child { text-align:left; }
+  .bar { display:flex; height:26px; border-radius:5px; overflow:hidden; margin:6px 0; }
+  .seg { display:flex; align-items:center; justify-content:center; font-size:11px; color:#111; }
+  .muted { color:var(--muted); font-size:12px; }
+  code { background:#0c0e12; padding:1px 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Bender Delivery Zones — candidate zone-model dashboard v1</h1>
+  <div class="muted">9,216 canonical addresses · route metric <code>expected_km</code> · candidate branch — <span class="warn">NOT connected to production, no prices applied</span></div>
+</header>
+<main>
+  <section class="card">
+    <h2>Zone population share by model</h2>
+    <div class="muted">Baseline K=4</div>
+    <div class="bar">
+      <div class="seg" style="width:18%;background:var(--z1)">18%</div>
+      <div class="seg" style="width:20.6%;background:var(--z2)">21%</div>
+      <div class="seg" style="width:37.1%;background:var(--z3)">37%</div>
+      <div class="seg" style="width:24.3%;background:var(--z4)">24%</div>
+    </div>
+    <div class="muted">K=5 natural</div>
+    <div class="bar">
+      <div class="seg" style="width:15.4%;background:var(--z1)">15%</div>
+      <div class="seg" style="width:17%;background:var(--z2)">17%</div>
+      <div class="seg" style="width:28.3%;background:var(--z3)">28%</div>
+      <div class="seg" style="width:26.9%;background:var(--z4)">27%</div>
+      <div class="seg" style="width:12.3%;background:var(--z5)">12%</div>
+    </div>
+    <div class="muted">K=6 natural — far zone is a 3.7% sliver (fails min-share)</div>
+    <div class="bar">
+      <div class="seg" style="width:14.7%;background:var(--z1)">15%</div>
+      <div class="seg" style="width:14.2%;background:var(--z2)">14%</div>
+      <div class="seg" style="width:17.9%;background:var(--z3)">18%</div>
+      <div class="seg" style="width:28.8%;background:var(--z4)">29%</div>
+      <div class="seg" style="width:20.7%;background:var(--z5)">21%</div>
+      <div class="seg" style="width:3.7%;background:var(--z6)">4%</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Candidate city fees (руб., balanced)</h2>
+    <table>
+      <tr><th>Zone</th><th>K=4</th><th>K=5</th></tr>
+      <tr><td>1</td><td>13</td><td>13</td></tr>
+      <tr><td>2</td><td>14</td><td>14</td></tr>
+      <tr><td>3</td><td>25</td><td>22</td></tr>
+      <tr><td>4</td><td>31</td><td>27</td></tr>
+      <tr><td>5</td><td>—</td><td>33</td></tr>
+    </table>
+    <p class="muted">Integer, monotone, cheaper than the equivalent taxi; driver gap within ±0.5 руб. Owner assumptions, city addresses only.</p>
+  </section>
+
+  <section class="card">
+    <h2>Current flat 25 руб (city, 4,866)</h2>
+    <div class="bar">
+      <div class="seg" style="width:65.6%;background:var(--z4)">overpays 66%</div>
+      <div class="seg" style="width:31.7%;background:var(--z1)">adequate 32%</div>
+      <div class="seg" style="width:2.7%;background:var(--z2)">low 3%</div>
+    </div>
+    <p class="muted">For ~two thirds of city addresses a flat 25 руб is dearer than an equivalent taxi. 25 руб behaves like a "zone-3" price applied to everyone.</p>
+  </section>
+
+  <section class="card">
+    <h2>Stability (lower is simpler)</h2>
+    <table>
+      <tr><th>Model</th><th>≤50 m</th><th>splits</th></tr>
+      <tr><td>Baseline K=4</td><td>466</td><td>94</td></tr>
+      <tr><td>K=4 natural</td><td>424</td><td>90</td></tr>
+      <tr><td>K=5 natural</td><td>609</td><td>109</td></tr>
+      <tr><td>K=6 natural</td><td>582</td><td>97</td></tr>
+    </table>
+    <p class="muted">K=4 splits the fewest streets; K=5 costs ~15 more for finer pricing.</p>
+  </section>
+
+  <section class="card">
+    <h2>External territories — bracket only (NOT a price)</h2>
+    <table>
+      <tr><th>Territory</th><th>N</th><th>med km</th><th>6/км</th><th>10/км</th></tr>
+      <tr><td>Парканы</td><td>3446</td><td>5.21</td><td>31</td><td>52</td></tr>
+      <tr><td>Гиска</td><td>399</td><td>6.20</td><td>37</td><td>62</td></tr>
+      <tr><td>Протягайловка</td><td>505</td><td>6.29</td><td>38</td><td>63</td></tr>
+    </table>
+    <p class="muted">No proven city/outside split. Kotovskogo GAI post not in data → owner map confirmation required.</p>
+  </section>
+
+  <section class="card">
+    <h2>Verdict</h2>
+    <p><strong>ANALYSIS_COMPLETE / OWNER_DECISION_REQUIRED.</strong></p>
+    <p class="muted">Choose 4 vs 5 zones (simplicity vs fairness); K=6 not recommended. Pick a price policy. Confirm external boundaries on a map. Nothing is applied to production.</p>
+  </section>
+</main>
+</body>
+</html>

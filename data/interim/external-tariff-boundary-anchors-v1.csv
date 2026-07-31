@@ -1,0 +1,5 @@
+anchor_id,territory,anchor_name,lat,lon,source_type,source_evidence,route_coverage_count,alternative_entry_exists,confidence,owner_confirmation_required,notes
+PARKANY_KOTOVSKOGO_GAI_POST,Парканы,Пост ГАИ на ул. Котовского (из Бендер в сторону Паркан),,,OWNER_BRIEF_ONLY,owner-provided candidate boundary; NOT present in OSM/GIS data,0,UNKNOWN,UNPROVEN,True,UNKNOWN_REQUIRES_OWNER_MAP_CONFIRMATION — no coordinates invented
+GISKA_EXTERNAL_ENTRY,Гиска,Candidate Гиска entry corridor,,,NOT_ESTABLISHED,no proven single boundary anchor in data,0,UNKNOWN,UNPROVEN,True,do not copy Parkany boundary; separate corridor evidence required
+PROTYAGAILOVKA_EXTERNAL_ENTRY,Протягайловка,Candidate Протягайловка entry corridor,,,NOT_ESTABLISHED,multiple corridor files exist but no proven single tariff boundary,0,UNKNOWN,UNPROVEN,True,several corridors; boundary + outside length require evidence
+SEVERNY_BOUNDARY,Северный,Северный classification boundary,,,EVIDENCE_COLLECTION_ONLY,"not auto-classified as Varnita, city or external",0,UNKNOWN,UNPROVEN,True,OWNER_BOUNDARY_DECISION_REQUIRED

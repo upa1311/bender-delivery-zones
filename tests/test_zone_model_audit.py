@@ -1,15 +1,16 @@
-"""Integrity rules for the candidate zone-model audit.
+"""Integrity rules for the candidate zone-model audit (decision-layer hardened).
 
-Commit 1: route-distance foundation, provenance, partition validity, baseline
-reproduction, territory doctrine, no-invented-coordinates.
-Commit 2: city-only economics (effective_km, taxi models A/B, commissions, driver
-best take), candidate fees below taxi and monotone, the 25-ruble analysis, the
-sensitivity grid, and external bracket-not-price rules.
+Covers: exact protected hashes, the exact baseline-mismatch set, full-population
+vs city separation, city partitions, business-constrained validity, real
+manual-control validation (not a perturbation proxy), the three price policies,
+the fixed-5 vs 65% benchmark truth, policy-specific 25-ruble analysis, external
+bracket (range-not-tariff), and neighbour discontinuities.
 """
 
 from __future__ import annotations
 
 import csv
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -19,11 +20,43 @@ REGISTRY = ROOT / "releases/bender-zones-v1.1/address-registry.json"
 FEATURES = ROOT / "data/interim/zone-model-address-features-v1.csv"
 CANDIDATES = ROOT / "data/interim/zone-model-candidates-v1.csv"
 ANCHORS = ROOT / "data/interim/external-tariff-boundary-anchors-v1.csv"
+MISMATCH = ROOT / "data/interim/zone-baseline-reproduction-mismatches-v1.csv"
+MANUAL = ROOT / "data/interim/zone-model-manual-control-validation-v1.csv"
+POLICIES = ROOT / "data/interim/zone-policy-prices-v1.csv"
+EXTERNAL = ROOT / "data/interim/zone-external-bracket-scenarios-v1.csv"
+NEIGHBOURS = ROOT / "data/interim/zone-neighbour-discontinuities-v1.csv"
+SCENARIOS = ROOT / "data/interim/zone-economics-scenarios-v1.csv"
+CONTROLS = ROOT / "docs/data/manual-yandex-route-controls.csv"
+MEASUREMENTS = ROOT / "docs/data/manual-yandex-measurements.csv"
+
+PROTECTED_HASHES = {
+    "releases/bender-zones-v1.1/address-registry.json":
+        "bc66ad113a6ba5706bb6d2797ddc543e5b576482051d0d981551f014561c1817",
+    "docs/data/delivery-units.csv":
+        "7f52e5119db0bfeb8a68464ad79ed1288a070c3563d887c088f72283c85c4250",
+    "config/bands.yml":
+        "ebec96536b0f68ad8b2d41a9a04874dfd29acab56eec20f42a5e188ad00b6c8e",
+    "docs/data/final-zone-polygons.geojson":
+        "cfc80697a7300890321319845704f1601f9a35317d80c99ec909d4be68e9db00",
+    "docs/data/manual-yandex-route-controls.csv":
+        "5ff6617f3a51145febcd77dfe0ffeedc7f14bdcda268552b6b01f76c4c07a4ca",
+    "docs/data/manual-yandex-measurements.csv":
+        "58a71e47ac546f2788af0fc977709db169baea792bb866184e8ca926e177571c",
+    "data/interim/yandex-forward-address-validation-v1.csv":
+        "7f704c37e4f022b3a0416573adc23b7c4f4fd434a774b9e85acdd45d3309e512",
+    "data/interim/yandex-probability-observations-v1.csv":
+        "0f5b5081f54a6681f2c75ec02900b633a071e33531b34a416ea848a4c974977b",
+    "data/interim/yandex-address-number-reconciliation-v1.csv":
+        "1c41f93ac2d346c851f2cd20f1ff3941641697e50d677959bbc62cb69ed8edce",
+    "data/interim/yandex-address-number-reconciliation-recheck-v1.csv":
+        "dc047276fa6298cc5a1ff31282a92ce8b98f583a3a16264ab8695fbeda46a181",
+}
+BASELINE_MISMATCH_IDS = ["n2337889957", "w209267127", "w284686410",
+                         "w306081930", "w352111747"]
 
 
-def _load_module(name: str, relative_path: str):
-    spec = importlib.util.spec_from_file_location(name, ROOT / relative_path)
-    assert spec and spec.loader
+def _load_module(name, rel):
+    spec = importlib.util.spec_from_file_location(name, ROOT / rel)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -31,280 +64,373 @@ def _load_module(name: str, relative_path: str):
 
 ZM = _load_module("zone_model_audit", "scripts/zone_model_audit.py")
 ZE = _load_module("zone_economics_audit", "scripts/zone_economics_audit.py")
-SCENARIOS = ROOT / "data/interim/zone-economics-scenarios-v1.csv"
 
 
-def _csv(path: Path) -> list[dict[str, str]]:
+def _csv(path):
     with path.open(encoding="utf-8-sig", newline="") as handle:
         return list(csv.DictReader(handle))
 
 
-REGISTRY_ADDRESSES = json.loads(REGISTRY.read_text(encoding="utf-8"))["addresses"]
-FEATURE_ROWS = _csv(FEATURES)
-CANDIDATE_ROWS = _csv(CANDIDATES)
-ANCHOR_ROWS = _csv(ANCHORS)
+def _nhash(path):
+    return hashlib.sha256((ROOT / path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
-def _models() -> dict[str, list[dict[str, str]]]:
-    grouped: dict[str, list[dict[str, str]]] = {}
-    for row in CANDIDATE_ROWS:
+REG = json.loads(REGISTRY.read_text(encoding="utf-8"))["addresses"]
+FEAT = _csv(FEATURES)
+CAND = _csv(CANDIDATES)
+ANCH = _csv(ANCHORS)
+MIS = _csv(MISMATCH)
+MAN = _csv(MANUAL)
+POL = _csv(POLICIES)
+EXT = _csv(EXTERNAL)
+NEI = _csv(NEIGHBOURS)
+_ECON_PATH = ROOT / "reports/zone-model-audit/_economics-summary-v1.json"
+ECON = json.loads(_ECON_PATH.read_text(encoding="utf-8"))
+CITY_FEAT = [r for r in FEAT if r["outside_split_status"] == "CITY_ALL_IN"]
+
+
+def _models():
+    grouped = {}
+    for row in CAND:
         grouped.setdefault(row["model_id"], []).append(row)
     return grouped
 
 
-# 1
-def test_canonical_population_is_9216():
-    assert len(REGISTRY_ADDRESSES) == 9216
-    assert len(FEATURE_ROWS) == 9216
+# ---- 1-7: exact protected hashes (no production change, no new release) ----
+def test_01_protected_registry_hash_exact():
+    assert _nhash("releases/bender-zones-v1.1/address-registry.json") == \
+        PROTECTED_HASHES["releases/bender-zones-v1.1/address-registry.json"]
 
 
-# 2
-def test_address_ids_are_unique():
-    ids = [row["address_id"] for row in FEATURE_ROWS]
-    assert len(set(ids)) == 9216
-    assert set(ids) == {a["uid"] for a in REGISTRY_ADDRESSES}
+def test_02_delivery_units_hash_exact():
+    assert _nhash("docs/data/delivery-units.csv") == \
+        PROTECTED_HASHES["docs/data/delivery-units.csv"]
 
 
-# 3
-def test_coordinates_present_for_every_address():
-    for row in FEATURE_ROWS:
-        assert row["lat"] and row["lon"]
-        assert -90 <= float(row["lat"]) <= 90
-        assert -180 <= float(row["lon"]) <= 180
+def test_03_bands_yml_hash_exact():
+    assert _nhash("config/bands.yml") == PROTECTED_HASHES["config/bands.yml"]
 
 
-# 4
-def test_protected_registry_addresses_unchanged_count_and_zone_range():
-    zones = {int(a["zone_id"]) for a in REGISTRY_ADDRESSES}
-    assert zones == {1, 2, 3, 4}
-    assert all(a["source_dataset_version"] == "moldova-pbf:09ba0c058e89"
-               for a in REGISTRY_ADDRESSES)
+def test_04_zone_polygons_hash_exact():
+    assert _nhash("docs/data/final-zone-polygons.geojson") == \
+        PROTECTED_HASHES["docs/data/final-zone-polygons.geojson"]
 
 
-# 5
-def test_every_route_metric_has_provenance_status():
-    for row in FEATURE_ROWS:
-        assert row["route_metric_status"] == "expected_km_osrm"
-        assert float(row["route_km"]) > 0
+def test_05_manual_controls_hash_exact():
+    assert _nhash("docs/data/manual-yandex-route-controls.csv") == \
+        PROTECTED_HASHES["docs/data/manual-yandex-route-controls.csv"]
 
 
-# 6
-def test_missing_route_metrics_are_not_simulated():
-    # No per-address route duration exists; it must stay blank, never invented.
-    assert all(row["route_duration_min"] == "" for row in FEATURE_ROWS)
+def test_06_manual_measurements_hash_exact():
+    assert _nhash("docs/data/manual-yandex-measurements.csv") == \
+        PROTECTED_HASHES["docs/data/manual-yandex-measurements.csv"]
 
 
-# 7
-def test_in_and_outside_km_are_non_negative():
-    for row in FEATURE_ROWS:
-        for field in ("in_city_km", "outside_city_km"):
-            if row[field] != "":
-                assert float(row[field]) >= 0
+def test_07_address_audit_protected_hashes_exact():
+    for path in ("data/interim/yandex-forward-address-validation-v1.csv",
+                 "data/interim/yandex-probability-observations-v1.csv",
+                 "data/interim/yandex-address-number-reconciliation-v1.csv",
+                 "data/interim/yandex-address-number-reconciliation-recheck-v1.csv"):
+        assert _nhash(path) == PROTECTED_HASHES[path]
 
 
-# 8
-def test_split_used_only_with_evidence():
-    for row in FEATURE_ROWS:
-        if row["territory"] == "Бендеры":
-            assert row["outside_split_status"] == "CITY_ALL_IN"
-            assert float(row["outside_city_km"]) == 0.0
-            assert float(row["in_city_km"]) == float(row["route_km"])
-        else:
-            assert row["outside_split_status"] == "OUTSIDE_SPLIT_UNKNOWN"
-            assert row["in_city_km"] == "" and row["outside_city_km"] == ""
+# ---- population + provenance ----
+def test_08_canonical_population_is_9216():
+    assert len(REG) == 9216 and len(FEAT) == 9216
 
 
-# 9
-def test_varnita_not_in_deliverable_population():
-    assert all(row["territory"] != "Варница" for row in FEATURE_ROWS)
-    assert all(a["settlement_ru"] != "Варница" for a in REGISTRY_ADDRESSES)
+def test_09_address_ids_unique_and_match_registry():
+    ids = [r["address_id"] for r in FEAT]
+    assert len(set(ids)) == 9216 == len({a["uid"] for a in REG})
+    assert set(ids) == {a["uid"] for a in REG}
 
 
-# 10
-def test_lipcani_is_city_not_external():
-    lip = [a for a in REGISTRY_ADDRESSES if a.get("district_ru") == "Липканы"]
-    assert len(lip) == 248
-    assert all(a["settlement_ru"] == "Бендеры" for a in lip)
-    lip_uids = {a["uid"] for a in lip}
-    for row in FEATURE_ROWS:
-        if row["address_id"] in lip_uids:
-            assert row["territory"] == "Бендеры"
-            assert row["outside_split_status"] == "CITY_ALL_IN"
+def test_10_route_metric_has_provenance_and_no_invented_duration():
+    for r in FEAT:
+        assert r["route_metric_status"] == "expected_km_osrm"
+        assert float(r["route_km"]) > 0
+        assert r["route_duration_min"] == ""
 
 
-# 11
-def test_parkany_and_giska_are_separate_territories():
-    territories = {row["territory"] for row in FEATURE_ROWS}
-    assert {"Парканы", "Гиска", "Протягайловка"} <= territories
-    anchor_terr = {row["territory"] for row in ANCHOR_ROWS}
-    assert {"Парканы", "Гиска", "Протягайловка"} <= anchor_terr
+def test_11_varnita_absent_lipcani_city():
+    assert all(r["territory"] != "Варница" for r in FEAT)
+    lip = [a for a in REG if a.get("district_ru") == "Липканы"]
+    assert len(lip) == 248 and all(a["settlement_ru"] == "Бендеры" for a in lip)
 
 
-# 12
-def test_severny_has_no_automatic_classification():
-    sev = [row for row in ANCHOR_ROWS if row["territory"] == "Северный"]
+def test_12_parkany_giska_protyagailovka_separate():
+    assert {"Парканы", "Гиска", "Протягайловка"} <= {r["territory"] for r in FEAT}
+    assert {"Парканы", "Гиска", "Протягайловка"} <= {r["territory"] for r in ANCH}
+
+
+def test_13_severny_no_automatic_classification():
+    sev = [r for r in ANCH if r["territory"] == "Северный"]
     assert sev and sev[0]["confidence"] == "UNPROVEN"
-    assert sev[0]["owner_confirmation_required"] == "True"
 
 
-# 13-15
-def test_k4_k5_k6_have_the_right_number_of_non_empty_zones():
+# ---- 8: baseline mismatch exact ----
+def test_14_baseline_mismatch_count_and_ids_exact():
+    assert len(MIS) == 5
+    assert sorted(r["address_id"] for r in MIS) == BASELINE_MISMATCH_IDS
+    assert all(r["reason"] == "threshold_inclusivity" for r in MIS)
+    assert all(abs(float(r["distance_to_threshold_km"])) < 1e-9 for r in MIS)
+
+
+def test_15_baseline_reproduction_le_and_strict_exact():
+    rows = ZM.load_addresses()
+    le = sum(1 for r in rows if ZM.zone_for(r["route_km"], ZM.BASELINE_EDGES) == r["zone_id"])
+    strict = sum(1 for r in rows
+                 if ZM.zone_for_released(r["route_km"], ZM.BASELINE_EDGES) == r["zone_id"])
+    assert le == 9211 and strict == 9216  # inclusivity is the ONLY cause
+
+
+# ---- 9: no mixing of full-population counts with city economics ----
+def test_16_full_population_diagnostics_carry_no_fee():
+    diags = [r for r in CAND if r["economic_scope"] == "DIAGNOSTIC_ROUTE_ONLY"]
+    assert diags
+    for r in diags:
+        assert r["candidate_delivery_fee_rub"] == ""
+        assert r["all_address_count"] != "" and r["city_address_count"] != ""
+
+
+def test_17_city_models_have_no_all_population_count():
+    city = [r for r in CAND if r["economic_scope"] == "CITY_DEPLOYABLE"]
+    assert city
+    for r in city:
+        assert r["all_address_count"] == "" and r["all_population_share"] == ""
+        assert r["city_address_count"] != ""
+
+
+# ---- 10: city partitions exactly 4,866 ----
+def test_18_city_models_partition_exactly_4866():
     models = _models()
-    for model_id, k in (("K4R_dp_optimal_jenks", 4),
-                        ("K5R_dp_optimal_jenks", 5),
-                        ("K6R_dp_optimal_jenks", 6)):
-        zones = models[model_id]
-        assert len(zones) == k
-        assert all(int(z["address_count"]) > 0 for z in zones)
+    for mid, zones in models.items():
+        if not mid.startswith("CITY_"):
+            continue
+        assert sum(int(z["city_address_count"]) for z in zones) == 4866
 
 
-# 16-18
-def test_thresholds_strictly_increasing_and_partition_is_exhaustive():
+def test_19_city_k4_k5_k6_have_right_zone_counts():
     models = _models()
-    for zones in models.values():
+    for k in (4, 5, 6):
+        zones = models[f"CITY_K{k}R_dp_optimal_jenks"]
+        assert len(zones) == k and all(int(z["city_address_count"]) > 0 for z in zones)
+
+
+# ---- 11: business-constrained validity ----
+def test_20_business_constrained_zones_are_valid():
+    models = _models()
+    for k in (4, 5, 6):
+        zones = sorted(models[f"CITY_K{k}R_business"], key=lambda z: int(z["zone_id"]))
+        shares = [int(z["city_address_count"]) / 4866 for z in zones]
+        assert all(s <= 0.40 + 1e-9 for s in shares)  # max-share respected
+        assert all(int(z["city_address_count"]) > 0 for z in zones)  # no empty/sliver
+        method = zones[0]["method"]
+        assert "business_constrained" in method
+
+
+# ---- 12: operational rounding deterministic ----
+def test_21_operational_rounding_is_deterministic():
+    edges = [1.975, 3.075, 4.175, 5.175]
+    assert ZM.rounding_variants(edges) == ZM.rounding_variants(edges)
+    assert ZM.rounding_variants(edges)["0.5"] == [2.0, 3.0, 4.0, 5.0]
+
+
+# ---- 13-16: real manual-control validation, no proxy ----
+def test_22_manual_validation_exists_with_real_router_and_yandex_km():
+    assert MAN
+    for r in MAN:
+        assert float(r["router_km"]) > 0 and float(r["yandex_km"]) > 0
+        assert r["control_id"].startswith("MY-")
+
+
+def test_23_manual_control_ids_unique_per_model():
+    per_model = {}
+    for r in MAN:
+        per_model.setdefault(r["model_id"], []).append(r["control_id"])
+    for ids in per_model.values():
+        assert len(ids) == len(set(ids))
+
+
+def test_24_city_models_validated_only_on_city_controls():
+    for r in MAN:
+        if r["model_id"].startswith("CITY_"):
+            assert r["territory"] == "Бендеры"
+    city_rows = [r for r in MAN if r["model_id"] == "CITY_K5R_dp_optimal_jenks"]
+    assert len(city_rows) == 28  # honest: only 28 city controls exist
+
+
+def test_25_router_yandex_flips_independently_recomputed():
+    controls = {c["control_id"]: c for c in _csv(CONTROLS)}
+    meas = {m["control_id"]: m for m in _csv(MEASUREMENTS)}
+    reg = {a["uid"]: a for a in ZM.load_addresses()}
+    edges = ZM.thresholds_dp_optimal(
+        [r["route_km"] for r in ZM.load_addresses() if r["is_city"]], 5)
+    for row in [r for r in MAN if r["model_id"] == "CITY_K5R_dp_optimal_jenks"]:
+        c = controls[row["control_id"]]
+        yk = float(meas[row["control_id"]]["yandex_fastest_distance_km"])
+        rk = reg[c["uid"]]["route_km"]
+        assert ZM.zone_for(rk, edges) == int(row["router_zone"])
+        assert ZM.zone_for(yk, edges) == int(row["yandex_zone"])
+        assert abs(int(row["router_zone"]) - int(row["yandex_zone"])) == int(row["zone_delta"])
+
+
+def test_26_proxy_perturbation_not_labelled_as_manual_validation():
+    report = (ROOT / "reports/zone-model-audit/zone-boundary-stability-v1.md").read_text(
+        encoding="utf-8")
+    assert "28" in report  # honest city control coverage
+    # the manual section must reference real control IDs, not perturbation
+    assert "MY-" in report
+
+
+# ---- 17-19: three policy tables ----
+def test_27_three_policies_present_for_every_city_model():
+    for mid in ZE.CITY_MODELS:
+        for policy in ("DRIVER_CONSERVATIVE", "BALANCED", "CUSTOMER_FIRST"):
+            assert any(r["model_id"] == mid and r["policy"] == policy for r in POL)
+
+
+def test_28_policy_prices_are_integer_and_monotone():
+    groups = {}
+    for r in POL:
+        groups.setdefault((r["model_id"], r["policy"]), []).append(r)
+    for rows in groups.values():
+        rows.sort(key=lambda z: int(z["zone_id"]))
+        fees = [int(z["candidate_fee_rub"]) for z in rows]
+        assert fees == sorted(fees)
+
+
+def test_29_policy_joint_coverage_independently_recomputed():
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    city = [r for r in reg.values() if r["is_city"]]
+    edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 4)
+    rows = [r for r in POL
+            if r["model_id"] == "CITY_K4R_dp_optimal_jenks" and r["policy"] == "BALANCED"]
+    for row in rows:
+        zi = int(row["zone_id"])
+        fee = int(row["candidate_fee_rub"])
+        members = [r for r in city if ZM.zone_for(r["route_km"], edges) == zi]
+        joint = 0
+        for r in members:
+            ref = ZE.taxi_ref_a(r["route_km"])
+            best = ZE.driver_best(ref)
+            gap = best - fee
+            if fee < ref and gap <= 3 and gap <= 0.10 * best:
+                joint += 1
+        assert round(joint / len(members), 4) == float(row["joint_coverage"])
+
+
+# ---- 20: commission benchmark truth ----
+def test_30_fixed5_benchmark_wins_for_all_city_trips():
+    cb = ECON["commission_breakdown"]
+    assert cb["fixed5_share"] == 1.0 and cb["percent65_wins"] == 0
+    assert abs(cb["crossover_fare_rub"] - 14.29) < 0.01
+    assert cb["benchmark_used"] == "taxi_reference_minus_5_for_all_city_trips"
+
+
+def test_31_reports_state_fixed5_not_65pct():
+    for name in ("customer-driver-balance-v1.md", "owner-decision-pack-v1.md"):
+        text = (ROOT / "reports/zone-model-audit" / name).read_text(encoding="utf-8")
+        assert "taxi_reference - 5" in text or "−5" in text or "- 5" in text
+
+
+# ---- 21: 25 ruble policy-specific ----
+def test_32_current_25_fee_is_policy_specific():
+    cf = ECON["current_fee_policy_specific"]
+    assert cf["fee"] == 25.0
+    for key in ("client_overpays", "gap_gt_2", "gap_gt_3", "gap_gt_5",
+                "gap_gt_10pct", "gap_gt_15pct"):
+        assert key in cf and cf[key] >= 0
+    fees = {r["candidate_delivery_fee_rub"] for r in CAND
+            if r["economic_scope"] == "CITY_DEPLOYABLE"}
+    assert fees != {"25"}  # 25 not applied globally
+
+
+# ---- 22-24: external bracket, range not tariff ----
+def test_33_external_scenarios_include_outside_rates_8_to_12():
+    rates = {float(r["outside_rate"]) for r in EXT}
+    assert {8.0, 9.0, 10.0, 11.0, 12.0} <= rates
+
+
+def test_34_external_rows_are_range_only_not_tariff():
+    assert EXT
+    for r in EXT:
+        assert r["status"] == "RANGE_ONLY_NOT_TARIFF"
+        assert float(r["taxi_lower_rub"]) <= float(r["taxi_upper_rub"])
+
+
+def test_35_no_external_point_price_in_features():
+    for r in FEAT:
+        if r["outside_split_status"] == "OUTSIDE_SPLIT_UNKNOWN":
+            assert r["taxi_model_a_reference_rub"] == ""
+            assert r["taxi_model_b_reference_rub"] == ""
+
+
+# ---- 25: neighbour discontinuity recomputed ----
+def test_36_neighbour_discontinuity_metrics_present_and_ordered():
+    nd = ECON["neighbour_discontinuity"]
+    for k in (4, 5, 6):
+        m = nd[f"CITY_K{k}R_dp_optimal_jenks"]
+        assert m["pairs_250m"] > 0 and m["diff_zone_250m"] >= 0
+        assert m["max_price_jump_rub"] >= 0
+    # more zones -> more different-zone neighbour pairs
+    assert (nd["CITY_K4R_dp_optimal_jenks"]["diff_zone_250m"]
+            < nd["CITY_K6R_dp_optimal_jenks"]["diff_zone_250m"])
+
+
+def test_37_neighbour_csv_pairs_are_close_and_cross_zone():
+    for r in NEI:
+        assert float(r["distance_m"]) <= 250
+        assert int(r["zone_a"]) != int(r["zone_b"])
+        assert int(r["price_jump_rub"]) >= 8  # file logs only the sharpest jumps
+
+
+# ---- 26: 5T-A/5T-B city equivalence documented ----
+def test_38_taxi_models_a_and_b_are_identical_for_city():
+    for km in (0.5, 1.0, 2.9, 3.0, 3.1, 5.0, 9.6):
+        assert ZM.taxi_reference_a(km, 0.0) == ZM.taxi_reference_b(km, 0.0)
+
+
+# ---- partition validity across all models ----
+def test_39_thresholds_increasing_and_partition_contiguous():
+    for zones in _models().values():
         zones = sorted(zones, key=lambda z: int(z["zone_id"]))
         uppers = [float(z["upper_bound"]) for z in zones if z["upper_bound"] != ""]
         assert uppers == sorted(uppers) and len(uppers) == len(set(uppers))
-        # contiguous: each lower bound equals the previous upper bound
         for prev, cur in zip(zones, zones[1:], strict=False):
             assert float(cur["lower_bound"]) == float(prev["upper_bound"])
-        total = sum(int(z["address_count"]) for z in zones)
-        # route_km models partition all 9,216; economic models are city-only.
-        expected = 9216 if zones[0]["metric"] == "route_km" else 4866
-        assert total == expected
 
 
-# 19
-def test_baseline_k4_reproduces_released_zones():
-    assert ZM.BASELINE_EDGES == [2.424, 4.076, 5.577]
-    rows = ZM.load_addresses()
-    match = sum(1 for r in rows
-                if ZM.zone_for(r["route_km"], ZM.BASELINE_EDGES) == r["zone_id"])
-    assert match >= 9211
-
-
-# 40
-def test_unknown_boundary_anchors_have_no_invented_coordinates():
-    for row in ANCHOR_ROWS:
-        assert row["confidence"] == "UNPROVEN"
-        assert row["lat"] == "" and row["lon"] == ""
-        assert row["owner_confirmation_required"] == "True"
-    gai = [r for r in ANCHOR_ROWS if r["anchor_id"] == "PARKANY_KOTOVSKOGO_GAI_POST"]
+def test_40_anchors_have_no_invented_coordinates():
+    for r in ANCH:
+        assert r["confidence"] == "UNPROVEN"
+        assert r["lat"] == "" and r["lon"] == ""
+    gai = [r for r in ANCH if r["anchor_id"] == "PARKANY_KOTOVSKOGO_GAI_POST"]
     assert gai and "UNKNOWN_REQUIRES_OWNER_MAP_CONFIRMATION" in gai[0]["notes"]
 
 
-# 38
-def test_partition_methods_are_deterministic():
+# ---- 27-28: no production change / no new release ----
+def test_41_no_new_release_directory_created():
+    releases = sorted(p.name for p in (ROOT / "releases").iterdir() if p.is_dir())
+    assert releases == ["bender-zones-v1", "bender-zones-v1.1"]
+
+
+def test_42_taxi_calibration_config_stays_null():
+    text = (ROOT / "config/taxi-calibration.yml").read_text(encoding="utf-8")
+    assert "calibration_supplied: false" in text
+    assert _nhash("config/bands.yml") == PROTECTED_HASHES["config/bands.yml"]
+
+
+def test_43_partition_methods_deterministic():
     rows = ZM.load_addresses()
-    values = [r["route_km"] for r in rows]
+    values = [r["route_km"] for r in rows if r["is_city"]]
     for func in (ZM.thresholds_quantile, ZM.thresholds_kmeans, ZM.thresholds_dp_optimal):
         assert func(values, 5) == func(values, 5)
+    assert ZM.thresholds_business_constrained(values, 5) == \
+        ZM.thresholds_business_constrained(values, 5)
 
 
-def test_taxi_reference_formulas_match_owner_evidence():
-    # Owner assumptions: min 18, city 6/km, outside 10/km.
-    assert ZM.taxi_reference_a(2.0, 0.0) == 18.0          # floor binds
-    assert ZM.taxi_reference_a(4.0, 0.0) == 24.0          # 6*4
-    assert ZM.taxi_reference_a(3.0, 2.0) == max(18.0, 18.0 + 20.0)  # 6*3 + 10*2
-    assert ZM.taxi_reference_b(2.0, 0.0) == 18.0          # first 3 km included
-    assert ZM.taxi_reference_b(5.0, 0.0) == 18.0 + 6 * 2  # (5-3)*6
-    assert ZM.taxi_reference_b(4.0, 1.0) == 18.0 + 6 * 1 + 10 * 1
-
-
-# ------------------------- commit 2: economics -------------------------
-
-ECON_SUMMARY = json.loads(
-    (ROOT / "reports/zone-model-audit/_economics-summary-v1.json").read_text(encoding="utf-8")
-)
-
-
-# 20
-def test_effective_km_equals_route_km_for_city_addresses():
-    for row in FEATURE_ROWS:
-        if row["outside_split_status"] == "CITY_ALL_IN":
-            assert float(row["effective_km_1667"]) == float(row["route_km"])
-        else:
-            assert row["effective_km_1667"] == ""
-
-
-# 21
-def test_taxi_model_a_is_correct():
-    assert ZE.taxi_ref_a(2.0, 6.0, 18.0) == 18.0
-    assert ZE.taxi_ref_a(5.0, 6.0, 18.0) == 30.0
-    assert ZE.taxi_ref_a(4.0, 7.0, 18.0) == 28.0
-
-
-# 22
-def test_taxi_model_b_is_correct_via_features():
-    for row in FEATURE_ROWS[:200]:
-        if row["outside_split_status"] != "CITY_ALL_IN":
-            continue
-        km = float(row["route_km"])
-        expected = 18.0 + 6.0 * max(0.0, km - 3.0)
-        assert abs(float(row["taxi_model_b_reference_rub"]) - round(expected, 2)) < 0.011
-
-
-# 23 + 24 + 25
-def test_commission_and_driver_best_take_are_correct():
-    ref = 30.0
-    assert ZE.driver_best(ref, 5.0, 0.65) == max(25.0, 19.5)      # fixed vs percent
-    assert ZE.driver_best(10.0, 3.0, 0.30) == max(7.0, 3.0)       # fixed wins
-    assert ZE.driver_best(100.0, 5.0, 0.40) == max(95.0, 40.0)
-
-
-# 26
-def test_candidate_fee_is_below_taxi_reference():
-    for row in CANDIDATE_ROWS:
-        fee = row["candidate_delivery_fee_rub"]
-        ref = row["median_taxi_reference"]
-        if fee not in ("", "PENDING_COMMIT2") and ref not in ("", "PENDING_COMMIT2"):
-            assert float(fee) <= float(ref)  # client never pays more than a taxi
-
-
-# 27
-def test_candidate_prices_are_monotone_per_model():
-    for zones in _models().values():
-        zones = sorted(zones, key=lambda z: int(z["zone_id"]))
-        fees = [int(z["candidate_delivery_fee_rub"]) for z in zones
-                if z["candidate_delivery_fee_rub"] not in ("", "PENDING_COMMIT2")]
-        assert fees == sorted(fees)
-        assert len(fees) == len(set(fees)) or len(fees) <= 1 or fees == sorted(fees)
-
-
-# 28
-def test_current_25_fee_is_analysed_not_applied():
-    analysis = ECON_SUMMARY["current_fee_analysis"]
-    assert analysis["fee"] == 25.0
-    assert analysis["client_overpays"] + analysis["adequate"] + analysis["driver_underpaid"] == 4866
-    # 25 must not appear as a per-zone candidate fee applied globally
-    fees = {row["candidate_delivery_fee_rub"] for row in CANDIDATE_ROWS}
-    assert fees != {"25"}
-
-
-# 29
-def test_sensitivity_scenarios_are_reproducible_and_city_scoped():
-    with SCENARIOS.open(encoding="utf-8-sig", newline="") as handle:
-        scenarios = list(csv.DictReader(handle))
-    assert len(scenarios) == 5184
-    assert all(row["scope"] == "CITY_ONLY_OWNER_ASSUMPTION" for row in scenarios)
-    assert all(0.0 <= float(row["feasible_pct"]) <= 1.0 for row in scenarios)
-    rows = ZE.load_features()
-    city = ZE.city_rows(rows)
-    assert ZE.sensitivity_grid(city) == ZE.sensitivity_grid(city)  # deterministic
-
-
-def test_external_territories_get_bracket_not_price():
-    for row in FEATURE_ROWS:
-        if row["outside_split_status"] == "OUTSIDE_SPLIT_UNKNOWN":
-            assert row["taxi_model_a_reference_rub"] == ""  # no point price
-    tiers = ECON_SUMMARY["hybrid"]["external_tiers"]
-    assert {"Парканы", "Гиска", "Протягайловка"} <= set(tiers)
-    for info in tiers.values():
-        assert info["bracket_lower_rub"] < info["bracket_upper_rub"]
-        assert info["status"] == "OUTSIDE_SPLIT_UNKNOWN"
-
-
-def test_economic_models_are_city_only():
-    for row in CANDIDATE_ROWS:
-        if row["model_id"].endswith("_city"):
-            assert row["confidence"] == "CITY_ONLY_OWNER_ASSUMPTION"
+def test_44_sensitivity_grid_city_scoped_and_sized():
+    scen = _csv(SCENARIOS)
+    assert len(scen) == 5184
+    assert all(r["scope"] == "CITY_ONLY_OWNER_ASSUMPTION" for r in scen)

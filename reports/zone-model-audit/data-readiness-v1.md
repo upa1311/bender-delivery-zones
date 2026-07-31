@@ -54,6 +54,25 @@ Straight-line distance is **not** used as a route substitute anywhere.
 
 Baseline is reproduced for reference only; production thresholds are never changed.
 
+### Baseline reproduction mismatches — audited exactly
+
+The `<=` recompute reproduces 9,211 / 9,216; the strict `<` convention reproduces
+**9,216 / 9,216**. The 5-address gap is fully explained: all five have an
+`expected_km` sitting *exactly* on a released threshold (distance 0.000), and the
+released dataset assigns the boundary value to the **upper** zone while the `<=`
+recompute assigns it to the lower zone. Sole cause = **threshold inclusivity**;
+zero unresolved. Full list: `data/interim/zone-baseline-reproduction-mismatches-v1.csv`
+(n2337889957, w209267127, w284686410, w306081930, w352111747). Registry zone_id is
+never modified.
+
+### Manual-control coverage — honest limits
+
+86 route controls + 90 Yandex measurements. Only **76** controls have a `uid` in
+the 9,216 population (10 are Северный/Балка/Кавказ/Ленинский, outside it) and only
+**28** are core-city. All controls lie in outer districts — none in the dense city
+centre — so city models are validated on 28 real controls, not 90. This is a real
+coverage limit, stated rather than hidden.
+
 ## 4. City / outside decomposition — NOT AVAILABLE
 
 There is **no `in_city_km` / `outside_city_km` split** in any file

@@ -1,30 +1,30 @@
-# K=4 analysis v1
+# CITY_K4 analysis v1
 
-Natural-break (DP-optimal) K=4 over `expected_km`, city economics on owner
-assumptions. Address counts are over all 9,216; fees/savings/gaps are city-only.
+City deployable model (4,866 city addresses; natural-break DP over city
+`expected_km`). Full-population 4R is a diagnostic only — see
+`zone-model-comparison-v1.md`.
 
-## Zones (DP-optimal K=4)
+## Zones (CITY_K4R natural breaks)
 
-| Zone | Route km | Addresses | Share | City fee (bal.) руб | Client saving | Driver gap |
-|---|---|---:|---:|---:|---:|---:|
-| 1 | ≤ 2.475 | 1708 | 18.5 % | 13 | ~5 | ~0 |
-| 2 | 2.475–4.175 | 1979 | 21.5 % | 14 | ~4.6 | ~−0.4 |
-| 3 | 4.175–5.775 | 3701 | **40.2 %** | 25 | ~5.2 | ~0.2 |
-| 4 | > 5.775 | 1828 | 19.8 % | 31 | ~4.8 | ~−0.3 |
+| Zone | Route km | City addresses | Share | BALANCED fee руб |
+|---|---|---:|---:|---:|
+| 1 | ≤ 2.025 | 1338 | 27.5 % | 12 |
+| 2 | 2.025–3.275 | 1243 | 25.5 % | 13 |
+| 3 | 3.275–4.525 | 820 | 16.9 % | 17 |
+| 4 | > 4.525 | 1465 | 30.1 % | 25 |
 
-Released baseline (2.424/4.076/5.577): shares 18.0/20.6/37.1/24.3, city fees
-13/14/24/30.
+Three policies (руб.): DRIVER_CONSERVATIVE 13/14/18/26 · BALANCED 12/13/17/25 ·
+CUSTOMER_FIRST 15/16/20/26.
 
-## Read
+## Strengths
+- **Most stable on the real controls:** 89 % router/Yandex agreement (3 flips of
+  28 city controls).
+- **Fewest neighbour price discontinuities:** 1,750 different-zone pairs within
+  100 m, max jump 13 руб.
+- Simplest to explain and support.
 
-- **Strength:** fewest same-street splits (90 DP / 94 baseline) and lowest
-  near-threshold churn (424–466 addresses within 50 m) of any K — simplest to
-  explain and support.
-- **Weakness:** one dominant zone 3 at **40 %** (2.475–5.775 km is a 3.3 km-wide
-  band). A single fee (~25 руб) covers a wide range of real distances, so the
-  client at 4.2 km and the client at 5.7 km pay the same though their equivalent
-  taxi differs by ~9 руб.
-- The released flat 25 руб corresponds almost exactly to the **zone 3** balanced
-  fee — i.e. 25 руб is a "zone 3 price" applied to everyone.
+## Weakness
+- Zone 4 (> 4.525 km) holds 30 % of city addresses in one band, so the far-city
+  client at 4.6 km and at 6 km pay the same 25 руб.
 
-K=4 is the simplest and most stable, at the cost of one coarse middle zone.
+CITY_K4 is the simplest, most stable option, at the cost of one broad far zone.

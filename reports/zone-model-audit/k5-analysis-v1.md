@@ -1,30 +1,30 @@
-# K=5 analysis v1
+# CITY_K5 analysis v1
 
-Natural-break (DP-optimal) K=5 over `expected_km`. K=5 was a hypothesis only; the
-numbers below are not tuned to favour it.
+City deployable model (4,866 city addresses; natural-break DP over city
+`expected_km`). K=5 was a hypothesis only; numbers are not tuned to favour it.
 
-## Zones (DP-optimal K=5)
+## Zones (CITY_K5R natural breaks)
 
-| Zone | Route km | Addresses | Share | City fee (bal.) руб | Client saving | Driver gap |
-|---|---|---:|---:|---:|---:|---:|
-| 1 | ≤ 2.175 | 1420 | 15.4 % | 13 | ~5 | ~0 |
-| 2 | 2.175–3.675 | 1570 | 17.0 % | 14 | ~4.6 | ~0 |
-| 3 | 3.675–4.975 | 2605 | 28.3 % | 22 | ~5 | ~0 |
-| 4 | 4.975–6.225 | 2483 | 26.9 % | 27 | ~5 | ~0 |
-| 5 | > 6.225 | 1138 | 12.3 % | 33 | ~4.5 | ~−0.5 |
+| Zone | Route km | City addresses | Share | BALANCED fee руб |
+|---|---|---:|---:|---:|
+| 1 | ≤ 1.975 | 1302 | 26.8 % | 12 |
+| 2 | 1.975–3.075 | 1083 | 22.3 % | 13 |
+| 3 | 3.075–4.175 | 807 | 16.6 % | 16 |
+| 4 | 4.175–5.175 | 1028 | 21.1 % | 23 |
+| 5 | > 5.175 | 646 | 13.3 % | 27 |
 
-## Read
+Three policies (руб.): DRIVER_CONSERVATIVE 13/14/17/24/28 · BALANCED
+12/13/16/23/27 · CUSTOMER_FIRST 15/16/18/24/28.
 
-- **Strength:** the dominant K=4 middle zone (40 %) is split into zone 3 (28 %)
-  and zone 4 (27 %), so no zone exceeds ~28 %. Min share 12.3 % clears the 5 %
-  and even the production 12 % floor — no sliver. Pricing tracks distance more
-  finely: the 4.2 km and 5.7 km clients now sit in different zones (22 vs 27 руб).
-- **Cost:** ~15 more same-street splits than K=4 (109 vs 94) and more
-  near-threshold addresses (609 within 50 m vs 466). More neighbours pay
-  different prices.
-- Economics stay healthy: under owner assumptions client saves ~5 руб/zone and
-  driver gap stays within ±0.5 руб across all five zones.
+## Strengths
+- Splits the broad K=4 far zone (30 %) into two (21 % + 13 %), so pricing tracks
+  distance more finely; no zone exceeds ~27 %, none is a sliver (min 13.3 %).
 
-K=5 is the most balanced partition and prices distance more fairly than K=4, at a
-modest cost in same-street consistency. Whether that trade is worth it is an
-owner decision, not a data verdict.
+## Costs
+- **Stability drops:** 79 % router/Yandex agreement on the 28 city controls
+  (6 flips) vs 89 % for K=4.
+- **More neighbour discontinuities:** 2,766 different-zone pairs within 100 m
+  (vs 1,750 for K=4), max jump 15 руб.
+
+CITY_K5 is the fairest-by-distance city option; the cost is measurably lower
+boundary stability and more neighbours priced differently. Owner trade-off.

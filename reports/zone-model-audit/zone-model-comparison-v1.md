@@ -1,4 +1,10 @@
-# Zone-model comparison — route distance models v1 (commit 1)
+# Zone-model comparison — route distance models v1
+
+> **DIAGNOSTIC ONLY.** The full-population 4R/5R/6R models below describe the
+> route_km distribution over all 9,216 addresses. They are **not** deployable city
+> tariffs, because 4,350 external addresses have OUTSIDE_SPLIT_UNKNOWN. The city
+> tariff decision uses the separate **CITY_K4/K5/K6** models (4,866 city addresses)
+> in `owner-decision-pack-v1.md` and the per-K analysis reports.
 
 Route-only comparison over `expected_km` for the 9,216 canonical addresses. Three
 reproducible partition methods are compared per K: **quantile** (equal

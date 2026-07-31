@@ -1,29 +1,32 @@
-# K=6 analysis v1
+# CITY_K6 analysis v1
 
-Natural-break (DP-optimal) K=6 over `expected_km`.
+City deployable model (4,866 city addresses; natural-break DP over city
+`expected_km`).
 
-## Zones (DP-optimal K=6)
+## Zones (CITY_K6R natural breaks)
 
-| Zone | Route km | Addresses | Share | City fee (bal.) руб |
+| Zone | Route km | City addresses | Share | BALANCED fee руб |
 |---|---|---:|---:|---:|
-| 1 | ≤ 2.075 | 1358 | 14.7 % | 13 |
-| 2 | 2.075–3.375 | 1306 | 14.2 % | 14 |
-| 3 | 3.375–4.525 | 1651 | 17.9 % | 18 |
-| 4 | 4.525–5.575 | 2655 | 28.8 % | 25 |
-| 5 | 5.575–6.975 | 1909 | 20.7 % | 30 |
-| 6 | > 6.975 | 337 | **3.7 %** | — (no city addresses) |
+| 1 | ≤ 1.475 | 739 | 15.2 % | 12 |
+| 2 | 1.475–2.225 | 717 | 14.7 % | 13 |
+| 3 | 2.225–3.125 | 974 | 20.0 % | 14 |
+| 4 | 3.125–4.175 | 762 | 15.7 % | 16 |
+| 5 | 4.175–5.175 | 1028 | 21.1 % | 23 |
+| 6 | > 5.175 | 646 | 13.3 % | 27 |
+
+Three policies (руб.): DRIVER_CONSERVATIVE 13/14/15/17/24/28 · BALANCED
+12/13/14/16/23/27 · CUSTOMER_FIRST 15/16/17/18/24/28.
 
 ## Read
 
-- **Blocker:** zone 6 holds only **337 addresses (3.7 %)** and fails the 5 % and
-  12 % minimum-share rules — an economically meaningless sliver. It is also
-  almost entirely external, so it has **no city fee at all** under the honest
-  city-only economics.
-- Forcing K=6 into equal quantiles removes the sliver (16.6 % each) but discards
-  the cost structure entirely — the breaks no longer sit at natural distance gaps.
-- Same-street splits (97) are not worse than K=5, but the far sliver plus the
-  still-dominant zone 4 (29 %) means K=6 adds a boundary without buying balance.
+- Unlike the full-population K=6 (which produced a 3.7 % external sliver), the
+  city-only K=6 has no sliver (min share 13.3 %) — the sliver was an external-tail
+  artefact. So K=6 is geometrically *feasible* for the city.
+- **But it is the least stable:** only **64 % router/Yandex agreement** on the 28
+  city controls (10 flips), and **4,163** different-zone neighbour pairs within
+  100 m — more than double K=4.
+- The near zones (1–4) differ by only 1–2 руб (12/13/14/16), so K=6 buys very
+  little pricing resolution for a large stability cost.
 
-**Route geometry argues against K=6:** it over-segments the tail into a sliver
-without fixing the dominant middle zone. K=6 is not recommended on the current
-data.
+**CITY_K6 is not recommended:** it adds boundaries and neighbour churn without a
+meaningful pricing gain, and is the least robust against real Yandex divergence.

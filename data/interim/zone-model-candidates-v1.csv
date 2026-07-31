@@ -1,65 +1,110 @@
-model_id,metric,method,k,zone_id,lower_bound,upper_bound,address_count,population_share,median_route_km,median_effective_km,median_taxi_reference,candidate_delivery_fee_rub,client_median_saving_rub,driver_median_gap_rub,boundary_instability_count,confidence,notes
-BASELINE_4,route_km,production_released,4,1,0.0,2.424,1659,0.18,1.542,1.542,18.0,13,5.0,0.0,2029,HIGH,route partition; economics on city addresses only (owner assumption)
-BASELINE_4,route_km,production_released,4,2,2.424,4.076,1903,0.2065,3.302,3.103,18.62,14,4.62,-0.38,2029,HIGH,route partition; economics on city addresses only (owner assumption)
-BASELINE_4,route_km,production_released,4,3,4.076,5.577,3416,0.3707,4.869,4.866,29.2,24,5.2,0.2,2029,HIGH,route partition; economics on city addresses only (owner assumption)
-BASELINE_4,route_km,production_released,4,4,5.577,,2238,0.2428,6.236,5.792,34.75,30,4.75,-0.25,2029,HIGH,route partition; economics on city addresses only (owner assumption)
-K4R_quantile,route_km,quantile,4,1,0.0,2.939,2305,0.2501,1.82,1.82,18.0,13,5.0,0.0,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_quantile,route_km,quantile,4,2,2.939,4.642,2305,0.2501,4.015,3.747,22.48,17,5.48,0.48,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_quantile,route_km,quantile,4,3,4.642,5.546,2303,0.2499,5.043,5.009,30.05,25,5.05,0.05,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_quantile,route_km,quantile,4,4,5.546,,2303,0.2499,6.214,5.78,34.68,30,4.68,-0.32,2578,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_kmeans,route_km,kmeans,4,1,0.0,2.462,1693,0.1837,1.556,1.556,18.0,13,5.0,0.0,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_kmeans,route_km,kmeans,4,2,2.462,4.149,1962,0.2129,3.386,3.133,18.8,14,4.8,-0.2,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_kmeans,route_km,kmeans,4,3,4.149,5.75,3688,0.4002,4.943,4.925,29.55,25,4.55,-0.45,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_kmeans,route_km,kmeans,4,4,5.75,,1873,0.2032,6.35,5.972,35.83,31,4.83,-0.17,2019,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,1,0.0,2.475,1708,0.1853,1.56,1.56,18.0,13,5.0,0.0,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,2,2.475,4.175,1979,0.2147,3.411,3.143,18.86,14,4.86,-0.14,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,3,4.175,5.775,3701,0.4016,4.955,4.931,29.59,25,4.59,-0.41,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,4,5.775,,1828,0.1984,6.362,6.019,36.12,31,5.12,0.12,2016,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_quantile,route_km,quantile,5,1,0.0,2.584,1847,0.2004,1.627,1.627,18.0,13,5.0,0.0,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_quantile,route_km,quantile,5,2,2.584,4.172,1840,0.1997,3.486,3.206,19.24,14,5.24,0.24,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_quantile,route_km,quantile,5,3,4.172,4.954,1848,0.2005,4.643,4.67,28.02,23,5.02,0.02,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_quantile,route_km,quantile,5,4,4.954,5.767,1840,0.1997,5.338,5.285,31.71,27,4.71,-0.29,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_quantile,route_km,quantile,5,5,5.767,,1841,0.1998,6.357,6.006,36.04,31,5.04,0.04,3482,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_kmeans,route_km,kmeans,5,1,0.0,2.19,1433,0.1555,1.454,1.454,18.0,13,5.0,0.0,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_kmeans,route_km,kmeans,5,2,2.19,3.69,1573,0.1707,2.826,2.761,18.0,14,4.0,-1.0,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_kmeans,route_km,kmeans,5,3,3.69,5.004,2656,0.2882,4.535,4.584,27.5,23,4.5,-0.5,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_kmeans,route_km,kmeans,5,4,5.004,6.222,2414,0.2619,5.527,5.404,32.42,27,5.42,0.42,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_kmeans,route_km,kmeans,5,5,6.222,,1140,0.1237,6.623,6.37,38.22,33,5.22,0.22,2916,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,1,0.0,2.175,1420,0.1541,1.45,1.45,18.0,13,5.0,0.0,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,2,2.175,3.675,1570,0.1704,2.811,2.752,18.0,14,4.0,-1.0,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,3,3.675,4.975,2605,0.2827,4.516,4.565,27.39,22,5.39,0.39,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,4,4.975,6.225,2483,0.2694,5.511,5.388,32.33,27,5.33,0.33,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,5,6.225,,1138,0.1235,6.624,6.37,38.22,33,5.22,0.22,2901,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,1,0.0,2.301,1537,0.1668,1.506,1.506,18.0,13,5.0,0.0,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,2,2.301,3.74,1538,0.1669,2.942,2.836,18.0,14,4.0,-1.0,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,3,3.74,4.642,1535,0.1666,4.272,4.27,25.62,21,4.62,-0.38,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,4,4.642,5.204,1535,0.1666,4.905,4.894,29.36,24,5.36,0.36,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,5,5.204,5.937,1537,0.1668,5.547,5.495,32.97,28,4.97,-0.03,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_quantile,route_km,quantile,6,6,5.937,,1534,0.1664,6.451,6.174,37.04,32,5.04,0.04,4128,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,1,0.0,2.057,1351,0.1466,1.413,1.413,18.0,13,5.0,0.0,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,2,2.057,3.34,1285,0.1394,2.665,2.662,18.0,14,4.0,-1.0,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,3,3.34,4.497,1616,0.1753,4.005,3.857,23.14,18,5.14,0.14,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,4,4.497,5.57,2709,0.2939,4.982,4.944,29.66,25,4.66,-0.34,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,5,5.57,6.978,1918,0.2081,6.099,5.788,34.73,30,4.73,-0.27,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_kmeans,route_km,kmeans,6,6,6.978,,337,0.0366,7.61,,,,,,2894,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,1,0.0,2.075,1358,0.1474,1.414,1.414,18.0,13,5.0,0.0,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,2,2.075,3.375,1306,0.1417,2.676,2.67,18.0,14,4.0,-1.0,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,3,3.375,4.525,1651,0.1791,4.033,3.891,23.35,18,5.35,0.35,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,4,4.525,5.575,2655,0.2881,4.996,4.955,29.73,25,4.73,-0.27,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,5,5.575,6.975,1909,0.2071,6.101,5.788,34.73,30,4.73,-0.27,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,6,6.975,,337,0.0366,7.61,,,,,,2953,CANDIDATE,route partition; economics on city addresses only (owner assumption)
-5E_city,effective_km,dp_optimal_jenks,5,1,0.0,1.975,1302,0.2676,1.391,1.391,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5E_city,effective_km,dp_optimal_jenks,5,2,1.975,3.075,1083,0.2226,2.584,2.584,18.0,14,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5E_city,effective_km,dp_optimal_jenks,5,3,3.075,4.175,807,0.1658,3.587,3.587,21.52,17,4.52,-0.48,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5E_city,effective_km,dp_optimal_jenks,5,4,4.175,5.175,1028,0.2113,4.752,4.752,28.52,24,4.52,-0.48,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5E_city,effective_km,dp_optimal_jenks,5,5,5.175,,646,0.1328,5.542,5.542,33.25,28,5.25,0.25,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_A_city,taxi_reference_a,dp_optimal_jenks,5,1,0.0,20.375,2655,0.5456,2.005,18.0,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_A_city,taxi_reference_a,dp_optimal_jenks,5,2,20.375,25.125,542,0.1114,3.749,22.494,22.49,17,5.49,0.49,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_A_city,taxi_reference_a,dp_optimal_jenks,5,3,25.125,29.375,702,0.1443,4.644,27.867,27.87,23,4.87,-0.13,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_A_city,taxi_reference_a,dp_optimal_jenks,5,4,29.375,33.025,615,0.1264,5.161,30.966,30.97,26,4.97,-0.03,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_A_city,taxi_reference_a,dp_optimal_jenks,5,5,33.025,,352,0.0723,5.757,34.542,34.54,30,4.54,-0.46,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_B_city,taxi_reference_b,dp_optimal_jenks,5,1,0.0,20.375,2655,0.5456,2.005,18.0,18.0,13,5.0,0.0,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_B_city,taxi_reference_b,dp_optimal_jenks,5,2,20.375,25.125,542,0.1114,3.749,22.494,22.49,17,5.49,0.49,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_B_city,taxi_reference_b,dp_optimal_jenks,5,3,25.125,29.375,702,0.1443,4.644,27.867,27.87,23,4.87,-0.13,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_B_city,taxi_reference_b,dp_optimal_jenks,5,4,29.375,33.025,615,0.1264,5.161,30.966,30.97,26,4.97,-0.03,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
-5T_B_city,taxi_reference_b,dp_optimal_jenks,5,5,33.025,,352,0.0723,5.757,34.542,34.54,30,4.54,-0.46,,CITY_ONLY_OWNER_ASSUMPTION,city addresses only; external = OUTSIDE_SPLIT_UNKNOWN
+model_id,metric,method,k,zone_id,lower_bound,upper_bound,all_address_count,all_population_share,city_address_count,city_population_share,economic_scope,median_route_km,median_effective_km,median_taxi_reference,candidate_delivery_fee_rub,client_median_saving_rub,driver_median_gap_rub,boundary_instability_count,confidence,notes
+BASELINE_4,route_km,released,4,1,0.0,2.424,1659,0.18,1659,0.3409,DIAGNOSTIC_ROUTE_ONLY,1.542,,,,,,2029,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+BASELINE_4,route_km,released,4,2,2.424,4.076,1903,0.2065,1493,0.3068,DIAGNOSTIC_ROUTE_ONLY,3.302,,,,,,2029,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+BASELINE_4,route_km,released,4,3,4.076,5.577,3416,0.3707,1416,0.291,DIAGNOSTIC_ROUTE_ONLY,4.869,,,,,,2029,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+BASELINE_4,route_km,released,4,4,5.577,,2238,0.2428,298,0.0612,DIAGNOSTIC_ROUTE_ONLY,6.236,,,,,,2029,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_quantile,route_km,quantile,4,1,0.0,2.939,2305,0.2501,2305,0.4737,DIAGNOSTIC_ROUTE_ONLY,1.82,,,,,,2578,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_quantile,route_km,quantile,4,2,2.939,4.642,2305,0.2501,1238,0.2544,DIAGNOSTIC_ROUTE_ONLY,4.015,,,,,,2578,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_quantile,route_km,quantile,4,3,4.642,5.546,2303,0.2499,1003,0.2061,DIAGNOSTIC_ROUTE_ONLY,5.043,,,,,,2578,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_quantile,route_km,quantile,4,4,5.546,,2303,0.2499,320,0.0658,DIAGNOSTIC_ROUTE_ONLY,6.214,,,,,,2578,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_kmeans,route_km,kmeans,4,1,0.0,2.462,1693,0.1837,1693,0.3479,DIAGNOSTIC_ROUTE_ONLY,1.556,,,,,,2019,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_kmeans,route_km,kmeans,4,2,2.462,4.149,1962,0.2129,1492,0.3066,DIAGNOSTIC_ROUTE_ONLY,3.386,,,,,,2019,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_kmeans,route_km,kmeans,4,3,4.149,5.75,3688,0.4002,1501,0.3085,DIAGNOSTIC_ROUTE_ONLY,4.943,,,,,,2019,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_kmeans,route_km,kmeans,4,4,5.75,,1873,0.2032,180,0.037,DIAGNOSTIC_ROUTE_ONLY,6.35,,,,,,2019,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,1,0.0,2.475,1708,0.1853,1708,0.351,DIAGNOSTIC_ROUTE_ONLY,1.56,,,,,,2016,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,2,2.475,4.175,1979,0.2147,1484,0.305,DIAGNOSTIC_ROUTE_ONLY,3.411,,,,,,2016,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,3,4.175,5.775,3701,0.4016,1512,0.3107,DIAGNOSTIC_ROUTE_ONLY,4.955,,,,,,2016,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,4,5.775,,1828,0.1984,162,0.0333,DIAGNOSTIC_ROUTE_ONLY,6.362,,,,,,2016,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_quantile,route_km,quantile,5,1,0.0,2.584,1847,0.2004,1847,0.3796,DIAGNOSTIC_ROUTE_ONLY,1.627,,,,,,3482,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_quantile,route_km,quantile,5,2,2.584,4.172,1840,0.1997,1345,0.2764,DIAGNOSTIC_ROUTE_ONLY,3.486,,,,,,3482,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_quantile,route_km,quantile,5,3,4.172,4.954,1848,0.2005,789,0.1621,DIAGNOSTIC_ROUTE_ONLY,4.643,,,,,,3482,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_quantile,route_km,quantile,5,4,4.954,5.767,1840,0.1997,718,0.1476,DIAGNOSTIC_ROUTE_ONLY,5.338,,,,,,3482,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_quantile,route_km,quantile,5,5,5.767,,1841,0.1998,167,0.0343,DIAGNOSTIC_ROUTE_ONLY,6.357,,,,,,3482,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_kmeans,route_km,kmeans,5,1,0.0,2.19,1433,0.1555,1433,0.2945,DIAGNOSTIC_ROUTE_ONLY,1.454,,,,,,2916,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_kmeans,route_km,kmeans,5,2,2.19,3.69,1573,0.1707,1438,0.2955,DIAGNOSTIC_ROUTE_ONLY,2.826,,,,,,2916,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_kmeans,route_km,kmeans,5,3,3.69,5.004,2656,0.2882,1168,0.24,DIAGNOSTIC_ROUTE_ONLY,4.535,,,,,,2916,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_kmeans,route_km,kmeans,5,4,5.004,6.222,2414,0.2619,780,0.1603,DIAGNOSTIC_ROUTE_ONLY,5.527,,,,,,2916,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_kmeans,route_km,kmeans,5,5,6.222,,1140,0.1237,47,0.0097,DIAGNOSTIC_ROUTE_ONLY,6.623,,,,,,2916,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,1,0.0,2.175,1420,0.1541,1420,0.2918,DIAGNOSTIC_ROUTE_ONLY,1.45,,,,,,2901,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,2,2.175,3.675,1570,0.1704,1443,0.2965,DIAGNOSTIC_ROUTE_ONLY,2.811,,,,,,2901,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,3,3.675,4.975,2605,0.2827,1149,0.2361,DIAGNOSTIC_ROUTE_ONLY,4.516,,,,,,2901,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,4,4.975,6.225,2483,0.2694,807,0.1658,DIAGNOSTIC_ROUTE_ONLY,5.511,,,,,,2901,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,5,6.225,,1138,0.1235,47,0.0097,DIAGNOSTIC_ROUTE_ONLY,6.624,,,,,,2901,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,1,0.0,2.301,1537,0.1668,1537,0.3159,DIAGNOSTIC_ROUTE_ONLY,1.506,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,2,2.301,3.74,1538,0.1669,1381,0.2838,DIAGNOSTIC_ROUTE_ONLY,2.942,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,3,3.74,4.642,1535,0.1666,625,0.1284,DIAGNOSTIC_ROUTE_ONLY,4.272,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,4,4.642,5.204,1535,0.1666,705,0.1449,DIAGNOSTIC_ROUTE_ONLY,4.905,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,5,5.204,5.937,1537,0.1668,516,0.106,DIAGNOSTIC_ROUTE_ONLY,5.547,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_quantile,route_km,quantile,6,6,5.937,,1534,0.1664,102,0.021,DIAGNOSTIC_ROUTE_ONLY,6.451,,,,,,4128,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,1,0.0,2.057,1351,0.1466,1351,0.2776,DIAGNOSTIC_ROUTE_ONLY,1.413,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,2,2.057,3.34,1285,0.1394,1272,0.2614,DIAGNOSTIC_ROUTE_ONLY,2.665,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,3,3.34,4.497,1616,0.1753,753,0.1547,DIAGNOSTIC_ROUTE_ONLY,4.005,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,4,4.497,5.57,2709,0.2939,1186,0.2437,DIAGNOSTIC_ROUTE_ONLY,4.982,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,5,5.57,6.978,1918,0.2081,304,0.0625,DIAGNOSTIC_ROUTE_ONLY,6.099,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_kmeans,route_km,kmeans,6,6,6.978,,337,0.0366,0,0.0,DIAGNOSTIC_ROUTE_ONLY,7.61,,,,,,2894,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,1,0.0,2.075,1358,0.1474,1358,0.2791,DIAGNOSTIC_ROUTE_ONLY,1.414,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,2,2.075,3.375,1306,0.1417,1286,0.2643,DIAGNOSTIC_ROUTE_ONLY,2.676,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,3,3.375,4.525,1651,0.1791,757,0.1556,DIAGNOSTIC_ROUTE_ONLY,4.033,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,4,4.525,5.575,2655,0.2881,1162,0.2388,DIAGNOSTIC_ROUTE_ONLY,4.996,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,5,5.575,6.975,1909,0.2071,303,0.0623,DIAGNOSTIC_ROUTE_ONLY,6.101,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,6,6.975,,337,0.0366,0,0.0,DIAGNOSTIC_ROUTE_ONLY,7.61,,,,,,2953,DIAGNOSTIC,full-population route diagnostic; NOT a city tariff
+CITY_K4R_quantile,route_km,quantile,4,1,0.0,1.877,,,1220,0.2507,CITY_DEPLOYABLE,1.365,,,,,,1072,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_quantile,route_km,quantile,4,2,1.877,3.129,,,1214,0.2495,CITY_DEPLOYABLE,2.573,,,,,,1072,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_quantile,route_km,quantile,4,3,3.129,4.714,,,1217,0.2501,CITY_DEPLOYABLE,3.912,,,,,,1072,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_quantile,route_km,quantile,4,4,4.714,,,,1215,0.2497,CITY_DEPLOYABLE,5.216,,,,,,1072,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_kmeans,route_km,kmeans,4,1,0.0,2.041,,,1347,0.2768,CITY_DEPLOYABLE,1.41,,,,,,865,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_kmeans,route_km,kmeans,4,2,2.041,3.27,,,1232,0.2532,CITY_DEPLOYABLE,2.651,,,,,,865,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_kmeans,route_km,kmeans,4,3,3.27,4.526,,,822,0.1689,CITY_DEPLOYABLE,3.838,,,,,,865,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_kmeans,route_km,kmeans,4,4,4.526,,,,1465,0.3011,CITY_DEPLOYABLE,5.096,,,,,,865,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,1,0.0,2.025,,,1338,0.275,CITY_DEPLOYABLE,1.408,1.408,18.0,12,6.0,1.0,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,2,2.025,3.275,,,1243,0.2554,CITY_DEPLOYABLE,2.65,2.65,18.0,13,5.0,0.0,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,3,3.275,4.525,,,820,0.1685,CITY_DEPLOYABLE,3.845,3.845,23.07,17,6.07,1.07,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_dp_optimal_jenks,route_km,dp_optimal_jenks,4,4,4.525,,,,1465,0.3011,CITY_DEPLOYABLE,5.096,5.096,30.58,25,5.58,0.58,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_business,route_km,business_constrained(min_share=0.12),4,1,0.0,2.025,,,1338,0.275,CITY_DEPLOYABLE,1.408,1.408,18.0,12,6.0,1.0,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_business,route_km,business_constrained(min_share=0.12),4,2,2.025,3.275,,,1243,0.2554,CITY_DEPLOYABLE,2.65,2.65,18.0,13,5.0,0.0,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_business,route_km,business_constrained(min_share=0.12),4,3,3.275,4.525,,,820,0.1685,CITY_DEPLOYABLE,3.845,3.845,23.07,17,6.07,1.07,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K4R_business,route_km,business_constrained(min_share=0.12),4,4,4.525,,,,1465,0.3011,CITY_DEPLOYABLE,5.096,5.096,30.58,25,5.58,0.58,868,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_quantile,route_km,quantile,5,1,0.0,1.673,,,974,0.2002,CITY_DEPLOYABLE,1.278,,,,,,1504,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_quantile,route_km,quantile,5,2,1.673,2.642,,,973,0.2,CITY_DEPLOYABLE,2.231,,,,,,1504,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_quantile,route_km,quantile,5,3,2.642,3.741,,,973,0.2,CITY_DEPLOYABLE,3.129,,,,,,1504,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_quantile,route_km,quantile,5,4,3.741,4.89,,,973,0.2,CITY_DEPLOYABLE,4.534,,,,,,1504,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_quantile,route_km,quantile,5,5,4.89,,,,973,0.2,CITY_DEPLOYABLE,5.336,,,,,,1504,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_kmeans,route_km,kmeans,5,1,0.0,1.963,,,1291,0.2653,CITY_DEPLOYABLE,1.388,,,,,,1145,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_kmeans,route_km,kmeans,5,2,1.963,3.049,,,1079,0.2217,CITY_DEPLOYABLE,2.575,,,,,,1145,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_kmeans,route_km,kmeans,5,3,3.049,4.15,,,815,0.1675,CITY_DEPLOYABLE,3.569,,,,,,1145,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_kmeans,route_km,kmeans,5,4,4.15,5.17,,,1031,0.2119,CITY_DEPLOYABLE,4.747,,,,,,1145,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_kmeans,route_km,kmeans,5,5,5.17,,,,650,0.1336,CITY_DEPLOYABLE,5.537,,,,,,1145,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,1,0.0,1.975,,,1302,0.2676,CITY_DEPLOYABLE,1.391,1.391,18.0,12,6.0,1.0,1144,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,2,1.975,3.075,,,1083,0.2226,CITY_DEPLOYABLE,2.584,2.584,18.0,13,5.0,0.0,1144,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,3,3.075,4.175,,,807,0.1658,CITY_DEPLOYABLE,3.587,3.587,21.52,16,5.52,0.52,1144,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,4,4.175,5.175,,,1028,0.2113,CITY_DEPLOYABLE,4.752,4.752,28.52,23,5.52,0.52,1144,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_dp_optimal_jenks,route_km,dp_optimal_jenks,5,5,5.175,,,,646,0.1328,CITY_DEPLOYABLE,5.542,5.542,33.25,27,6.25,1.25,1144,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_business,route_km,business_constrained(min_share=0.12),5,1,0.0,1.975,,,1302,0.2676,CITY_DEPLOYABLE,1.391,1.391,18.0,12,6.0,1.0,1121,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_business,route_km,business_constrained(min_share=0.12),5,2,1.975,3.025,,,1049,0.2156,CITY_DEPLOYABLE,2.573,2.573,18.0,13,5.0,0.0,1121,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_business,route_km,business_constrained(min_share=0.12),5,3,3.025,4.125,,,826,0.1697,CITY_DEPLOYABLE,3.552,3.552,21.31,15,6.31,1.31,1121,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_business,route_km,business_constrained(min_share=0.12),5,4,4.125,5.175,,,1043,0.2143,CITY_DEPLOYABLE,4.746,4.746,28.48,22,6.48,1.48,1121,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K5R_business,route_km,business_constrained(min_share=0.12),5,5,5.175,,,,646,0.1328,CITY_DEPLOYABLE,5.542,5.542,33.25,27,6.25,1.25,1121,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_quantile,route_km,quantile,6,1,0.0,1.533,,,813,0.1671,CITY_DEPLOYABLE,1.223,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_quantile,route_km,quantile,6,2,1.533,2.389,,,811,0.1667,CITY_DEPLOYABLE,1.877,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_quantile,route_km,quantile,6,3,2.389,3.129,,,810,0.1665,CITY_DEPLOYABLE,2.686,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_quantile,route_km,quantile,6,4,3.129,4.298,,,811,0.1667,CITY_DEPLOYABLE,3.649,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_quantile,route_km,quantile,6,5,4.298,5.024,,,811,0.1667,CITY_DEPLOYABLE,4.714,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_quantile,route_km,quantile,6,6,5.024,,,,810,0.1665,CITY_DEPLOYABLE,5.434,,,,,,1533,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,1,0.0,1.476,,,740,0.1521,CITY_DEPLOYABLE,1.196,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,2,1.476,2.218,,,713,0.1465,CITY_DEPLOYABLE,1.778,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,3,2.218,3.123,,,976,0.2006,CITY_DEPLOYABLE,2.638,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,4,3.123,4.174,,,763,0.1568,CITY_DEPLOYABLE,3.614,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,5,4.174,5.175,,,1028,0.2113,CITY_DEPLOYABLE,4.752,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_kmeans,route_km,kmeans,6,6,5.175,,,,646,0.1328,CITY_DEPLOYABLE,5.542,,,,,,1388,CITY_CANDIDATE,city deployable candidate (outside_km=0)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,1,0.0,1.475,,,739,0.1519,CITY_DEPLOYABLE,1.196,1.196,18.0,12,6.0,1.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,2,1.475,2.225,,,717,0.1473,CITY_DEPLOYABLE,1.779,1.779,18.0,13,5.0,0.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,3,2.225,3.125,,,974,0.2002,CITY_DEPLOYABLE,2.641,2.641,18.0,14,4.0,-1.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,4,3.125,4.175,,,762,0.1566,CITY_DEPLOYABLE,3.615,3.615,21.69,16,5.69,0.69,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,5,4.175,5.175,,,1028,0.2113,CITY_DEPLOYABLE,4.752,4.752,28.52,23,5.52,0.52,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_dp_optimal_jenks,route_km,dp_optimal_jenks,6,6,5.175,,,,646,0.1328,CITY_DEPLOYABLE,5.542,5.542,33.25,27,6.25,1.25,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,1,0.0,1.475,,,739,0.1519,CITY_DEPLOYABLE,1.196,1.196,18.0,12,6.0,1.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,2,1.475,2.225,,,717,0.1473,CITY_DEPLOYABLE,1.779,1.779,18.0,13,5.0,0.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,3,2.225,3.125,,,974,0.2002,CITY_DEPLOYABLE,2.641,2.641,18.0,14,4.0,-1.0,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,4,3.125,4.175,,,762,0.1566,CITY_DEPLOYABLE,3.615,3.615,21.69,16,5.69,0.69,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,5,4.175,5.175,,,1028,0.2113,CITY_DEPLOYABLE,4.752,4.752,28.52,23,5.52,0.52,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)
+CITY_K6R_business,route_km,business_constrained(min_share=0.12),6,6,5.175,,,,646,0.1328,CITY_DEPLOYABLE,5.542,5.542,33.25,27,6.25,1.25,1392,CITY_CANDIDATE,city deployable; BALANCED fee shown (see zone-policy-prices for all 3)

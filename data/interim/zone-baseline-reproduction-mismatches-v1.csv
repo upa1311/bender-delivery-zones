@@ -1,0 +1,6 @@
+address_id,territory,district,street,house_number,expected_km,registry_zone_id,recomputed_zone_id,nearest_threshold_km,distance_to_threshold_km,source_file,reason,status
+n2337889957,Бендеры,,улица Ломоносова,15,5.577,4,3,5.577,0.0,releases/bender-zones-v1.1/address-registry.json,threshold_inclusivity,explained_by_inclusivity_convention
+w209267127,Бендеры,,улица Богдана Хмельницкого,28,5.577,4,3,5.577,0.0,releases/bender-zones-v1.1/address-registry.json,threshold_inclusivity,explained_by_inclusivity_convention
+w284686410,Парканы,,улица Сергея Лазо,5,4.076,3,2,4.076,0.0,releases/bender-zones-v1.1/address-registry.json,threshold_inclusivity,explained_by_inclusivity_convention
+w306081930,Парканы,,Светлая улица,5,5.577,4,3,5.577,0.0,releases/bender-zones-v1.1/address-registry.json,threshold_inclusivity,explained_by_inclusivity_convention
+w352111747,Бендеры,,улица Полоза,2,5.577,4,3,5.577,0.0,releases/bender-zones-v1.1/address-registry.json,threshold_inclusivity,explained_by_inclusivity_convention

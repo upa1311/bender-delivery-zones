@@ -25,12 +25,15 @@ Which model actually applies is **not asserted**. Both are carried.
 
 ## Driver take
 
-- `driver_take_fixed = max(0, taxi_ref − 5)`
-- `driver_take_percent = 0.65 · taxi_ref`
+- `driver_take_fixed = max(0, taxi_reference - 5)`
+- `driver_take_percent = 0.65 · taxi_reference`
 - `driver_best_taxi_take = max(driver_take_fixed, driver_take_percent)`
 
-For the small trips typical in Bender the 65 % model usually beats the −5 fixed
-model, so `driver_best` tracks `0.65 · taxi_ref`.
+The two cross over at `taxi_reference = 5 / 0.35 = 14.29 руб`. Because the minimum
+fare is 18 руб, every city `taxi_reference ≥ 18 > 14.29`, so the fixed-5 model
+wins for **100 % of city trips**. The correct city benchmark is therefore
+**`taxi_reference - 5`**, not `0.65 · taxi_reference`. (An earlier draft claimed
+the 65 % model dominated — that was wrong and is corrected here.)
 
 ## Applicability — CITY ONLY
 

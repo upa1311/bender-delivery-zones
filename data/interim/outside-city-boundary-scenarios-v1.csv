@@ -1,0 +1,13 @@
+canonical_address_id,territory,route_km,boundary_candidate,boundary_verification_status,scenario_outside_city_km,scenario_base_city_fee,scenario_external_surcharge,scenario_final_fee,note
+n2321749482,Гиска,6.385,bender_relation_12463379,PROVISIONAL_PROXY,2.8653,28,6,34,SCENARIO ONLY — not an approved price; boundary unverified
+n2323343711,Парканы,3.167,bender_relation_12463379,PROVISIONAL_PROXY,1.4566,15,5,20,SCENARIO ONLY — not an approved price; boundary unverified
+n2457586634,Парканы,3.181,bender_relation_12463379,PROVISIONAL_PROXY,1.4711,15,5,20,SCENARIO ONLY — not an approved price; boundary unverified
+n2457586635,Парканы,3.199,bender_relation_12463379,PROVISIONAL_PROXY,1.49,15,5,20,SCENARIO ONLY — not an approved price; boundary unverified
+n2457586636,Парканы,3.214,bender_relation_12463379,PROVISIONAL_PROXY,1.5046,15,5,20,SCENARIO ONLY — not an approved price; boundary unverified
+n2457586637,Парканы,3.23,bender_relation_12463379,PROVISIONAL_PROXY,1.5204,15,5,20,SCENARIO ONLY — not an approved price; boundary unverified
+n4418837238,Парканы,7.075,bender_relation_12463379,PROVISIONAL_PROXY,5.3671,31,11,42,SCENARIO ONLY — not an approved price; boundary unverified
+w353259234,Протягайловка,6.91,bender_relation_12463379,PROVISIONAL_PROXY,1.366,30,5,35,SCENARIO ONLY — not an approved price; boundary unverified
+w353619672,Гиска,3.66,bender_relation_12463379,PROVISIONAL_PROXY,0.0,17,0,17,SCENARIO ONLY — not an approved price; boundary unverified
+w353817270,Гиска,3.66,bender_relation_12463379,PROVISIONAL_PROXY,0.0,17,0,17,SCENARIO ONLY — not an approved price; boundary unverified
+w353817271,Гиска,3.686,bender_relation_12463379,PROVISIONAL_PROXY,0.0,17,0,17,SCENARIO ONLY — not an approved price; boundary unverified
+w353817272,Гиска,3.708,bender_relation_12463379,PROVISIONAL_PROXY,0.0,17,0,17,SCENARIO ONLY — not an approved price; boundary unverified

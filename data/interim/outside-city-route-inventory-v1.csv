@@ -1,0 +1,13 @@
+canonical_address_id,territory,source,dedup_status,n_candidates,polyline_length_km,route_km
+n2321749482,Гиска,docs/data/stage-09b-map-routes.geojson,UNIQUE,1,6.3859,6.385
+n2323343711,Парканы,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.1648,3.167
+n2457586634,Парканы,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.1793,3.181
+n2457586635,Парканы,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.1983,3.199
+n2457586636,Парканы,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.2128,3.214
+n2457586637,Парканы,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.2287,3.23
+n4418837238,Парканы,docs/data/stage-09b-map-routes.geojson,UNIQUE,1,7.0754,7.075
+w353259234,Протягайловка,docs/data/stage-09b-map-routes.geojson,UNIQUE,1,6.9102,6.91
+w353619672,Гиска,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.6639,3.66
+w353817270,Гиска,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.6637,3.66
+w353817271,Гиска,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.6901,3.686
+w353817272,Гиска,docs/data/stage-09a-control-routes.geojson,UNIQUE,1,3.7112,3.708

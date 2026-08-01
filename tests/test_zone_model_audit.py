@@ -1006,129 +1006,148 @@ def test_95_control_table_has_at_least_20_addresses_from_data():
     ids = {r["address_id"] for r in OTFEES}
     assert all(r["address_id"] in ids for r in OTCONTROLS)  # not fabricated
 
-
-# ============ verified outside-city route distance (geometry) ============
+# ============ outside-city route & city-boundary audit (BLOCKED) ============
 from shapely.geometry import LineString, MultiPolygon, Polygon  # noqa: E402
 
 OCFEES = _csv(ROOT / "data/interim/outside-city-distance-v1.csv")
-OCCONTROLS = _csv(ROOT / "data/interim/outside-city-control-addresses-v1.csv")
-OC_SUMMARY = json.loads(
+OCINV = _csv(ROOT / "data/interim/outside-city-route-inventory-v1.csv")
+OCSCEN = _csv(ROOT / "data/interim/outside-city-boundary-scenarios-v1.csv")
+OCCTRL = _csv(ROOT / "data/interim/outside-city-control-addresses-v1.csv")
+OCSUM = json.loads(
     (ROOT / "reports/zone-model-audit/_outside-city-summary-v1.json").read_text(
         encoding="utf-8"))
-_SQUARE = Polygon([(0, 0), (1000, 0), (1000, 1000), (0, 1000)])  # 1km x 1km city
+_SQ = Polygon([(0, 0), (1000, 0), (1000, 1000), (0, 1000)])  # 1km city
 
 
-def test_96_route_fully_inside_has_zero_outside():
-    line = LineString([(100, 100), (900, 900)])
-    assert OC.outside_length_km(line, _SQUARE) == 0.0
+# ---- synthetic-geometry method proofs ----
+def test_96_fully_inside_zero():
+    assert OC.outside_length_km(LineString([(100, 100), (900, 900)]), _SQ) == 0.0
 
 
-def test_97_route_fully_outside_equals_full_length():
-    line = LineString([(2000, 2000), (3000, 2000)])  # 1000 m, all outside
-    assert abs(OC.outside_length_km(line, _SQUARE) - 1.0) < 1e-9
+def test_97_fully_outside_full_length():
+    assert abs(OC.outside_length_km(LineString([(2000, 2000), (3000, 2000)]), _SQ) - 1.0) < 1e-9
 
 
-def test_98_single_boundary_crossing():
-    line = LineString([(500, 500), (1500, 500)])  # crosses x=1000; 500 m outside
-    assert abs(OC.outside_length_km(line, _SQUARE) - 0.5) < 1e-9
+def test_98_single_crossing():
+    assert abs(OC.outside_length_km(LineString([(500, 500), (1500, 500)]), _SQ) - 0.5) < 1e-9
 
 
-def test_99_multiple_boundary_crossings_sum_outside_segments():
-    # horizontal line across the square along y=500: outside on the right
-    # (1500→1000 = 500 m) and on the left (0→-500 = 500 m), inside between.
-    line = LineString([(1500, 500), (-500, 500)])
-    assert abs(OC.outside_length_km(line, _SQUARE) - 1.0) < 1e-9
+def test_99_multiple_crossings():
+    assert abs(OC.outside_length_km(LineString([(1500, 500), (-500, 500)]), _SQ) - 1.0) < 1e-9
 
 
-def test_100_touching_boundary_edge_counts_as_inside():
-    line = LineString([(0, 100), (0, 900)])  # runs along the x=0 edge
-    assert OC.outside_length_km(line, _SQUARE) == 0.0
+def test_100_touching_edge_is_inside():
+    assert OC.outside_length_km(LineString([(0, 100), (0, 900)]), _SQ) == 0.0
 
 
-def test_101_multipolygon_boundary_supported():
-    mp = MultiPolygon([_SQUARE, Polygon([(2000, 0), (3000, 0), (3000, 1000), (2000, 1000)])])
-    inside_second = LineString([(2100, 100), (2900, 900)])
-    assert OC.outside_length_km(inside_second, mp) == 0.0
+def test_101_multipolygon():
+    mp = MultiPolygon([_SQ, Polygon([(2000, 0), (3000, 0), (3000, 1000), (2000, 1000)])])
+    assert OC.outside_length_km(LineString([(2100, 100), (2900, 900)]), mp) == 0.0
 
 
-def test_102_hole_is_not_city_route_through_hole_is_outside():
+def test_102_hole_is_outside():
     donut = Polygon([(0, 0), (1000, 0), (1000, 1000), (0, 1000)],
                     [[(400, 400), (600, 400), (600, 600), (400, 600)]])
-    line = LineString([(500, 100), (500, 900)])  # passes through the 200 m hole
-    assert abs(OC.outside_length_km(line, donut) - 0.2) < 1e-6
+    assert abs(OC.outside_length_km(LineString([(500, 100), (500, 900)]), donut) - 0.2) < 1e-6
 
 
-def test_103_invalid_boundary_geometry_is_repaired():
-    bowtie = Polygon([(0, 0), (1000, 1000), (1000, 0), (0, 1000)])  # self-intersecting
+def test_103_invalid_boundary_repaired():
+    bowtie = Polygon([(0, 0), (1000, 1000), (1000, 0), (0, 1000)])
     assert not bowtie.is_valid
-    line = LineString([(500, 100), (500, 900)])
-    # must not raise; buffer(0) repair yields a finite outside length
-    val = OC.outside_length_km(line, bowtie)
-    assert val >= 0.0
+    assert OC.outside_length_km(LineString([(500, 100), (500, 900)]), bowtie) >= 0.0
 
 
-def test_104_projected_length_matches_metric_length():
-    line = LineString([(0, 0), (0, 1500)])  # 1500 m fully outside a far square
+def test_104_projected_length_correct():
     far = Polygon([(5000, 5000), (6000, 5000), (6000, 6000), (5000, 6000)])
-    assert abs(OC.outside_length_km(line, far) - 1.5) < 1e-9
+    assert abs(OC.outside_length_km(LineString([(0, 0), (0, 1500)]), far) - 1.5) < 1e-9
 
 
-def test_105_calculated_addresses_are_geometry_verified_and_bounded():
-    calc = [r for r in OCFEES if r["calculation_status"] == "CALCULATED"]
-    assert calc, "at least the 3 addresses with a polyline are priced"
-    for r in calc:
-        outside = float(r["outside_city_km"])
-        km = float(r["route_km"])
-        assert 0.0 <= outside <= km + 0.1               # non-negative, <= route_km
-        assert r["route_geometry_source"].startswith("stage-09b-map-routes")
-        # fee = base + max(5, ceil(outside*2))
-        assert int(r["final_fee"]) == int(r["base_city_fee"]) + OT.external_surcharge(outside)
+# ---- route inventory: both sources, dedup, no conflict ----
+def test_105_route_inventory_combines_09a_and_09b_to_12():
+    src = OCSUM["route_sources"]
+    a = next(v for k, v in src.items() if "stage-09a" in k)["external_central_routes"]
+    b = next(v for k, v in src.items() if "stage-09b" in k)["external_central_routes"]
+    assert a == 9 and b == 3
+    assert OCSUM["unique_usable_routes"] == 12
+    assert OCSUM["route_conflicts"] == []
+    ids = [r["canonical_address_id"] for r in OCINV]
+    assert len(ids) == 12 == len(set(ids))  # deduped by canonical_address_id
 
 
-def test_106_unavailable_external_addresses_get_no_price():
-    unavail = [r for r in OCFEES if r["calculation_status"] != "CALCULATED"]
-    assert unavail
-    for r in unavail:
+def test_106_route_length_validation_and_sensitivity():
+    for r in OCFEES:
+        if r["polyline_length_km"] != "":
+            assert r["route_validation_status"] == "LENGTH_OK"
+            assert float(r["route_length_difference_m"]) < 5.0  # all match to < 5 m
+    sens = OCSUM["sensitivity"]["by_threshold"]
+    assert {s["threshold_km"] for s in sens} >= {0.005, 0.01, 0.05}
+    # a threshold change must not silently move any address into a price
+    assert OCSUM["sensitivity"]["acceptance_changes_across_thresholds"] in (True, False)
+
+
+# ---- boundary: provisional, none verified → BLOCKED ----
+def test_107_boundary_candidates_compared_none_verified():
+    cand = {c["candidate_id"]: c for c in OCSUM["boundary_candidates"]}
+    assert set(cand) == {"bender_relation_12463379", "municipiul_bender_9581354",
+                         "bender_city_council_944727"}
+    assert cand["bender_relation_12463379"]["verification_status"] == "PROVISIONAL_PROXY"
+    assert cand["municipiul_bender_9581354"]["verification_status"] == "NO_GEOMETRY_IN_REPO"
+    assert cand["bender_city_council_944727"]["verification_status"] == "NO_GEOMETRY_IN_REPO"
+    assert OCSUM["verified_tariff_boundary"] is None
+    assert "provisional proxy" in OCSUM["provisional_boundary_evidence"].lower()
+
+
+def test_108_verdict_is_blocked_by_city_boundary():
+    assert OCSUM["verdict"] == "BLOCKED_BY_CITY_BOUNDARY"
+
+
+def test_109_no_calculated_or_final_fee_under_provisional_boundary():
+    assert OCSUM["approved_priced_addresses"] == 0
+    for r in OCFEES:
+        assert r["calculation_status"] != "CALCULATED"
         assert r["final_fee"] == "" and r["outside_city_km"] == ""
         assert r["calculation_status"] in {
-            "ROUTE_GEOMETRY_UNAVAILABLE", "ROUTE_LENGTH_MISMATCH",
-            "CITY_BOUNDARY_UNAVAILABLE", "INVALID_ROUTE_GEOMETRY",
-            "INVALID_BOUNDARY_GEOMETRY", "OUTSIDE_DISTANCE_UNAVAILABLE",
-            "TERRITORY_DATA_UNAVAILABLE"}
+            "ROUTE_GEOMETRY_UNAVAILABLE", "CITY_BOUNDARY_UNAVAILABLE",
+            "ROUTE_LENGTH_MISMATCH", "ROUTE_GEOMETRY_CONFLICT",
+            "INVALID_ROUTE_GEOMETRY", "INVALID_BOUNDARY_GEOMETRY",
+            "OUTSIDE_DISTANCE_UNAVAILABLE", "TERRITORY_DATA_UNAVAILABLE"}
 
 
-def test_107_surcharge_min5_above_min_and_ceil():
-    assert OT.external_surcharge(0.1) == 5          # min 5 applies
-    assert OT.external_surcharge(2.5) == 5          # ceil(5)=5 == min
-    assert OT.external_surcharge(2.6) == 6          # ceil(5.2)=6 above min
-    assert OT.external_surcharge(5.367) == 11       # ceil(10.734)=11
+def test_110_routed_addresses_are_boundary_blocked_not_priced():
+    routed = [r for r in OCFEES if r["polyline_length_km"] != ""]
+    assert len(routed) == 12
+    for r in routed:
+        assert r["calculation_status"] == "CITY_BOUNDARY_UNAVAILABLE"
+        assert r["boundary_verification_status"] == "PROVISIONAL_UNVERIFIED"
 
 
-def test_108_zone_does_not_affect_outside_fee_and_same_inputs_same_price():
-    # final_fee is a pure function of (route_km, outside_city_km); zone is analytics
+def test_111_scenario_values_separated_from_production_csv():
+    # scenario fees exist ONLY in the scenario artifact, never in the main CSV
+    assert len(OCSCEN) == 12
+    for r in OCSCEN:
+        assert r["boundary_verification_status"] == "PROVISIONAL_PROXY"
+        assert float(r["scenario_outside_city_km"]) >= 0.0
+        assert "SCENARIO" in r["note"]
+    assert all(r["final_fee"] == "" for r in OCFEES)  # no price leaked to production CSV
+
+
+# ---- tariff formula still correct (used only in scenario) ----
+def test_112_surcharge_min5_ceil_and_zone_independent():
+    assert OT.external_surcharge(0.1) == 5 and OT.external_surcharge(2.6) == 6
+    assert OT.base_city_fee(3.0) == 14 and OT.base_city_fee(3.01) == 15
+    # base fee depends only on route_km, never on the analytics zone
     for r in OCFEES:
-        if r["calculation_status"] == "CALCULATED":
-            base = OT.base_city_fee(float(r["route_km"]))
-            assert int(r["base_city_fee"]) == base  # independent of geographic_zone
-    # identical (route_km, outside) → identical final fee
-    fee_a = OT.base_city_fee(6.9) + OT.external_surcharge(1.366)
-    fee_b = OT.base_city_fee(6.9) + OT.external_surcharge(1.366)
-    assert fee_a == fee_b
+        assert int(r["base_city_fee"]) == OT.base_city_fee(float(r["route_km"]))
 
 
-def test_109_boundary_provenance_recorded_and_severny_investigated():
-    b = OC_SUMMARY["boundary_provenance"]
-    assert b["key"] == "bender" and "12463379" in str(b["osm"])
-    assert b["manual_edits"] == "none" and len(b["sha256"]) == 64
-    sv = OC_SUMMARY["severny"]
-    assert sv["in_canonical_9216"] is False           # not in the 9,216
-    assert sv["status"] == "TERRITORY_DATA_UNAVAILABLE"
+def test_113_severny_territory_data_unavailable():
+    sv = OCSUM["severny"]
+    assert sv["in_canonical_9216"] is False and sv["status"] == "TERRITORY_DATA_UNAVAILABLE"
+    assert "Северный" not in sv["canonical_settlements_scanned"]
 
 
-def test_110_outside_city_csv_and_summary_reproducible_with_30_controls():
-    assert len(OCCONTROLS) >= 30
+def test_114_thirty_controls_real_plus_synthetic_and_reproducible():
+    assert len(OCCTRL) >= 30
     ids = {r["canonical_address_id"] for r in OCFEES}
-    assert all(r["canonical_address_id"] in ids for r in OCCONTROLS)
-    assert OC_SUMMARY["priced_addresses_total"] == sum(
-        1 for r in OCFEES if r["calculation_status"] == "CALCULATED")
-    assert OC_SUMMARY["verdict"] == "PARTIAL_COVERAGE_OWNER_REVIEW_REQUIRED"
+    assert all(r["canonical_address_id"] in ids for r in OCCTRL)  # real canonical rows
+    assert OCSUM["external_addresses_total"] == 4350

@@ -1,0 +1,26 @@
+{
+  "city_addresses": 4866,
+  "minimum_zones_for_100pct_coverage": {
+    "DRIVER_CONSERVATIVE": 5,
+    "BALANCED": 14,
+    "CUSTOMER_FIRST": 9
+  },
+  "balanced_minimum_zones": 14,
+  "balanced_zone_upper_edges_km": [
+    3.239,
+    3.424,
+    3.611,
+    3.796,
+    3.981,
+    4.163,
+    4.537,
+    4.907,
+    5.275,
+    5.644,
+    5.999,
+    6.496,
+    7.0,
+    7.458
+  ],
+  "note": "A flat-fee-per-zone BALANCED tariff needs ~14 steps for 100% coverage — impractical; motivates a base+distance formula for the middle/far city zones. Candidate only; not applied to production."
+}

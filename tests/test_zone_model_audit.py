@@ -64,6 +64,7 @@ def _load_module(name, rel):
 
 ZM = _load_module("zone_model_audit", "scripts/zone_model_audit.py")
 ZE = _load_module("zone_economics_audit", "scripts/zone_economics_audit.py")
+FR = _load_module("zone_fragmentation_analysis", "scripts/zone_fragmentation_analysis.py")
 
 
 def _csv(path):
@@ -791,3 +792,54 @@ def test_75_selection_prefers_coverage_before_geometry():
     primary = next(r for r in OPCAND if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
                    and r["selection"] == "PRIMARY_OPERATIONAL_CANDIDATE")
     assert float(primary["balanced_total_joint_coverage"]) == best_cov
+
+
+# ================= balanced-zone fragmentation analysis =================
+FRAG = _csv(ROOT / "data/interim/zone-balanced-fragmentation-v1.csv")
+FRAG_SUMMARY = json.loads(
+    (ROOT / "reports/zone-model-audit/_fragmentation-summary-v1.json").read_text(
+        encoding="utf-8"))
+
+
+def _min_zones(policy):
+    city = ZE.city_rows(ZE.load_features())
+    kms = sorted(float(r["route_km"]) for r in city)
+    return len(FR.minimum_zones(kms, ZE.POLICY_RULES[policy]))
+
+
+def test_76_balanced_needs_exactly_14_zones_for_full_coverage():
+    assert _min_zones("BALANCED") == 14
+    assert FRAG_SUMMARY["balanced_minimum_zones"] == 14
+    assert len(FRAG) == 14
+
+
+def test_77_other_policies_minimum_zone_counts():
+    assert _min_zones("CUSTOMER_FIRST") == 9
+    assert _min_zones("DRIVER_CONSERVATIVE") == 5
+    counts = FRAG_SUMMARY["minimum_zones_for_100pct_coverage"]
+    assert counts == {"DRIVER_CONSERVATIVE": 5, "BALANCED": 14, "CUSTOMER_FIRST": 9}
+
+
+def test_78_every_minimal_zone_is_balanced_feasible():
+    for z in FRAG:
+        floor = int(z["min_fee_required_by_driver"])
+        ceil = int(z["max_fee_allowed_by_client"])
+        assert floor <= ceil                      # a flat fee exists
+        assert int(z["balanced_feasible_fee"]) == floor
+
+
+def test_79_greedy_partition_is_maximal_hence_minimal():
+    # extending any non-last zone by one address would break BALANCED feasibility,
+    # proving each zone is maximal and the count is minimal.
+    city = ZE.city_rows(ZE.load_features())
+    kms = sorted(float(r["route_km"]) for r in city)
+    rule = ZE.POLICY_RULES["BALANCED"]
+    idx = 0
+    for z in FRAG[:-1]:
+        count = int(z["address_count"])
+        seg_plus = kms[idx:idx + count + 1]       # this zone + first addr of next
+        refs = [ZE.taxi_ref_a(k) for k in seg_plus]
+        bests = [ZE.driver_best(r) for r in refs]
+        assert ZE._driver_floor(bests, rule) > ZE._client_ceiling(refs, rule)
+        idx += count
+    assert sum(int(z["address_count"]) for z in FRAG) == len(city)

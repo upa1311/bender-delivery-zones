@@ -936,7 +936,10 @@ def test_86_ceil_applied_to_final_price_only():
 
 
 def test_87_external_surcharge_formula_and_boundary():
-    assert OT.external_surcharge(0) == 0                    # boundary: no surcharge
+    # FIXED: the minimum of 5 MDL ALWAYS applies to an external-classified address,
+    # including outside_city_km == 0. "No surcharge" is a CITY case (by territory),
+    # not a zero-distance case. Old code wrongly returned 0 at the boundary.
+    assert OT.external_surcharge(0) == 5                    # min 5 always (was 0 — bug)
     assert OT.external_surcharge(1) == 5                    # max(5, ceil(2)) = 5
     assert OT.external_surcharge(2.5) == 5                  # max(5, ceil(5)) = 5
     assert OT.external_surcharge(3) == 6                    # max(5, ceil(6)) = 6
@@ -957,9 +960,11 @@ def test_89_external_address_with_outside_km_uses_surcharge_formula():
     assert fee == base + 5
 
 
-def test_90_zero_outside_km_gets_no_surcharge():
+def test_90_zero_outside_km_external_gets_minimum_surcharge():
+    # FIXED: an external address whose route never leaves the (provisional) polygon
+    # (outside_city_km == 0) still pays the 5 MDL minimum — it is NOT a city address.
     fee, base, sur, status = OT.final_fee(5.0, True, 0.0)
-    assert status == "EXTERNAL_OK" and sur == 0 and fee == base
+    assert status == "EXTERNAL_OK" and sur == 5 and fee == base + 5
 
 
 def test_91_unknown_outside_km_gets_no_invented_price():
@@ -1151,3 +1156,80 @@ def test_114_thirty_controls_real_plus_synthetic_and_reproducible():
     ids = {r["canonical_address_id"] for r in OCFEES}
     assert all(r["canonical_address_id"] in ids for r in OCCTRL)  # real canonical rows
     assert OCSUM["external_addresses_total"] == 4350
+
+
+# ============ minimum-surcharge regression (bug fix) ============
+# Regression guard for the audit finding: external_surcharge returned 0 for
+# outside_city_km == 0, letting an external-classified address pay no minimum. The
+# fix makes the 5 MDL minimum ALWAYS apply to an external address with a permitted
+# calculation; "no surcharge" is a CITY case (decided by territory), and a missing
+# boundary yields no production final_fee at all (nothing invented).
+def test_115_minimum_surcharge_regression_cases():
+    assert OT.external_surcharge(0) == 5      # outside=0 -> minimum still applies
+    assert OT.external_surcharge(0.1) == 5    # max(5, ceil(0.2)) = 5
+    assert OT.external_surcharge(2.0) == 5    # max(5, ceil(4.0)) = 5
+    assert OT.external_surcharge(2.1) == 5    # max(5, ceil(4.2)=5) = 5
+    assert OT.external_surcharge(3.0) == 6    # max(5, ceil(6.0)) = 6 (crosses minimum)
+    # a CITY address gets NO surcharge (city path, not zero-distance)
+    fee_c, base_c, sur_c, st_c = OT.final_fee(5.0, False, None)
+    assert st_c == "CITY_OK" and sur_c == 0 and fee_c == base_c
+    # an external address with a MISSING boundary gets no invented production price
+    fee_m, base_m, sur_m, st_m = OT.final_fee(5.0, True, None)
+    assert st_m == "OUTSIDE_DISTANCE_UNAVAILABLE" and fee_m == "" and sur_m == ""
+
+
+def test_116_four_giska_zero_outside_rows_fixed_5_and_22():
+    # Before the fix these four Гиска scenario rows (outside_city_km == 0) showed
+    # surcharge 0 / final 17; after the fix they show surcharge 5 / final 22.
+    fixed = {"w353619672", "w353817270", "w353817271", "w353817272"}
+    rows = [r for r in OCSCEN if r["canonical_address_id"] in fixed]
+    assert len(rows) == 4
+    for r in rows:
+        assert r["territory"] == "Гиска"
+        assert float(r["scenario_outside_city_km"]) == 0.0
+        assert int(r["scenario_external_surcharge"]) == 5   # was 0 (bug)
+        assert int(r["scenario_final_fee"]) == 22           # was 17 (bug)
+    # and no scenario row ever leaks into the production final_fee column
+    assert all(r["final_fee"] == "" for r in OCFEES)
+
+
+# ============ owner boundary decision packet ============
+OCB = _load_module("owner_boundary_packet", "scripts/owner_boundary_packet.py")
+OCB_COMPARE = _csv(ROOT / "data/interim/boundary-candidates-comparison-v1.csv")
+
+
+def test_117_boundary_candidates_are_three_real_osm_relations_none_verified():
+    by_id = {r["relation_id"]: r for r in OCB_COMPARE}
+    assert set(by_id) == {"12463379", "9581354", "944727"}
+    assert by_id["12463379"]["admin_level"] == "8"   # city proper
+    assert by_id["9581354"]["admin_level"] == "4"    # municipality (larger)
+    assert by_id["944727"]["admin_level"] == "5"     # de-facto PMR
+    for r in OCB_COMPARE:
+        assert r["osm_url"].startswith("https://api.openstreetmap.org/")
+        assert r["license"].startswith("ODbL")
+        # NONE is approved as the operational tariff boundary
+        assert r["verification_status"] != "VERIFIED_FOR_TARIFF"
+    # only relation 12463379 has geometry in the repo
+    assert by_id["12463379"]["geometry_in_repo"].startswith("yes")
+    assert by_id["9581354"]["geometry_in_repo"].startswith("no")
+    assert by_id["944727"]["geometry_in_repo"].startswith("no")
+
+
+def test_118_owner_map_is_self_contained_with_expected_layers():
+    html = (ROOT / "reports/zone-model-audit/owner-boundary-map-v1.html").read_text(
+        encoding="utf-8")
+    svg = (ROOT / "reports/zone-model-audit/owner-boundary-map-v1.svg").read_text(
+        encoding="utf-8")
+    for blob in (html, svg):
+        # no fetched external resources (the xmlns namespace URL is allowed)
+        for bad in ('src="http', "src='http", 'href="http', "href='http",
+                    "url(http", "<link", "<script src"):
+            assert bad not in blob
+        assert "NaN" not in blob
+    for gid in ("boundary_12463379", "settle_giska", "routes", "points", "legend"):
+        assert gid in html
+    # decision doc exists and is NOT self-approved
+    dec = (ROOT / "reports/zone-model-audit/OWNER_BOUNDARY_DECISION.md").read_text(
+        encoding="utf-8")
+    assert "OWNER_BOUNDARY_DECISION_REQUIRED" in dec
+    assert "[x]" not in dec.lower()  # no box is pre-checked

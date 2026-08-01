@@ -9,7 +9,7 @@ are untouched. Every number below is generated from
 
 - City ≤ 3.0 km: **14 MDL**
 - City > 3.0 km: **ceil(14 + (route_km - 3.0) * 4)**
-- External surcharge: **max(5, ceil(outside_city_km * 2)), 0 at boundary**
+- External surcharge: **max(5, ceil(outside_city_km * 2)); min 5 always for external**
 - External final: **base_city_fee + external_surcharge**
 - Rounding: full-precision km; ceil applied only to the final price
 

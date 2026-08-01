@@ -8,8 +8,7 @@ Implements the tariff the owner approved:
 
   External territories (Парканы, Гиска, Протягайловка, Северный):
     base_city_fee      = ceil(14 + max(0, route_km - 3.0) * 4)
-    external_surcharge = max(5, ceil(outside_city_km * 2))   for outside_city_km > 0
-                       = 0                                    for outside_city_km == 0
+    external_surcharge = max(5, ceil(outside_city_km * 2))   (min 5 always, even at 0)
     final_fee          = base_city_fee + external_surcharge
 
 Route km is used at full precision; only the FINAL price is rounded up (ceil).
@@ -58,9 +57,11 @@ def base_city_fee(route_km: float) -> int:
 
 
 def external_surcharge(outside_city_km: float) -> int:
-    """max(5, ceil(outside_km*2)) for outside_km>0; 0 exactly at the boundary."""
-    if outside_city_km <= 0:
-        return 0
+    """Approved formula: max(5, ceil(outside_km * 2)). A minimum of 5 MDL ALWAYS
+    applies to an external-classified address with a permitted calculation — even
+    when outside_city_km == 0 (a route that never leaves the provisional polygon).
+    The "no surcharge" case is a CITY address, decided by territory, not by a zero
+    outside distance."""
     return max(EXTERNAL_MIN_SURCHARGE, math.ceil(outside_city_km * EXTERNAL_PER_OUTSIDE_KM))
 
 
@@ -195,7 +196,7 @@ def main():
         "formula": {
             "city_within_3km": "14 MDL",
             "city_beyond_3km": "ceil(14 + (route_km - 3.0) * 4)",
-            "external_surcharge": "max(5, ceil(outside_city_km * 2)), 0 at boundary",
+            "external_surcharge": "max(5, ceil(outside_city_km * 2)); min 5 always for external",
             "final_external": "base_city_fee + external_surcharge",
             "rounding": "full-precision km; ceil applied only to the final price",
         },

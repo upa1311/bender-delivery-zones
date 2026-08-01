@@ -2,7 +2,7 @@
   "formula": {
     "city_within_3km": "14 MDL",
     "city_beyond_3km": "ceil(14 + (route_km - 3.0) * 4)",
-    "external_surcharge": "max(5, ceil(outside_city_km * 2)), 0 at boundary",
+    "external_surcharge": "max(5, ceil(outside_city_km * 2)); min 5 always for external",
     "final_external": "base_city_fee + external_surcharge",
     "rounding": "full-precision km; ceil applied only to the final price"
   },

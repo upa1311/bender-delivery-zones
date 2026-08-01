@@ -52,5 +52,567 @@
       "p90_price_jump_rub": 6.0
     }
   },
-  "policy_rows": 90
+  "policy_rows": 90,
+  "policy_feasibility": {
+    "CITY_K4R_dp_optimal_jenks|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 13
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 20,
+          "coverage": 0.4777,
+          "violated": 690
+        },
+        {
+          "zone": 4,
+          "fallback": 25,
+          "coverage": 0.5737,
+          "violated": 428
+        }
+      ]
+    },
+    "CITY_K4R_dp_optimal_jenks|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 14
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 22,
+          "coverage": 0.7086,
+          "violated": 385
+        },
+        {
+          "zone": 4,
+          "fallback": 29,
+          "coverage": 0.7709,
+          "violated": 230
+        }
+      ]
+    },
+    "CITY_K4R_dp_optimal_jenks|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 14
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 23,
+          "coverage": 0.6949,
+          "violated": 403
+        },
+        {
+          "zone": 4,
+          "fallback": 29,
+          "coverage": 0.6952,
+          "violated": 306
+        }
+      ]
+    },
+    "CITY_K5R_dp_optimal_jenks|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 15,
+          "coverage": 0.4229,
+          "violated": 363
+        },
+        {
+          "zone": 4,
+          "fallback": 20,
+          "coverage": 0.553,
+          "violated": 510
+        },
+        {
+          "zone": 5,
+          "fallback": 27,
+          "coverage": 0.6695,
+          "violated": 232
+        }
+      ]
+    },
+    "CITY_K5R_dp_optimal_jenks|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 17,
+          "coverage": 0.8617,
+          "violated": 87
+        },
+        {
+          "zone": 4,
+          "fallback": 24,
+          "coverage": 0.9395,
+          "violated": 69
+        },
+        {
+          "zone": 5,
+          "fallback": 31,
+          "coverage": 0.8362,
+          "violated": 115
+        }
+      ]
+    },
+    "CITY_K5R_dp_optimal_jenks|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 17,
+          "coverage": 0.8744,
+          "violated": 79
+        },
+        {
+          "zone": 4,
+          "fallback": 24,
+          "coverage": 0.8563,
+          "violated": 164
+        },
+        {
+          "zone": 5,
+          "fallback": 31,
+          "coverage": 0.7849,
+          "violated": 151
+        }
+      ]
+    },
+    "CITY_K6R_dp_optimal_jenks|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 15,
+          "coverage": 0.5,
+          "violated": 266
+        },
+        {
+          "zone": 4,
+          "fallback": 20,
+          "coverage": 0.7228,
+          "violated": 242
+        },
+        {
+          "zone": 5,
+          "fallback": 25,
+          "coverage": 0.7826,
+          "violated": 160
+        },
+        {
+          "zone": 6,
+          "fallback": 30,
+          "coverage": 0.7037,
+          "violated": 104
+        }
+      ]
+    },
+    "CITY_K6R_dp_optimal_jenks|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        },
+        {
+          "zone": 3,
+          "fee": 17
+        },
+        {
+          "zone": 4,
+          "fee": 22
+        },
+        {
+          "zone": 5,
+          "fee": 27
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 6,
+          "fallback": 34,
+          "coverage": 0.9231,
+          "violated": 27
+        }
+      ]
+    },
+    "CITY_K6R_dp_optimal_jenks|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        },
+        {
+          "zone": 3,
+          "fee": 17
+        },
+        {
+          "zone": 5,
+          "fee": 28
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 4,
+          "fallback": 22,
+          "coverage": 0.9725,
+          "violated": 24
+        },
+        {
+          "zone": 6,
+          "fallback": 34,
+          "coverage": 0.8632,
+          "violated": 48
+        }
+      ]
+    },
+    "CITY_K4R_share_width_density|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 13
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 20,
+          "coverage": 0.4777,
+          "violated": 690
+        },
+        {
+          "zone": 4,
+          "fallback": 25,
+          "coverage": 0.5737,
+          "violated": 428
+        }
+      ]
+    },
+    "CITY_K4R_share_width_density|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 14
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 22,
+          "coverage": 0.7086,
+          "violated": 385
+        },
+        {
+          "zone": 4,
+          "fallback": 29,
+          "coverage": 0.7709,
+          "violated": 230
+        }
+      ]
+    },
+    "CITY_K4R_share_width_density|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 14
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 23,
+          "coverage": 0.6949,
+          "violated": 403
+        },
+        {
+          "zone": 4,
+          "fallback": 29,
+          "coverage": 0.6952,
+          "violated": 306
+        }
+      ]
+    },
+    "CITY_K5R_share_width_density|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 15,
+          "coverage": 0.4229,
+          "violated": 363
+        },
+        {
+          "zone": 4,
+          "fallback": 20,
+          "coverage": 0.553,
+          "violated": 510
+        },
+        {
+          "zone": 5,
+          "fallback": 27,
+          "coverage": 0.6695,
+          "violated": 232
+        }
+      ]
+    },
+    "CITY_K5R_share_width_density|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 17,
+          "coverage": 0.8617,
+          "violated": 87
+        },
+        {
+          "zone": 4,
+          "fallback": 24,
+          "coverage": 0.9395,
+          "violated": 69
+        },
+        {
+          "zone": 5,
+          "fallback": 31,
+          "coverage": 0.8362,
+          "violated": 115
+        }
+      ]
+    },
+    "CITY_K5R_share_width_density|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 17,
+          "coverage": 0.8744,
+          "violated": 79
+        },
+        {
+          "zone": 4,
+          "fallback": 24,
+          "coverage": 0.8563,
+          "violated": 164
+        },
+        {
+          "zone": 5,
+          "fallback": 31,
+          "coverage": 0.7849,
+          "violated": 151
+        }
+      ]
+    },
+    "CITY_K6R_share_width_density|CUSTOMER_FIRST": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 3,
+          "fallback": 13,
+          "coverage": 0.4837,
+          "violated": 301
+        },
+        {
+          "zone": 4,
+          "fallback": 20,
+          "coverage": 0.8069,
+          "violated": 145
+        },
+        {
+          "zone": 5,
+          "fallback": 23,
+          "coverage": 0.882,
+          "violated": 70
+        },
+        {
+          "zone": 6,
+          "fallback": 28,
+          "coverage": 0.6753,
+          "violated": 200
+        }
+      ]
+    },
+    "CITY_K6R_share_width_density|BALANCED": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        },
+        {
+          "zone": 3,
+          "fee": 17
+        },
+        {
+          "zone": 4,
+          "fee": 22
+        },
+        {
+          "zone": 5,
+          "fee": 25
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 6,
+          "fallback": 31,
+          "coverage": 0.8295,
+          "violated": 105
+        }
+      ]
+    },
+    "CITY_K6R_share_width_density|DRIVER_CONSERVATIVE": {
+      "feasible_zones": [
+        {
+          "zone": 1,
+          "fee": 12
+        },
+        {
+          "zone": 2,
+          "fee": 12
+        },
+        {
+          "zone": 3,
+          "fee": 17
+        },
+        {
+          "zone": 4,
+          "fee": 22
+        },
+        {
+          "zone": 5,
+          "fee": 26
+        }
+      ],
+      "infeasible_zones": [
+        {
+          "zone": 6,
+          "fallback": 31,
+          "coverage": 0.7711,
+          "violated": 141
+        }
+      ]
+    }
+  },
+  "operational_selected": {
+    "CITY_K4R_dp_optimal_jenks|0.1": "FALLBACK_OPERATIONAL_CANDIDATE",
+    "CITY_K4R_dp_optimal_jenks|0.25": "PRIMARY_OPERATIONAL_CANDIDATE",
+    "CITY_K5R_dp_optimal_jenks|0.1": "FALLBACK_OPERATIONAL_CANDIDATE",
+    "CITY_K5R_dp_optimal_jenks|0.25": "PRIMARY_OPERATIONAL_CANDIDATE"
+  }
 }

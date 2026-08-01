@@ -252,9 +252,9 @@ def thresholds_business_constrained(values: list[float], k: int) -> tuple[list[f
                         split[i][j] = p
         if cost[m][k] < inf:
             edges = _boundaries_to_edges(centers, _backtrack(split, m, k))
-            return edges, f"business_constrained(min_share={min_share})"
+            return edges, f"share_width_density_constrained(min_share={min_share})"
     # fall back to unconstrained DP if even 5% infeasible
-    return thresholds_dp_optimal(values, k), "business_constrained(FELL_BACK_TO_DP)"
+    return thresholds_dp_optimal(values, k), "share_width_density_constrained(FELL_BACK_TO_DP)"
 
 
 def thresholds_kmeans(values: list[float], k: int) -> list[float]:
@@ -554,7 +554,7 @@ def build_all_models(rows: list[dict]) -> tuple[list[dict], dict]:
         for method, func in method_funcs.items():
             city_specs.append((f"CITY_K{k}R_{method}", method, func(city_values, k)))
         bc_edges, bc_method = thresholds_business_constrained(city_values, k)
-        city_specs.append((f"CITY_K{k}R_business", bc_method, bc_edges))
+        city_specs.append((f"CITY_K{k}R_share_width_density", bc_method, bc_edges))
     for model_id, method, edges in city_specs:
         k = len(edges) + 1
         buckets = zone_members(city, edges)
@@ -757,8 +757,9 @@ def main() -> None:
     }
     summary["manual_validation"] = manual_summary(manual_rows)
     SUMMARY_JSON.parent.mkdir(parents=True, exist_ok=True)
-    SUMMARY_JSON.write_text(json.dumps(summary, ensure_ascii=False, indent=2),
-                            encoding="utf-8")
+    SUMMARY_JSON.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8", newline="\n")
     print(json.dumps(summary["readiness"], ensure_ascii=False, indent=2))
     print("city models:", list(summary["city_models"]))
 

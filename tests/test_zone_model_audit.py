@@ -222,16 +222,18 @@ def test_19_city_k4_k5_k6_have_right_zone_counts():
         assert len(zones) == k and all(int(z["city_address_count"]) > 0 for z in zones)
 
 
-# ---- 11: business-constrained validity ----
-def test_20_business_constrained_zones_are_valid():
+# ---- 11: share_width_density (honestly renamed) validity ----
+def test_20_share_width_density_zones_are_valid_and_renamed():
     models = _models()
     for k in (4, 5, 6):
-        zones = sorted(models[f"CITY_K{k}R_business"], key=lambda z: int(z["zone_id"]))
+        zones = sorted(models[f"CITY_K{k}R_share_width_density"],
+                       key=lambda z: int(z["zone_id"]))
         shares = [int(z["city_address_count"]) / 4866 for z in zones]
         assert all(s <= 0.40 + 1e-9 for s in shares)  # max-share respected
         assert all(int(z["city_address_count"]) > 0 for z in zones)  # no empty/sliver
         method = zones[0]["method"]
-        assert "business_constrained" in method
+        assert "share_width_density" in method  # honest name, not "business"
+        assert "business_constrained" not in method
 
 
 # ---- 12: operational rounding deterministic ----
@@ -295,34 +297,49 @@ def test_27_three_policies_present_for_every_city_model():
             assert any(r["model_id"] == mid and r["policy"] == policy for r in POL)
 
 
-def test_28_policy_prices_are_integer_and_monotone():
+def test_28_feasible_policy_prices_are_integer_and_monotone():
     groups = {}
     for r in POL:
+        if r["policy_status"] != "FEASIBLE":
+            continue
         groups.setdefault((r["model_id"], r["policy"]), []).append(r)
     for rows in groups.values():
         rows.sort(key=lambda z: int(z["zone_id"]))
         fees = [int(z["candidate_fee_rub"]) for z in rows]
-        assert fees == sorted(fees)
+        assert fees == sorted(fees)  # non-decreasing across feasible zones
 
 
-def test_29_policy_joint_coverage_independently_recomputed():
+def test_29_feasible_means_full_coverage_infeasible_has_no_candidate():
+    for r in POL:
+        if r["policy_status"] == "FEASIBLE":
+            assert r["candidate_fee_rub"] != ""
+            assert float(r["hard_constraint_coverage"]) == 1.0
+            assert int(r["violated_address_count"]) == 0
+        else:
+            assert r["policy_status"] == "INFEASIBLE"
+            assert r["candidate_fee_rub"] == ""          # no satisfied-policy price
+            assert r["fallback_fee_rub"] != ""           # fallback kept separately
+            assert float(r["hard_constraint_coverage"]) < 1.0
+
+
+def test_29b_coverage_independently_recomputed():
     reg = {r["uid"]: r for r in ZM.load_addresses()}
     city = [r for r in reg.values() if r["is_city"]]
-    edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 4)
+    edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 5)
     rows = [r for r in POL
-            if r["model_id"] == "CITY_K4R_dp_optimal_jenks" and r["policy"] == "BALANCED"]
+            if r["model_id"] == "CITY_K5R_dp_optimal_jenks" and r["policy"] == "BALANCED"]
     for row in rows:
         zi = int(row["zone_id"])
-        fee = int(row["candidate_fee_rub"])
+        fee = int(row["candidate_fee_rub"] or row["fallback_fee_rub"])
         members = [r for r in city if ZM.zone_for(r["route_km"], edges) == zi]
         joint = 0
         for r in members:
             ref = ZE.taxi_ref_a(r["route_km"])
             best = ZE.driver_best(ref)
             gap = best - fee
-            if fee < ref and gap <= 3 and gap <= 0.10 * best:
+            if ref - fee >= 1 and gap <= 3 and gap <= 0.10 * best:
                 joint += 1
-        assert round(joint / len(members), 4) == float(row["joint_coverage"])
+        assert round(joint / len(members), 4) == float(row["hard_constraint_coverage"])
 
 
 # ---- 20: commission benchmark truth ----
@@ -479,28 +496,43 @@ def test_48_boundary_convention_is_lower_upper_half_open():
     assert ZM.zone_for(4.0, edges) == 3
 
 
-def test_49_policy_prices_ordered_customer_le_balanced_le_conservative():
+def test_49_feasible_policy_prices_ordered_and_within_interval():
     byz = {}
     for r in POL:
-        byz.setdefault((r["model_id"], int(r["zone_id"])), {})[r["policy"]] = \
-            int(r["candidate_fee_rub"])
-    for fees in byz.values():
-        assert fees["CUSTOMER_FIRST"] <= fees["BALANCED"] <= fees["DRIVER_CONSERVATIVE"]
+        byz.setdefault((r["model_id"], int(r["zone_id"])), {})[r["policy"]] = r
+    for group in byz.values():
+        # cross-policy ordering only where all three are FEASIBLE with a price
+        if all(group[p]["policy_status"] == "FEASIBLE" for p in group):
+            c = int(group["CUSTOMER_FIRST"]["candidate_fee_rub"])
+            b = int(group["BALANCED"]["candidate_fee_rub"])
+            d = int(group["DRIVER_CONSERVATIVE"]["candidate_fee_rub"])
+            assert c <= b <= d
+        # every feasible fee sits inside its proven [driver, client] interval
+        for r in group.values():
+            if r["policy_status"] == "FEASIBLE":
+                fee = int(r["candidate_fee_rub"])
+                assert int(r["minimum_fee_required_by_driver"]) <= fee
+                assert fee <= int(r["maximum_fee_allowed_by_client"])
 
 
-def test_50_hard_constraints_computed_over_all_addresses():
-    # driver_constraint_coverage must be the real fraction over all zone addresses,
-    # not a median shortcut — recompute one row independently.
+def test_50_feasibility_interval_decides_status():
     reg = {r["uid"]: r for r in ZM.load_addresses()}
     city = [r for r in reg.values() if r["is_city"]]
     edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 5)
-    row = next(r for r in POL if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
-               and r["policy"] == "DRIVER_CONSERVATIVE" and int(r["zone_id"]) == 5)
-    fee = int(row["candidate_fee_rub"])
-    members = [r for r in city if ZM.zone_for(r["route_km"], edges) == 5]
-    ok = sum(1 for r in members
-             if ZE.driver_best(ZE.taxi_ref_a(r["route_km"])) - fee <= 2)
-    assert round(ok / len(members), 4) == float(row["driver_constraint_coverage"])
+    rule = ZE.POLICY_RULES["DRIVER_CONSERVATIVE"]
+    for row in [r for r in POL if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+                and r["policy"] == "DRIVER_CONSERVATIVE"]:
+        zi = int(row["zone_id"])
+        members = [r for r in city if ZM.zone_for(r["route_km"], edges) == zi]
+        refs = [ZE.taxi_ref_a(r["route_km"]) for r in members]
+        bests = [ZE.driver_best(x) for x in refs]
+        floor = ZE._driver_floor(bests, rule)
+        ceil = ZE._client_ceiling(refs, rule)
+        assert floor == int(row["minimum_fee_required_by_driver"])
+        assert ceil == int(row["maximum_fee_allowed_by_client"])
+        # FEASIBLE requires a non-empty interval (monotone may still block it)
+        if row["policy_status"] == "FEASIBLE":
+            assert floor <= ceil
 
 
 def test_51_operational_rounding_recomputes_counts_and_flips():
@@ -518,3 +550,80 @@ def test_52_manual_validation_uses_fixed_origin_router_km():
     reg = {r["uid"]: r for r in ZM.load_addresses()}
     for r in MAN:
         assert abs(float(r["router_km"]) - round(reg[r["uid"]]["fixed_origin_km"], 3)) < 1e-6
+
+
+# ---- owner tests 5,6,7: near-zone fee 11 cannot be FEASIBLE; fee < taxi ----
+def test_53_balanced_fee_11_infeasible_for_best_13_at_10pct():
+    # best=13, BALANCED gap cap = min(3, 10%*13=1.3)=1.3 → floor = ceil(13-1.3)=12,
+    # so fee 11 (gap 2) is NOT feasible.
+    assert ZE._driver_floor([13.0], ZE.POLICY_RULES["BALANCED"]) == 12
+
+
+def test_54_customer_first_fee_11_infeasible_for_best_13_at_15pct():
+    # best=13, CUSTOMER gap cap = min(5, 15%*13=1.95)=1.95 → floor = ceil(11.05)=12.
+    assert ZE._driver_floor([13.0], ZE.POLICY_RULES["CUSTOMER_FIRST"]) == 12
+
+
+def test_55_every_feasible_fee_is_strictly_cheaper_than_taxi():
+    for r in POL:
+        if r["policy_status"] == "FEASIBLE":
+            assert int(r["candidate_fee_rub"]) < float(r["minimum_taxi_reference"])
+
+
+# ---- owner tests 11,12: operational recompute & changed IDs ----
+def test_56_operational_changed_ids_match_raw_vs_rounded_assignment():
+    op = _csv(ROOT / "data/interim/zone-operational-candidates-v1.csv")
+    changes = _csv(ROOT / "data/interim/zone-operational-rounding-changes-v1.csv")
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    # recompute changed count for CITY_K5 0.25 rounding independently
+    raw_edges = ZM.thresholds_dp_optimal(
+        [r["route_km"] for r in reg.values() if r["is_city"]], 5)
+    rounded = ZM._monotone([ZM._round(round(e / 0.25) * 0.25) for e in raw_edges])
+    city = [r for r in reg.values() if r["is_city"]]
+    changed = sum(1 for r in city
+                  if ZM.zone_for(r["fixed_origin_km"], rounded)
+                  != ZM.zone_for(r["fixed_origin_km"], raw_edges))
+    row = next(r for r in op if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+               and r["rounding_km"] == "0.25")
+    assert int(row["changed_vs_raw_count"]) == changed
+    detail = [c for c in changes if c["model_id"] == "CITY_K5R_dp_optimal_jenks"
+              and c["rounding_km"] == "0.25"]
+    assert len(detail) == changed  # exact changed IDs enumerated
+
+
+def test_57_operational_has_neighbour_metrics_and_selection():
+    op = _csv(ROOT / "data/interim/zone-operational-candidates-v1.csv")
+    for r in op:
+        assert r["neighbour_diff_zone_100m"] != "" and r["neighbour_diff_zone_250m"] != ""
+    selections = {r["selection"] for r in op}
+    assert "PRIMARY_OPERATIONAL_CANDIDATE" in selections
+    assert "FALLBACK_OPERATIONAL_CANDIDATE" in selections
+
+
+# ---- owner test 14: external field renamed ----
+def test_58_external_field_renamed_not_direct_fee_interval():
+    header = open(ROOT / "data/interim/zone-external-bracket-scenarios-v1.csv",
+                  encoding="utf-8-sig").readline()
+    assert "direct_fee_interval_rub" not in header
+    assert "taxi_reference_bracket_rub" in header
+    for r in EXT:
+        assert r["status"] == "RANGE_ONLY_NOT_TARIFF"
+        assert r["direct_feasible_lower_rub"] == "" and r["direct_feasible_upper_rub"] == ""
+
+
+# ---- owner test 16: owner pack does not claim 100% when coverage < 1 ----
+def test_59_owner_pack_does_not_falsely_claim_full_coverage():
+    text = (ROOT / "reports/zone-model-audit/owner-decision-pack-v1.md").read_text(
+        encoding="utf-8")
+    assert "INFEASIBLE" in text  # honestly reports infeasible outer zones
+    assert "hard constraints выполнены по всем адресам" not in text
+
+
+# ---- owner test 13: business model objective is honestly named ----
+def test_60_share_width_density_method_declared_and_not_called_business_model():
+    for r in CAND:
+        if r["model_id"].endswith("share_width_density"):
+            assert "share_width_density" in r["method"]
+    swd = ZM.thresholds_business_constrained(
+        [r["route_km"] for r in ZM.load_addresses() if r["is_city"]], 5)
+    assert "share_width_density" in swd[1]

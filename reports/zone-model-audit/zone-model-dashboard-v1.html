@@ -62,16 +62,16 @@
   </section>
 
   <section class="card">
-    <h2>City fees — BALANCED (руб.)</h2>
+    <h2>BALANCED fees — feasibility (100% coverage)</h2>
     <table>
       <tr><th>Zone</th><th>K4</th><th>K5</th></tr>
-      <tr><td>1</td><td>11</td><td>11</td></tr>
-      <tr><td>2</td><td>12</td><td>11</td></tr>
-      <tr><td>3</td><td>22</td><td>18</td></tr>
-      <tr><td>4</td><td>32</td><td>24</td></tr>
-      <tr><td>5</td><td>—</td><td>33</td></tr>
+      <tr><td>1</td><td>12 ✅</td><td>12 ✅</td></tr>
+      <tr><td>2</td><td>14 ✅</td><td>12 ✅</td></tr>
+      <tr><td>3</td><td>INFEASIBLE (fb 22, 71%)</td><td>INFEASIBLE (fb 17, 86%)</td></tr>
+      <tr><td>4</td><td>INFEASIBLE (fb 29, 77%)</td><td>INFEASIBLE (fb 24, 94%)</td></tr>
+      <tr><td>5</td><td>—</td><td>INFEASIBLE (fb 31, 84%)</td></tr>
     </table>
-    <p class="muted">Constraint-driven over ALL zone addresses; ordered CUSTOMER ≤ BALANCED ≤ CONSERVATIVE. Driver benchmark = <code>taxi_reference - 5</code> (fixed-5 wins 100%).</p>
+    <p class="muted"><strong>Only the two near zones are FEASIBLE</strong> at 100% coverage. Outer zones have no single flat fee (driver floor &gt; client ceiling); a fallback with partial coverage is shown, never a satisfied-policy price. Driver benchmark = <code>taxi_reference - 5</code>.</p>
   </section>
 
   <section class="card">

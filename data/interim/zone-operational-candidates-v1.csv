@@ -1,0 +1,9 @@
+model_id,rounding_km,edges,zone_counts,changed_vs_raw_count,manual_same,manual_flip,same_street_splits,neighbour_diff_zone_100m,neighbour_diff_zone_250m,max_price_jump_rub,p90_price_jump_rub,balanced_feasible_zones,balanced_infeasible_zones,selection
+CITY_K4R_dp_optimal_jenks,raw,1.725|3.275|4.975,1349|1192|1321|1004,0,25,3,47,1667,18294,17,8.0,2,2,
+CITY_K4R_dp_optimal_jenks,0.1,1.7|3.3|5.0,1339|1210|1334|983,39,25,3,50,1765,18868,17,9.0,2,2,FALLBACK_OPERATIONAL_CANDIDATE
+CITY_K4R_dp_optimal_jenks,0.25,1.75|3.25|5.0,1356|1176|1351|983,37,25,3,48,1717,18726,17,9.0,2,2,PRIMARY_OPERATIONAL_CANDIDATE
+CITY_K4R_dp_optimal_jenks,0.5,1.5|3.5|5.0,1151|1544|1188|983,373,25,3,63,2247,22652,17,8.0,2,2,
+CITY_K5R_dp_optimal_jenks,raw,1.675|2.875|4.125|5.325,1322|1072|629|1141|702,0,25,3,66,2628,27033,19,7.0,2,3,
+CITY_K5R_dp_optimal_jenks,0.1,1.7|2.9|4.1|5.3,1339|1067|603|1133|724,65,25,3,63,2511,26442,19,7.0,2,3,FALLBACK_OPERATIONAL_CANDIDATE
+CITY_K5R_dp_optimal_jenks,0.25,1.75|3.0|4.0|5.25,1356|1089|499|1151|771,233,26,2,59,2343,25083,18,7.0,2,3,PRIMARY_OPERATIONAL_CANDIDATE
+CITY_K5R_dp_optimal_jenks,0.5,1.5|3.0|4.0|5.5,1151|1294|499|1362|560,443,25,3,63,2823,29105,20,8.0,2,3,

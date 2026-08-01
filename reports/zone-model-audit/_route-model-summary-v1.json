@@ -382,9 +382,9 @@
         }
       }
     },
-    "CITY_K4R_business": {
+    "CITY_K4R_share_width_density": {
       "k": 4,
-      "method": "business_constrained(min_share=0.12)",
+      "method": "share_width_density_constrained(min_share=0.12)",
       "edges": [
         1.725,
         3.275,
@@ -662,9 +662,9 @@
         }
       }
     },
-    "CITY_K5R_business": {
+    "CITY_K5R_share_width_density": {
       "k": 5,
-      "method": "business_constrained(min_share=0.12)",
+      "method": "share_width_density_constrained(min_share=0.12)",
       "edges": [
         1.675,
         2.875,
@@ -974,9 +974,9 @@
         }
       }
     },
-    "CITY_K6R_business": {
+    "CITY_K6R_share_width_density": {
       "k": 6,
-      "method": "business_constrained(min_share=0.12)",
+      "method": "share_width_density_constrained(min_share=0.12)",
       "edges": [
         1.625,
         2.675,

@@ -13,22 +13,35 @@ cross over at `taxi_reference = 5 / 0.35 = 14.29 руб`. Because the minimum fa
 **100 % (4,866 / 4,866)** of city trips. The correct driver benchmark is
 **`taxi_reference - 5`** in every zone, not `0.65 × taxi_reference`.
 
-## Price policies — constraint-driven over ALL zone addresses
+## Price policies — feasibility-proven over ALL zone addresses
 
-Each fee is the most client-favourable integer whose driver-gap constraint holds
-for the required fraction of **all** addresses in the zone (not the median), then
-clamped so **CUSTOMER_FIRST ≤ BALANCED ≤ DRIVER_CONSERVATIVE** and monotone.
+Each zone has a proven feasibility interval `[minimum_fee_required_by_driver,
+maximum_fee_allowed_by_client]` computed over **every** address (not the median).
+A policy zone is `FEASIBLE` only if that interval is non-empty; the fee is then the
+lowest integer in it (max client saving), monotone across zones **without** any
+post-hoc clamp that breaks a constraint. If the interval is empty the zone is
+`INFEASIBLE` and gets a separate `fallback_fee_rub` (labelled
+`FALLBACK_PARTIAL_COVERAGE`), never a "satisfied policy" price.
 
-Example CITY_K5R (thresholds 1.675 / 2.875 / 4.125 / 5.325 km):
+**Result (100 %-coverage hard constraints): only the two near zones are FEASIBLE.**
+Full detail: `data/interim/zone-policy-prices-v1.csv`.
 
-| Policy | Zone fees руб | Driver rule |
-|---|---|---|
-| DRIVER_CONSERVATIVE | 11 / 11 / 18 / 25 / 35 | gap ≤ 2, cover ≥ 95 % |
-| BALANCED | 11 / 11 / 18 / 24 / 33 | gap ≤ 3 and ≤ 10 %, cover ≥ 90 % |
-| CUSTOMER_FIRST | 11 / 11 / 16 / 22 / 29 | gap ≤ 5 and ≤ 15 %, cover ≥ 80 % |
+CITY_K5R (thresholds 1.675 / 2.875 / 4.125 / 5.325 km):
 
-Near zones pin at the 18 руб taxi floor, so all policies meet at 11 руб there; the
-policies separate in the farther zones.
+| Policy | z1 | z2 | z3 | z4 | z5 |
+|---|---|---|---|---|---|
+| DRIVER_CONSERVATIVE | 12 ✅ | 12 ✅ | INFEASIBLE (fb 17, 87 %) | INFEASIBLE (24, 86 %) | INFEASIBLE (31, 78 %) |
+| BALANCED | 12 ✅ | 12 ✅ | INFEASIBLE (17, 86 %) | INFEASIBLE (24, 94 %) | INFEASIBLE (31, 84 %) |
+| CUSTOMER_FIRST | 12 ✅ | 12 ✅ | INFEASIBLE (15, 42 %) | INFEASIBLE (20, 55 %) | INFEASIBLE (27, 67 %) |
+
+CITY_K4R (1.725 / 3.275 / 4.975): feasible z1–z2 (DRIVER 12/14, BALANCED 12/14,
+CUSTOMER 12/13); z3–z4 INFEASIBLE (fallback coverage 48–77 %). Near-zone fees are
+unified upward by the CUSTOMER ≤ BALANCED ≤ DRIVER order, within each ceiling.
+
+Why the outer zones are infeasible: within a wide outer zone the taxi reference
+spans a large range (e.g. K5 z5: 32–45 руб), so the fee the far end needs to keep
+the driver whole exceeds the fee the near end needs to still save the client — the
+driver floor rises above the client ceiling. No single flat fee can satisfy 100 %.
 
 ## The current flat 25 руб — policy-specific (city, 4,866)
 

@@ -1,0 +1,197 @@
+{
+  "generated_by": "scripts/boundary_scenarios.py",
+  "candidates": [
+    "12463379",
+    "9581354",
+    "944727"
+  ],
+  "external_points_total": 4350,
+  "settlement_membership": {
+    "parkany": {
+      "12463379": false,
+      "9581354": false,
+      "944727": false
+    },
+    "giska": {
+      "12463379": false,
+      "9581354": false,
+      "944727": true
+    },
+    "protyagailovka": {
+      "12463379": false,
+      "9581354": true,
+      "944727": true
+    },
+    "bender": {
+      "12463379": true,
+      "9581354": true,
+      "944727": true
+    }
+  },
+  "point_counts": {
+    "12463379": {
+      "inside_total": 19,
+      "outside_total": 4331,
+      "inside_by_territory": {
+        "Протягайловка": 2,
+        "Гиска": 17
+      }
+    },
+    "9581354": {
+      "inside_total": 522,
+      "outside_total": 3828,
+      "inside_by_territory": {
+        "Протягайловка": 505,
+        "Гиска": 17
+      }
+    },
+    "944727": {
+      "inside_total": 904,
+      "outside_total": 3446,
+      "inside_by_territory": {
+        "Протягайловка": 505,
+        "Гиска": 399
+      }
+    }
+  },
+  "n_routes": 12,
+  "n_scenario_rows": 36,
+  "price_or_class_changing_addresses": [
+    {
+      "canonical_address_id": "n2321749482",
+      "territory": "Гиска",
+      "geometric_finals": {
+        "12463379": 34,
+        "9581354": 34,
+        "944727": 28
+      },
+      "classifications": {
+        "12463379": "outside_city",
+        "9581354": "outside_city",
+        "944727": "inside_city"
+      }
+    },
+    {
+      "canonical_address_id": "w353259234",
+      "territory": "Протягайловка",
+      "geometric_finals": {
+        "12463379": 35,
+        "9581354": 30,
+        "944727": 30
+      },
+      "classifications": {
+        "12463379": "outside_city",
+        "9581354": "inside_city",
+        "944727": "inside_city"
+      }
+    }
+  ],
+  "label_geometry_conflicts": [
+    {
+      "canonical_address_id": "w353817270",
+      "territory": "Гиска",
+      "boundary_id": "12463379",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817270",
+      "territory": "Гиска",
+      "boundary_id": "9581354",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817270",
+      "territory": "Гиска",
+      "boundary_id": "944727",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353619672",
+      "territory": "Гиска",
+      "boundary_id": "12463379",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353619672",
+      "territory": "Гиска",
+      "boundary_id": "9581354",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353619672",
+      "territory": "Гиска",
+      "boundary_id": "944727",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817271",
+      "territory": "Гиска",
+      "boundary_id": "12463379",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817271",
+      "territory": "Гиска",
+      "boundary_id": "9581354",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817271",
+      "territory": "Гиска",
+      "boundary_id": "944727",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817272",
+      "territory": "Гиска",
+      "boundary_id": "12463379",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817272",
+      "territory": "Гиска",
+      "boundary_id": "9581354",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "w353817272",
+      "territory": "Гиска",
+      "boundary_id": "944727",
+      "geometric_final_fee": 17,
+      "territory_rule_final_fee": 22
+    },
+    {
+      "canonical_address_id": "n2321749482",
+      "territory": "Гиска",
+      "boundary_id": "944727",
+      "geometric_final_fee": 28,
+      "territory_rule_final_fee": 33
+    },
+    {
+      "canonical_address_id": "w353259234",
+      "territory": "Протягайловка",
+      "boundary_id": "9581354",
+      "geometric_final_fee": 30,
+      "territory_rule_final_fee": 35
+    },
+    {
+      "canonical_address_id": "w353259234",
+      "territory": "Протягайловка",
+      "boundary_id": "944727",
+      "geometric_final_fee": 30,
+      "territory_rule_final_fee": 35
+    }
+  ],
+  "giska_inside_12463379_points": 17
+}

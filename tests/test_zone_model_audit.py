@@ -1193,43 +1193,173 @@ def test_116_four_giska_zero_outside_rows_fixed_5_and_22():
     assert all(r["final_fee"] == "" for r in OCFEES)
 
 
-# ============ owner boundary decision packet ============
-OCB = _load_module("owner_boundary_packet", "scripts/owner_boundary_packet.py")
-OCB_COMPARE = _csv(ROOT / "data/interim/boundary-candidates-comparison-v1.csv")
+# ============ v2: real boundary extraction, comparison, scenarios, map, pilot ============
+_BND = ROOT / "data/interim/osm-boundaries"
+BPROV = json.loads((_BND / "boundary-extraction-provenance.json").read_text("utf-8"))
+BPROV_BY_ID = {r["relation_id"]: r for r in BPROV["relations"]}
+BCOMPARE = _csv(ROOT / "data/interim/boundary-candidates-comparison-v2.csv")
+BSCEN = _csv(ROOT / "data/interim/boundary-route-scenarios-v2.csv")
+BSUM = json.loads((ROOT / "reports/zone-model-audit/_boundary-scenarios-summary.json")
+                  .read_text("utf-8"))
+PILOT = json.loads((ROOT / "data/interim/route-pilot/route-pilot-summary-v1.json")
+                   .read_text("utf-8"))
+PILOT_ROWS = _csv(ROOT / "data/interim/route-pilot/route-pilot-results-v1.csv")
 
 
-def test_117_boundary_candidates_are_three_real_osm_relations_none_verified():
-    by_id = {r["relation_id"]: r for r in OCB_COMPARE}
-    assert set(by_id) == {"12463379", "9581354", "944727"}
-    assert by_id["12463379"]["admin_level"] == "8"   # city proper
-    assert by_id["9581354"]["admin_level"] == "4"    # municipality (larger)
-    assert by_id["944727"]["admin_level"] == "5"     # de-facto PMR
-    for r in OCB_COMPARE:
-        assert r["osm_url"].startswith("https://api.openstreetmap.org/")
+def test_117_three_relations_really_extracted_with_geometry():
+    assert set(BPROV_BY_ID) == {"12463379", "9581354", "944727"}
+    levels = {rid: BPROV_BY_ID[rid]["admin_level"] for rid in BPROV_BY_ID}
+    assert levels == {"12463379": "8", "9581354": "4", "944727": "5"}
+    for rid, r in BPROV_BY_ID.items():
+        # real geometry present, valid, non-trivial area, from OSM/Overpass under ODbL
+        assert r["geometry_type"] in ("Polygon", "MultiPolygon")
+        assert r["valid_after_repair"] is True
+        assert r["area_km2"] and r["area_km2"] > 5
+        assert "Overpass" in r["extraction_source"]
         assert r["license"].startswith("ODbL")
-        # NONE is approved as the operational tariff boundary
-        assert r["verification_status"] != "VERIFIED_FOR_TARIFF"
-    # only relation 12463379 has geometry in the repo
-    assert by_id["12463379"]["geometry_in_repo"].startswith("yes")
-    assert by_id["9581354"]["geometry_in_repo"].startswith("no")
-    assert by_id["944727"]["geometry_in_repo"].startswith("no")
+        assert len(r["raw_sha256"]) == 64 and len(r["geometry_sha256"]) == 64
+        # the extracted geojson file exists and is valid JSON with a geometry
+        g = json.loads((_BND / f"relation-{rid}.geojson").read_text("utf-8"))
+        assert g["geometry"]["type"] in ("Polygon", "MultiPolygon")
 
 
-def test_118_owner_map_is_self_contained_with_expected_layers():
-    html = (ROOT / "reports/zone-model-audit/owner-boundary-map-v1.html").read_text(
-        encoding="utf-8")
-    svg = (ROOT / "reports/zone-model-audit/owner-boundary-map-v1.svg").read_text(
-        encoding="utf-8")
-    for blob in (html, svg):
-        # no fetched external resources (the xmlns namespace URL is allowed)
-        for bad in ('src="http', "src='http", 'href="http', "href='http",
-                    "url(http", "<link", "<script src"):
-            assert bad not in blob
-        assert "NaN" not in blob
-    for gid in ("boundary_12463379", "settle_giska", "routes", "points", "legend"):
-        assert gid in html
-    # decision doc exists and is NOT self-approved
+def test_118_geometry_checksum_reproducible_and_matches_disk():
+    # the recorded geometry_sha256 must equal the hash of the committed geojson bytes
+    for rid, r in BPROV_BY_ID.items():
+        text = (_BND / f"relation-{rid}.geojson").read_bytes()
+        assert hashlib.sha256(text).hexdigest() == r["geometry_sha256"], rid
+    # de-facto PMR (944727) is the largest, city-proper (12463379) the smallest
+    areas = {rid: BPROV_BY_ID[rid]["area_km2"] for rid in BPROV_BY_ID}
+    assert areas["944727"] > areas["9581354"] > areas["12463379"]
+
+
+def test_119_comparison_covers_three_boundaries_none_verified():
+    by = {r["relation_id"]: r for r in BCOMPARE}
+    assert set(by) == {"12463379", "9581354", "944727"}
+    for r in BCOMPARE:
+        assert r["verification_status"].startswith("DRAFT_UNAPPROVED")
+        assert "VERIFIED_FOR_TARIFF" not in r["verification_status"]
+        assert r["license"].startswith("ODbL")
+    # settlement membership matches the real spatial truth
+    assert by["12463379"]["parkany_inside"] == "False"
+    assert by["944727"]["giska_inside"] == "True"       # Гиска inside de-facto only
+    assert by["9581354"]["giska_inside"] == "False"
+    assert by["9581354"]["protyagailovka_inside"] == "True"
+    assert by["12463379"]["protyagailovka_inside"] == "False"
+
+
+def test_120_scenarios_all_12_routes_by_each_boundary():
+    assert len(BSCEN) == 36                       # 12 routes x 3 boundaries
+    assert len({r["canonical_address_id"] for r in BSCEN}) == 12
+    assert {r["boundary_id"] for r in BSCEN} == {"12463379", "9581354", "944727"}
+    # production final_fee stays empty in the production CSV (never leaked here)
+    assert all(r["final_fee"] == "" for r in OCFEES)
+    # territory-rule keeps the min-5 for external-labelled addresses even at outside 0
+    for r in BSCEN:
+        if r["territory_label_external"] == "True":
+            assert int(r["territory_rule_surcharge"]) >= 5
+    # scenario rows never claim to be an approved price
+    assert all("SCENARIO ONLY" in r["note"] for r in BSCEN)
+
+
+def test_121_giska_label_geometry_conflict_surfaced():
+    # the 4 outside=0 Гиска addresses are geometrically INSIDE (city 17) but the
+    # territory-label rule gives the external minimum (22) — a real owner decision
+    four = {"w353619672", "w353817270", "w353817271", "w353817272"}
+    rows = [r for r in BSCEN if r["canonical_address_id"] in four
+            and r["boundary_id"] == "12463379"]
+    assert len(rows) == 4
+    for r in rows:
+        assert r["destination_classification"] == "inside_city"
+        assert int(r["geometric_final_fee"]) == 17
+        assert int(r["territory_rule_final_fee"]) == 22
+        assert r["label_geometry_conflict"] == "True"
+    assert BSUM["giska_inside_12463379_points"] == 17
+    assert len(BSUM["label_geometry_conflicts"]) >= 12
+
+
+def test_122_owner_map_v2_embeds_all_4350_points_and_layers():
+    html = (ROOT / "reports/zone-model-audit/owner-boundary-map-v2.html").read_text(
+        "utf-8")
+    # no fetched external geometry/resources
+    for bad in ('src="http', "src='http", 'href="http', "url(http", "<link",
+                "<script src"):
+        assert bad not in html
+    assert '"expected":4350' in html.replace(" ", "")
+    # all 4350 points are actually embedded (count the territory tags in the payload)
+    import re
+    payload = re.search(r'const D=(\{.*?\});', html, re.S).group(1)
+    data = json.loads(payload)
+    assert len(data["pts"]) == 4350 and data["expected"] == 4350
+    assert set(data["boundaries"]) == {"12463379", "9581354", "944727"}
+    assert len(data["routes"]) == 12
+    for lid in ("L_r12463379", "L_r9581354", "L_r944727", "L_routes", "L_points",
+                "L_severny"):
+        assert lid in html
+    assert (ROOT / "reports/zone-model-audit/owner-boundary-map-v2.png").exists()
+
+
+def test_123_pilot_ran_for_real_30_unique_with_checksums():
+    assert PILOT["attempted"] == 30 and PILOT["unique_addresses"] == 30
+    assert PILOT["succeeded"] + PILOT["failed"] == 30
+    assert PILOT["never_routed_before"] >= 5      # several never routed before
+    assert len(PILOT["pilot_ids"]) == 30 and len(set(PILOT["pilot_ids"])) == 30
+    # raw responses saved with checksums (no silent provider substitution)
+    raw = list((ROOT / "data/interim/route-pilot/raw").glob("*.osrm.json"))
+    assert len(raw) == 30
+    for r in PILOT_ROWS:
+        assert r["provider"].startswith("OSRM demo") and "ALTERNATIVE" in r["provider"]
+        if r["validation_status"] == "ALT_PROVIDER_COMPARISON_ONLY":
+            assert len(r["raw_sha256"]) == 64 and len(r["geometry_sha256"]) == 64
+    # canonical provider is documented and NOT claimed to be reproduced here
+    assert "NOT reproducible" in PILOT["canonical_provider"]
+    assert PILOT["provider_label"] == "ALTERNATIVE_PROVIDER_COMPARISON"
+
+
+def test_124_severny_reinvestigated_not_globally_unavailable():
+    rep = (ROOT / "reports/zone-model-audit/severny-investigation-v1.md").read_text(
+        "utf-8")
+    assert "SEVERNY_CANDIDATE_OWNER_REVIEW_REQUIRED" in rep
+    assert "place=suburb" in rep
+    # inside only the de-facto PMR boundary
+    from shapely.geometry import Point, shape
+    du = json.loads((ROOT / "docs/data/severny-delivery-units.geojson")
+                    .read_text("utf-8"))["features"]
+    g944 = shape(json.loads((_BND / "relation-944727.geojson").read_text("utf-8"))
+                 ["geometry"])
+    g125 = shape(json.loads((_BND / "relation-12463379.geojson").read_text("utf-8"))
+                 ["geometry"])
+    assert sum(g944.contains(Point(*f["geometry"]["coordinates"])) for f in du) >= 50
+    assert sum(g125.contains(Point(*f["geometry"]["coordinates"])) for f in du) == 0
+
+
+def test_125_gai_post_shown_but_never_plotted_as_invented_point():
+    anchors = _csv(ROOT / "data/interim/external-tariff-boundary-anchors-v1.csv")
+    gai = next(a for a in anchors if a["anchor_id"] == "PARKANY_KOTOVSKOGO_GAI_POST")
+    assert gai["lat"] == "" and gai["lon"] == ""      # no invented coordinates
+    assert gai["source_type"] == "OWNER_BRIEF_ONLY"
+    html = (ROOT / "reports/zone-model-audit/owner-boundary-map-v2.html").read_text(
+        "utf-8")
+    assert "PARKANY_KOTOVSKOGO_GAI_POST" in html      # listed in the anchors table
+
+
+def test_126_source_inventory_lists_real_sources_with_checksums():
+    inv = _csv(ROOT / "data/interim/source-inventory-v1.csv")
+    assert len(inv) >= 12
+    for r in inv:
+        assert r["exists"] == "True"
+        assert len(r["sha256"]) == 64
+        assert r["relation_to_canonical"].startswith("analysis-only")
+    paths = {r["path"] for r in inv}
+    assert "reports/stage-01/source-audit.md" in paths
+    assert "data/interim/osm-boundaries/relation-944727.geojson" in paths
+
+
+def test_127_decision_doc_v2_complete_and_not_self_approved():
     dec = (ROOT / "reports/zone-model-audit/OWNER_BOUNDARY_DECISION.md").read_text(
-        encoding="utf-8")
+        "utf-8")
     assert "OWNER_BOUNDARY_DECISION_REQUIRED" in dec
-    assert "[x]" not in dec.lower()  # no box is pre-checked
+    assert "[x]" not in dec.lower()                    # no box pre-checked
+    for token in ("12463379", "9581354", "944727", "Северный", "ГАИ",
+                  "4 338", "owner-boundary-map-v2"):
+        assert token in dec

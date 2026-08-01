@@ -858,6 +858,24 @@ def test_80_base_distance_formula_is_floor_6km_minus_5():
         assert FF.base_distance_fee(km) == __import__("math").floor(6 * km - 5)
 
 
+def test_80b_far_scope_uses_operational_3km_boundary_from_csv():
+    edges = FF.operational_k5_edges()
+    assert edges == [1.75, 3.0, 4.0, 5.25]           # read from operational CSV
+    assert FF_SUMMARY["far_zone_start_km"] == 3.0
+    assert FF_SUMMARY["far_addresses"] == 2420        # not 2471 (raw edge)
+    # every far row is strictly beyond the 3.0 operational boundary
+    assert all(float(r["route_km"]) > 3.0 for r in FARROWS)
+    # the 51 addresses in 2.875-3.0 (operational zone 2) are excluded
+    assert not any(2.875 < float(r["route_km"]) <= 3.0 for r in FARROWS)
+
+
+def test_80c_near_operational_zones_have_flat_balanced_fee():
+    near = FF_SUMMARY["near_zones_flat"]
+    assert [z["zone"] for z in near] == [1, 2]
+    assert all(z["feasible"] for z in near)          # flat fee works for zones 1-2
+    assert all(isinstance(z["flat_balanced_fee"], int) for z in near)
+
+
 def test_81_formula_gives_100pct_balanced_coverage_on_far_zones():
     assert FF_SUMMARY["balanced_coverage"] == 1.0
     assert FF_SUMMARY["far_addresses"] == FF_SUMMARY["balanced_ok_addresses"]

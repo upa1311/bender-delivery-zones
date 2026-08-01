@@ -32,10 +32,20 @@ _spec.loader.exec_module(ZE)
 
 OUT_CSV = ROOT / "data/interim/zone-k5-far-base-distance-v1.csv"
 SUMMARY_JSON = ROOT / "reports/zone-model-audit/_k5-far-formula-summary-v1.json"
+OPERATIONAL = ROOT / "data/interim/zone-operational-candidates-v1.csv"
+OPERATIONAL_MODEL = "CITY_K5R_dp_optimal_jenks"
+OPERATIONAL_ROUNDING = "0.25"
 
-# CITY_K5 raw thresholds; zones 3-5 are route_km beyond the second edge.
-K5_EDGES = [1.675, 2.875, 4.125, 5.325]
-FAR_START = K5_EDGES[1]  # 2.875 km — start of zone 3
+
+def operational_k5_edges():
+    """Read the APPROVED operational CITY_K5 0.25 km edges from the operational
+    candidates CSV — do not hardcode the raw K5 thresholds."""
+    with OPERATIONAL.open(encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if (row["model_id"] == OPERATIONAL_MODEL
+                    and row["rounding_km"] == OPERATIONAL_ROUNDING):
+                return [float(e) for e in row["edges"].split("|")]
+    raise ValueError("operational CITY_K5 0.25 edges not found")
 
 
 def base_distance_fee(route_km):
@@ -43,8 +53,30 @@ def base_distance_fee(route_km):
     return math.floor(ZE.CITY_RATE * route_km - ZE.FIXED_COMMISSION)
 
 
-def evaluate(city):
-    far = [r for r in city if float(r["route_km"]) > FAR_START]
+def near_zone_flat_fees(city, edges):
+    """Confirm the two near operational zones (<= edges[1]) each have a single
+    flat BALANCED-feasible fee; return their intervals and fees."""
+    rule = ZE.POLICY_RULES["BALANCED"]
+    out = []
+    bounds = [0.0, *edges]
+    for zi in range(2):  # zones 1 and 2
+        lo, hi = bounds[zi], bounds[zi + 1]
+        seg = [k for k in (float(r["route_km"]) for r in city)
+               if (k <= hi if zi == 0 else lo < k <= hi)]
+        refs = [ZE.taxi_ref_a(k) for k in seg]
+        bests = [ZE.driver_best(r) for r in refs]
+        floor = ZE._driver_floor(bests, rule)
+        ceil = ZE._client_ceiling(refs, rule)
+        out.append({
+            "zone": zi + 1, "lower_km": ZE.ZM._round(lo), "upper_km": ZE.ZM._round(hi),
+            "address_count": len(seg), "flat_balanced_fee": floor,
+            "feasible": floor <= ceil,
+        })
+    return out
+
+
+def evaluate(city, far_start):
+    far = [r for r in city if float(r["route_km"]) > far_start]
     rows = []
     balanced_ok = 0
     for r in sorted(far, key=lambda r: float(r["route_km"])):
@@ -70,7 +102,10 @@ def evaluate(city):
 
 def main():
     city = ZE.city_rows(ZE.load_features())
-    rows, ok, total = evaluate(city)
+    edges = operational_k5_edges()          # [1.75, 3.0, 4.0, 5.25]
+    far_start = edges[1]                     # 3.0 km — start of operational zone 3
+    near = near_zone_flat_fees(city, edges)
+    rows, ok, total = evaluate(city, far_start)
     header = ["address_id", "route_km", "taxi_reference_rub", "driver_best_take_rub",
               "formula_fee_rub", "client_saving_rub", "driver_gap_rub", "balanced_ok"]
     with OUT_CSV.open("w", encoding="utf-8", newline="") as handle:
@@ -81,7 +116,10 @@ def main():
     gaps = sorted(r["driver_gap_rub"] for r in rows)
     summary = {
         "formula": "fee = floor(6 * route_km - 5)  (base=-5 rub, rate=6 rub/km)",
-        "scope": "CITY_K5 middle/far zones 3-5 (route_km > 2.875)",
+        "operational_k5_edges_km": edges,
+        "far_zone_start_km": far_start,
+        "scope": f"CITY_K5 operational zones 3-5 (route_km > {far_start})",
+        "near_zones_flat": near,
         "far_addresses": total,
         "balanced_ok_addresses": ok,
         "balanced_coverage": ZE.ZM._round(ok / total, 4) if total else 0,

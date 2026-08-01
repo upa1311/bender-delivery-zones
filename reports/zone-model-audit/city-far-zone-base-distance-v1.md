@@ -1,10 +1,15 @@
 # CITY_K5 far-zone base+distance formula v1 (candidate)
 
 Follows from `balanced-fragmentation-v1.md`: a flat-fee BALANCED tariff needs ~14
-steps. For the CITY_K5 middle/far zones (3–5, route_km > 2.875 km) a single
-**base + distance** rule replaces those flat steps and satisfies BALANCED at
-**100 % coverage**. City-only, fixed-origin km, owner assumptions. **Candidate
-only — not applied to production, Direct, releases or GitHub Pages.**
+steps. Scoped to the **approved operational CITY_K5 0.25 km model** (edges
+1.75 / 3.0 / 4.0 / 5.25, read from `zone-operational-candidates-v1.csv`, not the raw
+K5 edges): the middle/far zones (3–5) start strictly **after 3.0 km**. A single
+**base + distance** rule covers them at **100 % BALANCED coverage**. City-only,
+fixed-origin km, owner assumptions. **Candidate only — not applied to production,
+Direct, releases or GitHub Pages.**
+
+Near operational zones 1–2 (≤ 3.0 km) keep a single flat BALANCED fee (12 руб each,
+feasible); only zones 3–5 use the formula.
 
 ## Formula
 
@@ -31,10 +36,14 @@ address simultaneously — no per-zone infeasibility.
 
 | Metric | Value |
 |---|---|
-| Far city addresses (zones 3–5) | 2,471 |
-| BALANCED-feasible under formula | 2,471 (100 %) |
+| Far-zone start (operational) | route_km > 3.0 km |
+| Far city addresses (operational zones 3–5) | 2,420 |
+| BALANCED-feasible under formula | 2,420 (100 %) |
 | Client saving | 5–6 руб (every address) |
 | Driver gap | 0–1 руб (every address) |
+
+(The earlier raw-edge scope wrongly included 51 addresses of operational zone 2
+in 2.875–3.0 km; corrected to the 3.0 km operational boundary → 2,420.)
 
 Per-address detail: `data/interim/zone-k5-far-base-distance-v1.csv`.
 

@@ -1,8 +1,33 @@
 {
   "formula": "fee = floor(6 * route_km - 5)  (base=-5 rub, rate=6 rub/km)",
-  "scope": "CITY_K5 middle/far zones 3-5 (route_km > 2.875)",
-  "far_addresses": 2471,
-  "balanced_ok_addresses": 2471,
+  "operational_k5_edges_km": [
+    1.75,
+    3.0,
+    4.0,
+    5.25
+  ],
+  "far_zone_start_km": 3.0,
+  "scope": "CITY_K5 operational zones 3-5 (route_km > 3.0)",
+  "near_zones_flat": [
+    {
+      "zone": 1,
+      "lower_km": 0.0,
+      "upper_km": 1.75,
+      "address_count": 1356,
+      "flat_balanced_fee": 12,
+      "feasible": true
+    },
+    {
+      "zone": 2,
+      "lower_km": 1.75,
+      "upper_km": 3.0,
+      "address_count": 1090,
+      "flat_balanced_fee": 12,
+      "feasible": true
+    }
+  ],
+  "far_addresses": 2420,
+  "balanced_ok_addresses": 2420,
   "balanced_coverage": 1.0,
   "client_saving_min": 5.0,
   "client_saving_max": 6.0,

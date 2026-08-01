@@ -202,14 +202,32 @@ def write_decision(inventory, severny_mem):
         "`owner-boundary-map-v2.html` (self-contained, слои переключаются, встроены "
         "все 4 350 адресов) + `owner-boundary-map-v2.png/.svg` (превью, три границы "
         "видно раздельно).", "",
-        "## Кандидаты границы (реально извлечены)", "",
-        "| relation | admin_level | смысл | площадь км² | тип | внешних точек внутри |",
-        "|---|---|---|---:|---|---:|",
+        "## Кандидаты границы (реально извлечены — единая семантика)", "",
+        "Для каждой relation: owner-label, фактическое OSM-имя, админ-смысл, был ли в "
+        "ПЕРВОНАЧАЛЬНОМ brief, входит ли в аналитическое сравнение, tariff-suitability.",
+        "",
+        "| label | relation | name | admin_level | в brief | candidate | suitability | "
+        "площадь км² | внешних точек внутри |",
+        "|---|---|---|---|---|---|---|---:|---:|",
     ]
+    brief = {"True": "да", "False": "нет"}
     for rid in ("12463379", "9581354", "944727"):
         r = by_id[rid]
-        lines.append(f"| {rid} | {r['admin_level']} | {r['name']} | {r['area_km2']} | "
-                     f"{r['geometry_type']} | {r['external_points_inside']} |")
+        lines.append(
+            f"| {r['owner_label']} | {rid} | {r['name']} | {r['admin_level']} | "
+            f"{brief.get(r['original_brief_nominated'], r['original_brief_nominated'])} "
+            f"| {brief.get(r['comparison_candidate'], r['comparison_candidate'])} | "
+            f"{r['tariff_suitability']} | {r['area_km2']} | "
+            f"{r['external_points_inside']} |")
+    lines += [
+        "",
+        "**Relation 12463379 — точная семантика:** не была прямо названа в "
+        "первоначальном brief (brief перечисляет 9581354 и 944727, "
+        "config/boundary-candidates.yml), но обнаружена из source inventory "
+        "(source-boundaries.geojson) и включена как аналитический **candidate A**; её "
+        "пригодность для тарифа оценивается отдельно (CANDIDATE_UNVERIFIED). Она "
+        "остаётся в сравнении и в decision context.",
+    ]
     lines += [
         "", "Провенанс (raw sha256): "
         + "; ".join(f"{rid}={by_id[rid]['raw_sha256'][:12]}…"
@@ -406,6 +424,7 @@ def main():
     # artifacts from cached raw responses. Use --capture on the individual scripts
     # (extract_osm_boundaries.py --capture, route_pilot.py --capture) to refresh raw.
     _run("extract_osm_boundaries", "scripts/extract_osm_boundaries.py")
+    _run("outside_city_distance", "scripts/outside_city_distance.py")
     _run("boundary_scenarios", "scripts/boundary_scenarios.py")
     _run("owner_map_v2", "scripts/owner_map_v2.py")
     _run("route_pilot", "scripts/route_pilot.py")

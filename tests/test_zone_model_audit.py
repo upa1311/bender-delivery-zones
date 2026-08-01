@@ -1095,9 +1095,15 @@ def test_107_boundary_candidates_compared_none_verified():
     cand = {c["candidate_id"]: c for c in OCSUM["boundary_candidates"]}
     assert set(cand) == {"bender_relation_12463379", "municipiul_bender_9581354",
                          "bender_city_council_944727"}
+    # geometry blocker LIFTED: all three geometries are now extracted (commit 6d4679c)
     assert cand["bender_relation_12463379"]["verification_status"] == "PROVISIONAL_PROXY"
-    assert cand["municipiul_bender_9581354"]["verification_status"] == "NO_GEOMETRY_IN_REPO"
-    assert cand["bender_city_council_944727"]["verification_status"] == "NO_GEOMETRY_IN_REPO"
+    for cid in ("municipiul_bender_9581354", "bender_city_council_944727"):
+        assert cand[cid]["verification_status"] == "EXTRACTED_ADMIN_BOUNDARY_UNVERIFIED"
+    for c in cand.values():
+        assert c["geometry_extracted"] == "yes"          # no more NO_GEOMETRY_IN_REPO
+        assert len(c["geometry_sha256"]) == 64
+        assert c["geometry_path"].endswith(".geojson")
+        assert c["verification_status"] != "VERIFIED_FOR_TARIFF"
     assert OCSUM["verified_tariff_boundary"] is None
     assert "provisional proxy" in OCSUM["provisional_boundary_evidence"].lower()
 
@@ -1466,9 +1472,44 @@ def test_129_boundary_provenance_has_dates_endpoint_command_link():
 
 def test_130_boundary_naming_is_factual_not_operational():
     by = {r["relation_id"]: r for r in BCOMPARE}
-    # factual OSM identity present; none described as an operational tariff boundary
+    # factual OSM identity present; none POSITIVELY described as an operational
+    # tariff boundary (a negating mention like "NOT a separate operational…" is fine)
     for r in by.values():
         assert r["name"]
-        assert "operational" not in r["administrative_meaning"].lower()
+        m = r["administrative_meaning"].lower()
+        assert "is an operational tariff boundary" not in m
+        assert "operational tariff boundary" not in m or "not a separate operational" in m
     assert by["9581354"]["admin_level"] == "4"
     assert by["944727"]["admin_level"] == "5"
+    # consistent A/B/C semantics: label, brief status, comparison candidacy, suitability
+    assert {r["owner_label"] for r in by.values()} == {"A", "B", "C"}
+    assert by["12463379"]["owner_label"] == "A"
+    assert by["12463379"]["original_brief_nominated"] == "False"   # discovered, not brief
+    assert by["9581354"]["original_brief_nominated"] == "True"
+    assert by["944727"]["original_brief_nominated"] == "True"
+    for r in by.values():
+        assert r["comparison_candidate"] == "True"     # all three in the comparison
+        assert r["tariff_suitability"] == "CANDIDATE_UNVERIFIED"
+    # the extraction provenance agrees on the brief status (single source of truth)
+    assert BPROV_BY_ID["12463379"]["original_brief_nominated"] is False
+    assert BPROV_BY_ID["9581354"]["original_brief_nominated"] is True
+    assert all(r["comparison_candidate"] is True for r in BPROV_BY_ID.values())
+
+
+def test_131_test_baseline_verification_note_is_honest():
+    note = (ROOT / "reports/zone-model-audit/TEST-BASELINE-VERIFICATION.md").read_text(
+        "utf-8")
+    # the mandated honest baseline formulation is present verbatim
+    assert ("Full pytest on START_HEAD 9c5b9ca: 750 passed, 2 failed" in note)
+    assert "no new failures were introduced" in note.lower()
+    # the false record is explicitly corrected, not repeated as truth
+    assert "752 passed" in note and "correct baseline" in note.lower()
+    # the two immutable-release baseline failures are named
+    assert "test_release.py::test_release_checksums_match" in note
+    assert "test_release_v11.py::test_checksums_match_and_manifest_agrees" in note
+    # no owner-facing artifact claims a clean run as universal truth
+    for name in ("OWNER_BOUNDARY_DECISION.md", "route-generation-pilot-v1.md",
+                 "outside-city-distance-v1.md"):
+        txt = (ROOT / "reports/zone-model-audit" / name).read_text("utf-8")
+        assert "all tests pass" not in txt.lower()
+        assert "752 passed" not in txt

@@ -43,13 +43,26 @@ SCEN_CSV = ROOT / "data/interim/boundary-route-scenarios-v2.csv"
 SUMMARY = ROOT / "reports/zone-model-audit/_boundary-scenarios-summary.json"
 
 CANDIDATES = ["12463379", "9581354", "944727"]
+# Consistent per-relation semantics (single source of truth for every artifact):
+# owner label, whether the ORIGINAL brief nominated it, whether it is in the
+# analytical comparison, and its tariff-suitability verdict.
+OWNER_LABEL = {"12463379": "A", "9581354": "B", "944727": "C"}
+ORIGINAL_BRIEF_NOMINATED = {"12463379": False, "9581354": True, "944727": True}
+COMPARISON_CANDIDATE = {"12463379": True, "9581354": True, "944727": True}
+TARIFF_SUITABILITY = {rid: "CANDIDATE_UNVERIFIED" for rid in CANDIDATES}
 ADMIN_MEANING = {
-    "12463379": "admin_level 8 — Bender city proper (NOT a brief candidate; repo "
-                "used it as a provisional proxy in source-boundaries.geojson)",
+    "12463379": "admin_level 8 — Bender city proper. Not explicitly nominated in the "
+                "original brief; discovered from the source inventory "
+                "(source-boundaries.geojson) and included as analytical candidate A. "
+                "Repo labels it a provisional proxy. Tariff suitability evaluated "
+                "separately.",
     "9581354": "admin_level 4 — Municipiul Bender, de-jure municipality per Republic "
-               "of Moldova law (brief candidate)",
-    "944727": "admin_level 5 — de-facto Bender city under PMR control (brief "
-              "candidate; OSM name has since changed Tighina -> Бендеры)",
+               "of Moldova law. Brief candidate (config/boundary-candidates.yml). "
+               "Analytical candidate B.",
+    "944727": "admin_level 5 — de-facto Bender city under PMR control (OSM name "
+              "Tighina/Бендеры). Brief candidate (config/boundary-candidates.yml). "
+              "Analytical candidate C. This is a factual administrative boundary, NOT "
+              "a separate operational tariff boundary.",
 }
 
 
@@ -214,6 +227,10 @@ def write_comparison(boundaries, membership, counts):
         m = membership
         rows.append({
             "candidate_id": f"osm_relation_{rid}", "relation_id": rid,
+            "owner_label": OWNER_LABEL[rid],
+            "original_brief_nominated": ORIGINAL_BRIEF_NOMINATED[rid],
+            "comparison_candidate": COMPARISON_CANDIDATE[rid],
+            "tariff_suitability": TARIFF_SUITABILITY[rid],
             "osm_url": p["osm_url"], "name": p["name"], "name_ru": p.get("name_ru"),
             "admin_level": p["admin_level"], "administrative_meaning": ADMIN_MEANING[rid],
             "provenance": p["extraction_source"], "license": p["license"],
@@ -253,7 +270,9 @@ def _reason(rid, m, counts):
     if rid == "12463379":
         return ("Smallest extent (city proper). Парканы/Гиска/Протягайловка mostly "
                 f"OUTSIDE (only {counts[rid]['inside_total']} fringe points inside: "
-                f"{ins}). Not a brief candidate; repo labelled it provisional.")
+                f"{ins}). Not nominated in the original brief (discovered from the "
+                "source inventory, included as analytical candidate A); repo labelled "
+                "it provisional.")
     if rid == "9581354":
         return ("De-jure municipality. Протягайловка falls INSIDE "
                 f"({ins.get('Протягайловка', 0)} pts); Гиска mostly outside; Парканы "

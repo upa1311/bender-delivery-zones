@@ -2,7 +2,7 @@
 
 **Verdict: BLOCKED_BY_CITY_BOUNDARY**
 
-No VERIFIED_FOR_TARIFF city boundary: the Bender OSM boundary (relation 12463379) is a provisional proxy per the repo, and relations 9581354 / 944727 have no geometry in the repo. Route geometry is available for 12 external addresses but cannot be priced without an approved tariff boundary.
+No VERIFIED_FOR_TARIFF city boundary yet: the Bender OSM boundary (relation 12463379) is a provisional proxy per the repo. The full geometry of ALL THREE candidate relations (12463379, 9581354, 944727) has now been EXTRACTED from OSM (see data/interim/osm-boundaries/ and boundary-candidates-comparison-v2.csv); the earlier 'no geometry in repo' blocker for 9581354 / 944727 is lifted. None is approved as the operational tariff boundary, so the 12 external routes still cannot be priced without an owner boundary decision.
 
 Repo evidence the boundary is provisional: `exact point unknown; current Bender OSM boundary is a provisional proxy`
 
@@ -32,13 +32,17 @@ dispatch zones, GitHub Pages and live tariffs are untouched.
 
 Acceptance changes across thresholds: **False**; price impact: none (boundary unverified → no approved price at any threshold).
 
-## City-boundary candidates
+## City-boundary candidates (all three geometries extracted)
 
-| candidate | osm | geometry in repo | verification | area km² | note |
-|---|---|---|---|---:|---|
-| bender_relation_12463379 | relation 12463379 | yes | **PROVISIONAL_PROXY** | 21.048 | Исходная административная граница OSM. Не изменялась. |
-| municipiul_bender_9581354 | relation 9581354 | no | **NO_GEOMETRY_IN_REPO** |  | geometry not present in repository |
-| bender_city_council_944727 | relation 944727 | no | **NO_GEOMETRY_IN_REPO** |  | geometry not present in repository |
+All three relation geometries have been extracted from OSM (Overpass, ODbL) at commit 6d4679c and stored under data/interim/osm-boundaries/. Unified suitability comparison: boundary-candidates-comparison-v2.csv.
+
+| relation | admin_level | geometry extracted | verification | area km² | geometry path | geom sha256 | name |
+|---|---|---|---|---:|---|---|---|
+| relation 12463379 | 8 | yes | **PROVISIONAL_PROXY** | 21.048 | `data/interim/osm-boundaries/relation-12463379.geojson` | 2df13ada7b09… | Бендеры |
+| relation 9581354 | 4 | yes | **EXTRACTED_ADMIN_BOUNDARY_UNVERIFIED** | 37.7255 | `data/interim/osm-boundaries/relation-9581354.geojson` | cac2eb437855… | Municipiul Bender |
+| relation 944727 | 5 | yes | **EXTRACTED_ADMIN_BOUNDARY_UNVERIFIED** | 72.0325 | `data/interim/osm-boundaries/relation-944727.geojson` | cf5819572e1c… | Бендеры |
+
+Provenance per relation: raw_source_path, geometry_path, raw_sha256, geometry_sha256, source_object_timestamp and original_retrieval_timestamp_utc are recorded in `data/interim/osm-boundaries/boundary-extraction-provenance.json`. The 'no geometry in repo' blocker (relations 9581354 / 944727) was lifted at the boundary-extraction stage (commit 6d4679c).
 
 **Critical rule:** an OSM administrative boundary is NOT automatically the approved operational tariff boundary. None of the candidates has reproducible proof of being the tariff switch boundary, so none is VERIFIED_FOR_TARIFF and no address gets an approved final_fee.
 

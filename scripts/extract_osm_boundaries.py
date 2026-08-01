@@ -51,10 +51,16 @@ OSM_URL = "https://www.openstreetmap.org/relation/{}"
 # (config/boundary-candidates.yml); 12463379 is the admin_level-8 city polygon the
 # repo previously used in source-boundaries.geojson (labelled a provisional proxy).
 RELATIONS = {
-    "12463379": "Bender city (admin_level 8) — repo provisional proxy, NOT a brief candidate",
-    "9581354": "Municipiul Bender (admin_level 4) — brief: de-jure municipality",
-    "944727": "Tighina / Bender City Council (admin_level 5) — brief: de-facto PMR city",
+    "12463379": "Bender city (admin_level 8) — repo provisional proxy; not nominated "
+                "in the original brief, discovered from the source inventory and "
+                "included as analytical candidate A",
+    "9581354": "Municipiul Bender (admin_level 4) — brief candidate: de-jure municipality",
+    "944727": "Tighina / Bender City Council (admin_level 5) — brief candidate: "
+              "de-facto PMR city",
 }
+# Whether each relation was explicitly nominated in the ORIGINAL owner brief
+# (config/boundary-candidates.yml lists 9581354 and 944727 only).
+ORIGINAL_BRIEF_NOMINATED = {"12463379": False, "9581354": True, "944727": True}
 
 
 def _sha(b: bytes) -> str:
@@ -183,6 +189,8 @@ def process(rid: str, note: str, refresh: bool, s01: dict, capture_log: dict) ->
     retrieval = capture_log.get(rid)
     return {
         "relation_id": rid, "note": note, "osm_url": OSM_URL.format(rid),
+        "original_brief_nominated": ORIGINAL_BRIEF_NOMINATED.get(rid, False),
+        "comparison_candidate": True,
         "name": tags.get("name"), "name_ru": tags.get("name:ru"),
         "object_type": tags.get("type"), "boundary": tags.get("boundary"),
         "admin_level": tags.get("admin_level"), "place": tags.get("place"),

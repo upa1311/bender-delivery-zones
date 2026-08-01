@@ -3,8 +3,10 @@
   "relations": [
     {
       "relation_id": "12463379",
-      "note": "Bender city (admin_level 8) — repo provisional proxy, NOT a brief candidate",
+      "note": "Bender city (admin_level 8) — repo provisional proxy; not nominated in the original brief, discovered from the source inventory and included as analytical candidate A",
       "osm_url": "https://www.openstreetmap.org/relation/12463379",
+      "original_brief_nominated": false,
+      "comparison_candidate": true,
       "name": "Бендеры",
       "name_ru": "Бендеры",
       "object_type": "boundary",
@@ -61,8 +63,10 @@
     },
     {
       "relation_id": "9581354",
-      "note": "Municipiul Bender (admin_level 4) — brief: de-jure municipality",
+      "note": "Municipiul Bender (admin_level 4) — brief candidate: de-jure municipality",
       "osm_url": "https://www.openstreetmap.org/relation/9581354",
+      "original_brief_nominated": true,
+      "comparison_candidate": true,
       "name": "Municipiul Bender",
       "name_ru": "Муниципий Бендеры",
       "object_type": "boundary",
@@ -119,8 +123,10 @@
     },
     {
       "relation_id": "944727",
-      "note": "Tighina / Bender City Council (admin_level 5) — brief: de-facto PMR city",
+      "note": "Tighina / Bender City Council (admin_level 5) — brief candidate: de-facto PMR city",
       "osm_url": "https://www.openstreetmap.org/relation/944727",
+      "original_brief_nominated": true,
+      "comparison_candidate": true,
       "name": "Бендеры",
       "name_ru": "Бендеры",
       "object_type": "boundary",

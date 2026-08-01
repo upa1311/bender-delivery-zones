@@ -4,11 +4,15 @@ Key finding: the repository itself documents the Bender OSM boundary
 (relation 12463379) as a **provisional proxy** — `stage-09-recompute-summary.json`:
 "exact point unknown; current Bender OSM boundary is a provisional proxy". No
 reproducible source proves it (or relation 9581354 / 944727) is the APPROVED
-operational tariff switch boundary, and 9581354 / 944727 have no geometry in the
-repo at all. Therefore NO external address receives an approved final_fee: the
-verdict is BLOCKED_BY_CITY_BOUNDARY. Geometry that CAN be computed (route ∩ the
-provisional polygon) is emitted only as clearly-labelled SCENARIO analytics, never
-as a production price.
+operational tariff switch boundary. UPDATE (commit 6d4679c): the full geometry of
+ALL THREE candidate relations (12463379, 9581354, 944727) has since been EXTRACTED
+from OSM (Overpass, ODbL) and stored under data/interim/osm-boundaries/, so the
+earlier "no geometry in repo" state for 9581354 / 944727 no longer holds; the
+unified suitability comparison is boundary-candidates-comparison-v2.csv. Still, none
+is approved for tariff, so NO external address receives an approved final_fee: the
+verdict is BLOCKED_BY_CITY_BOUNDARY. Geometry that CAN be computed (route ∩ each
+candidate polygon) is emitted only as clearly-labelled SCENARIO analytics, never as
+a production price.
 
 Route inventory: all central-origin external `fastest` polylines from BOTH
 stage-09a-control-routes.geojson (9) and stage-09b-map-routes.geojson (3) = 12
@@ -185,51 +189,69 @@ def _project_geom(geom):
     raise ValueError(geom.geom_type)
 
 
+EXTRACTION_PROV = ROOT / "data/interim/osm-boundaries/boundary-extraction-provenance.json"
+
+
+def _extraction_by_relation():
+    """Real extracted-geometry provenance for all three relations (produced by
+    scripts/extract_osm_boundaries.py). Empty dict if the extraction hasn't run."""
+    if not EXTRACTION_PROV.exists():
+        return {}
+    data = json.loads(EXTRACTION_PROV.read_text(encoding="utf-8"))
+    return {r["relation_id"]: r for r in data.get("relations", [])}
+
+
 def boundary_comparison(bprops, boundary_geom):
-    """Compare the three candidate tariff boundaries. Only 'bender' has geometry;
-    NONE is proven to be the approved operational tariff boundary — the repo calls
-    the Bender OSM boundary a provisional proxy."""
+    """Compare the three candidate tariff boundaries. As of the boundary-extraction
+    stage (commit 6d4679c) the FULL geometry of ALL THREE relations has been extracted
+    from OSM (Overpass, ODbL) and stored under data/interim/osm-boundaries/ — the
+    earlier 'no geometry in repo' blocker for 9581354 / 944727 is LIFTED. NONE is
+    proven to be the approved operational tariff boundary; the unified suitability
+    comparison lives in boundary-candidates-comparison-v2.csv."""
     provisional_note = ""
     try:
         rc = json.loads(RECOMPUTE_SUMMARY.read_text(encoding="utf-8"))
         provisional_note = str(rc.get("provenance", {}).get("switch_point", ""))
     except Exception:  # noqa: BLE001
         provisional_note = ""
+    prov = _extraction_by_relation()
     rows = []
     for cid, meta in BOUNDARY_CANDIDATE_IDS.items():
-        if meta["key"] == "bender" and boundary_geom is not None:
-            g = boundary_geom
-            parts = len(g.geoms) if g.geom_type == "MultiPolygon" else 1
-            holes = (sum(len(p.interiors) for p in g.geoms)
-                     if g.geom_type == "MultiPolygon" else len(g.interiors))
-            rows.append({
-                "candidate_id": cid, "osm": meta["osm"], "brief": meta["brief"],
-                "geometry_in_repo": "yes",
-                "source_file": "docs/data/source-boundaries.geojson",
-                "sha256": _sha(BOUNDARIES),
-                "input_crs": "EPSG:4326",
-                "working_projection": "local equirectangular at origin (<0.1% length error)",
-                "geometry_type": g.geom_type, "valid": g.is_valid,
-                "area_km2": bprops.get("area_km2"), "polygon_parts": parts,
-                "holes": holes, "admin_level": "not recorded in file",
-                "note": bprops.get("note"),
-                "verification_status": "PROVISIONAL_PROXY",
-                "verification_evidence": (
-                    f"repo stage-09-recompute-summary.json: {provisional_note!r}; "
-                    "no reproducible proof this is the approved tariff switch boundary"),
-            })
-        else:
-            rows.append({
-                "candidate_id": cid, "osm": meta["osm"], "brief": meta["brief"],
-                "geometry_in_repo": "no",
-                "source_file": "config/boundary-candidates.yml (inspect-only, selection: none)",
-                "sha256": "", "input_crs": "", "working_projection": "",
-                "geometry_type": "", "valid": "", "area_km2": "", "polygon_parts": "",
-                "holes": "", "admin_level": "brief only",
-                "note": "geometry not present in repository",
-                "verification_status": "NO_GEOMETRY_IN_REPO",
-                "verification_evidence": "referenced in brief; cannot be computed or verified",
-            })
+        rid = "".join(ch for ch in meta["osm"] if ch.isdigit())
+        p = prov.get(rid, {})
+        is_repo = meta["key"] == "bender"
+        status = ("PROVISIONAL_PROXY" if is_repo
+                  else "EXTRACTED_ADMIN_BOUNDARY_UNVERIFIED")
+        evidence = (
+            f"repo stage-09-recompute-summary.json: {provisional_note!r}; geometry "
+            "also extracted from OSM (see provenance)" if is_repo
+            else "brief candidate; geometry extracted from OSM at commit 6d4679c — "
+                 "administrative boundary, NOT auto-approved for tariff")
+        rows.append({
+            "candidate_id": cid, "osm": meta["osm"], "brief": meta["brief"],
+            "geometry_extracted": "yes" if p else "no",
+            "geometry_in_repo": "yes" if is_repo else "no",
+            "raw_source_path": p.get("raw_artifact_path", ""),
+            "geometry_path": p.get("geometry_artifact_path", ""),
+            "source_file": ("docs/data/source-boundaries.geojson" if is_repo
+                            else p.get("geometry_artifact_path", "")),
+            "raw_sha256": p.get("raw_sha256", ""),
+            "geometry_sha256": p.get("geometry_sha256", ""),
+            "sha256": _sha(BOUNDARIES) if is_repo else p.get("geometry_sha256", ""),
+            "input_crs": p.get("source_crs", "EPSG:4326"),
+            "working_projection": "local equirectangular at origin (<0.1% length error)",
+            "geometry_type": p.get("geometry_type", ""),
+            "valid": p.get("valid_after_repair", ""),
+            "area_km2": p.get("area_km2", bprops.get("area_km2") if is_repo else ""),
+            "polygon_parts": p.get("polygon_parts", ""), "holes": p.get("holes", ""),
+            "admin_level": p.get("admin_level", ""),
+            "extraction_source": p.get("extraction_source", ""),
+            "source_object_timestamp": p.get("source_object_timestamp", ""),
+            "original_retrieval_timestamp_utc": p.get(
+                "original_retrieval_timestamp_utc", ""),
+            "note": p.get("name", meta["brief"]),
+            "verification_status": status, "verification_evidence": evidence,
+        })
     verified = [r for r in rows if r["verification_status"] == "VERIFIED_FOR_TARIFF"]
     return rows, (verified[0]["candidate_id"] if verified else None), provisional_note
 
@@ -431,11 +453,15 @@ def _summary(external, inventory, per_source, conflicts, total_entries, bcompare
     return {
         "verdict": "BLOCKED_BY_CITY_BOUNDARY" if not boundary_verified
         else "OUTSIDE_TARIFF_ANALYSIS_COMPLETE",
-        "reason": ("No VERIFIED_FOR_TARIFF city boundary: the Bender OSM boundary "
-                   "(relation 12463379) is a provisional proxy per the repo, and "
-                   "relations 9581354 / 944727 have no geometry in the repo. Route "
-                   "geometry is available for 12 external addresses but cannot be "
-                   "priced without an approved tariff boundary."),
+        "reason": ("No VERIFIED_FOR_TARIFF city boundary yet: the Bender OSM boundary "
+                   "(relation 12463379) is a provisional proxy per the repo. The full "
+                   "geometry of ALL THREE candidate relations (12463379, 9581354, "
+                   "944727) has now been EXTRACTED from OSM (see "
+                   "data/interim/osm-boundaries/ and boundary-candidates-comparison-"
+                   "v2.csv); the earlier 'no geometry in repo' blocker for 9581354 / "
+                   "944727 is lifted. None is approved as the operational tariff "
+                   "boundary, so the 12 external routes still cannot be priced without "
+                   "an owner boundary decision."),
         "provisional_boundary_evidence": provisional_note,
         "route_sources": per_source,
         "route_source_entries_total": total_entries,
@@ -506,13 +532,27 @@ def _write_md(summary, controls, bcompare):
               f"Acceptance changes across thresholds: "
               f"**{summary['sensitivity']['acceptance_changes_across_thresholds']}**; "
               f"price impact: {summary['sensitivity']['price_impact']}.", "",
-              "## City-boundary candidates", "",
-              "| candidate | osm | geometry in repo | verification | area km² | note |",
-              "|---|---|---|---|---:|---|"]
+              "## City-boundary candidates (all three geometries extracted)", "",
+              "All three relation geometries have been extracted from OSM (Overpass, "
+              "ODbL) at commit 6d4679c and stored under data/interim/osm-boundaries/. "
+              "Unified suitability comparison: boundary-candidates-comparison-v2.csv.",
+              "",
+              "| relation | admin_level | geometry extracted | verification | area km² "
+              "| geometry path | geom sha256 | name |",
+              "|---|---|---|---|---:|---|---|---|"]
     for c in bcompare:
-        lines.append(f"| {c['candidate_id']} | {c['osm']} | {c['geometry_in_repo']} | "
-                     f"**{c['verification_status']}** | {c['area_km2']} | {c['note']} |")
+        lines.append(
+            f"| {c['osm']} | {c['admin_level']} | {c['geometry_extracted']} | "
+            f"**{c['verification_status']}** | {c['area_km2']} | "
+            f"`{c['geometry_path']}` | {(c['geometry_sha256'] or '')[:12]}… | "
+            f"{c['note']} |")
     lines += ["",
+              "Provenance per relation: raw_source_path, geometry_path, raw_sha256, "
+              "geometry_sha256, source_object_timestamp and "
+              "original_retrieval_timestamp_utc are recorded in "
+              "`data/interim/osm-boundaries/boundary-extraction-provenance.json`. The "
+              "'no geometry in repo' blocker (relations 9581354 / 944727) was lifted "
+              "at the boundary-extraction stage (commit 6d4679c).", "",
               "**Critical rule:** an OSM administrative boundary is NOT automatically "
               "the approved operational tariff boundary. None of the candidates has "
               "reproducible proof of being the tariff switch boundary, so none is "

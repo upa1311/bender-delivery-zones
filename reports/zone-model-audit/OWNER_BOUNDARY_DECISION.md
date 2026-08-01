@@ -8,13 +8,17 @@
 
 `owner-boundary-map-v2.html` (self-contained, слои переключаются, встроены все 4 350 адресов) + `owner-boundary-map-v2.png/.svg` (превью, три границы видно раздельно).
 
-## Кандидаты границы (реально извлечены)
+## Кандидаты границы (реально извлечены — единая семантика)
 
-| relation | admin_level | смысл | площадь км² | тип | внешних точек внутри |
-|---|---|---|---:|---|---:|
-| 12463379 | 8 | Бендеры | 21.048 | Polygon | 19 |
-| 9581354 | 4 | Municipiul Bender | 37.7255 | Polygon | 522 |
-| 944727 | 5 | Бендеры | 72.0325 | MultiPolygon | 904 |
+Для каждой relation: owner-label, фактическое OSM-имя, админ-смысл, был ли в ПЕРВОНАЧАЛЬНОМ brief, входит ли в аналитическое сравнение, tariff-suitability.
+
+| label | relation | name | admin_level | в brief | candidate | suitability | площадь км² | внешних точек внутри |
+|---|---|---|---|---|---|---|---:|---:|
+| A | 12463379 | Бендеры | 8 | нет | да | CANDIDATE_UNVERIFIED | 21.048 | 19 |
+| B | 9581354 | Municipiul Bender | 4 | да | да | CANDIDATE_UNVERIFIED | 37.7255 | 522 |
+| C | 944727 | Бендеры | 5 | да | да | CANDIDATE_UNVERIFIED | 72.0325 | 904 |
+
+**Relation 12463379 — точная семантика:** не была прямо названа в первоначальном brief (brief перечисляет 9581354 и 944727, config/boundary-candidates.yml), но обнаружена из source inventory (source-boundaries.geojson) и включена как аналитический **candidate A**; её пригодность для тарифа оценивается отдельно (CANDIDATE_UNVERIFIED). Она остаётся в сравнении и в decision context.
 
 Провенанс (raw sha256): 12463379=c67ab61eb440…; 9581354=9f8e7aaa6d59…; 944727=0e79695fccb7….
 

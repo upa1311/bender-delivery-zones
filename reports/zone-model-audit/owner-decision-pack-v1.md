@@ -1,90 +1,83 @@
 # Owner decision pack — zone models (candidate, not production)
 
 Простыми словами. Анализ, не готовые production-цены. Ничего не применено.
-Метрика — fixed-origin km (маршрут от 46.82388, 29.48313). Граница зон единая:
-**[нижняя, верхняя)**.
+Метрика — fixed-origin km (маршрут от 46.82388, 29.48313). Граница зон единая
+**[нижняя, верхняя)**. Бенчмарк дохода водителя = `taxi_reference - 5` (fixed-5
+платформа выигрывает у 100 % городских адресов; crossover 14.29 < минималки 18).
 
-## ГЛАВНОЕ ЧЕСТНОЕ ИСПРАВЛЕНИЕ
+**Терминология.** Все зоны K4/K5 — это **городские зоны Бендер**: ближние, средние
+и дальние. Дальние городские зоны — это НЕ «внешние территории». Термин
+**внешние территории** относится только к Парканам, Гиске, Протягайловке и
+нерешённому Северному (раздел B).
 
-Прошлый pack утверждал полное 100 % покрытие hard-constraint по всем адресам — и
-это было неверно. При честном требовании **100 % покрытия** одной плоской ценой
-на зону:
+## Исправление аудита (BALANCED 5 руб)
 
-- **Feasible только 2 ближние зоны** (и в CITY_K4, и в CITY_K5).
-- **Все внешние зоны INFEASIBLE**: внутри такой зоны taxi_reference слишком
-  разбросан (например в CITY_K5 зона 5: такси 32–45 руб), поэтому **ни одна
-  единая цена** не удерживает одновременно gap водителя маленьким и экономию
-  клиента положительной для 100 % адресов. Это математика (floor водителя >
-  ceiling клиента), а не выбор.
+Раньше BALANCED считал клиентскую экономию с порогом 1 руб (target_save=5
+игнорировался), поэтому зоны помечались FEASIBLE при экономии всего 4 руб. Теперь
+**BALANCED требует client_saving ≥ 5 руб для 100 %** адресов зоны (жёстко). Как
+следствие ряд зон стал INFEASIBLE — пример: CITY_K4 средняя зона 2 (минимальное
+такси 18, ceiling 13 < driver floor 14).
 
-Поэтому **готовый тариф для внешних зон рекомендовать нельзя.** Для них дан
-только `fallback_fee_rub` с честным покрытием (<100 %), помеченный
-`FALLBACK_PARTIAL_COVERAGE`.
+## A. ГОРОДСКИЕ ЗОНЫ БЕНДЕР
 
-## CITY_K4 (пороги 1.73 / 3.28 / 4.98 км)
-
-| Policy | z1 | z2 | z3 | z4 |
+### CITY_K4 — raw пороги 1.73 / 3.28 / 4.98 км
+| Policy | z1 ближняя | z2 средняя | z3 средняя | z4 дальняя |
 |---|---|---|---|---|
-| DRIVER_CONSERVATIVE | 12 ✅ | 14 ✅ | INFEASIBLE (fallback 23, 69 %) | INFEASIBLE (29, 70 %) |
-| BALANCED | 12 ✅ | 14 ✅ | INFEASIBLE (22, 71 %) | INFEASIBLE (29, 77 %) |
-| CUSTOMER_FIRST | 12 ✅ | 13 ✅ | INFEASIBLE (20, 48 %) | INFEASIBLE (25, 57 %) |
+| DRIVER_CONSERVATIVE | 12 ✅ | 13 ✅ | INF (fb 23, 69 %) | INF (29, 70 %) |
+| BALANCED | 12 ✅ | INF (fb 13, 99 %) | INF (21, 33 %) | INF (25, 39 %) |
+| CUSTOMER_FIRST | 12 ✅ | 13 ✅ | INF (20, 48 %) | INF (25, 57 %) |
 
-Feasible: только зоны 1–2. Зоны 3–4 — только fallback с указанным покрытием.
+### CITY_K4 — operational 0.25 км (PRIMARY) пороги 1.75 / 3.25 / 5.0
+Почти совпадает с raw: DRIVER 12/13, CUSTOMER 12/13, BALANCED 12/INF; дальние зоны
+INFEASIBLE (см. `zone-operational-policy-prices-v1.csv`).
 
-## CITY_K5 (пороги 1.68 / 2.88 / 4.13 / 5.33 км)
-
-| Policy | z1 | z2 | z3 | z4 | z5 |
+### CITY_K5 — raw пороги 1.68 / 2.88 / 4.13 / 5.33 км
+| Policy | z1 | z2 | z3 средняя | z4 дальняя | z5 дальняя |
 |---|---|---|---|---|---|
-| DRIVER_CONSERVATIVE | 12 ✅ | 12 ✅ | INF (17, 87 %) | INF (24, 86 %) | INF (31, 78 %) |
-| BALANCED | 12 ✅ | 12 ✅ | INF (17, 86 %) | INF (24, 94 %) | INF (31, 84 %) |
+| DRIVER_CONSERVATIVE | 12 ✅ | 12 ✅ | INF (fb 17, 87 %) | INF (24, 86 %) | INF (31, 78 %) |
+| BALANCED | 12 ✅ | 12 ✅ | INF (15, 30 %) | INF (21, 38 %) | INF (27, 49 %) |
 | CUSTOMER_FIRST | 12 ✅ | 12 ✅ | INF (15, 42 %) | INF (20, 55 %) | INF (27, 67 %) |
 
-Feasible: только зоны 1–2. BALANCED-fallback покрывает внешние зоны лучше (84–94 %),
-чем CUSTOMER_FIRST (42–67 %), но это всё равно **не** 100 %.
+### CITY_K5 — operational 0.25 км (PRIMARY) пороги 1.75 / 2.75 / 4.0 / 5.25
+Округление **делает среднюю зону 3 FEASIBLE для DRIVER_CONSERVATIVE (17 руб)** —
+пример, что operational-пересчёт реально меняет feasibility, а не копирует raw.
+BALANCED/CUSTOMER в средних/дальних остаются INFEASIBLE.
 
-Порядок цен соблюдён: CUSTOMER_FIRST ≤ BALANCED ≤ DRIVER_CONSERVATIVE, и монотонно
-по зонам — без пост-clamp'а, ломающего constraint. Бенчмарк дохода водителя =
-`taxi_reference - 5` (fixed-5 платформа выигрывает у 100 % городских адресов).
+### Вывод по городу
+- **Feasible при 100 %-покрытии только ближние зоны** (K4 z1; K5 z1–z2), плюс для
+  DRIVER_CONSERVATIVE ещё z2 (K4) и z3 (K5-op). Средние/дальние городские зоны —
+  INFEASIBLE одной плоской ценой, только fallback с частичным покрытием.
+- Минимальная клиентская экономия у FEASIBLE BALANCED-зон = **6 руб** (≥ порога 5).
 
-## Operational thresholds (raw vs округление, пересчитано)
+## B. ВНЕШНИЕ ТЕРРИТОРИИ (Парканы, Гиска, Протягайловка, Северный)
 
-`data/interim/zone-operational-candidates-v1.csv`. Выбрано по измеримым критериям
-(минимум изменённых адресов + same-street splits + близкие соседи в разных зонах):
+Split город/внешний **не доказан** → **никаких городских candidate/fallback цен
+к ним не применяется**. Только диапазон в `zone-external-bracket-scenarios-v1.csv`
+(поле `taxi_reference_bracket_rub`, `direct_feasible_*` пустые), все строки
+`RANGE_ONLY_NOT_TARIFF`. Пост ГАИ на Котовского — `UNKNOWN_REQUIRES_OWNER_MAP_CONFIRMATION`;
+Северный — `OWNER_BOUNDARY_DECISION_REQUIRED`.
 
-- **CITY_K4:** raw 1.725/3.275/4.975 → **PRIMARY = 0.25 км** (37 адресов сменили
-  зону, splits 48), FALLBACK = 0.1 км.
-- **CITY_K5:** raw 1.675/2.875/4.125/5.325 → **PRIMARY = 0.25 км** (233 адреса
-  сменили зону, splits 59, manual 26/28), FALLBACK = 0.1 км.
-
-Точные изменённые address_id: `zone-operational-rounding-changes-v1.csv`.
-
-## Manual validation — ЧЕСТНАЯ ОГОВОРКА
-
-- Городская валидация = **28 контролей**.
-- Эти контроли **сосредоточены во внешних районах Бендер**; плотный центр города
-  **не покрыт**.
-- **25/28 (K4) и 25/28 (K5)** — это agreement на контрольной выборке, **а не
-  доказанная общегородская точность 89 %**. Не трактовать как citywide accuracy.
+## Operational-выбор (документированный scoring)
+`score = 1000·max(0, balanced_infeasible − raw_balanced_infeasible) + changed +
+same_street_splits + neighbour_diff_100m + 5·manual_flip`; меньше — лучше, ничьи —
+в пользу более мелкого шага. Both K4 и K5: **PRIMARY = 0.25 км**, FALLBACK = 0.1 км
+(округление не ухудшает BALANCED-feasibility, решает геометрия). Same-street splits
+считаются по админ-ключу **территория+район+улица** (одноимённые улицы разных
+районов не сливаются).
 
 ## Business model
-
-`business_constrained` честно переименован в **`share_width_density`**: его
-objective = route SSE + плотность у порога при ограничениях share/width. Метрики
-same-street / neighbour применяются **после** partition как оценка, а не внутри
-objective. Это НЕ полноценная street/neighbour-оптимизированная бизнес-модель.
-
-## Внешние территории — только диапазон
-Парканы/Гиска/Протягайловка: split не доказан. Поле переименовано в
-`taxi_reference_bracket_rub`; `direct_feasible_*` пустые (не рассчитаны).
-Все строки `RANGE_ONLY_NOT_TARIFF`. Пост ГАИ / Северный — как прежде, требуют карты.
+`business_constrained` честно переименован **`share_width_density`**: objective =
+route SSE + плотность у порога при ограничениях share/width; street/neighbour —
+только оценка после partition, не в objective. Не выдаётся за оптимизированную
+бизнес-модель.
 
 ## Что нужно от владельца
-1. **CITY_K4 или CITY_K5** для ближних зон (обе feasible только в зонах 1–2).
-2. Как трактовать внешние зоны: (а) принять fallback с частичным покрытием
-   (и каким порогом покрытия), либо (б) дробить внешние зоны мельче до feasibility,
-   либо (в) отдельная external-модель после подтверждения границ на карте.
-3. Политика цен (CONSERVATIVE / BALANCED / CUSTOMER_FIRST) для feasible зон.
-4. raw или operational (0.25 км) пороги.
+1. **CITY_K4 или CITY_K5** для ближних (feasible) зон.
+2. Средние/дальние городские зоны: принять fallback с частичным покрытием
+   (и каким порогом), либо дробить мельче до feasibility.
+3. Политика цен (CUSTOMER_FIRST / BALANCED / DRIVER_CONSERVATIVE) — точные цены
+   для raw и 0.25 показаны выше и в CSV.
+4. Внешние территории и Северный — подтвердить границы на карте.
 
 **Итог: ANALYSIS_COMPLETE / OWNER_DECISION_REQUIRED. Готовый тариф до решения
-владельца по внешним зонам не рекомендуется. Ничего не применено в production.**
+владельца не рекомендуется. В production ничего не применено.**

@@ -337,7 +337,7 @@ def test_29b_coverage_independently_recomputed():
             ref = ZE.taxi_ref_a(r["route_km"])
             best = ZE.driver_best(ref)
             gap = best - fee
-            if ref - fee >= 1 and gap <= 3 and gap <= 0.10 * best:
+            if ref - fee >= 5 and gap <= 3 and gap <= 0.10 * best:  # BALANCED save>=5
                 joint += 1
         assert round(joint / len(members), 4) == float(row["hard_constraint_coverage"])
 
@@ -627,3 +627,110 @@ def test_60_share_width_density_method_declared_and_not_called_business_model():
     swd = ZM.thresholds_business_constrained(
         [r["route_km"] for r in ZM.load_addresses() if r["is_city"]], 5)
     assert "share_width_density" in swd[1]
+
+
+# ================= GPT-audit follow-up tests =================
+OPPOL = _csv(ROOT / "data/interim/zone-operational-policy-prices-v1.csv")
+
+
+# audit 1: BALANCED minimum client saving >= 5 for every FEASIBLE address
+def test_61_balanced_feasible_min_saving_at_least_5():
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    city = [r for r in reg.values() if r["is_city"]]
+    for mid in ("CITY_K4R_dp_optimal_jenks", "CITY_K5R_dp_optimal_jenks"):
+        edges = ZM.thresholds_dp_optimal(
+            [r["route_km"] for r in city], int(mid[6]))
+        for row in [r for r in POL if r["model_id"] == mid
+                    and r["policy"] == "BALANCED" and r["policy_status"] == "FEASIBLE"]:
+            zi, fee = int(row["zone_id"]), int(row["candidate_fee_rub"])
+            members = [r for r in city if ZM.zone_for(r["route_km"], edges) == zi]
+            assert min(ZE.taxi_ref_a(r["route_km"]) - fee for r in members) >= 5
+
+
+# audit 2: unused target_save no longer exists
+def test_62_no_target_save_mechanism():
+    assert all("target_save" not in rule for rule in ZE.POLICY_RULES.values())
+    src = (ROOT / "scripts/zone_economics_audit.py").read_text(encoding="utf-8")
+    assert "target_save" not in src
+
+
+# audit 3: CITY_K4 zone 2 fee 14 is rejected under BALANCED
+def test_63_k4_zone2_fee14_rejected_under_balanced():
+    row = next(r for r in POL if r["model_id"] == "CITY_K4R_dp_optimal_jenks"
+               and r["policy"] == "BALANCED" and int(r["zone_id"]) == 2)
+    assert row["policy_status"] == "INFEASIBLE"
+    # ceiling proves fee 14 is not allowed (min taxi 18 - 5 = 13)
+    assert int(row["maximum_fee_allowed_by_client"]) < 14
+
+
+# audit 4: every operational model/rounding/policy/zone has a policy row
+def test_64_operational_policy_rows_complete():
+    combos = {(r["model_id"], r["rounding_km"], r["policy"]) for r in OPPOL}
+    for mid in ("CITY_K4R_dp_optimal_jenks", "CITY_K5R_dp_optimal_jenks"):
+        for rk in ("raw", "0.1", "0.25", "0.5"):
+            for pol in ("CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE"):
+                assert (mid, rk, pol) in combos
+    assert all(int(r["address_count"]) > 0 for r in OPPOL)
+
+
+# audit 5+7: operational prices independently recomputed & may differ from raw
+def test_65_operational_prices_recomputed_and_may_differ():
+    reg = {r["uid"]: r for r in ZM.load_addresses()}
+    city = [r for r in reg.values() if r["is_city"]]
+    raw_edges = ZM.thresholds_dp_optimal([r["route_km"] for r in city], 5)
+    rounded = ZM._monotone([ZM._round(round(e / 0.25) * 0.25) for e in raw_edges])
+    # DRIVER z3 becomes feasible under 0.25 where raw z3 is infeasible → not copied
+    raw_z3 = next(r for r in OPPOL if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+                  and r["rounding_km"] == "raw" and r["policy"] == "DRIVER_CONSERVATIVE"
+                  and int(r["zone_id"]) == 3)
+    rnd_z3 = next(r for r in OPPOL if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+                  and r["rounding_km"] == "0.25" and r["policy"] == "DRIVER_CONSERVATIVE"
+                  and int(r["zone_id"]) == 3)
+    assert raw_z3["policy_status"] != rnd_z3["policy_status"]  # genuinely recomputed
+    assert rounded != raw_edges
+
+
+# audit 6: operational FEASIBLE rows have full coverage
+def test_66_operational_feasible_rows_full_coverage():
+    for r in OPPOL:
+        if r["policy_status"] == "FEASIBLE":
+            assert r["candidate_fee_rub"] != ""
+            assert float(r["hard_constraint_coverage"]) == 1.0
+            assert int(r["violated_address_count"]) == 0
+        else:
+            assert r["candidate_fee_rub"] == "" and r["fallback_fee_rub"] != ""
+
+
+# audit 8: same-street key includes territory and district
+def test_67_same_street_key_includes_territory_and_district():
+    a = {"territory": "Бендеры", "district": "", "street": "улица Мира"}
+    b = {"territory": "Бендеры", "district": "Липканы", "street": "улица Мира"}
+    assert ZE._street_key(a) != ZE._street_key(b)
+    assert ZE._street_key(a) == ("Бендеры", "", "улица Мира")
+
+
+# audit 9: external territories never receive city candidate/fallback prices
+def test_68_external_bracket_has_no_city_fee_columns():
+    header = open(ROOT / "data/interim/zone-external-bracket-scenarios-v1.csv",
+                  encoding="utf-8-sig").readline()
+    assert "candidate_fee_rub" not in header and "fallback_fee_rub" not in header
+    # policy files are city-model only; no external territory appears as a model
+    ext_terms = {"Парканы", "Гиска", "Протягайловка", "Северный", "Parkany", "Giska"}
+    for r in POL + OPPOL:
+        assert not any(t in r["model_id"] for t in ext_terms)
+
+
+# audit 10: owner pack does not call far city zones external territories
+def test_69_owner_pack_uses_city_zone_terminology():
+    text = (ROOT / "reports/zone-model-audit/owner-decision-pack-v1.md").read_text(
+        encoding="utf-8")
+    assert "дальние городские" in text or "дальняя" in text
+    assert "внешние территории" in text  # reserved for Parkany/Giska/Protyagailovka
+
+
+# audit 11: no duplicated fake p95 field anywhere in the policy schemas
+def test_70_no_fake_p95_field():
+    for path in ("data/interim/zone-policy-prices-v1.csv",
+                 "data/interim/zone-operational-policy-prices-v1.csv"):
+        header = open(ROOT / path, encoding="utf-8-sig").readline()
+        assert "p95" not in header

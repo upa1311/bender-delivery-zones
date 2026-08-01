@@ -34,6 +34,7 @@ EXTERNAL = ROOT / "data/interim/zone-external-bracket-scenarios-v1.csv"
 NEIGHBOURS = ROOT / "data/interim/zone-neighbour-discontinuities-v1.csv"
 OPERATIONAL = ROOT / "data/interim/zone-operational-candidates-v1.csv"
 OPERATIONAL_CHANGES = ROOT / "data/interim/zone-operational-rounding-changes-v1.csv"
+OPERATIONAL_POLICY = ROOT / "data/interim/zone-operational-policy-prices-v1.csv"
 SUMMARY_JSON = ROOT / "reports/zone-model-audit/_economics-summary-v1.json"
 
 CITY_RATE, OUTSIDE_RATE, MIN_FARE = 6.0, 10.0, 18.0
@@ -147,11 +148,12 @@ def current_fee_policy_specific(city):
 BOUNDARY_CONVENTION = "[lower_bound, upper_bound)"
 
 # Per policy: driver gap caps (abs руб, pct of best) and client-saving floors
-# (abs руб, pct of taxi ref). None = not applied.
+# (abs руб, pct of taxi ref). None = not applied. save_abs is the ONLY client
+# floor mechanism; BALANCED enforces a minimum client saving of 5 руб directly as
+# a hard constraint (no separate/second savings representation).
 POLICY_RULES = {
     "DRIVER_CONSERVATIVE": {"gap_abs": 2, "gap_pct": None, "save_abs": 1, "save_pct": None},
-    "BALANCED": {"gap_abs": 3, "gap_pct": 0.10, "save_abs": 1, "save_pct": None,
-                 "target_save": 5},
+    "BALANCED": {"gap_abs": 3, "gap_pct": 0.10, "save_abs": 5, "save_pct": None},
     "CUSTOMER_FIRST": {"gap_abs": 5, "gap_pct": 0.15, "save_abs": 5, "save_pct": 0.15},
 }
 
@@ -206,106 +208,108 @@ def _fallback_fee(refs, bests, rule):
     return best_fee
 
 
+def zone_stats_for(edges, city):
+    buckets = [[] for _ in range(len(edges) + 1)]
+    for r in city:
+        buckets[zone_of_city(float(r["route_km"]), edges) - 1].append(r)
+    stats = []
+    for members in buckets:
+        refs = sorted(taxi_ref_a(float(r["route_km"])) for r in members)
+        bests = sorted(driver_best(x) for x in refs)
+        stats.append({"members": members, "refs": refs, "bests": bests})
+    return stats
+
+
+POLICY_HEADER = [
+    "model_id", "rounding_km", "edges", "policy", "zone_id", "lower_bound",
+    "upper_bound", "boundary_convention", "address_count", "policy_status",
+    "minimum_fee_required_by_driver", "maximum_fee_allowed_by_client",
+    "candidate_fee_rub", "fallback_fee_rub", "hard_constraint_coverage",
+    "violated_address_count", "minimum_taxi_reference", "median_taxi_reference",
+    "minimum_driver_best_take", "median_driver_best_take", "maximum_driver_gap",
+    "minimum_client_saving", "median_client_saving", "client_constraint_coverage",
+    "driver_constraint_coverage", "joint_coverage", "notes"]
+
+
+def compute_policy_rows(zone_stats, edges, model_id, rounding_km):
+    """One row per (policy, non-empty zone). Fees are assigned per ZONE across all
+    three policies so both within-policy monotonicity AND the order
+    CUSTOMER_FIRST <= BALANCED <= DRIVER_CONSERVATIVE hold by construction: a fee
+    is only ever RAISED (which shrinks the driver gap) and is checked against the
+    client ceiling, so it never breaks a hard constraint; if the raise would
+    exceed the ceiling the zone is INFEASIBLE (not clamped)."""
+    bounds = [0.0, *edges, ""]
+    policy_order = ["CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE"]
+    prev = dict.fromkeys(policy_order, 0)
+    out = []
+    for zi, st in enumerate(zone_stats):
+        members, refs, bests = st["members"], st["refs"], st["bests"]
+        if not members:
+            continue
+        cross_lower = 0
+        for policy in policy_order:
+            rule = POLICY_RULES[policy]
+            floor_driver = _driver_floor(bests, rule)
+            ceil_client = _client_ceiling(refs, rule)
+            fee = max(floor_driver, prev[policy], cross_lower)
+            base_feasible = floor_driver <= ceil_client
+            if base_feasible and fee <= ceil_client:
+                status, candidate, eff_fee = "FEASIBLE", fee, fee
+                prev[policy] = cross_lower = fee
+                c_cov = d_cov = j_cov = 1.0
+                violated, reason = 0, ""
+            else:
+                status, candidate = "INFEASIBLE", ""
+                reason = (
+                    f"driver floor {floor_driver} > client ceiling {ceil_client}"
+                    if not base_feasible
+                    else f"ordered/monotone floor {fee} > client ceiling {ceil_client}"
+                )
+                eff_fee = _fallback_fee(refs, bests, rule)
+                c_cov, d_cov, j_cov, violated = _coverage(eff_fee, refs, bests, rule)
+            gaps = [best - eff_fee for best in bests]
+            savings = [ref - eff_fee for ref in refs]
+            out.append({
+                "model_id": model_id, "rounding_km": rounding_km,
+                "edges": "|".join(str(e) for e in edges),
+                "policy": policy, "zone_id": zi + 1,
+                "lower_bound": ZM._round(bounds[zi]),
+                "upper_bound": ZM._round(bounds[zi + 1]) if bounds[zi + 1] != "" else "",
+                "boundary_convention": BOUNDARY_CONVENTION,
+                "address_count": len(members),
+                "policy_status": status,
+                "minimum_fee_required_by_driver": floor_driver,
+                "maximum_fee_allowed_by_client": ceil_client,
+                "candidate_fee_rub": candidate,
+                "fallback_fee_rub": "" if status == "FEASIBLE" else eff_fee,
+                "hard_constraint_coverage": ZM._round(j_cov, 4),
+                "violated_address_count": violated,
+                "minimum_taxi_reference": ZM._round(min(refs), 2),
+                "median_taxi_reference": ZM._round(_pct(refs, 0.5), 2),
+                "minimum_driver_best_take": ZM._round(min(bests), 2),
+                "median_driver_best_take": ZM._round(_pct(bests, 0.5), 2),
+                "maximum_driver_gap": ZM._round(max(gaps), 2),
+                "minimum_client_saving": ZM._round(min(savings), 2),
+                "median_client_saving": ZM._round(_pct(sorted(savings), 0.5), 2),
+                "client_constraint_coverage": ZM._round(c_cov, 4),
+                "driver_constraint_coverage": ZM._round(d_cov, 4),
+                "joint_coverage": ZM._round(j_cov, 4),
+                "notes": "FEASIBLE" if status == "FEASIBLE"
+                else f"INFEASIBLE — {reason}; fallback=FALLBACK_PARTIAL_COVERAGE",
+            })
+    return out
+
+
 def build_policy_prices(city, candidates):
     rows = []
     for model_id in CITY_MODELS:
         edges = model_edges(candidates, model_id)
         if not edges:
             continue
-        buckets = [[] for _ in range(len(edges) + 1)]
-        for r in city:
-            buckets[zone_of_city(float(r["route_km"]), edges) - 1].append(r)
-        zone_stats = []
-        for members in buckets:
-            refs = sorted(taxi_ref_a(float(r["route_km"])) for r in members)
-            bests = sorted(driver_best(taxi_ref_a(float(r["route_km"]))) for r in members)
-            zone_stats.append({"members": members, "refs": refs, "bests": bests})
-        bounds = [0.0, *edges, ""]
-
-        # Assign fees per ZONE across all three policies so both the within-policy
-        # monotone rule AND the cross-policy order CUSTOMER_FIRST <= BALANCED <=
-        # DRIVER_CONSERVATIVE hold by construction. Raising a fee only shrinks the
-        # driver gap (still within cap) and is checked against the client ceiling,
-        # so it never breaks a hard constraint; if the raise would exceed the
-        # ceiling the zone is INFEASIBLE (not clamped).
-        policy_order = ["CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE"]
-        prev = dict.fromkeys(policy_order, 0)
-        for zi, st in enumerate(zone_stats):
-            members, refs, bests = st["members"], st["refs"], st["bests"]
-            if not members:
-                continue
-            cross_lower = 0  # CUSTOMER_FIRST <= BALANCED <= DRIVER_CONSERVATIVE
-            for policy in policy_order:
-                rule = POLICY_RULES[policy]
-                floor_driver = _driver_floor(bests, rule)
-                ceil_client = _client_ceiling(refs, rule)
-                fee = max(floor_driver, prev[policy], cross_lower)
-                base_feasible = floor_driver <= ceil_client
-                if base_feasible and fee <= ceil_client:
-                    status = "FEASIBLE"
-                    candidate = fee
-                    prev[policy] = fee
-                    cross_lower = fee
-                    c_cov = d_cov = j_cov = 1.0
-                    violated = 0
-                    eff_fee = fee
-                    reason = ""
-                else:
-                    status = "INFEASIBLE"
-                    candidate = ""
-                    if not base_feasible:
-                        reason = (
-                            f"driver floor {floor_driver} > client ceiling "
-                            f"{ceil_client}: no single flat fee keeps 100% within limits"
-                        )
-                    else:
-                        reason = (
-                            f"ordered/monotone floor {fee} exceeds client ceiling "
-                            f"{ceil_client}"
-                        )
-                    eff_fee = _fallback_fee(refs, bests, rule)
-                    c_cov, d_cov, j_cov, violated = _coverage(eff_fee, refs, bests, rule)
-                gaps = [best - eff_fee for best in bests]
-                savings = [ref - eff_fee for ref in refs]
-                rows.append({
-                    "model_id": model_id, "policy": policy, "zone_id": zi + 1,
-                    "lower_bound": ZM._round(bounds[zi]),
-                    "upper_bound": ZM._round(bounds[zi + 1]) if bounds[zi + 1] != "" else "",
-                    "boundary_convention": BOUNDARY_CONVENTION,
-                    "city_address_count": len(members),
-                    "policy_status": status,
-                    "minimum_fee_required_by_driver": floor_driver,
-                    "maximum_fee_allowed_by_client": ceil_client,
-                    "candidate_fee_rub": candidate,
-                    "fallback_fee_rub": "" if status == "FEASIBLE" else eff_fee,
-                    "hard_constraint_coverage": ZM._round(j_cov, 4),
-                    "p95_constraint_coverage": ZM._round(j_cov, 4),
-                    "violated_address_count": violated,
-                    "minimum_taxi_reference": ZM._round(min(refs), 2),
-                    "median_taxi_reference": ZM._round(_pct(refs, 0.5), 2),
-                    "minimum_driver_best_take": ZM._round(min(bests), 2),
-                    "median_driver_best_take": ZM._round(_pct(bests, 0.5), 2),
-                    "maximum_driver_gap": ZM._round(max(gaps), 2),
-                    "minimum_client_saving": ZM._round(min(savings), 2),
-                    "median_client_saving": ZM._round(_pct(sorted(savings), 0.5), 2),
-                    "client_constraint_coverage": ZM._round(c_cov, 4),
-                    "driver_constraint_coverage": ZM._round(d_cov, 4),
-                    "joint_coverage": ZM._round(j_cov, 4),
-                    "notes": "FEASIBLE" if status == "FEASIBLE"
-                    else f"INFEASIBLE — {reason}; fallback=FALLBACK_PARTIAL_COVERAGE",
-                })
-    header = ["model_id", "policy", "zone_id", "lower_bound", "upper_bound",
-              "boundary_convention", "city_address_count", "policy_status",
-              "minimum_fee_required_by_driver", "maximum_fee_allowed_by_client",
-              "candidate_fee_rub", "fallback_fee_rub", "hard_constraint_coverage",
-              "p95_constraint_coverage", "violated_address_count",
-              "minimum_taxi_reference", "median_taxi_reference",
-              "minimum_driver_best_take", "median_driver_best_take",
-              "maximum_driver_gap", "minimum_client_saving", "median_client_saving",
-              "client_constraint_coverage", "driver_constraint_coverage",
-              "joint_coverage", "notes"]
+        rows.extend(compute_policy_rows(zone_stats_for(edges, city), edges,
+                                        model_id, "raw"))
     with POLICIES.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=header, lineterminator="\n")
+        writer = csv.DictWriter(handle, fieldnames=POLICY_HEADER, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     return rows
@@ -547,10 +551,17 @@ def _manual_city_agreement(edges, city_controls):
     return same, len(city_controls) - same
 
 
+def _street_key(r):
+    """Administrative street key: identically named streets in different districts
+    are distinct and must not be merged."""
+    return (r["territory"], r["district"], r["street"])
+
+
 def _same_street_splits(edges, city):
     streets = {}
     for r in city:
-        streets.setdefault(r["street"], set()).add(zone_of_city(float(r["route_km"]), edges))
+        streets.setdefault(_street_key(r), set()).add(
+            zone_of_city(float(r["route_km"]), edges))
     return sum(1 for zs in streets.values() if len(zs) > 1)
 
 
@@ -591,7 +602,7 @@ def build_operational_candidates(city, candidates):
     for idx, (lat, lon, *_rest) in enumerate(pts):
         grid.setdefault((int(lat / 0.002246), int(lon / 0.00328)), []).append(idx)
 
-    rows, change_rows = [], []
+    rows, change_rows, op_policy_rows = [], [], []
     for model_id in ("CITY_K4R_dp_optimal_jenks", "CITY_K5R_dp_optimal_jenks"):
         raw_edges = model_edges(candidates, model_id)
         raw_assign = {r["address_id"]: zone_of_city(float(r["route_km"]), raw_edges)
@@ -599,6 +610,7 @@ def build_operational_candidates(city, candidates):
         variants = [("raw", raw_edges)] + [
             (str(step), ZM._monotone([ZM._round(round(e / step) * step) for e in raw_edges]))
             for step in ZM.ROUNDING_STEPS_KM]
+        raw_balanced_infeasible = None
         scored = []
         for label, edges in variants:
             buckets = [0] * (len(edges) + 1)
@@ -616,25 +628,15 @@ def build_operational_candidates(city, candidates):
             fees = _balanced_effective_fees(edges, city)
             d100, d250, mx, p90 = _neighbour_for_edges(pts, grid, edges, fees)
             splits = _same_street_splits(edges, city)
-            # BALANCED feasibility per zone
-            feasible = infeasible = 0
-            bb = [[] for _ in range(len(edges) + 1)]
-            for r in city:
-                bb[zone_of_city(float(r["route_km"]), edges) - 1].append(
-                    taxi_ref_a(float(r["route_km"])))
-            prev = 0
-            for refs in bb:
-                if not refs:
-                    continue
-                bests = [driver_best(x) for x in refs]
-                fl, ce = _driver_floor(bests, POLICY_RULES["BALANCED"]), \
-                    _client_ceiling(refs, POLICY_RULES["BALANCED"])
-                fee = max(fl, prev)
-                if fl <= ce and fee <= ce:
-                    feasible += 1
-                    prev = fee
-                else:
-                    infeasible += 1
+            # full per-policy recompute for this rounded partition
+            prows = compute_policy_rows(zone_stats_for(edges, city), edges, model_id, label)
+            op_policy_rows.extend(prows)
+            feas = {p: {"F": 0, "I": 0} for p in
+                    ("CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE")}
+            for pr in prows:
+                feas[pr["policy"]]["F" if pr["policy_status"] == "FEASIBLE" else "I"] += 1
+            if label == "raw":
+                raw_balanced_infeasible = feas["BALANCED"]["I"]
             row = {
                 "model_id": model_id, "rounding_km": label,
                 "edges": "|".join(str(e) for e in edges),
@@ -644,14 +646,29 @@ def build_operational_candidates(city, candidates):
                 "same_street_splits": splits,
                 "neighbour_diff_zone_100m": d100, "neighbour_diff_zone_250m": d250,
                 "max_price_jump_rub": mx, "p90_price_jump_rub": ZM._round(p90, 2),
-                "balanced_feasible_zones": feasible,
-                "balanced_infeasible_zones": infeasible,
-                "selection": "",
+                "customer_feasible_zones": feas["CUSTOMER_FIRST"]["F"],
+                "customer_infeasible_zones": feas["CUSTOMER_FIRST"]["I"],
+                "balanced_feasible_zones": feas["BALANCED"]["F"],
+                "balanced_infeasible_zones": feas["BALANCED"]["I"],
+                "driver_feasible_zones": feas["DRIVER_CONSERVATIVE"]["F"],
+                "driver_infeasible_zones": feas["DRIVER_CONSERVATIVE"]["I"],
+                "selection_score": "", "selection": "",
             }
             rows.append(row)
-            if label != "raw":
-                # lower is better: changes, splits, close-neighbour discontinuities, flips
-                scored.append((changed + splits + d100 + flip, label, row))
+        # Reselection scoring (documented). Primary must not worsen the owner's
+        # BALANCED feasibility versus raw, then minimise a geometry cost:
+        #   score = 1000 * max(0, balanced_infeasible - raw_balanced_infeasible)
+        #         + changed + same_street_splits + neighbour_diff_100m + 5 * manual_flip
+        # Lower is better; ties broken by finer rounding (smaller step).
+        for row in rows:
+            if row["model_id"] != model_id or row["rounding_km"] == "raw":
+                continue
+            worsen = max(0, row["balanced_infeasible_zones"] - raw_balanced_infeasible)
+            score = (1000 * worsen + row["changed_vs_raw_count"]
+                     + row["same_street_splits"] + row["neighbour_diff_zone_100m"]
+                     + 5 * row["manual_flip"])
+            row["selection_score"] = score
+            scored.append((score, float(row["rounding_km"]), row))
         scored.sort(key=lambda t: (t[0], t[1]))
         if scored:
             scored[0][2]["selection"] = "PRIMARY_OPERATIONAL_CANDIDATE"
@@ -661,8 +678,11 @@ def build_operational_candidates(city, candidates):
     header = ["model_id", "rounding_km", "edges", "zone_counts", "changed_vs_raw_count",
               "manual_same", "manual_flip", "same_street_splits",
               "neighbour_diff_zone_100m", "neighbour_diff_zone_250m",
-              "max_price_jump_rub", "p90_price_jump_rub", "balanced_feasible_zones",
-              "balanced_infeasible_zones", "selection"]
+              "max_price_jump_rub", "p90_price_jump_rub",
+              "customer_feasible_zones", "customer_infeasible_zones",
+              "balanced_feasible_zones", "balanced_infeasible_zones",
+              "driver_feasible_zones", "driver_infeasible_zones",
+              "selection_score", "selection"]
     with OPERATIONAL.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=header, lineterminator="\n")
         writer.writeheader()
@@ -673,6 +693,10 @@ def build_operational_candidates(city, candidates):
                                 "rounded_zone"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(change_rows)
+    with OPERATIONAL_POLICY.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=POLICY_HEADER, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(op_policy_rows)
     return rows
 
 

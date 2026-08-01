@@ -62,16 +62,16 @@
   </section>
 
   <section class="card">
-    <h2>BALANCED fees — feasibility (100% coverage)</h2>
+    <h2>BALANCED city fees — feasibility (100% coverage, save ≥ 5 руб)</h2>
     <table>
-      <tr><th>Zone</th><th>K4</th><th>K5</th></tr>
-      <tr><td>1</td><td>12 ✅</td><td>12 ✅</td></tr>
-      <tr><td>2</td><td>14 ✅</td><td>12 ✅</td></tr>
-      <tr><td>3</td><td>INFEASIBLE (fb 22, 71%)</td><td>INFEASIBLE (fb 17, 86%)</td></tr>
-      <tr><td>4</td><td>INFEASIBLE (fb 29, 77%)</td><td>INFEASIBLE (fb 24, 94%)</td></tr>
-      <tr><td>5</td><td>—</td><td>INFEASIBLE (fb 31, 84%)</td></tr>
+      <tr><th>City zone</th><th>K4</th><th>K5</th></tr>
+      <tr><td>1 near</td><td>12 ✅</td><td>12 ✅</td></tr>
+      <tr><td>2 near</td><td>INFEASIBLE (fb 13, 99%)</td><td>12 ✅</td></tr>
+      <tr><td>3 mid</td><td>INFEASIBLE (fb 21, 33%)</td><td>INFEASIBLE (fb 15, 30%)</td></tr>
+      <tr><td>4 far</td><td>INFEASIBLE (fb 25, 39%)</td><td>INFEASIBLE (fb 21, 38%)</td></tr>
+      <tr><td>5 far</td><td>—</td><td>INFEASIBLE (fb 27, 49%)</td></tr>
     </table>
-    <p class="muted"><strong>Only the two near zones are FEASIBLE</strong> at 100% coverage. Outer zones have no single flat fee (driver floor &gt; client ceiling); a fallback with partial coverage is shown, never a satisfied-policy price. Driver benchmark = <code>taxi_reference - 5</code>.</p>
+    <p class="muted"><strong>BALANCED now enforces client saving ≥ 5 руб</strong> (the 1-руб bug is fixed), so K4 near-zone 2 is INFEASIBLE. Only the nearest city zones are FEASIBLE at 100% coverage; mid/far <em>city</em> zones (NOT external territories) have no single flat fee — fallback with partial coverage only. Driver benchmark = <code>taxi_reference - 5</code>.</p>
   </section>
 
   <section class="card">

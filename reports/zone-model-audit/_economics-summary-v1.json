@@ -85,24 +85,26 @@
         {
           "zone": 1,
           "fee": 12
-        },
-        {
-          "zone": 2,
-          "fee": 14
         }
       ],
       "infeasible_zones": [
         {
+          "zone": 2,
+          "fallback": 13,
+          "coverage": 0.9891,
+          "violated": 13
+        },
+        {
           "zone": 3,
-          "fallback": 22,
-          "coverage": 0.7086,
-          "violated": 385
+          "fallback": 21,
+          "coverage": 0.3285,
+          "violated": 887
         },
         {
           "zone": 4,
-          "fallback": 29,
-          "coverage": 0.7709,
-          "violated": 230
+          "fallback": 25,
+          "coverage": 0.3944,
+          "violated": 608
         }
       ]
     },
@@ -114,7 +116,7 @@
         },
         {
           "zone": 2,
-          "fee": 14
+          "fee": 13
         }
       ],
       "infeasible_zones": [
@@ -178,21 +180,21 @@
       "infeasible_zones": [
         {
           "zone": 3,
-          "fallback": 17,
-          "coverage": 0.8617,
-          "violated": 87
+          "fallback": 15,
+          "coverage": 0.3037,
+          "violated": 438
         },
         {
           "zone": 4,
-          "fallback": 24,
-          "coverage": 0.9395,
-          "violated": 69
+          "fallback": 21,
+          "coverage": 0.3804,
+          "violated": 707
         },
         {
           "zone": 5,
-          "fallback": 31,
-          "coverage": 0.8362,
-          "violated": 115
+          "fallback": 27,
+          "coverage": 0.49,
+          "violated": 358
         }
       ]
     },
@@ -275,26 +277,32 @@
         {
           "zone": 2,
           "fee": 12
-        },
-        {
-          "zone": 3,
-          "fee": 17
-        },
-        {
-          "zone": 4,
-          "fee": 22
-        },
-        {
-          "zone": 5,
-          "fee": 27
         }
       ],
       "infeasible_zones": [
         {
+          "zone": 3,
+          "fallback": 15,
+          "coverage": 0.359,
+          "violated": 341
+        },
+        {
+          "zone": 4,
+          "fallback": 21,
+          "coverage": 0.4971,
+          "violated": 439
+        },
+        {
+          "zone": 5,
+          "fallback": 25,
+          "coverage": 0.538,
+          "violated": 340
+        },
+        {
           "zone": 6,
-          "fallback": 34,
-          "coverage": 0.9231,
-          "violated": 27
+          "fallback": 30,
+          "coverage": 0.5897,
+          "violated": 144
         }
       ]
     },
@@ -363,24 +371,26 @@
         {
           "zone": 1,
           "fee": 12
-        },
-        {
-          "zone": 2,
-          "fee": 14
         }
       ],
       "infeasible_zones": [
         {
+          "zone": 2,
+          "fallback": 13,
+          "coverage": 0.9891,
+          "violated": 13
+        },
+        {
           "zone": 3,
-          "fallback": 22,
-          "coverage": 0.7086,
-          "violated": 385
+          "fallback": 21,
+          "coverage": 0.3285,
+          "violated": 887
         },
         {
           "zone": 4,
-          "fallback": 29,
-          "coverage": 0.7709,
-          "violated": 230
+          "fallback": 25,
+          "coverage": 0.3944,
+          "violated": 608
         }
       ]
     },
@@ -392,7 +402,7 @@
         },
         {
           "zone": 2,
-          "fee": 14
+          "fee": 13
         }
       ],
       "infeasible_zones": [
@@ -456,21 +466,21 @@
       "infeasible_zones": [
         {
           "zone": 3,
-          "fallback": 17,
-          "coverage": 0.8617,
-          "violated": 87
+          "fallback": 15,
+          "coverage": 0.3037,
+          "violated": 438
         },
         {
           "zone": 4,
-          "fallback": 24,
-          "coverage": 0.9395,
-          "violated": 69
+          "fallback": 21,
+          "coverage": 0.3804,
+          "violated": 707
         },
         {
           "zone": 5,
-          "fallback": 31,
-          "coverage": 0.8362,
-          "violated": 115
+          "fallback": 27,
+          "coverage": 0.49,
+          "violated": 358
         }
       ]
     },
@@ -553,26 +563,32 @@
         {
           "zone": 2,
           "fee": 12
-        },
-        {
-          "zone": 3,
-          "fee": 17
-        },
-        {
-          "zone": 4,
-          "fee": 22
-        },
-        {
-          "zone": 5,
-          "fee": 25
         }
       ],
       "infeasible_zones": [
         {
+          "zone": 3,
+          "fallback": 13,
+          "coverage": 0.3516,
+          "violated": 378
+        },
+        {
+          "zone": 4,
+          "fallback": 21,
+          "coverage": 0.5779,
+          "violated": 317
+        },
+        {
+          "zone": 5,
+          "fallback": 24,
+          "coverage": 0.6206,
+          "violated": 225
+        },
+        {
           "zone": 6,
-          "fallback": 31,
-          "coverage": 0.8295,
-          "violated": 105
+          "fallback": 28,
+          "coverage": 0.4464,
+          "violated": 341
         }
       ]
     },

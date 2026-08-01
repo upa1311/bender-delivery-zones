@@ -496,11 +496,12 @@ CANDIDATE_HEADER = [
 def _rounding_recompute(city: list[dict], edges: list[float]) -> dict:
     """Recompute counts, instability and same-street splits for rounded thresholds."""
     out = {}
-    street_by = {r["uid"]: r["street"] for r in city}
+    # administrative street key: same name in different districts stays distinct
+    street_by = {r["uid"]: (r["settlement"], r["district"], r["street"]) for r in city}
     for step in ROUNDING_STEPS_KM:
         red = _monotone([_round(round(e / step) * step) for e in edges])
         buckets = zone_members(city, red)
-        streets: dict[str, set] = defaultdict(set)
+        streets: dict[tuple, set] = defaultdict(set)
         for r in city:
             streets[street_by[r["uid"]]].add(zone_for(r["route_km"], red))
         out[str(step)] = {

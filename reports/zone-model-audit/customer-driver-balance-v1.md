@@ -23,25 +23,30 @@ post-hoc clamp that breaks a constraint. If the interval is empty the zone is
 `INFEASIBLE` and gets a separate `fallback_fee_rub` (labelled
 `FALLBACK_PARTIAL_COVERAGE`), never a "satisfied policy" price.
 
-**Result (100 %-coverage hard constraints): only the two near zones are FEASIBLE.**
-Full detail: `data/interim/zone-policy-prices-v1.csv`.
+**BALANCED enforces client_saving >= 5 руб** for 100 % of a zone (the 1-руб /
+target_save bug is removed). Full detail: `data/interim/zone-policy-prices-v1.csv`;
+per-rounding: `data/interim/zone-operational-policy-prices-v1.csv`. These are all
+**city** zones (ближние/средние/дальние городские), never external territories.
 
-CITY_K5R (thresholds 1.675 / 2.875 / 4.125 / 5.325 km):
+CITY_K5R raw (thresholds 1.675 / 2.875 / 4.125 / 5.325 km):
 
-| Policy | z1 | z2 | z3 | z4 | z5 |
+| Policy | z1 near | z2 near | z3 mid | z4 far | z5 far |
 |---|---|---|---|---|---|
-| DRIVER_CONSERVATIVE | 12 ✅ | 12 ✅ | INFEASIBLE (fb 17, 87 %) | INFEASIBLE (24, 86 %) | INFEASIBLE (31, 78 %) |
-| BALANCED | 12 ✅ | 12 ✅ | INFEASIBLE (17, 86 %) | INFEASIBLE (24, 94 %) | INFEASIBLE (31, 84 %) |
-| CUSTOMER_FIRST | 12 ✅ | 12 ✅ | INFEASIBLE (15, 42 %) | INFEASIBLE (20, 55 %) | INFEASIBLE (27, 67 %) |
+| DRIVER_CONSERVATIVE | 12 ✅ | 12 ✅ | INF (fb 17, 87 %) | INF (24, 86 %) | INF (31, 78 %) |
+| BALANCED | 12 ✅ | 12 ✅ | INF (15, 30 %) | INF (21, 38 %) | INF (27, 49 %) |
+| CUSTOMER_FIRST | 12 ✅ | 12 ✅ | INF (15, 42 %) | INF (20, 55 %) | INF (27, 67 %) |
 
-CITY_K4R (1.725 / 3.275 / 4.975): feasible z1–z2 (DRIVER 12/14, BALANCED 12/14,
-CUSTOMER 12/13); z3–z4 INFEASIBLE (fallback coverage 48–77 %). Near-zone fees are
-unified upward by the CUSTOMER ≤ BALANCED ≤ DRIVER order, within each ceiling.
+CITY_K4R raw (1.725 / 3.275 / 4.975): DRIVER 12/13 feasible (z1–z2), CUSTOMER 12/13,
+**BALANCED feasible only z1 (12); z2 INFEASIBLE** (min taxi 18, fee 14 would give
+only 4 руб saving < 5). z3–z4 INFEASIBLE all policies.
 
-Why the outer zones are infeasible: within a wide outer zone the taxi reference
-spans a large range (e.g. K5 z5: 32–45 руб), so the fee the far end needs to keep
-the driver whole exceeds the fee the near end needs to still save the client — the
-driver floor rises above the client ceiling. No single flat fee can satisfy 100 %.
+Operational 0.25 km recompute is independent, not copied: e.g. CITY_K5 0.25 makes
+**DRIVER_CONSERVATIVE z3 FEASIBLE at 17** where raw z3 was infeasible.
+
+Why mid/far city zones are infeasible: within a wide zone the taxi reference spans
+a large range (e.g. K5 z5: 32–45 руб), so the fee the far end needs to keep the
+driver whole exceeds the fee the near end needs to still save the client ≥ 5 руб —
+the driver floor rises above the client ceiling. No single flat fee satisfies 100 %.
 
 ## The current flat 25 руб — policy-specific (city, 4,866)
 

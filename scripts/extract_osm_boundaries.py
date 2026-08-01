@@ -34,6 +34,11 @@ OUT_DIR = ROOT / "data/interim/osm-boundaries"
 RAW_DIR = OUT_DIR / "raw"
 STAGE01 = ROOT / "reports/stage-01/source-audit.json"
 PROV_JSON = OUT_DIR / "boundary-extraction-provenance.json"
+CAPTURE_LOG = OUT_DIR / "extraction-capture-log.json"
+
+
+def _now_utc():
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 OVERPASS_ENDPOINTS = [
     "https://overpass-api.de/api/interpreter",
@@ -146,7 +151,7 @@ def stage01_tags():
     return out
 
 
-def process(rid: str, note: str, refresh: bool, s01: dict) -> dict:
+def process(rid: str, note: str, refresh: bool, s01: dict, capture_log: dict) -> dict:
     rel_wrap = fetch(rid, refresh)
     raw_bytes = (RAW_DIR / f"relation-{rid}.overpass.json").read_bytes()
     rel = next((e for e in rel_wrap.get("elements", []) if e.get("type") == "relation"), None)
@@ -174,6 +179,8 @@ def process(rid: str, note: str, refresh: bool, s01: dict) -> dict:
 
     s01_t = s01.get(rid, {})
     name_diverges = bool(s01_t) and s01_t.get("name") != tags.get("name")
+    query = f"[out:json][timeout:120];rel({rid});out geom meta;"
+    retrieval = capture_log.get(rid)
     return {
         "relation_id": rid, "note": note, "osm_url": OSM_URL.format(rid),
         "name": tags.get("name"), "name_ru": tags.get("name:ru"),
@@ -181,11 +188,23 @@ def process(rid: str, note: str, refresh: bool, s01: dict) -> dict:
         "admin_level": tags.get("admin_level"), "place": tags.get("place"),
         "wikidata": tags.get("wikidata"), "iso3166_2": tags.get("ISO3166-2"),
         "osm_note": tags.get("note"),
-        "version": rel.get("version"), "timestamp": rel.get("timestamp"),
+        "version": rel.get("version"),
+        # three DISTINCT timestamps, never conflated:
+        "source_object_timestamp": rel.get("timestamp"),   # when the OSM object was edited
+        "original_retrieval_timestamp_utc": retrieval or "HISTORICAL_METADATA_UNAVAILABLE",
         "changeset": rel.get("changeset"),
-        "extraction_source": "Overpass API (https://overpass-api.de)",
-        "extraction_query": f"[out:json][timeout:120];rel({rid});out geom meta;",
+        "extraction_source": "Overpass API",
+        "extraction_endpoints": OVERPASS_ENDPOINTS,
+        "extraction_query": query,
+        "extraction_command": ('curl -sS --data-urlencode '
+                               f"'data={query}' {OVERPASS_ENDPOINTS[0]}"),
+        "reproducibility_command": "python scripts/extract_osm_boundaries.py "
+                                   "(offline replay of cached raw) | --capture (network)",
         "license": "ODbL — © OpenStreetMap contributors",
+        "raw_artifact_path": f"data/interim/osm-boundaries/raw/relation-{rid}.overpass.json",
+        "geometry_artifact_path": f"data/interim/osm-boundaries/relation-{rid}.geojson",
+        "raw_to_geometry": "geometry assembled from the raw way members "
+                           "(outer/inner roles) via shapely polygonize+difference",
         "raw_sha256": _sha(raw_bytes), "geometry_sha256": _sha(geo_text.encode("utf-8")),
         "source_crs": "EPSG:4326", "output_crs": "EPSG:4326",
         "geometry_type": geom.geom_type if geom is not None else None,
@@ -208,10 +227,20 @@ def process(rid: str, note: str, refresh: bool, s01: dict) -> dict:
 
 
 def main():
-    refresh = "--refresh" in sys.argv
+    capture = "--capture" in sys.argv or "--refresh" in sys.argv
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     s01 = stage01_tags()
-    records = [process(rid, note, refresh, s01) for rid, note in RELATIONS.items()]
+    capture_log = json.loads(CAPTURE_LOG.read_text(encoding="utf-8")) \
+        if CAPTURE_LOG.exists() else {}
+    if capture:
+        # NETWORK: refetch each relation and stamp the true retrieval time now
+        for rid in RELATIONS:
+            fetch(rid, refresh=True)
+            capture_log[rid] = _now_utc()
+        CAPTURE_LOG.write_text(json.dumps(capture_log, ensure_ascii=False, indent=2),
+                               encoding="utf-8", newline="\n")
+    records = [process(rid, note, False, s01, capture_log)
+               for rid, note in RELATIONS.items()]
     PROV_JSON.write_text(
         json.dumps({"generated_by": "scripts/extract_osm_boundaries.py",
                     "relations": records}, ensure_ascii=False, indent=2),

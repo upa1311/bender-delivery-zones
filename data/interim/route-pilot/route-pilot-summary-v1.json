@@ -1,11 +1,19 @@
 {
+  "classification": "CENTRAL_ORIGIN_ALTERNATIVE_PROVIDER_COMPARISON",
+  "restaurant_specific_production_pilot": false,
   "provider_label": "ALTERNATIVE_PROVIDER_COMPARISON",
+  "url_template": "https://router.project-osrm.org/route/v1/driving/{o_lon},{o_lat};{d_lon},{d_lat}?overview=full&geometries=geojson",
+  "request_params": {
+    "overview": "full",
+    "geometries": "geojson",
+    "profile": "driving"
+  },
   "canonical_provider": "local OSRM v26.7.3 car.lua + moldova PBF 09ba0c058e89… (NOT reproducible in this checkout)",
   "canonical_origin": {
     "key": "central_bender_origin",
     "lon": 29.48313,
     "lat": 46.82388,
-    "note": "single central restaurant origin, weight 0.85"
+    "note": "single CENTRAL REPRESENTATIVE restaurant-cluster origin (weight 0.85, poi_count 28) — NOT a specific ordering restaurant"
   },
   "attempted": 30,
   "succeeded": 30,
@@ -16,7 +24,9 @@
   "abs_diff_km_min": 0.0001,
   "abs_diff_km_max": 0.2071,
   "abs_diff_km_mean": 0.0091,
-  "cached": 30,
+  "attempt_metadata_available": true,
+  "attempt_metadata_note": "timestamps + attempt history captured over the network and committed to route-pilot-attempts-v1.csv",
+  "mode": "cache_replay",
   "pilot_ids": [
     "n2321749482",
     "n2323343711",

@@ -1224,9 +1224,11 @@ def test_117_three_relations_really_extracted_with_geometry():
 
 
 def test_118_geometry_checksum_reproducible_and_matches_disk():
-    # the recorded geometry_sha256 must equal the hash of the committed geojson bytes
+    # the recorded geometry_sha256 must equal the hash of the canonical (LF) geojson
+    # content. Normalise CRLF->LF first so the check is line-ending independent and
+    # cannot become a spurious NEW failure on an autocrlf=true checkout.
     for rid, r in BPROV_BY_ID.items():
-        text = (_BND / f"relation-{rid}.geojson").read_bytes()
+        text = (_BND / f"relation-{rid}.geojson").read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(text).hexdigest() == r["geometry_sha256"], rid
     # de-facto PMR (944727) is the largest, city-proper (12463379) the smallest
     areas = {rid: BPROV_BY_ID[rid]["area_km2"] for rid in BPROV_BY_ID}
@@ -1252,6 +1254,15 @@ def test_120_scenarios_all_12_routes_by_each_boundary():
     assert len(BSCEN) == 36                       # 12 routes x 3 boundaries
     assert len({r["canonical_address_id"] for r in BSCEN}) == 12
     assert {r["boundary_id"] for r in BSCEN} == {"12463379", "9581354", "944727"}
+    # address is filled for ALL 36 rows (joined from the canonical registry)
+    assert all(r["address"].strip() for r in BSCEN)
+    assert sum(1 for r in BSCEN if r["address"].strip()) == 36
+    # each row carries a stable route_id and the address is consistent per id
+    by_id = {}
+    for r in BSCEN:
+        assert r["route_id"] == f"route_{r['canonical_address_id']}"
+        by_id.setdefault(r["canonical_address_id"], set()).add(r["address"])
+    assert all(len(v) == 1 for v in by_id.values())   # id -> single address
     # production final_fee stays empty in the production CSV (never leaked here)
     assert all(r["final_fee"] == "" for r in OCFEES)
     # territory-rule keeps the min-5 for external-labelled addresses even at outside 0
@@ -1260,6 +1271,14 @@ def test_120_scenarios_all_12_routes_by_each_boundary():
             assert int(r["territory_rule_surcharge"]) >= 5
     # scenario rows never claim to be an approved price
     assert all("SCENARIO ONLY" in r["note"] for r in BSCEN)
+    # the two confirmed price-change addresses (generated, not hand-written)
+    def finals(uid):
+        return {r["boundary_id"]: int(r["geometric_final_fee"]) for r in BSCEN
+                if r["canonical_address_id"] == uid}
+    g = finals("n2321749482")            # Гиска, Госпитальная 8
+    assert g["12463379"] == 34 and g["944727"] == 28
+    p = finals("w353259234")             # Протягайловка, Банный переулок 1
+    assert p["12463379"] == 35 and p["9581354"] == 30
 
 
 def test_121_giska_label_geometry_conflict_surfaced():
@@ -1293,10 +1312,28 @@ def test_122_owner_map_v2_embeds_all_4350_points_and_layers():
     assert len(data["pts"]) == 4350 and data["expected"] == 4350
     assert set(data["boundaries"]) == {"12463379", "9581354", "944727"}
     assert len(data["routes"]) == 12
-    for lid in ("L_r12463379", "L_r9581354", "L_r944727", "L_routes", "L_points",
-                "L_severny"):
+    for lid in ("L_r12463379", "L_r9581354", "L_r944727", "L_points", "L_severny"):
         assert lid in html
+    # 12 INDEPENDENT route toggles, each with a stable route_id
+    assert html.count('class="rt"') == 12
+    route_ids = {rt["route_id"] for rt in data["routes"]}
+    assert len(route_ids) == 12
+    for rid in route_ids:
+        assert f'data-id="{rid}"' in html
+    # every route has a non-empty address and full per-boundary scenario values
+    for rt in data["routes"]:
+        assert rt["address"].strip()
+        assert set(rt["per"]) == {"12463379", "9581354", "944727"}
+        for b in rt["per"].values():
+            assert {"inside", "outside_km", "surcharge", "final", "crossings",
+                    "touching", "exits", "reentries"} <= set(b)
+    # disputed routes exist, are flagged, and the click side-panel is wired
+    assert any(rt["disputed"] for rt in data["routes"])
+    assert "showRoute" in html and "DISPUTED" in html
+    # owner-facing summary table Route × A/B/C × Δ is embedded
+    assert "A r12463379" in html and "B r9581354" in html and "C r944727" in html
     assert (ROOT / "reports/zone-model-audit/owner-boundary-map-v2.png").exists()
+    assert (ROOT / "reports/zone-model-audit/owner-boundary-map-v2.svg").exists()
 
 
 def test_123_pilot_ran_for_real_30_unique_with_checksums():
@@ -1309,8 +1346,23 @@ def test_123_pilot_ran_for_real_30_unique_with_checksums():
     assert len(raw) == 30
     for r in PILOT_ROWS:
         assert r["provider"].startswith("OSRM demo") and "ALTERNATIVE" in r["provider"]
+        # full per-request provenance
+        assert r["request_url"].startswith("https://router.project-osrm.org/")
+        assert r["request_timestamp_utc"].endswith("Z")
+        assert r["request_params"] and r["mode"] in ("cache_replay", "network_capture")
+        assert r["retry_count"] != "" and r["attempt_number"] != ""
+        assert r["raw_response_path"].startswith("data/interim/route-pilot/raw/")
         if r["validation_status"] == "ALT_PROVIDER_COMPARISON_ONLY":
             assert len(r["raw_sha256"]) == 64 and len(r["geometry_sha256"]) == 64
+    # a committed attempt log with timestamps exists (capture provenance)
+    attempts = _csv(ROOT / "data/interim/route-pilot/route-pilot-attempts-v1.csv")
+    assert len(attempts) >= 30
+    assert all(a["request_timestamp_utc"].endswith("Z") for a in attempts)
+    # classification is honest — NOT a restaurant-specific production pilot
+    assert PILOT["classification"] == "CENTRAL_ORIGIN_ALTERNATIVE_PROVIDER_COMPARISON"
+    assert PILOT["restaurant_specific_production_pilot"] is False
+    assert PILOT["attempt_metadata_available"] is True
+    assert PILOT["url_template"].startswith("https://router.project-osrm.org/")
     # canonical provider is documented and NOT claimed to be reproduced here
     assert "NOT reproducible" in PILOT["canonical_provider"]
     assert PILOT["provider_label"] == "ALTERNATIVE_PROVIDER_COMPARISON"
@@ -1360,6 +1412,63 @@ def test_127_decision_doc_v2_complete_and_not_self_approved():
         "utf-8")
     assert "OWNER_BOUNDARY_DECISION_REQUIRED" in dec
     assert "[x]" not in dec.lower()                    # no box pre-checked
+    # 944727 is NOT called an operational/draft/owner-designed tariff boundary
+    assert "draft operational boundary" not in dec.lower()
+    assert "operational boundary C" not in dec
+    assert "NO_SEPARATE_OPERATIONAL_TARIFF_BOUNDARY_AVAILABLE" in dec
+    # corrected 4-option decision block referencing each relation
+    assert "Approve relation 12463379 as tariff boundary" in dec
+    assert "Approve relation 9581354 as tariff boundary" in dec
+    assert "Approve relation 944727 as tariff boundary" in dec
+    assert "Reject all and request a separate operational tariff boundary" in dec
+    # the two confirmed price changes are listed explicitly
+    assert "Гиска, Госпитальная 8 | 34 → 28" in dec
+    assert "Банный переулок 1 | 35 → 30" in dec
+    # central-origin limitation + restaurant-specific requirement are stated
+    assert "RESTAURANT_ORIGINS_UNAVAILABLE" in dec
+    assert "active_restaurant_origins × canonical_delivery_destinations" in dec
     for token in ("12463379", "9581354", "944727", "Северный", "ГАИ",
-                  "4 338", "owner-boundary-map-v2"):
+                  "owner-boundary-map-v2"):
         assert token in dec
+
+
+def test_128_restaurant_plan_unavailable_with_schema_and_scope():
+    plan = (ROOT / "reports/zone-model-audit/restaurant-origins-plan-v1.md").read_text(
+        "utf-8")
+    assert "RESTAURANT_ORIGINS_UNAVAILABLE" in plan
+    # only the 3 representative cluster origins exist — no invented restaurants
+    assert "REPRESENTATIVE cluster origins" in plan
+    for f in ("restaurant_id", "latitude", "longitude", "verification_status",
+              "active_status"):
+        assert f in plan                              # required input schema
+    assert "active_restaurant_origins × canonical_delivery_destinations" in plan
+    for scale in ("4,350", "21,750", "43,500"):       # 1/5/10 × destinations
+        assert scale in plan
+    assert "No batch was run" in plan
+
+
+def test_129_boundary_provenance_has_dates_endpoint_command_link():
+    for rid, r in BPROV_BY_ID.items():
+        # three DISTINCT timestamps, never conflated
+        assert r["source_object_timestamp"]           # OSM object edit time
+        assert r["original_retrieval_timestamp_utc"].endswith("Z")  # real fetch time
+        assert r["source_object_timestamp"] != r["original_retrieval_timestamp_utc"]
+        assert r["extraction_command"].startswith("curl")
+        assert any("overpass" in e for e in r["extraction_endpoints"])
+        assert r["raw_artifact_path"].endswith(f"relation-{rid}.overpass.json")
+        assert r["geometry_artifact_path"].endswith(f"relation-{rid}.geojson")
+        assert "polygonize" in r["raw_to_geometry"]
+        assert "moldova" in r["pbf_provenance"]["pbf_resolved_url"]
+    # capture log records retrieval timestamps separately (committed)
+    log = json.loads((_BND / "extraction-capture-log.json").read_text("utf-8"))
+    assert set(log) == {"12463379", "9581354", "944727"}
+
+
+def test_130_boundary_naming_is_factual_not_operational():
+    by = {r["relation_id"]: r for r in BCOMPARE}
+    # factual OSM identity present; none described as an operational tariff boundary
+    for r in by.values():
+        assert r["name"]
+        assert "operational" not in r["administrative_meaning"].lower()
+    assert by["9581354"]["admin_level"] == "4"
+    assert by["944727"]["admin_level"] == "5"

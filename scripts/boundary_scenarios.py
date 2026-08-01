@@ -109,6 +109,8 @@ def build_scenarios(boundaries, inventory, reg):
         dest_lonlat = Point(*inv["coords"][-1])
         route_km = rec["route_km"]
         base = OT.base_city_fee(route_km)
+        address = ", ".join(str(rec[k]) for k in ("settlement", "street", "house")
+                            if rec.get(k))
         for rid in CANDIDATES:
             b = boundaries[rid]
             dest_inside = b["lonlat"].contains(dest_lonlat)
@@ -133,7 +135,8 @@ def build_scenarios(boundaries, inventory, reg):
             terr_final = base + terr_surcharge
             conflict = bool(label_external and dest_inside)
             rows.append({
-                "canonical_address_id": uid, "address": rec.get("address", ""),
+                "canonical_address_id": uid, "route_id": f"route_{uid}",
+                "address": address,
                 "territory": rec["settlement"], "route_source": inv.get("source", ""),
                 "canonical_route_km": route_km,
                 "polyline_length_km": round(inv["length_km"], 4),
@@ -155,6 +158,18 @@ def build_scenarios(boundaries, inventory, reg):
                         "geometric_* = classify by polygon containment; "
                         "territory_rule_* = external-label min-5 rule (v1)",
             })
+    # difference versus the other candidates: min/max geometric final per address
+    by_addr = {}
+    for r in rows:
+        by_addr.setdefault(r["canonical_address_id"], []).append(r)
+    for group in by_addr.values():
+        finals = [r["geometric_final_fee"] for r in group]
+        lo, hi = min(finals), max(finals)
+        for r in group:
+            r["geometric_final_fee_min_across_candidates"] = lo
+            r["geometric_final_fee_max_across_candidates"] = hi
+            r["fee_diff_vs_cheapest_candidate"] = r["geometric_final_fee"] - lo
+            r["price_changes_across_candidates"] = lo != hi
     return rows
 
 
@@ -202,7 +217,9 @@ def write_comparison(boundaries, membership, counts):
             "osm_url": p["osm_url"], "name": p["name"], "name_ru": p.get("name_ru"),
             "admin_level": p["admin_level"], "administrative_meaning": ADMIN_MEANING[rid],
             "provenance": p["extraction_source"], "license": p["license"],
-            "version": p["version"], "timestamp": p["timestamp"],
+            "version": p["version"],
+            "source_object_timestamp": p["source_object_timestamp"],
+            "original_retrieval_timestamp_utc": p["original_retrieval_timestamp_utc"],
             "geometry_type": p["geometry_type"], "area_km2": p["area_km2"],
             "polygon_parts": p["polygon_parts"], "holes": p["holes"],
             "valid_before_repair": p["valid_before_repair"],

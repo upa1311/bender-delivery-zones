@@ -1,38 +1,50 @@
-# Route generation pilot v1 — REAL run (ALTERNATIVE_PROVIDER_COMPARISON)
+# Route generation pilot v1 — CENTRAL_ORIGIN_ALTERNATIVE_PROVIDER_COMPARISON
+
+**This is NOT a restaurant-specific production pilot.**
 
 ## Canonical provider (proven from repo, NOT reproducible here)
 
 - Engine: **local OSRM v26.7.3**, car.lua + `endpoint-aware-delivery` access profile (docs/data/stage10c-osrm-build-manifest.json).
 - Graph: **moldova-latest.osm.pbf** sha256 `09ba0c058e89…` (reports/stage-01/source-audit.md).
-- Origin: **central_bender_origin** 29.48313,46.82388 — a single central restaurant origin (weight 0.85), NOT per-restaurant.
-- The PBF (100 MB, gitignored) and the OSRM binary are absent in this checkout, so the canonical engine cannot be run here.
+- Origin: **central_bender_origin** 29.48313,46.82388 — single CENTRAL REPRESENTATIVE restaurant-cluster origin (weight 0.85, poi_count 28) — NOT a specific ordering restaurant.
+- The PBF (100 MB, gitignored) and the OSRM binary are absent here, so the canonical engine cannot be run.
+
+## Central-origin limitation (critical)
+
+Canonical route_km and this pilot both route from ONE central representative origin. That is fine for testing the routing engine and reproducibility, but it does **NOT** prove a production delivery price. A real order's price must be routed **ordering restaurant → client address**. Restaurant coordinates are not yet provided/confirmed (see `restaurant-origins-plan-v1.md` → `RESTAURANT_ORIGINS_UNAVAILABLE`). Mass route generation is blocked until a restaurant registry and an owner decision exist.
 
 ## What this pilot actually did
 
-- Provider: **ALTERNATIVE_PROVIDER_COMPARISON** — public OSRM demo (router.project-osrm.org), full-planet OSM car profile.
-- **30 real HTTP requests** from the SAME proven central origin to **30 unique** canonical external destinations.
-- Succeeded: **30**, failed: **0**, served-from-cache on rerun: **30**.
-- Of the 30, **12** had a prior canonical polyline and **18** had never been routed before.
-- Raw responses + sha256 saved per address under `data/interim/route-pilot/raw/` (deterministic, resumable, cached).
+- Provider: OSRM demo (router.project-osrm.org), full-planet car profile.
+- URL template: `https://router.project-osrm.org/route/v1/driving/{o_lon},{o_lat};{d_lon},{d_lat}?overview=full&geometries=geojson`; params: `{"overview": "full", "geometries": "geojson", "profile": "driving"}`.
+- Mode of this run: **cache_replay** (network_capture records timestamps; cache_replay rebuilds offline from committed raw + attempt log).
+- **30 requests**, **30** OK, **0** failed, over **30 unique** destinations (18 never routed before).
+- Attempt metadata (timestamp/attempt/retries/URL) per request: `timestamps + attempt history captured over the network and committed to route-pilot-attempts-v1.csv`.
+- Raw responses + sha256 under `data/interim/route-pilot/raw/`; attempt log in `route-pilot-attempts-v1.csv`; per-request provenance in `route-pilot-results-v1.csv`.
 
 ## Alt-provider length vs canonical route_km
 
-- abs diff km: min **0.0001**, mean **0.0091**, max **0.2071**.
-- These differences are EXPECTED: the demo uses a different graph, profile and snapshot. They bound how far a generic car route sits from the canonical delivery route; they are **not** production distances and must not replace canonical route_km.
+- |diff| km: min **0.0001**, mean **0.0091**, max **0.2071**. Differences are expected (different graph/profile/snapshot); they are NOT production distances and must not replace canonical route_km. Silent provider substitution is forbidden.
 
-## Why the alt provider CANNOT be accepted into production
+## Full-batch scope (correct formula)
 
-- Different routing graph (full-planet vs pinned Moldova PBF snapshot).
-- Different profile (generic car vs car.lua + delivery access/turn restrictions).
-- No control over engine version or determinism on a shared public server.
-- Silently substituting it for the canonical provider is forbidden.
+Production routing is per ordering restaurant, so the batch size is:
 
-## Estimate for the full remaining batch
+```
+total_routes = active_restaurant_origins × canonical_delivery_destinations
+```
 
-- Remaining external addresses without a canonical polyline: **~4338**.
-- With the CANONICAL local OSRM: free, no API cost, no rate limit; a ~4338-request `/route` batch completes in seconds–minutes locally.
-- Unblocker: stand up OSRM v26.7.3 + the recorded PBF + car.lua/access profiles, then route from the required restaurant origin(s).
-- **Not run here**: the full batch requires owner permission and the canonical engine; this pilot only proves the mechanism on 30 addresses.
+With 4350 canonical external destinations (city addresses add more):
+
+| restaurants | routes | local OSRM time* | storage** |
+|---:|---:|---|---|
+| 1 | 4,350 | seconds–1 min | ~tens of MB |
+| 5 | 21,750 | ~minutes | ~hundreds of MB |
+| 10 | 43,500 | ~minutes | ~hundreds of MB |
+
+*Local OSRM `/route`: free, no API cost, no rate limit; time dominated by engine setup, not per-request. **Raw + geometry per route, gzip-friendly. Actual restaurant count is UNKNOWN — no registry (see plan). Caching key: `(restaurant_id, canonical_address_id, graph_version)`; resumable by skipping existing cache entries. Expected failures/retries: near-zero locally.
+
+**No full batch was run.** It is blocked until a restaurant registry and owner permission exist.
 
 ## Pilot address ids
 

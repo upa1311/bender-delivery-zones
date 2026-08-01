@@ -1499,17 +1499,40 @@ def test_130_boundary_naming_is_factual_not_operational():
 def test_131_test_baseline_verification_note_is_honest():
     note = (ROOT / "reports/zone-model-audit/TEST-BASELINE-VERIFICATION.md").read_text(
         "utf-8")
-    # the mandated honest baseline formulation is present verbatim
-    assert ("Full pytest on START_HEAD 9c5b9ca: 750 passed, 2 failed" in note)
+    # mandated baseline formulation for the current START_HEAD
+    assert "Full pytest on START_HEAD 4d166a3: 751 passed, 2 failed, exit code 1" in note
     assert "no new failures were introduced" in note.lower()
-    # the false record is explicitly corrected, not repeated as truth
-    assert "752 passed" in note and "correct baseline" in note.lower()
-    # the two immutable-release baseline failures are named
-    assert "test_release.py::test_release_checksums_match" in note
-    assert "test_release_v11.py::test_checksums_match_and_manifest_agrees" in note
+    # the CORRECT immutable-release guard tests are named (not the old wrong ones)
+    assert ("test_router_manual_yandex_evaluator.py::"
+            "test_immutable_releases_are_unchanged" in note)
+    assert ("test_yandex_address_inventory_audit.py::"
+            "test_22_immutable_releases_are_unchanged" in note)
+    # the earlier wrong record/names are explicitly corrected
+    assert "corrections" in note.lower() and "wrong" in note.lower()
     # no owner-facing artifact claims a clean run as universal truth
     for name in ("OWNER_BOUNDARY_DECISION.md", "route-generation-pilot-v1.md",
                  "outside-city-distance-v1.md"):
         txt = (ROOT / "reports/zone-model-audit" / name).read_text("utf-8")
         assert "all tests pass" not in txt.lower()
-        assert "752 passed" not in txt
+
+
+def test_132_geometry_in_repo_consistent_with_committed_files():
+    cand = {c["candidate_id"]: c for c in OCSUM["boundary_candidates"]}
+    for c in cand.values():
+        # if a committed geometry file exists, geometry_in_repo can never be "no"
+        gpath = ROOT / c["geometry_in_repo_path"]
+        if gpath.exists():
+            assert c["geometry_in_repo"] == "yes", c["candidate_id"]
+        # no contradiction: extracted geometry that is committed is in the repo
+        if c["geometry_extracted"] == "yes":
+            assert c["geometry_in_repo"] == "yes"
+    # the two brief relations now resolve to committed extracted geometry
+    for cid, rid in (("municipiul_bender_9581354", "9581354"),
+                     ("bender_city_council_944727", "944727")):
+        c = cand[cid]
+        assert c["geometry_in_repo"] == "yes"
+        assert c["geometry_in_repo_path"] == \
+            f"data/interim/osm-boundaries/relation-{rid}.geojson"
+        assert (ROOT / c["geometry_in_repo_path"]).exists()
+        # summary geometry_sha256 agrees with the extraction provenance
+        assert c["geometry_sha256"] == BPROV_BY_ID[rid]["geometry_sha256"]

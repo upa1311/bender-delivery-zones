@@ -227,12 +227,20 @@ def boundary_comparison(bprops, boundary_geom):
             "also extracted from OSM (see provenance)" if is_repo
             else "brief candidate; geometry extracted from OSM at commit 6d4679c — "
                  "administrative boundary, NOT auto-approved for tariff")
+        geom_rel = p.get("geometry_artifact_path", "")
+        # geometry_in_repo reflects whether a committed geometry file actually exists.
+        # For 12463379 it is the repo source-boundaries.geojson; for 9581354 / 944727
+        # it is the extracted data/interim/osm-boundaries/relation-*.geojson (now
+        # committed) — so all three are "yes" once extraction has run.
+        geom_committed = bool(geom_rel) and (ROOT / geom_rel).exists()
         rows.append({
             "candidate_id": cid, "osm": meta["osm"], "brief": meta["brief"],
             "geometry_extracted": "yes" if p else "no",
-            "geometry_in_repo": "yes" if is_repo else "no",
+            "geometry_in_repo": "yes" if (is_repo or geom_committed) else "no",
+            "geometry_in_repo_path": ("docs/data/source-boundaries.geojson" if is_repo
+                                      else geom_rel),
             "raw_source_path": p.get("raw_artifact_path", ""),
-            "geometry_path": p.get("geometry_artifact_path", ""),
+            "geometry_path": geom_rel,
             "source_file": ("docs/data/source-boundaries.geojson" if is_repo
                             else p.get("geometry_artifact_path", "")),
             "raw_sha256": p.get("raw_sha256", ""),

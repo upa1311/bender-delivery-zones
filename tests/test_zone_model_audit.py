@@ -734,3 +734,60 @@ def test_70_no_fake_p95_field():
                  "data/interim/zone-operational-policy-prices-v1.csv"):
         header = open(ROOT / path, encoding="utf-8-sig").readline()
         assert "p95" not in header
+
+
+# ================= corrective-commit provenance tests =================
+PACK = (ROOT / "reports/zone-model-audit/owner-decision-pack-v1.md").read_text(
+    encoding="utf-8")
+OPCAND = _csv(ROOT / "data/interim/zone-operational-candidates-v1.csv")
+
+
+def test_71_owner_pack_k5_025_edges_match_csv():
+    row = next(r for r in OPCAND if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+               and r["rounding_km"] == "0.25")
+    assert row["edges"] == "1.75|3.0|4.0|5.25"          # the corrected value
+    assert f"edges {row['edges']}" in PACK               # pack shows exactly the CSV edges
+
+
+def test_72_owner_pack_has_all_four_full_tables():
+    for label in ("CITY_K4 raw", "CITY_K4 operational 0.25",
+                  "CITY_K5 raw", "CITY_K5 operational 0.25"):
+        assert f"### {label} — edges" in PACK
+    # each table carries the full per-zone/per-policy columns
+    assert PACK.count("| Zone | Policy | Status | Fee | Fallback | Coverage |") >= 4
+
+
+def test_73_owner_pack_numbers_are_generated_from_csv():
+    op = OPPOL
+    # every FEASIBLE fee and every fallback in the K5 0.25 CSV must appear verbatim
+    rows = [r for r in op if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+            and r["rounding_km"] == "0.25"]
+    assert rows
+    block = PACK.split("CITY_K5 operational 0.25")[1].split("### ")[0]
+    for r in rows:
+        cell = (f"| {r['candidate_fee_rub']} |" if r["policy_status"] == "FEASIBLE"
+                else f"| {r['fallback_fee_rub']} |")
+        assert cell in block  # the exact fee/fallback from the CSV is in the table
+
+
+def test_74_operational_candidates_have_weighted_coverage():
+    for r in OPCAND:
+        for key in ("customer", "balanced", "driver"):
+            assert r[f"{key}_total_joint_coverage"] != ""
+            assert r[f"{key}_weighted_fallback_coverage"] != ""
+            assert r[f"{key}_total_violated_addresses"] != ""
+
+
+def test_75_selection_prefers_coverage_before_geometry():
+    # CITY_K5 PRIMARY must be the rounded variant with the highest BALANCED joint
+    # coverage among those that do not reduce feasible BALANCED zones (not geometry).
+    k5 = [r for r in OPCAND if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+          and r["rounding_km"] != "raw"]
+    raw = next(r for r in OPCAND if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+               and r["rounding_km"] == "raw")
+    eligible = [r for r in k5 if int(r["balanced_feasible_zones"])
+                >= int(raw["balanced_feasible_zones"])]
+    best_cov = max(float(r["balanced_total_joint_coverage"]) for r in eligible)
+    primary = next(r for r in OPCAND if r["model_id"] == "CITY_K5R_dp_optimal_jenks"
+                   and r["selection"] == "PRIMARY_OPERATIONAL_CANDIDATE")
+    assert float(primary["balanced_total_joint_coverage"]) == best_cov

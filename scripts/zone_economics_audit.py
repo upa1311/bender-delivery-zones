@@ -545,6 +545,21 @@ def _balanced_effective_fees(edges, city):
     return fees
 
 
+def _policy_coverage(prows, policy, total):
+    """Aggregate a policy's hard-constraint coverage over ALL city addresses of one
+    partition: joint-covered count, its share of total, violated count, and the
+    coverage weighted over the INFEASIBLE zones only."""
+    ps = [p for p in prows if p["policy"] == policy]
+    covered = sum(float(p["hard_constraint_coverage"]) * int(p["address_count"])
+                  for p in ps)
+    violated = sum(int(p["violated_address_count"]) for p in ps)
+    inf = [p for p in ps if p["policy_status"] == "INFEASIBLE"]
+    inf_addr = sum(int(p["address_count"]) for p in inf)
+    fb_cov = (sum(float(p["hard_constraint_coverage"]) * int(p["address_count"])
+                  for p in inf) / inf_addr) if inf_addr else 1.0
+    return round(covered), covered / total, violated, fb_cov
+
+
 def _manual_city_agreement(edges, city_controls):
     same = sum(1 for c in city_controls
                if zone_of_city(c["router_km"], edges) == zone_of_city(c["yandex_km"], edges))
@@ -610,7 +625,7 @@ def build_operational_candidates(city, candidates):
         variants = [("raw", raw_edges)] + [
             (str(step), ZM._monotone([ZM._round(round(e / step) * step) for e in raw_edges]))
             for step in ZM.ROUNDING_STEPS_KM]
-        raw_balanced_infeasible = None
+        raw_balanced_feasible = 0
         scored = []
         for label, edges in variants:
             buckets = [0] * (len(edges) + 1)
@@ -636,7 +651,8 @@ def build_operational_candidates(city, candidates):
             for pr in prows:
                 feas[pr["policy"]]["F" if pr["policy_status"] == "FEASIBLE" else "I"] += 1
             if label == "raw":
-                raw_balanced_infeasible = feas["BALANCED"]["I"]
+                raw_balanced_feasible = feas["BALANCED"]["F"]
+            total = len(city)
             row = {
                 "model_id": model_id, "rounding_km": label,
                 "edges": "|".join(str(e) for e in edges),
@@ -646,43 +662,50 @@ def build_operational_candidates(city, candidates):
                 "same_street_splits": splits,
                 "neighbour_diff_zone_100m": d100, "neighbour_diff_zone_250m": d250,
                 "max_price_jump_rub": mx, "p90_price_jump_rub": ZM._round(p90, 2),
-                "customer_feasible_zones": feas["CUSTOMER_FIRST"]["F"],
-                "customer_infeasible_zones": feas["CUSTOMER_FIRST"]["I"],
-                "balanced_feasible_zones": feas["BALANCED"]["F"],
-                "balanced_infeasible_zones": feas["BALANCED"]["I"],
-                "driver_feasible_zones": feas["DRIVER_CONSERVATIVE"]["F"],
-                "driver_infeasible_zones": feas["DRIVER_CONSERVATIVE"]["I"],
-                "selection_score": "", "selection": "",
             }
+            pol_key = {"CUSTOMER_FIRST": "customer", "BALANCED": "balanced",
+                       "DRIVER_CONSERVATIVE": "driver"}
+            for pol in ("CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE"):
+                covered, cov, viol, fb = _policy_coverage(prows, pol, total)
+                key = pol_key[pol]
+                row[f"{key}_feasible_zones"] = feas[pol]["F"]
+                row[f"{key}_infeasible_zones"] = feas[pol]["I"]
+                row[f"{key}_total_joint_covered_addresses"] = covered
+                row[f"{key}_total_joint_coverage"] = ZM._round(cov, 4)
+                row[f"{key}_weighted_fallback_coverage"] = ZM._round(fb, 4)
+                row[f"{key}_total_violated_addresses"] = viol
+            row["selection"] = ""
             rows.append(row)
-        # Reselection scoring (documented). Primary must not worsen the owner's
-        # BALANCED feasibility versus raw, then minimise a geometry cost:
-        #   score = 1000 * max(0, balanced_infeasible - raw_balanced_infeasible)
-        #         + changed + same_street_splits + neighbour_diff_100m + 5 * manual_flip
-        # Lower is better; ties broken by finer rounding (smaller step).
+        # Lexicographic reselection over the rounded variants (documented):
+        #   1. do NOT reduce the number of FEASIBLE BALANCED zones vs raw;
+        #   2. maximise BALANCED total joint coverage over all 4,866 addresses;
+        #   3. minimise BALANCED total violated addresses;
+        #   4. geometry: changed + same_street_splits + neighbour_diff_100m + 5*flip.
         for row in rows:
             if row["model_id"] != model_id or row["rounding_km"] == "raw":
                 continue
-            worsen = max(0, row["balanced_infeasible_zones"] - raw_balanced_infeasible)
-            score = (1000 * worsen + row["changed_vs_raw_count"]
-                     + row["same_street_splits"] + row["neighbour_diff_zone_100m"]
-                     + 5 * row["manual_flip"])
-            row["selection_score"] = score
-            scored.append((score, float(row["rounding_km"]), row))
-        scored.sort(key=lambda t: (t[0], t[1]))
+            worsen = 1 if row["balanced_feasible_zones"] < raw_balanced_feasible else 0
+            geometry = (row["changed_vs_raw_count"] + row["same_street_splits"]
+                        + row["neighbour_diff_zone_100m"] + 5 * row["manual_flip"])
+            key = (worsen, -row["balanced_total_joint_coverage"],
+                   row["balanced_total_violated_addresses"], geometry,
+                   float(row["rounding_km"]))
+            scored.append((key, row))
+        scored.sort(key=lambda t: t[0])
         if scored:
-            scored[0][2]["selection"] = "PRIMARY_OPERATIONAL_CANDIDATE"
+            scored[0][1]["selection"] = "PRIMARY_OPERATIONAL_CANDIDATE"
         if len(scored) > 1:
-            scored[1][2]["selection"] = "FALLBACK_OPERATIONAL_CANDIDATE"
+            scored[1][1]["selection"] = "FALLBACK_OPERATIONAL_CANDIDATE"
 
+    cov_cols = []
+    for key in ("customer", "balanced", "driver"):
+        cov_cols += [f"{key}_feasible_zones", f"{key}_infeasible_zones",
+                     f"{key}_total_joint_covered_addresses", f"{key}_total_joint_coverage",
+                     f"{key}_weighted_fallback_coverage", f"{key}_total_violated_addresses"]
     header = ["model_id", "rounding_km", "edges", "zone_counts", "changed_vs_raw_count",
               "manual_same", "manual_flip", "same_street_splits",
               "neighbour_diff_zone_100m", "neighbour_diff_zone_250m",
-              "max_price_jump_rub", "p90_price_jump_rub",
-              "customer_feasible_zones", "customer_infeasible_zones",
-              "balanced_feasible_zones", "balanced_infeasible_zones",
-              "driver_feasible_zones", "driver_infeasible_zones",
-              "selection_score", "selection"]
+              "max_price_jump_rub", "p90_price_jump_rub", *cov_cols, "selection"]
     with OPERATIONAL.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=header, lineterminator="\n")
         writer.writeheader()
@@ -700,6 +723,59 @@ def build_operational_candidates(city, candidates):
     return rows
 
 
+OWNER_PACK = ROOT / "reports/zone-model-audit/owner-decision-pack-v1.md"
+TABLES_START = "<!-- AUTO-POLICY-TABLES-START -->"
+TABLES_END = "<!-- AUTO-POLICY-TABLES-END -->"
+
+
+def _policy_table(rows, model_id, rounding, label):
+    sub = [r for r in rows if r["model_id"] == model_id
+           and r.get("rounding_km", "raw") == rounding]
+    sub.sort(key=lambda r: (int(r["zone_id"]),
+                            ["CUSTOMER_FIRST", "BALANCED", "DRIVER_CONSERVATIVE"]
+                            .index(r["policy"])))
+    edges = sub[0]["edges"] if sub else ""
+    out = [f"### {label} — edges {edges}", "",
+           "| Zone | Policy | Status | Fee | Fallback | Coverage | Violated | "
+           "MinSave | MaxGap |", "|---|---|---|---:|---:|---:|---:|---:|---:|"]
+    for r in sub:
+        fee = r["candidate_fee_rub"] if r["policy_status"] == "FEASIBLE" else "—"
+        fb = r["fallback_fee_rub"] or "—"
+        out.append(
+            f'| {r["zone_id"]} | {r["policy"].replace("_", " ")} | {r["policy_status"]} '
+            f'| {fee} | {fb} | {r["hard_constraint_coverage"]} '
+            f'| {r["violated_address_count"]} | {r["minimum_client_saving"]} '
+            f'| {r["maximum_driver_gap"]} |')
+    out.append("")
+    return "\n".join(out)
+
+
+def write_owner_policy_tables():
+    """Regenerate the four full owner-facing policy tables directly from the policy
+    CSVs (no hand-entered numbers), spliced between the auto-table markers."""
+    raw = _read_policy_csv(POLICIES)
+    op = _read_policy_csv(OPERATIONAL_POLICY)
+    blocks = [
+        TABLES_START,
+        _policy_table(raw, "CITY_K4R_dp_optimal_jenks", "raw", "CITY_K4 raw"),
+        _policy_table(op, "CITY_K4R_dp_optimal_jenks", "0.25", "CITY_K4 operational 0.25"),
+        _policy_table(raw, "CITY_K5R_dp_optimal_jenks", "raw", "CITY_K5 raw"),
+        _policy_table(op, "CITY_K5R_dp_optimal_jenks", "0.25", "CITY_K5 operational 0.25"),
+        TABLES_END,
+    ]
+    generated = "\n".join(blocks)
+    text = OWNER_PACK.read_text(encoding="utf-8")
+    start, end = text.find(TABLES_START), text.find(TABLES_END)
+    if start != -1 and end != -1:
+        text = text[:start] + generated + text[end + len(TABLES_END):]
+        OWNER_PACK.write_text(text, encoding="utf-8", newline="\n")
+
+
+def _read_policy_csv(path):
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
 def main():
     rows = load_features()
     city = city_rows(rows)
@@ -708,6 +784,7 @@ def main():
     policy_rows = build_policy_prices(city, candidates)
     fill_candidate_city_economics(candidates, policy_rows, city)
     operational_rows = build_operational_candidates(city, candidates)
+    write_owner_policy_tables()
     scen = sensitivity_grid(city)
     ext = external_bracket_scenarios(rows)
     neigh = neighbour_discontinuities(city, candidates)

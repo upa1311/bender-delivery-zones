@@ -1,0 +1,132 @@
+{
+  "verdict": "PARTIAL_COVERAGE_OWNER_REVIEW_REQUIRED",
+  "boundary_provenance": {
+    "file": "docs/data/source-boundaries.geojson",
+    "key": "bender",
+    "osm": "relation 12463379",
+    "area_km2": 21.048,
+    "note": "Исходная административная граница OSM. Не изменялась.",
+    "input_crs": "EPSG:4326",
+    "working_projection": "local equirectangular at origin 46.82388,29.48313; <0.1% length error over the study area",
+    "manual_edits": "none",
+    "sha256": "d04979a6e2fe0525968b297d82cf97e406a083116290ad190c7517d77d41f257"
+  },
+  "route_geometry_provenance": {
+    "file": "docs/data/stage-09b-map-routes.geojson",
+    "kind": "fastest_time",
+    "provider": "OSRM (stage-09 engine)",
+    "origin": [
+      46.82388,
+      29.48313
+    ],
+    "length_tolerance_km": "max(0.05, 1% * route_km)",
+    "note": "only 3 external addresses have a stored canonical polyline; their polyline length matches route_km to < 2 m."
+  },
+  "external_addresses_total": 4350,
+  "priced_addresses_total": 3,
+  "status_counts": {
+    "ROUTE_GEOMETRY_UNAVAILABLE": 4347,
+    "CALCULATED": 3
+  },
+  "per_territory": {
+    "Парканы": {
+      "total_addresses": 3446,
+      "valid_route_polylines": 1,
+      "geometry_verified_calculated": 1,
+      "priced_addresses": 1,
+      "unavailable_addresses": 3445,
+      "unavailable_reasons": {
+        "ROUTE_GEOMETRY_UNAVAILABLE": 3445
+      },
+      "route_km_stats": {
+        "n": 3446,
+        "min": 3.167,
+        "median": 5.177,
+        "max": 7.575
+      },
+      "outside_city_km_stats": {
+        "n": 1,
+        "min": 5.3671,
+        "median": 5.3671,
+        "max": 5.3671
+      },
+      "final_fee_stats": {
+        "n": 1,
+        "min": 42,
+        "median": 42.0,
+        "max": 42
+      }
+    },
+    "Гиска": {
+      "total_addresses": 399,
+      "valid_route_polylines": 1,
+      "geometry_verified_calculated": 1,
+      "priced_addresses": 1,
+      "unavailable_addresses": 398,
+      "unavailable_reasons": {
+        "ROUTE_GEOMETRY_UNAVAILABLE": 398
+      },
+      "route_km_stats": {
+        "n": 399,
+        "min": 3.66,
+        "median": 5.878,
+        "max": 9.371
+      },
+      "outside_city_km_stats": {
+        "n": 1,
+        "min": 2.8653,
+        "median": 2.8653,
+        "max": 2.8653
+      },
+      "final_fee_stats": {
+        "n": 1,
+        "min": 34,
+        "median": 34.0,
+        "max": 34
+      }
+    },
+    "Протягайловка": {
+      "total_addresses": 505,
+      "valid_route_polylines": 1,
+      "geometry_verified_calculated": 1,
+      "priced_addresses": 1,
+      "unavailable_addresses": 504,
+      "unavailable_reasons": {
+        "ROUTE_GEOMETRY_UNAVAILABLE": 504
+      },
+      "route_km_stats": {
+        "n": 505,
+        "min": 4.484,
+        "median": 6.466,
+        "max": 9.121
+      },
+      "outside_city_km_stats": {
+        "n": 1,
+        "min": 1.366,
+        "median": 1.366,
+        "max": 1.366
+      },
+      "final_fee_stats": {
+        "n": 1,
+        "min": 35,
+        "median": 35.0,
+        "max": 35
+      }
+    }
+  },
+  "severny": {
+    "in_canonical_9216": false,
+    "aliases_checked": [
+      "Северный",
+      "Severny",
+      "Severnyy",
+      "Nord",
+      "микрорайон Северный"
+    ],
+    "separate_source_addresses": 57,
+    "separate_source_file": "docs/data/severny-delivery-units.csv",
+    "gap": "Северный is NOT among the 9,216 canonical addresses (verified via settlement + alias scan). A separate non-canonical source (severny-delivery-units.csv) exists; promoting it into the canonical release is a PRODUCTION change and is out of scope here.",
+    "status": "TERRITORY_DATA_UNAVAILABLE"
+  },
+  "note": "Analysis/test layer only; no production/Direct/release/tariff change."
+}

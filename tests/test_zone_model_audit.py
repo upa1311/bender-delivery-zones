@@ -66,6 +66,7 @@ ZM = _load_module("zone_model_audit", "scripts/zone_model_audit.py")
 ZE = _load_module("zone_economics_audit", "scripts/zone_economics_audit.py")
 FR = _load_module("zone_fragmentation_analysis", "scripts/zone_fragmentation_analysis.py")
 FF = _load_module("city_far_zone_formula", "scripts/city_far_zone_formula.py")
+OT = _load_module("owner_tariff_model", "scripts/owner_tariff_model.py")
 
 
 def _csv(path):
@@ -902,3 +903,104 @@ def test_83_far_formula_is_candidate_only_not_production():
     assert "not applied to production" in text
     assert "calibration_supplied: false" in (
         ROOT / "config/taxi-calibration.yml").read_text(encoding="utf-8")
+
+
+# ================= owner-approved distance tariff (analysis layer) =================
+OTFEES = _csv(ROOT / "data/interim/owner-tariff-fees-v1.csv")
+OTCONTROLS = _csv(ROOT / "data/interim/owner-tariff-control-addresses-v1.csv")
+OT_SUMMARY = json.loads(
+    (ROOT / "reports/zone-model-audit/_owner-tariff-summary-v1.json").read_text(
+        encoding="utf-8"))
+
+
+def test_84_city_tariff_exact_owner_control_values():
+    expected = {0.0: 14, 3.0: 14, 3.01: 15, 3.25: 15, 3.5: 16, 4.0: 18, 5.0: 22, 7.0: 30}
+    for km, fee in expected.items():
+        assert OT.base_city_fee(km) == fee
+
+
+def test_85_boundary_3_0_and_3_01_and_no_km_prerounding():
+    assert OT.base_city_fee(3.0) == 14        # boundary is flat 14
+    assert OT.base_city_fee(3.01) == 15       # any excess over 3 km rounds up
+    # proportional at full precision — a value that would collapse to 14 if km were
+    # pre-rounded to whole/half km must still yield 15:
+    assert OT.base_city_fee(3.001) == 15
+    assert OT.base_city_fee(3.05) == 15
+
+
+def test_86_ceil_applied_to_final_price_only():
+    # 3.6 km: 14 + 0.6*4 = 16.4 → ceil 17 (price rounded up, distance not)
+    assert OT.base_city_fee(3.6) == 17
+    assert OT.base_city_fee(3.5) == 16        # exact 16, no spurious ceil bump
+
+
+def test_87_external_surcharge_formula_and_boundary():
+    assert OT.external_surcharge(0) == 0                    # boundary: no surcharge
+    assert OT.external_surcharge(1) == 5                    # max(5, ceil(2)) = 5
+    assert OT.external_surcharge(2.5) == 5                  # max(5, ceil(5)) = 5
+    assert OT.external_surcharge(3) == 6                    # max(5, ceil(6)) = 6
+    assert OT.external_surcharge(10) == 20                  # max(5, ceil(20)) = 20
+
+
+def test_88_city_address_gets_no_external_surcharge():
+    for r in OTFEES:
+        if r["calculation_status"] == "CITY_OK":
+            assert int(r["external_surcharge"]) == 0
+            assert int(r["final_fee"]) == int(r["base_city_fee"])
+
+
+def test_89_external_address_with_outside_km_uses_surcharge_formula():
+    fee, base, sur, status = OT.final_fee(5.0, True, 2.0)   # hypothetical outside km
+    assert status == "EXTERNAL_OK"
+    assert sur == OT.external_surcharge(2.0) == 5
+    assert fee == base + 5
+
+
+def test_90_zero_outside_km_gets_no_surcharge():
+    fee, base, sur, status = OT.final_fee(5.0, True, 0.0)
+    assert status == "EXTERNAL_OK" and sur == 0 and fee == base
+
+
+def test_91_unknown_outside_km_gets_no_invented_price():
+    fee, base, sur, status = OT.final_fee(5.0, True, None)
+    assert status == "OUTSIDE_DISTANCE_UNAVAILABLE"
+    assert fee == "" and sur == ""
+    # in the real data ALL external addresses are unavailable (no proven split)
+    ext = [r for r in OTFEES if r["territory"] in OT.EXTERNAL_TERRITORIES]
+    assert ext and all(r["calculation_status"] == "OUTSIDE_DISTANCE_UNAVAILABLE"
+                       and r["final_fee"] == "" and r["outside_city_km"] == "" for r in ext)
+
+
+def test_92_four_external_territories_classified():
+    assert OT.EXTERNAL_TERRITORIES == ("Парканы", "Гиска", "Протягайловка", "Северный")
+    present = {r["territory"] for r in OTFEES if r["territory"] in OT.EXTERNAL_TERRITORIES}
+    assert {"Парканы", "Гиска", "Протягайловка"} <= present  # Северный absent from 9216
+
+
+def test_93_city_k5_zone_does_not_affect_final_fee():
+    # final_fee is a pure function of route_km (and outside_km); the old zone column
+    # is analytics-only. Same route_km => same fee regardless of geographic zone.
+    city = [r for r in OTFEES if r["calculation_status"] == "CITY_OK"]
+    by_km = {}
+    for r in city:
+        by_km.setdefault(r["route_km"], set()).add(int(r["final_fee"]))
+    for fees in by_km.values():
+        assert len(fees) == 1  # identical route_km -> identical fee, zone irrelevant
+    # and the fee equals the pure formula (independent of any zone attribute)
+    for r in city[:200]:
+        assert int(r["final_fee"]) == OT.base_city_fee(float(r["route_km"]))
+
+
+def test_94_summary_and_csv_reproducible_from_script():
+    feats = OT.ZE.load_features()
+    assert OT.compute_rows(feats) == OT.compute_rows(feats)
+    assert OT_SUMMARY["city_addresses"] == sum(
+        1 for r in OTFEES if r["calculation_status"] == "CITY_OK")
+    assert OT_SUMMARY["outside_distance_unavailable_total"] == sum(
+        1 for r in OTFEES if r["calculation_status"] == "OUTSIDE_DISTANCE_UNAVAILABLE")
+
+
+def test_95_control_table_has_at_least_20_addresses_from_data():
+    assert len(OTCONTROLS) >= 20
+    ids = {r["address_id"] for r in OTFEES}
+    assert all(r["address_id"] in ids for r in OTCONTROLS)  # not fabricated

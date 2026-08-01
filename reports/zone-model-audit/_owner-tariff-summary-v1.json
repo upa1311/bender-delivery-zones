@@ -1,0 +1,75 @@
+{
+  "formula": {
+    "city_within_3km": "14 MDL",
+    "city_beyond_3km": "ceil(14 + (route_km - 3.0) * 4)",
+    "external_surcharge": "max(5, ceil(outside_city_km * 2)), 0 at boundary",
+    "final_external": "base_city_fee + external_surcharge",
+    "rounding": "full-precision km; ceil applied only to the final price"
+  },
+  "city_addresses": 4866,
+  "city_fee_stats": {
+    "n": 4866,
+    "min": 14,
+    "median": 14.0,
+    "max": 32
+  },
+  "city_fee_distribution": {
+    "14": 2446,
+    "15": 86,
+    "16": 163,
+    "17": 132,
+    "18": 117,
+    "19": 180,
+    "20": 320,
+    "21": 235,
+    "22": 205,
+    "23": 212,
+    "24": 210,
+    "25": 161,
+    "26": 114,
+    "27": 110,
+    "28": 70,
+    "29": 48,
+    "30": 33,
+    "31": 19,
+    "32": 5
+  },
+  "external": {
+    "Парканы": {
+      "addresses": 3446,
+      "auto_calculated": 0,
+      "outside_distance_unavailable": 3446,
+      "fee_stats": {
+        "n": 0
+      }
+    },
+    "Гиска": {
+      "addresses": 399,
+      "auto_calculated": 0,
+      "outside_distance_unavailable": 399,
+      "fee_stats": {
+        "n": 0
+      }
+    },
+    "Протягайловка": {
+      "addresses": 505,
+      "auto_calculated": 0,
+      "outside_distance_unavailable": 505,
+      "fee_stats": {
+        "n": 0
+      }
+    },
+    "Северный": {
+      "addresses": 0,
+      "auto_calculated": 0,
+      "outside_distance_unavailable": 0,
+      "fee_stats": {
+        "n": 0
+      }
+    }
+  },
+  "outside_distance_unavailable_total": 4350,
+  "outside_city_km_source": "NONE — no proven city-boundary route split exists in the data; outside_city_km left blank, status OUTSIDE_DISTANCE_UNAVAILABLE, final_fee empty. Not invented.",
+  "old_balanced_city_failures": 3802,
+  "note": "Analysis/test layer only; production/Direct/releases/zones/prices untouched."
+}

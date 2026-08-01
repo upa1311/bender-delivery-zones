@@ -65,6 +65,7 @@ def _load_module(name, rel):
 ZM = _load_module("zone_model_audit", "scripts/zone_model_audit.py")
 ZE = _load_module("zone_economics_audit", "scripts/zone_economics_audit.py")
 FR = _load_module("zone_fragmentation_analysis", "scripts/zone_fragmentation_analysis.py")
+FF = _load_module("city_far_zone_formula", "scripts/city_far_zone_formula.py")
 
 
 def _csv(path):
@@ -843,3 +844,43 @@ def test_79_greedy_partition_is_maximal_hence_minimal():
         assert ZE._driver_floor(bests, rule) > ZE._client_ceiling(refs, rule)
         idx += count
     assert sum(int(z["address_count"]) for z in FRAG) == len(city)
+
+
+# ============ candidate base+distance formula for CITY_K5 far zones ============
+FARROWS = _csv(ROOT / "data/interim/zone-k5-far-base-distance-v1.csv")
+FF_SUMMARY = json.loads(
+    (ROOT / "reports/zone-model-audit/_k5-far-formula-summary-v1.json").read_text(
+        encoding="utf-8"))
+
+
+def test_80_base_distance_formula_is_floor_6km_minus_5():
+    for km in (2.9, 3.5, 4.125, 5.325, 6.0, 9.37):
+        assert FF.base_distance_fee(km) == __import__("math").floor(6 * km - 5)
+
+
+def test_81_formula_gives_100pct_balanced_coverage_on_far_zones():
+    assert FF_SUMMARY["balanced_coverage"] == 1.0
+    assert FF_SUMMARY["far_addresses"] == FF_SUMMARY["balanced_ok_addresses"]
+    # independently verify every row: saving>=5, gap<=3 and <=10%, fee<taxi
+    for r in FARROWS:
+        ref = float(r["taxi_reference_rub"])
+        best = float(r["driver_best_take_rub"])
+        fee = int(r["formula_fee_rub"])
+        assert ref - fee >= 5 and best - fee <= 3 and best - fee <= 0.10 * best
+        assert fee < ref
+        assert r["balanced_ok"] == "True"
+
+
+def test_82_formula_fee_is_monotone_and_cheaper_than_taxi():
+    fees = [int(r["formula_fee_rub"]) for r in
+            sorted(FARROWS, key=lambda r: float(r["route_km"]))]
+    assert fees == sorted(fees)  # non-decreasing with distance
+
+
+def test_83_far_formula_is_candidate_only_not_production():
+    # the formula lives only in candidate interim data; config stays null-guarded
+    text = (ROOT / "reports/zone-model-audit/city-far-zone-base-distance-v1.md").read_text(
+        encoding="utf-8")
+    assert "not applied to production" in text
+    assert "calibration_supplied: false" in (
+        ROOT / "config/taxi-calibration.yml").read_text(encoding="utf-8")

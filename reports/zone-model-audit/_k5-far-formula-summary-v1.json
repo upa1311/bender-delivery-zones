@@ -1,0 +1,12 @@
+{
+  "formula": "fee = floor(6 * route_km - 5)  (base=-5 rub, rate=6 rub/km)",
+  "scope": "CITY_K5 middle/far zones 3-5 (route_km > 2.875)",
+  "far_addresses": 2471,
+  "balanced_ok_addresses": 2471,
+  "balanced_coverage": 1.0,
+  "client_saving_min": 5.0,
+  "client_saving_max": 6.0,
+  "driver_gap_min": 0.0,
+  "driver_gap_max": 1.0,
+  "note": "Candidate formula; not applied to production/Direct/release/Pages."
+}

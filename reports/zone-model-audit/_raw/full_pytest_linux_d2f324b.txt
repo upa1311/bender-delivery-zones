@@ -1,0 +1,44 @@
+........................................................................ [  9%]
+........................................................................ [ 19%]
+........................................................................ [ 28%]
+........................................................................ [ 38%]
+..............................................F......................... [ 47%]
+........................................................................ [ 57%]
+........................................................................ [ 66%]
+..............F......................................................... [ 76%]
+........................................................................ [ 85%]
+........................................................................ [ 95%]
+..................................                                       [100%]
+=================================== FAILURES ===================================
+____________________ test_immutable_releases_are_unchanged _____________________
+
+    def test_immutable_releases_are_unchanged():
+>       assert releases_hash() == RELEASES_HASH
+E       AssertionError: assert '934b0f4abcdb...80924d8d44ea7' == '49edbc87a1f6...564135704e9b4'
+E         
+E         - 49edbc87a1f65b2a4c038bd395c5e9880038bf57208c98b9701564135704e9b4
+E         + 934b0f4abcdb2bffb68e91840aa281848b997c57a14cb79c34a80924d8d44ea7
+
+tests/test_router_manual_yandex_evaluator.py:214: AssertionError
+___________________ test_22_immutable_releases_are_unchanged ___________________
+
+    def test_22_immutable_releases_are_unchanged():
+        digest = hashlib.sha256()
+        files = sorted(path for path in (ROOT / "releases").rglob("*") if path.is_file())
+        for path in files:
+            digest.update(path.relative_to(ROOT).as_posix().encode())
+            digest.update(b"\0")
+            digest.update(path.read_bytes().replace(b"\r\n", b"\n"))
+            digest.update(b"\0")
+        assert len(files) == 27
+>       assert digest.hexdigest() == "f6b666d433dab96d9c71c1a3567d6f9d95b30d07f3b9d7deff3dd05ee08748e2"
+E       AssertionError: assert '4bb802224de9...9708ae431eee4' == 'f6b666d433da...dd05ee08748e2'
+E         
+E         - f6b666d433dab96d9c71c1a3567d6f9d95b30d07f3b9d7deff3dd05ee08748e2
+E         + 4bb802224de953435aff2a7a906cf9aa82538df1a913f37dc279708ae431eee4
+
+tests/test_yandex_address_inventory_audit.py:281: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged
+FAILED tests/test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged
+2 failed, 752 passed in 15.30s

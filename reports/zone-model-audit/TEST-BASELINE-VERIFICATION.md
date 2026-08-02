@@ -27,6 +27,29 @@ verification environment. For example:
 (and `9c5b9ca: 750 passed, 2 failed`). No new failures were introduced by any of this
 analysis work.
 
+## Genuine Linux raw run on `d2f324b`
+
+Full Linux pytest on `d2f324b712d3b894147bb5a1077235bd80fffa75`:
+**752 passed, 2 failed, exit code 1**.
+
+Raw stdout/stderr:
+[`reports/zone-model-audit/_raw/full_pytest_linux_d2f324b.txt`](_raw/full_pytest_linux_d2f324b.txt).
+
+The raw log was captured without filtering from a clean detached Linux checkout with:
+
+```bash
+set -o pipefail
+.venv/bin/python -m pytest -q 2>&1 | tee full-pytest-linux.txt
+```
+
+Environment: Linux x86_64; Python 3.12.13; pytest 9.1.1. The command returned exit
+code 1. The only failures were:
+
+- `tests/test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged`
+- `tests/test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged`
+
+These are the same two documented baseline failures. No new failures were introduced.
+
 ## The two failures: actual vs pinned SHA-256 (MISMATCH)
 
 Both guard tests hash the whole committed `releases/` tree and compare to a pinned
@@ -68,14 +91,13 @@ blobs and matches the actual/pinned values above):
 
 ## Environment note (why a Windows pytest run differs)
 
-This maintainer environment is Windows-only (Python 3.12.10, pytest 9.1.1; WSL/Docker
-unavailable), so a POSIX pytest run that emits the 752/2 summary cannot be executed
-here — `WindowsPath` ordering makes the two guards match the pins and pass locally. The
-752 passed / 2 failed / exit-1 baseline is therefore established by (a) the reviewer's
-independent clean Linux checkout and (b) the deterministic hash proof above, whose
-`actual` values equal the reviewer's. The earlier record of a clean full suite with no
-failures is superseded and its raw log removed; it is not a valid baseline and the
-suite does not pass cleanly on a canonical checkout — exit code is 1.
+The original maintainer environment was Windows-only (Python 3.12.10, pytest 9.1.1;
+WSL/Docker unavailable), where `WindowsPath` ordering makes the two guards match the
+pins and pass locally. The canonical result is now established directly by the
+committed genuine Linux raw log above, as well as by the deterministic hash proof. The
+earlier record of a clean full suite with no failures is superseded and its raw log
+removed; it is not a valid baseline and the suite does not pass cleanly on a canonical
+checkout — exit code is 1.
 
 ## Corrections to earlier versions of this note
 

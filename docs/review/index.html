@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>/review/ — расчётный тариф и тарифная граница (DESIGN)</title>
+  <link rel="stylesheet" href="../vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    #banner { background:#fde68a; border-bottom:2px solid #b45309; color:#7c2d12;
+      font-weight:700; text-align:center; padding:10px 14px; font-size:14px; }
+    .review-wrap { padding:14px; max-width:1100px; margin:0 auto; }
+    #route-map { height:460px; border:1px solid var(--border); border-radius:8px; }
+    .price-grid { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+    .price-card { border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+      min-width:150px; background:#fff; }
+    .price-card .lbl { color:var(--muted); font-size:12px; }
+    .price-card .val { font-size:20px; font-weight:800; font-variant-numeric:tabular-nums; }
+    .approve { margin-top:8px; padding:9px 16px; border:0; border-radius:8px;
+      background:#0f766e; color:#fff; font-weight:700; font-size:14px; cursor:pointer; }
+    .approve:disabled { background:#9ca3af; cursor:default; }
+    table.zones { border-collapse:collapse; font-size:13px; width:100%; margin-top:6px; }
+    table.zones th, table.zones td { border:1px solid var(--border); padding:4px 8px; text-align:left; }
+    table.zones td.num { text-align:right; font-variant-numeric:tabular-nums; }
+    .zsw { display:inline-block; width:14px; height:14px; border-radius:3px; vertical-align:middle; margin-right:6px; }
+    .warn { color:#b45309; font-weight:600; }
+    code { background:#f1f5f9; padding:1px 4px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <div id="banner">
+    РАСЧЁТНЫЙ ТАРИФ ДЛЯ ПРОЕКТИРОВАНИЯ ЗОН — НЕ УТВЕРЖДЁННАЯ ПУБЛИЧНАЯ ЦЕНА.
+    Тарифная граница PROVISIONAL, требует утверждения владельцем.
+  </div>
+
+  <div class="review-wrap">
+    <h1>/review/ — тарифная граница на Парканы (Котовского) и расчёт цены</h1>
+    <p class="muted">
+      Формула: base = 14 руб. (≤3 км), далее +4 руб./км; внешняя надбавка =
+      <code>max(5, external_km × 2)</code>; итог = base + надбавка. Внешняя часть
+      начинается только ПОСЛЕ тарифной границы. Отправление — одна фиксированная
+      точка <code>46.82388, 29.48313</code> (архитектура готова к нескольким
+      ресторанам). Маршрут — реальный (OSRM), сверен с контрольным Яндексом ≈ 4.72 км.
+    </p>
+
+    <h2>1. Перетащите тарифную границу на фактический пост (ул. Котовского)</h2>
+    <p class="muted small">
+      Красная точка — перемещаемая тарифная граница (PROVISIONAL). Синие точки —
+      кандидаты, где реальный маршрут пересекает городские границы OSM. Ни одна из
+      спорных «координат поста» не принята авторитетной. После перемещения цена
+      пересчитывается мгновенно.
+    </p>
+    <div id="route-map"></div>
+
+    <div class="price-grid" id="price-grid"></div>
+    <button id="approve" class="approve">Утвердить тарифную границу (только фиксация выбора, не публикация)</button>
+    <p id="approve-note" class="muted small"></p>
+
+    <h2>2. Предлагаемые внутренние зоны (по фактическому разбросу цены)</h2>
+    <p class="muted small">
+      Зоны построены методом естественных границ (Jenks) по цене, не по равным
+      километрам и не по квартилям. Зоны — внутренние (админ/контроль стоимости/
+      аналитика); клиенту номер зоны не показывается. Внешние территории получат зону
+      после утверждения границы и построения их маршрутов.
+    </p>
+    <div id="zones-body" class="muted">Загрузка…</div>
+
+    <h2>3. Кишинёвская — сверка расстояния</h2>
+    <p id="kish" class="muted small"></p>
+
+    <h2>4. Сравнение со старой ошибочной моделью</h2>
+    <p class="muted small" id="k4cmp"></p>
+    <p class="muted small">
+      Полный пер-адресный расчёт: <code>data/interim/reference-tariff-v2.csv</code>.
+      Формула <code>18 / 6 / 10</code> НЕ используется — это ошибочные такси-параметры,
+      а не тариф.
+    </p>
+  </div>
+
+  <script src="../vendor/leaflet/leaflet.js"></script>
+  <script src="review.js"></script>
+</body>
+</html>

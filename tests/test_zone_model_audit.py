@@ -1536,3 +1536,54 @@ def test_132_geometry_in_repo_consistent_with_committed_files():
         assert (ROOT / c["geometry_in_repo_path"]).exists()
         # summary geometry_sha256 agrees with the extraction provenance
         assert c["geometry_sha256"] == BPROV_BY_ID[rid]["geometry_sha256"]
+
+
+# ============ reference-tariff v2 (owner-corrected formula; DESIGN only) ============
+RT = _load_module("reference_tariff_v2", "scripts/reference_tariff_v2.py")
+RTSUM = json.loads(
+    (ROOT / "reports/zone-model-audit/_reference-tariff-v2-summary.json").read_text("utf-8"))
+RTROWS = _csv(ROOT / "data/interim/reference-tariff-v2.csv")
+
+
+def test_133_base_price_formula_no_ceil_no_18_6_10():
+    assert RT.base_price(3.0) == 14.0          # flat up to 3 km
+    assert RT.base_price(2.0) == 14.0
+    assert RT.base_price(4.0) == 18.0          # 14 + 1*4
+    assert RT.base_price(7.2) == 30.8          # 14 + 4.2*4, NOT rounded
+    # never the rejected taxi numbers
+    assert "18 / 6 / 10" in RTSUM["formula"]["rejected"]
+
+
+def test_134_external_surcharge_min5_times2():
+    assert RT.external_surcharge(0) == 0.0
+    assert RT.external_surcharge(None) is None          # unknown, not invented
+    assert RT.external_surcharge(1.0) == 5.0            # max(5, 2) = 5 floor
+    assert RT.external_surcharge(2.6) == 5.2            # 2.6*2
+    assert RT.external_surcharge(10.0) == 20.0
+
+
+def test_135_owner_worked_example_equals_36():
+    we = RTSUM["worked_example_check"]
+    assert we["base_price"] == 30.8 and we["external_surcharge"] == 5.2
+    assert we["reference_price"] == 36.0 and we["matches_owner_example_36"] is True
+
+
+def test_136_zones_are_natural_breaks_not_equal_intervals():
+    breaks = RTSUM["recommended_breaks_price"]
+    assert len(breaks) >= 2
+    # equal-interval would give constant gaps; natural breaks must NOT be equal
+    gaps = [round(breaks[i + 1] - breaks[i], 3) for i in range(len(breaks) - 1)]
+    assert len(set(gaps)) > 1, "zones must follow the price spread, not equal km/quartiles"
+    assert RTSUM["recommended_zone_count"] >= 3
+
+
+def test_137_city_priced_external_pending_not_fabricated():
+    city = [r for r in RTROWS if r["is_city"] == "True"]
+    ext = [r for r in RTROWS if r["is_city"] == "False"]
+    assert len(city) == 4866 and len(ext) == 4350
+    # city addresses have a full reference price; external are honestly PENDING
+    assert all(r["reference_price"] != "" for r in city)
+    assert all(r["reference_price"] == "" for r in ext)
+    assert all("PENDING" in r["external_status"] for r in ext)
+    # old K4 zone id is carried for comparison, not silently reused as the new zone
+    assert any(r["old_k4_zone_id"] != "" for r in RTROWS)

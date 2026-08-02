@@ -1,0 +1,150 @@
+{
+  "model": "reference_tariff_v2 (DESIGN, not approved price)",
+  "formula": {
+    "base_price": "14 if route_km<=3 else 14 + (route_km-3)*4 (no rounding)",
+    "external_surcharge": "0 if no external part else max(5, external_km*2)",
+    "reference_price": "base_price + external_surcharge",
+    "rejected": "18 / 6 / 10 (taxi-calibration assumption, NOT the tariff)"
+  },
+  "worked_example_check": {
+    "total_km": 7.2,
+    "external_km": 2.6,
+    "base_price": 30.8,
+    "external_surcharge": 5.2,
+    "reference_price": 36.0,
+    "matches_owner_example_36": true
+  },
+  "addresses_total": 9216,
+  "city_addresses_priced": 4866,
+  "external_addresses_pending": 4350,
+  "base_price_min": 14.0,
+  "base_price_max": 39.484,
+  "zone_candidates_gvf": {
+    "3": {
+      "breaks": [
+        17.184,
+        22.768,
+        31.832
+      ],
+      "gvf": 0.9254
+    },
+    "4": {
+      "breaks": [
+        16.688,
+        21.044,
+        24.968,
+        31.832
+      ],
+      "gvf": 0.9593
+    },
+    "5": {
+      "breaks": [
+        15.5,
+        18.524,
+        21.784,
+        25.496,
+        31.832
+      ],
+      "gvf": 0.9731
+    },
+    "6": {
+      "breaks": [
+        15.308,
+        18.108,
+        20.972,
+        23.636,
+        26.576,
+        31.832
+      ],
+      "gvf": 0.9821
+    },
+    "7": {
+      "breaks": [
+        15.2,
+        17.824,
+        20.324,
+        22.46,
+        24.748,
+        27.504,
+        31.832
+      ],
+      "gvf": 0.9874
+    }
+  },
+  "recommended_zone_count": 3,
+  "recommended_breaks_price": [
+    17.184,
+    22.768,
+    31.832
+  ],
+  "zone_stats": {
+    "1": {
+      "n": 2847,
+      "price_min": 14.0,
+      "price_max": 17.184,
+      "km_min": 0.032,
+      "km_max": 3.796
+    },
+    "2": {
+      "n": 1203,
+      "price_min": 17.212,
+      "price_max": 22.768,
+      "km_min": 3.803,
+      "km_max": 5.192
+    },
+    "3": {
+      "n": 816,
+      "price_min": 22.776,
+      "price_max": 31.832,
+      "km_min": 5.194,
+      "km_max": 7.458
+    }
+  },
+  "kishinevskaya": {
+    "data_route_km_values": [
+      4.196,
+      4.219,
+      4.447,
+      4.464,
+      4.469,
+      4.485,
+      4.498,
+      4.503,
+      4.523,
+      4.548,
+      6.38,
+      6.398,
+      6.403,
+      6.412,
+      6.424,
+      6.442,
+      6.465,
+      6.471,
+      6.566,
+      6.636,
+      6.905,
+      6.976,
+      6.979,
+      7.018,
+      7.024,
+      7.086,
+      7.099,
+      7.117,
+      7.123,
+      7.16,
+      7.181,
+      7.19,
+      7.195,
+      7.223
+    ],
+    "yandex_expected_km": "≈4.7–4.9",
+    "flag": "route_km OVERSTATED vs Yandex; Yandex not reachable in this env"
+  },
+  "blockers": [
+    "ГАИ post on Котовского has no coordinates (external cannot start after it)",
+    "external tariff boundary undecided (relations 12463379/9581354/944727)",
+    "route polylines missing for 4,338 external addresses",
+    "route_km is central-origin, not per-restaurant, and inaccurate for some streets (Кишинёвская)"
+  ],
+  "status": "PRELIMINARY DESIGN — external surcharge & external-territory zones pending owner inputs; not a public price"
+}

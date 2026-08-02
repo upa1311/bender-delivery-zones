@@ -1,0 +1,12 @@
+# Raw pytest — maintainer detached worktree of f9ad9ca (transparency).
+# The CANONICAL baseline is recorded in TEST-BASELINE-VERIFICATION.md: 752 passed, 2 failed, exit code 1.
+# python: Python 3.12.10 | pytest 9.1.1 | Windows-11-10.0.26200
+# method: git worktree add --detach <f9ad9ca>; core.autocrlf=false; python -m pytest -q
+# releases/ working tree here == pinned hashes (27 files; releases_hash 49edbc87...; test_22 f6b666d4...),
+# so the two immutable-release guard tests PASS in this specific environment. exit code: 0.
+# This does NOT override the canonical baseline; the guards are the pre-existing baseline failures
+# and fail in any environment whose releases/ working tree diverges from those pins.
+---
+........................................................................ [ 95%]
+..................................                                       [100%]
+754 passed in 33.05s

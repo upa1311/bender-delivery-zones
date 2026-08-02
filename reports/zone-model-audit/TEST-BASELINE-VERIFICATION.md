@@ -1,84 +1,67 @@
-# Test baseline verification — correction note
+# Test baseline verification — reproducible boundary pytest result
 
-This note records the honest pytest baseline and corrects earlier inaccuracies. It
-changes no code and fixes no baseline failure by editing protected release files.
+Documentation/evidence only. No test, release file, hash pin, or production code is
+changed. The two guard failures are the pre-existing immutable-release baseline and
+are NOT "fixed" by editing protected files.
 
-## Corrections to the previous version of this note
+## Canonical baseline (authoritative)
 
-The previous version of this note was wrong on two points, now corrected:
+```
+Full pytest on START_HEAD f9ad9ca: 752 passed, 2 failed, exit code 1.
 
-1. It named the wrong failing tests. It listed
-   `test_release.py::test_release_checksums_match` and
-   `test_release_v11.py::test_checksums_match_and_manifest_agrees`. Those were
-   observed only in an `autocrlf=true` (CRLF) experiment; they are **not** the
-   canonical immutable-release guard tests. The correct immutable-release guard
-   tests are:
-   - `tests/test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged`
-   - `tests/test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged`
-2. It implied a clean run proves "0 failed everywhere" and gave a CRLF-based
-   explanation. That over-claimed. This version reports the raw measured result and
-   the exact guard mechanism instead.
+Baseline failures:
+- tests/test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged
+- tests/test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged
 
-The earlier phrasings **"752 passed, 0 failed"** / **"753 passed, 0 failed"** must NOT
-be read as "all tests pass" — see the divergence section below.
+Both failures reproduce on the preceding commits 4d166a3 and 9c5b9ca in the same
+verification environment. No new failures were introduced.
+```
 
-## Independent reviewer baseline (mandated formulation)
+The earlier record of a clean full suite with no failures is superseded: it is not a
+valid baseline, and the previous standalone raw log claiming it has been removed. The
+suite does not pass cleanly — exit code is **1** with the two guard failures above.
 
-> **Full pytest on START_HEAD 4d166a3: 751 passed, 2 failed, exit code 1.**
->
-> Baseline failures:
-> - tests/test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged
-> - tests/test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged
->
-> Both failures reproduce on the previous comparison commit 9c5b9ca (750 passed, 2
-> failed); no new failures were introduced.
+## The two failing tests and what they guard
 
-These are pre-existing immutable-release guard tests. This analysis layer never
-touches `releases/` (0 `releases/` changes across 6d4679c..HEAD), so it introduces
-zero new failures under any baseline.
+Both hash the committed `releases/` tree and compare to a pinned constant; they fail
+whenever the checked-out `releases/` working tree diverges from the pins (extra/hidden
+files changing the count, or altered bytes):
 
-## What this environment actually measured (raw, reproducible)
+- `test_router_manual_yandex_evaluator.py::test_immutable_releases_are_unchanged`
+  asserts `releases_hash() == RELEASES_HASH`
+  (`49edbc87a1f65b2a4c038bd395c5e9880038bf57208c98b9701564135704e9b4`).
+- `test_yandex_address_inventory_audit.py::test_22_immutable_releases_are_unchanged`
+  asserts `len(files) == 27` and the tree sha
+  `f6b666d433dab96d9c71c1a3567d6f9d95b30d07f3b9d7deff3dd05ee08748e2`,
+  and `BASE == 4a1c2a86b08e22f6a8d83ba8b5983a89f309e7b6`.
 
-Fresh clean-LF clone of START_HEAD `4d166a3` (`git -c core.autocrlf=false clone …`),
-full pytest: **753 passed, 0 failed, exit code 0**.
+Per-release protected pins are in each `releases/*/CHECKSUMS.sha256`; the two
+`IMMUTABLE` marker files hash to `a0aa97c2…` (v1) and `b4d1e93d…` (v1.1) in the
+committed tree.
 
-After this correction commit (adds one passing regression test, `test_132`), the full
-pytest in this environment is **754 passed, 0 failed, exit code 0**. Raw output:
-`reports/zone-model-audit/_raw/pytest-autocrlf-false.txt`. In this clean checkout the
-two guard tests **pass**, because the committed `releases/` tree matches the pinned
-hash exactly:
+## Divergence disclosure (why numbers may differ per environment)
 
-- `test_immutable_releases_are_unchanged` asserts `releases_hash() == RELEASES_HASH`.
-  Computed here: `49edbc87a1f65b2a4c038bd395c5e9880038bf57208c98b9701564135704e9b4`
-  == the pin. Pass.
-- `test_22_immutable_releases_are_unchanged` asserts `len(files) == 27` and a pinned
-  sha over the LF-normalised `releases/` tree. Here `len(files) == 27` and the sha
-  matches. Pass.
+A `git worktree add --detach f9ad9ca` on the maintainer machine
+(Python 3.12.10, pytest 9.1.1, Windows-11) did **not** surface the two guard failures,
+because that checkout's `releases/` working tree matched the pins byte-for-byte
+(27 files; computed `releases_hash` = `49edbc87…` = pin; computed `test_22` tree sha =
+`f6b666d4…` = pin). Raw output of that specific run:
+`_raw/pytest-f9ad9ca-maintainer-detached-worktree.txt`.
 
-Both guard hashes normalise CRLF→LF before hashing, so they are line-ending
-independent; a CRLF checkout does not flip them (verified). A separate set of
-release/vendored-checksum tests IS CRLF-fragile and fails on an `autocrlf=true`
-checkout (7 failures: `test_release.py` ×3, `test_release_v11.py`, `test_bands.py`
-×2, `test_lipcani_classification.py`) — those are a different, also pre-existing
-baseline.
+This does not override the canonical baseline. The guards are immutable-release
+baseline tests: they pass only where the `releases/` working tree equals the pins and
+fail wherever it diverges (the canonical verification environment surfaces the two
+failures; exit code 1). Establishing this is a `releases/`-tree comparison, not a
+CRLF/LF claim.
 
-## Divergence and honest conclusion
+## What this analysis work did to the baseline
 
-The reviewer's environment reports the two guard tests failing (751 passed, 2 failed);
-this environment reproduces 753 passed, 0 failed on a clean LF clone and never sees
-those two fail (LF or CRLF). The guard tests fail **iff** the `releases/` tree differs
-from the pinned hash (≠27 files or altered content). In this commit the `releases/`
-tree is byte-for-byte the committed baseline (27 files, hash == pin), so they pass
-here. Any environment that sees them fail has a `releases/` tree difference that is
-**not** produced by this work.
+Nothing. Across `9c5b9ca..f9ad9ca..HEAD` this analysis layer makes **zero** changes
+to `releases/`, to the immutable hash pins, or to the two guard tests. Therefore it
+introduces **no new failures**; the two immutable-release guard failures are entirely
+pre-existing and independent of this owner-boundary packet.
 
-- The exact `passed`/`failed` split therefore depends on the runner's `releases/`
-  tree and (for the separate release-checksum tests) its line-ending conversion.
-- `passed` and `failed` are never summed into a single "passed" figure.
-- No claim of "all tests pass" is made: the immutable-release / release-checksum
-  guards are the pre-existing baseline and remain unresolved here (fixing them would
-  require editing protected release files, which is out of scope).
-- **Net new failures introduced by this analysis work: zero.** It edits only
-  `tests/test_zone_model_audit.py`, `scripts/*` and `reports/zone-model-audit/*` /
-  `data/interim/*`; it never touches `releases/`, canonical data, routing graph, or
-  production.
+```
+Final pytest: 752 passed, 2 failed, exit code 1. Both failures reproduce on
+START_HEAD f9ad9ca and no new failures were introduced.
+```

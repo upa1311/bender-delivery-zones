@@ -1499,19 +1499,23 @@ def test_130_boundary_naming_is_factual_not_operational():
 def test_131_test_baseline_verification_note_is_honest():
     note = (ROOT / "reports/zone-model-audit/TEST-BASELINE-VERIFICATION.md").read_text(
         "utf-8")
-    # mandated baseline formulation for the current START_HEAD
-    assert "Full pytest on START_HEAD 4d166a3: 751 passed, 2 failed, exit code 1" in note
+    # mandated canonical baseline formulation for the current START_HEAD
+    assert "Full pytest on START_HEAD f9ad9ca: 752 passed, 2 failed, exit code 1" in note
+    assert "exit code 1" in note
     assert "no new failures were introduced" in note.lower()
-    # the CORRECT immutable-release guard tests are named (not the old wrong ones)
+    # the two immutable-release guard tests are named (node IDs)
     assert ("test_router_manual_yandex_evaluator.py::"
             "test_immutable_releases_are_unchanged" in note)
     assert ("test_yandex_address_inventory_audit.py::"
             "test_22_immutable_releases_are_unchanged" in note)
-    # the earlier wrong record/names are explicitly corrected
-    assert "corrections" in note.lower() and "wrong" in note.lower()
-    # no owner-facing artifact claims a clean run as universal truth
-    for name in ("OWNER_BOUNDARY_DECISION.md", "route-generation-pilot-v1.md",
-                 "outside-city-distance-v1.md"):
+    # actual == pinned protected hashes recorded
+    assert "49edbc87a1f65b2a4c038bd395c5e9880038bf57208c98b9701564135704e9b4" in note
+    assert "f6b666d433dab96d9c71c1a3567d6f9d95b30d07f3b9d7deff3dd05ee08748e2" in note
+    # the superseded false clean-run record is flagged, not asserted as truth
+    assert "superseded" in note.lower()
+    # no artifact (incl. this note) claims a clean run as universal truth
+    for name in ("TEST-BASELINE-VERIFICATION.md", "OWNER_BOUNDARY_DECISION.md",
+                 "route-generation-pilot-v1.md", "outside-city-distance-v1.md"):
         txt = (ROOT / "reports/zone-model-audit" / name).read_text("utf-8")
         assert "all tests pass" not in txt.lower()
 

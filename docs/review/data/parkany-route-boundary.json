@@ -1,5 +1,5 @@
 {
-  "note": "DESIGN / PROVISIONAL — not an approved price or final boundary",
+  "note": "OWNER-APPROVED REVIEW CHECKPOINT — tariff formula remains unchanged",
   "origin": {
     "lat": 46.82388,
     "lon": 29.48313,
@@ -443,43 +443,38 @@
     4.53,
     4.7082
   ],
-  "provisional_gate": {
-    "id": "parkany-provisional-gate-v1",
-    "status": "PROVISIONAL",
-    "center_lonlat": [
-      29.492932,
-      46.832424
-    ],
-    "geometry": {
-      "type": "LineString",
-      "coordinates": [
-        [
-          29.4931363809,
-          46.8316220839
-        ],
-        [
-          29.4927276191,
-          46.8332259161
-        ]
-      ]
-    },
-    "corridor_route_index": 51,
-    "provisional_chainage_km": 1.8335,
-    "provenance": {
-      "method": "single transverse line perpendicular to the control road corridor",
-      "sources": [
-        {"type": "OSM administrative relation", "relation_id": "12463379"},
-        {"type": "OSM administrative relation", "relation_id": "9581354"},
-        {"type": "OSM administrative relation", "relation_id": "944727"}
-      ],
-      "notes": "Three coincident source crossings are provenance for one geometry, not independent gate candidates."
-    }
-  },
-  "provisional_boundary_km_from_origin": 1.8335,
   "raw_sha256": "233c44b755e469884df913faae910dc806ab5aa5ab4886b004ad152abba7a595",
   "formula": {
     "base": "14 if km<=3 else 14+(km-3)*4",
     "external_surcharge": "max(5, external_km*2)",
     "reference_price": "base + external_surcharge"
+  },
+  "approved_gate": {
+    "id": "parkany-owner-approved-gate-v1",
+    "status": "owner_approved",
+    "approved_at": "2026-08-03T22:31:23.434Z",
+    "center_lonlat": [
+      29.48774,
+      46.82997
+    ],
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          29.488916486194423,
+          46.82989358661517
+        ],
+        [
+          29.486563513805574,
+          46.830046413384835
+        ]
+      ]
+    },
+    "corridor_route_index": 33,
+    "control_route_chainage_km": 1.2747,
+    "provenance": {
+      "method": "owner-approved checkpoint with a transverse line perpendicular to the committed control route",
+      "notes": "Crossing is determined only from route geometry and this line; territory and fixed-distance inference are not used."
+    }
   }
 }

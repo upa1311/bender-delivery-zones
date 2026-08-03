@@ -1,0 +1,10 @@
+{
+  "model_id": "parkany-owner-approved-gate-v1",
+  "route_index": 33,
+  "checkpoint": {
+    "lat": 46.82997,
+    "lon": 29.48774,
+    "status": "owner_approved",
+    "approved_at": "2026-08-03T22:31:23.434Z"
+  }
+}

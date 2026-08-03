@@ -1,8 +1,9 @@
-/* Static /review/ route-geometry tariff model. DESIGN only, not an approved tariff. */
+/* Static /review/ route-geometry tariff model with an owner-approved checkpoint. */
 "use strict";
 
 const OSM_ATTR = "© OpenStreetMap contributors";
-const LSKEY = "bdz_tariff_gate_v2";
+const LSKEY = "bdz_tariff_gate_v3";
+const LEGACY_LSKEY = "bdz_tariff_gate_v2";
 const ZCOL = { 1: "#2a9d3f", 2: "#f2c500", 3: "#f07f14", 4: "#d62828", 5: "#8338ec", 6: "#0e7490" };
 const SCOL = { 2: "#9ca3af", 4: "#92400e", 5: "#111827", 6: "#ec4899" };
 const STATUS_RU = { routed: "маршрут построен", duplicate: "дубликат",
@@ -16,7 +17,8 @@ const externalSurcharge = (km) => (km <= 0 ? 0 : Math.max(5, km * 2));
 
 let MAP, POINT_LAYER, GATE_LINE, GATE_MARKER, CONTROL_LINE, HIGHLIGHT;
 let POINTS = [], CATALOG = [], ROUTES = {}, CONTROL = [], CONTROL_CUM = [];
-let bIdx = 0, provisionalIdx = 0, approved = null, selectedUid = null, CURRENT = null;
+let bIdx = 0, canonicalIdx = 0, canonicalApproval = null, approved = null;
+let selectedUid = null, CURRENT = null;
 
 async function loadJSON(path) {
   const response = await fetch(path);
@@ -193,7 +195,8 @@ function renderControl() {
   coordinates.dataset.lat = center[1].toFixed(6);
   coordinates.dataset.lon = center[0].toFixed(6);
   coordinates.innerHTML = `Gate center: <code>${center[1].toFixed(6)}, ${center[0].toFixed(6)}</code> · route index ${bIdx}`
-    + (approved ? `<br><span class="ok">Утверждено: ${esc(approved.approved_at)}</span>` : " · <span class='warn'>PROVISIONAL</span>");
+    + (approved ? `<br><span class="ok">owner_approved · Утверждено: ${esc(approved.approved_at)}</span>`
+      : " · <span class='warn'>НЕ СОХРАНЕНО</span>");
   document.getElementById("parkany-block").innerHTML = `Отправление → Парканы, ул. Котовского: OSRM <b>4.715 км</b>, контроль Яндекс <b>4.72 км</b>. `
     + `Первое геометрическое пересечение gate: <b>${routeMetrics.chainage == null ? "нет" : routeMetrics.chainage.toFixed(3) + " км"}</b>; `
     + `external <b>${routeMetrics.externalKm.toFixed(3)} км</b>; надбавка <b>${surcharge.toFixed(2)} ₽</b>; итог <b>${price.toFixed(2)} ₽</b>.`;
@@ -210,12 +213,20 @@ function applyGate(index, keepApproval = false) {
 }
 
 function saveGate() {
-  approved = { status: "owner_approved", approved_at: new Date().toISOString(), route_index: bIdx,
-    center_lonlat: CONTROL[bIdx], geometry: { type: "LineString", coordinates: gateAt(bIdx) } };
+  approved = bIdx === canonicalIdx ? { ...canonicalApproval } : {
+    status: "owner_approved", approved_at: new Date().toISOString(), route_index: bIdx,
+    center_lonlat: CONTROL[bIdx], geometry: { type: "LineString", coordinates: gateAt(bIdx) },
+    checkpoint_model_id: canonicalApproval.checkpoint_model_id,
+  };
   localStorage.setItem(LSKEY, JSON.stringify(approved)); renderControl();
   document.getElementById("approve-out").innerHTML = `<span class="ok">Сохранено; полный пересчёт переживёт reload.</span>`;
 }
-function resetGate() { localStorage.removeItem(LSKEY); approved = null; applyGate(provisionalIdx); document.getElementById("approve-out").textContent = "Сброшено к provisional."; }
+function resetGate() {
+  localStorage.removeItem(LSKEY); localStorage.removeItem(LEGACY_LSKEY);
+  approved = { ...canonicalApproval };
+  applyGate(canonicalIdx, true);
+  document.getElementById("approve-out").textContent = "Сброшено к канонической утверждённой границе.";
+}
 
 function exportCheckpoint() {
   const center = CONTROL[bIdx];
@@ -270,15 +281,27 @@ async function init() {
   GATE_LINE = L.polyline([], { color: "#dc2626", weight: 5, opacity: 0.9 }).addTo(MAP);
   GATE_MARKER = L.marker([0, 0], { draggable: true, icon: L.divIcon({ className: "", iconSize: [18, 18], html:
     '<div style="width:16px;height:16px;border-radius:50%;background:#dc2626;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.5)"></div>' }) }).addTo(MAP);
-  provisionalIdx = parkany.provisional_gate.corridor_route_index;
-  try { const saved = JSON.parse(localStorage.getItem(LSKEY)); if (saved && saved.status === "owner_approved" && Number.isInteger(saved.route_index)) approved = saved; } catch (_error) { approved = null; }
-  bIdx = approved ? approved.route_index : provisionalIdx;
+  const canonicalGate = parkany.approved_gate;
+  canonicalIdx = canonicalGate.corridor_route_index;
+  canonicalApproval = { status: canonicalGate.status, approved_at: canonicalGate.approved_at,
+    route_index: canonicalIdx, center_lonlat: canonicalGate.center_lonlat,
+    geometry: canonicalGate.geometry, checkpoint_model_id: canonicalGate.id };
+  approved = { ...canonicalApproval };
+  localStorage.removeItem(LEGACY_LSKEY);
+  try {
+    const saved = JSON.parse(localStorage.getItem(LSKEY));
+    if (saved && saved.status === "owner_approved" && Number.isInteger(saved.route_index)
+      && saved.checkpoint_model_id === canonicalGate.id && saved.route_index > 0
+      && saved.route_index < CONTROL.length - 1) approved = saved;
+    else if (saved) localStorage.removeItem(LSKEY);
+  } catch (_error) { localStorage.removeItem(LSKEY); }
+  bIdx = approved.route_index;
   const nearest = (lat, lon) => { let best = 0, distance = Infinity; CONTROL.forEach((point, indexValue) => { const candidate = (point[1] - lat) ** 2 + (point[0] - lon) ** 2; if (candidate < distance) { distance = candidate; best = indexValue; } }); return best; };
   GATE_MARKER.on("drag", (event) => { const position = event.target.getLatLng(); applyGate(nearest(position.lat, position.lng)); });
   const slider = document.getElementById("gate-slider");
   slider.max = String(CONTROL.length - 2);
   slider.addEventListener("input", () => applyGate(+slider.value));
-  applyGate(bIdx, Boolean(approved));
+  applyGate(bIdx, true);
 
   document.querySelectorAll('input[name="mode"]').forEach((radio) => radio.addEventListener("change", drawPoints));
   document.getElementById("status-filter").addEventListener("change", drawPoints);

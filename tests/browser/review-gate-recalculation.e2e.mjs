@@ -52,7 +52,10 @@ async function moveGate(page, routeIndex) {
 
 test.beforeEach(async ({ page }) => {
   await waitUntilReady(page);
-  await page.evaluate(() => localStorage.removeItem("bdz_tariff_gate_v2"));
+  await page.evaluate(() => {
+    localStorage.removeItem("bdz_tariff_gate_v2");
+    localStorage.removeItem("bdz_tariff_gate_v3");
+  });
   await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-review-ready", "true", {
     timeout: 60_000,
@@ -61,17 +64,19 @@ test.beforeEach(async ({ page }) => {
 
 test("gate move recalculates the full catalog and approval survives reload", async ({ page }) => {
   const initial = await snapshot(page);
-  expect(initial.routeIndex).toBe("51");
-  expect(initial.counts).toBe("Пересчитано 9 215 маршрутов · gate пересекают 3446 · не пересекают 5769");
+  expect(initial.routeIndex).toBe("33");
+  expect(initial.counts).toBe("Пересчитано 9 215 маршрутов · gate пересекают 4315 · не пересекают 4900");
   expect(initial.zones).toContain("Взвешенный Jenks по 9 215 маршрутам");
-  expect(initial.zones).toContain("Границы ₽: 18.1, 24.9, 31.9, 43.8");
-  for (const count of ["2992 адр.", "2597 адр.", "2271 адр.", "1355 адр."]) {
+  expect(initial.zones).toContain("Границы ₽: 18.3, 25.7, 33, 52.9");
+  for (const count of ["2729 адр.", "2557 адр.", "2588 адр.", "1341 адр."]) {
     expect(initial.zones).toContain(count);
   }
-  expect(initial.price).toBe("25.63");
+  expect(initial.price).toBe("26.75");
   expect(initial.zone).toBe("3");
   expect(initial.color).toBe("#f07f14");
-  await expect(page.locator("#bcoords")).toContainText("PROVISIONAL");
+  await expect(page.locator("#bcoords")).toContainText("owner_approved");
+  await expect(page.locator("#bcoords")).toContainText("46.829970, 29.487740");
+  await expect(page.locator("#bcoords")).toContainText("route index 33");
 
   const moved = await moveGate(page, 83);
   expect(moved.counts).not.toBe(initial.counts);
@@ -92,7 +97,28 @@ test("gate move recalculates the full catalog and approval survives reload", asy
 
   await page.getByRole("button", { name: "Сбросить" }).click();
   await expect.poll(() => snapshot(page), { timeout: 60_000 }).toEqual(initial);
-  await expect(page.locator("#bcoords")).toContainText("PROVISIONAL");
+  await expect(page.locator("#bcoords")).toContainText("owner_approved");
+  await expect(page.locator("#bcoords")).toContainText("route index 33");
+});
+
+test("legacy and mismatched saved gates cannot override the canonical checkpoint", async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem("bdz_tariff_gate_v2", JSON.stringify({
+      status: "owner_approved", route_index: 83, approved_at: "2026-01-01T00:00:00.000Z",
+    }));
+    localStorage.setItem("bdz_tariff_gate_v3", JSON.stringify({
+      status: "owner_approved", route_index: 83, approved_at: "2026-01-01T00:00:00.000Z",
+      checkpoint_model_id: "obsolete-model",
+    }));
+  });
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("data-review-ready", "true", {
+    timeout: 60_000,
+  });
+  await expect.poll(async () => (await snapshot(page)).routeIndex, { timeout: 60_000 }).toBe("33");
+  await expect(page.locator("#bcoords")).toContainText("owner_approved");
+  expect(await page.evaluate(() => localStorage.getItem("bdz_tariff_gate_v2"))).toBeNull();
+  expect(await page.evaluate(() => localStorage.getItem("bdz_tariff_gate_v3"))).toBeNull();
 });
 
 test("review panel, map and legend do not overlap", async ({ page }) => {
@@ -133,7 +159,6 @@ test("review panel, map and legend do not overlap", async ({ page }) => {
 });
 
 test("downloaded checkpoint uses the public lat/lon schema", async ({ page }) => {
-  await moveGate(page, 83);
   await page.getByRole("button", { name: "Утвердить границу" }).click();
   await expect(page.locator("#bcoords")).toContainText("Утверждено:");
 
@@ -141,7 +166,7 @@ test("downloaded checkpoint uses the public lat/lon schema", async ({ page }) =>
     lat: Number(element.getAttribute("data-lat")),
     lon: Number(element.getAttribute("data-lon")),
   }));
-  expect(coordinates).toEqual({ lat: 46.82871, lon: 29.52008 });
+  expect(coordinates).toEqual({ lat: 46.82997, lon: 29.48774 });
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "Скачать JSON" }).click();
   const download = await downloadPromise;
@@ -155,7 +180,7 @@ test("downloaded checkpoint uses the public lat/lon schema", async ({ page }) =>
   expect(exported.checkpoint.lat).toBe(coordinates.lat);
   expect(exported.checkpoint.lon).toBe(coordinates.lon);
   expect(exported.checkpoint.status).toBe("owner_approved");
-  expect(new Date(exported.checkpoint.approved_at).toISOString()).toBe(exported.checkpoint.approved_at);
+  expect(exported.checkpoint.approved_at).toBe("2026-08-03T22:31:23.434Z");
   for (const obsolete of ["status", "route_index", "center_lonlat", "geometry"]) {
     expect(exported).not.toHaveProperty(obsolete);
   }

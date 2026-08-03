@@ -1,16 +1,18 @@
-"""Build the static /review/ route-geometry tariff design model.
+"""Build the static /review/ route-geometry tariff model.
 
 All 9,215 routed catalog rows use a committed OSRM route polyline.  A route is
 external only after its first geometric intersection with the single transverse
-provisional gate.  The canonical release, K4 polygons, Direct and prices remain
-read-only inputs; this output is a design model, not an approved public tariff.
+owner-approved gate.  The canonical release, K4 polygons, Direct and prices remain
+read-only inputs; only the review model's checkpoint is owner-approved.
 """
 
 from __future__ import annotations
 
 import csv
 import json
+import math
 import unicodedata
+from datetime import datetime
 from pathlib import Path
 
 from review_model_core import (
@@ -31,6 +33,7 @@ ROUTING = RD / "route-mindist-results.json"
 ROUTE_GEOMETRIES = RD / "review-route-geometries.json"
 PARKANY = RD / "parkany-route-boundary.json"
 KISH_MANIFEST = RD / "kishinevskaya-authoritative-manifest.json"
+GATE_CONFIG = ROOT / "config/review-gate.json"
 
 ORIGIN = (29.48313, 46.82388)
 SUPPORTED = {"Бендеры", "Парканы", "Гиска", "Протягайловка"}
@@ -72,13 +75,76 @@ def load_addresses() -> list[dict]:
     return sorted(rows, key=lambda row: row["uid"])
 
 
+def _transverse_gate(
+    route: list[list[float]], index: int, half_length_m: float = 90
+) -> list[list[float]]:
+    center = route[index]
+    before = route[max(0, index - 1)]
+    after = route[min(len(route) - 1, index + 1)]
+    latitude = math.radians(center[1])
+    dx = (after[0] - before[0]) * 111_320 * math.cos(latitude)
+    dy = (after[1] - before[1]) * 110_540
+    length = math.hypot(dx, dy) or 1
+    perpendicular_x = -dy / length
+    perpendicular_y = dx / length
+    return [
+        [
+            center[0]
+            + side * half_length_m * perpendicular_x / (111_320 * math.cos(latitude)),
+            center[1] + side * half_length_m * perpendicular_y / 110_540,
+        ]
+        for side in (-1, 1)
+    ]
+
+
+def _install_approved_gate(parkany: dict) -> dict:
+    config = json.loads(GATE_CONFIG.read_text(encoding="utf-8"))
+    checkpoint = config.get("checkpoint", {})
+    if set(checkpoint) != {"lat", "lon", "status", "approved_at"}:
+        raise ValueError("approved checkpoint must use the exact public checkpoint schema")
+    if checkpoint["status"] != "owner_approved":
+        raise ValueError("review gate must be owner_approved")
+    datetime.fromisoformat(checkpoint["approved_at"].replace("Z", "+00:00"))
+    index = config.get("route_index")
+    route = parkany["route_lonlat"]
+    if not isinstance(index, int) or not 1 <= index < len(route) - 1:
+        raise ValueError("approved checkpoint route_index is invalid")
+    center = route[index]
+    if center != [checkpoint["lon"], checkpoint["lat"]]:
+        raise ValueError("approved checkpoint coordinates must match its control-route index")
+    gate = {
+        "id": config["model_id"],
+        "status": checkpoint["status"],
+        "approved_at": checkpoint["approved_at"],
+        "center_lonlat": center,
+        "geometry": {"type": "LineString", "coordinates": _transverse_gate(route, index)},
+        "corridor_route_index": index,
+        "control_route_chainage_km": parkany["route_cum_km"][index],
+        "provenance": {
+            "method": (
+                "owner-approved checkpoint with a transverse line perpendicular "
+                "to the committed control route"
+            ),
+            "notes": (
+                "Crossing is determined only from route geometry and this line; "
+                "territory and fixed-distance inference are not used."
+            ),
+        },
+    }
+    parkany["note"] = "OWNER-APPROVED REVIEW CHECKPOINT — tariff formula remains unchanged"
+    parkany.pop("provisional_gate", None)
+    parkany.pop("provisional_boundary_km_from_origin", None)
+    parkany["approved_gate"] = gate
+    return gate
+
+
 def _gate_geometry(parkany: dict) -> list[tuple[float, float]]:
-    gate = parkany.get("provisional_gate")
-    if not gate or gate.get("status") != "PROVISIONAL":
-        raise ValueError("exactly one PROVISIONAL gate is required")
+    gate = parkany.get("approved_gate")
+    if not gate or gate.get("status") != "owner_approved":
+        raise ValueError("exactly one owner-approved gate is required")
     coordinates = gate.get("geometry", {}).get("coordinates", [])
     if gate.get("geometry", {}).get("type") != "LineString" or len(coordinates) != 2:
-        raise ValueError("provisional gate must be a two-point LineString")
+        raise ValueError("approved gate must be a two-point LineString")
     if "boundary_candidates" in parkany:
         raise ValueError("duplicate boundary_candidates must be provenance, not gate objects")
     return [tuple(coordinate) for coordinate in coordinates]
@@ -311,6 +377,7 @@ def _write_browser_data(rows: list[dict], recommended: int, breaks: list[float])
 
 def main() -> int:
     parkany = json.loads(PARKANY.read_text(encoding="utf-8"))
+    approved_gate = _install_approved_gate(parkany)
     gate = _gate_geometry(parkany)
     rows = build_rows(load_addresses(), gate)
     recommended, breaks, zone_stats, evaluations = _zone_model(rows)
@@ -326,13 +393,13 @@ def main() -> int:
         gate,
     )
     summary = {
-        "model": "review delivery-tariff model (DESIGN, not approved price)",
+        "model": "review delivery-tariff model with owner-approved checkpoint",
         "origin": {"lat": ORIGIN[1], "lon": ORIGIN[0]},
         "distance_source": "committed OSRM shortest-distance route geometry per routed address",
         "formula": {"base": "14 if km<=3 else 14+(km-3)*4",
                     "external_surcharge": "max(5, external_km*2) after geometric gate crossing",
                     "rejected": "18 / 6 / 10"},
-        "gate": parkany["provisional_gate"],
+        "gate": approved_gate,
         "catalog_total": len(rows),
         "status_counts": status_counts,
         "status_sum": sum(status_counts.values()),
@@ -361,8 +428,11 @@ def main() -> int:
         ),
         "parkany_control_km": parkany["osrm_total_km"],
         "parkany_control_gate_metrics": control_metrics,
-        "status": "DESIGN — provisional tariff gate; not a public price",
+        "status": "OWNER-APPROVED CHECKPOINT — tariff formula unchanged",
     }
+    PARKANY.write_text(
+        json.dumps(parkany, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n"
+    )
     _write_csv(rows)
     _write_browser_data(rows, recommended, breaks)
     (RD / "reference-tariff-v3-summary.json").write_text(

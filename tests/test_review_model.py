@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RD = ROOT / "docs/review/data"
+GATE_CONFIG = json.loads((ROOT / "config/review-gate.json").read_text("utf-8"))
 SUMMARY = json.loads((RD / "reference-tariff-v3-summary.json").read_text("utf-8"))
 ROWS = list(csv.DictReader((RD / "reference-tariff-v3.csv").open(encoding="utf-8-sig")))
 POINTS = json.loads((RD / "zone-points.json").read_text("utf-8"))
@@ -99,7 +100,7 @@ def test_frequency_weighted_jenks_uses_all_9215_observations():
     assert len(observations) == SUMMARY["jenks_input_observation_count"] == 9215
     expected = independent_weighted_jenks(observations, SUMMARY["recommended_zone_count"])
     assert expected == SUMMARY["recommended_breaks_price"]
-    assert expected == [18.1, 24.9, 31.9, 43.8]
+    assert expected == [18.3, 25.7, 33.0, 52.9]
     assert expected != [21.4, 28.9, 36.4, 43.8]
     assert SUMMARY["jenks_distinct_level_count"] == len(set(observations))
 
@@ -173,13 +174,38 @@ def test_crossing_behavior_is_independent_of_settlement_label():
     assert parkany_but_misses["crosses_checkpoint"] is False
 
 
-def test_single_provisional_gate_with_multiple_provenance_sources():
+def test_single_owner_approved_gate_is_the_canonical_checkpoint():
     assert "boundary_candidates" not in PARKANY
-    gate = PARKANY["provisional_gate"]
-    assert gate["status"] == "PROVISIONAL"
+    assert "provisional_gate" not in PARKANY
+    assert "provisional_boundary_km_from_origin" not in PARKANY
+    gate = PARKANY["approved_gate"]
+    assert gate["id"] == GATE_CONFIG["model_id"] == "parkany-owner-approved-gate-v1"
+    assert gate["status"] == GATE_CONFIG["checkpoint"]["status"] == "owner_approved"
+    assert gate["approved_at"] == "2026-08-03T22:31:23.434Z"
+    assert gate["corridor_route_index"] == GATE_CONFIG["route_index"] == 33
+    assert gate["center_lonlat"] == [29.48774, 46.82997]
+    assert gate["center_lonlat"] == PARKANY["route_lonlat"][33]
+    assert gate["control_route_chainage_km"] == PARKANY["route_cum_km"][33] == 1.2747
     assert gate["geometry"]["type"] == "LineString"
     assert len(gate["geometry"]["coordinates"]) == 2
-    assert len(gate["provenance"]["sources"]) == 3
+    assert "territory" not in gate["provenance"]["method"]
+    assert SUMMARY["gate"] == gate
+
+
+def test_owner_approved_gate_recalculates_all_routes_to_published_baseline():
+    assert SUMMARY["routes_crossing_gate"] == 4315
+    assert SUMMARY["routes_not_crossing_gate"] == 4900
+    assert SUMMARY["recommended_breaks_price"] == [18.3, 25.7, 33.0, 52.9]
+    assert {zone: stats["n"] for zone, stats in SUMMARY["zone_stats"].items()} == {
+        "1": 2729,
+        "2": 2557,
+        "3": 2588,
+        "4": 1341,
+    }
+    metrics = SUMMARY["parkany_control_gate_metrics"]
+    assert metrics["crosses_checkpoint"] is True
+    assert abs(metrics["intersection_chainage_km"] - 1.2764967286505793) < 1e-12
+    assert abs(metrics["external_km"] - 3.4385032713494206) < 1e-12
 
 
 def test_kishinevskaya_manifest_is_exact_and_explains_35th_candidate():
@@ -212,11 +238,13 @@ def test_review_client_recalculates_full_catalog_and_persists_gate():
     for required in (
         "recalculateCatalog", "routeGateMetrics", "weightedJenks", "9 215",
         "localStorage.setItem", "localStorage.getItem", "moveGateToIndex",
-        "zoneCounts", "selected", "resetGate",
+        "zoneCounts", "selected", "resetGate", "bdz_tariff_gate_v3",
+        "checkpoint_model_id", "LEGACY_LSKEY", "approved_gate",
     ):
         assert required in javascript
     assert "territory" not in javascript
     assert "boundaryKm" not in javascript
+    assert "parkany.provisional_gate" not in javascript
 
 
 def test_browser_e2e_is_installed_and_executed_by_ci():

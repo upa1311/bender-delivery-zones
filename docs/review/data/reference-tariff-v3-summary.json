@@ -4,13 +4,53 @@
     "lat": 46.82388,
     "lon": 29.48313
   },
-  "distance_source": "OSRM shortest-DISTANCE route (fixes duration detour); canonical release data unchanged",
+  "distance_source": "committed OSRM shortest-distance route geometry per routed address",
   "formula": {
     "base": "14 if km<=3 else 14+(km-3)*4",
-    "external_surcharge": "max(5, external_km*2) past the Парканы boundary",
+    "external_surcharge": "max(5, external_km*2) after geometric gate crossing",
     "rejected": "18 / 6 / 10"
   },
-  "provisional_boundary_km": 1.8335,
+  "gate": {
+    "id": "parkany-provisional-gate-v1",
+    "status": "PROVISIONAL",
+    "center_lonlat": [
+      29.492932,
+      46.832424
+    ],
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          29.4931363809,
+          46.8316220839
+        ],
+        [
+          29.4927276191,
+          46.8332259161
+        ]
+      ]
+    },
+    "corridor_route_index": 51,
+    "provisional_chainage_km": 1.8335,
+    "provenance": {
+      "method": "single transverse line perpendicular to the control road corridor",
+      "sources": [
+        {
+          "type": "OSM administrative relation",
+          "relation_id": "12463379"
+        },
+        {
+          "type": "OSM administrative relation",
+          "relation_id": "9581354"
+        },
+        {
+          "type": "OSM administrative relation",
+          "relation_id": "944727"
+        }
+      ],
+      "notes": "Three coincident source crossings are provenance for one geometry, not independent gate candidates."
+    }
+  },
   "catalog_total": 9216,
   "status_counts": {
     "routed": 9215,
@@ -19,127 +59,132 @@
   "status_sum": 9216,
   "status_sum_equals_9216": true,
   "priced_addresses": 9215,
+  "jenks_algorithm": "frequency-weighted dynamic programming on rounded 0.1 price levels",
+  "jenks_input_observation_count": 9215,
+  "jenks_distinct_level_count": 298,
   "zone_candidates_gvf": {
     "3": {
       "breaks": [
-        23.8,
-        33.8,
+        19.5,
+        28.9,
         43.8
       ],
-      "gvf": 0.8193
+      "gvf": 0.8888
     },
     "4": {
       "breaks": [
-        21.4,
-        28.9,
-        36.4,
+        18.1,
+        24.9,
+        31.9,
         43.8
       ],
-      "gvf": 0.9041
+      "gvf": 0.9441
     },
     "5": {
       "breaks": [
-        19.9,
-        25.9,
-        31.9,
-        37.9,
+        17.5,
+        23.2,
+        28.2,
+        33.8,
         43.8
       ],
-      "gvf": 0.9454
+      "gvf": 0.9643
     },
     "6": {
       "breaks": [
-        18.9,
-        23.9,
-        28.9,
-        33.9,
-        38.9,
+        16.9,
+        21.5,
+        25.4,
+        29.7,
+        34.6,
         43.8
       ],
-      "gvf": 0.9667
+      "gvf": 0.9757
     },
     "7": {
       "breaks": [
-        18.2,
-        22.5,
-        26.8,
-        31.1,
-        35.4,
-        39.6,
+        16.7,
+        21.0,
+        24.6,
+        28.3,
+        32.3,
+        36.5,
         43.8
       ],
-      "gvf": 0.9766
+      "gvf": 0.9816
     }
   },
   "recommended_zone_count": 4,
   "recommended_breaks_price": [
-    21.4,
-    28.9,
-    36.4,
+    18.1,
+    24.9,
+    31.9,
     43.8
   ],
   "zone_stats": {
     "1": {
-      "n": 4044,
+      "n": 2992,
       "pmin": 14.0,
-      "pmax": 21.4,
+      "pmax": 18.095,
       "kmin": 0.032,
-      "kmax": 4.85,
-      "external": 107,
-      "share_pct": 43.9,
+      "kmax": 4.024,
+      "external": 0,
+      "share_pct": 32.5,
       "examples": [
         "Коммунистическая улица",
         "Первомайская улица",
-        "улица Кирова",
-        "Садовая улица"
+        "улица Некрасова",
+        "улица Ткаченко"
       ]
     },
     "2": {
-      "n": 3017,
-      "pmin": 21.403,
-      "pmax": 28.9,
-      "kmin": 3.601,
-      "kmax": 6.711,
-      "external": 1517,
-      "share_pct": 32.7,
+      "n": 2597,
+      "pmin": 18.111,
+      "pmax": 24.899,
+      "kmin": 3.166,
+      "kmax": 5.725,
+      "external": 775,
+      "share_pct": 28.2,
       "examples": [
-        "Комсомольская улица",
-        "улица Котовского",
         "улица Ленина",
-        "улица Ворошилова"
+        "улица Пушкина",
+        "Садовая улица",
+        "Комсомольская улица"
       ]
     },
     "3": {
-      "n": 1656,
-      "pmin": 28.904,
-      "pmax": 36.4,
-      "kmin": 5.095,
-      "kmax": 8.594,
-      "external": 1367,
-      "share_pct": 18.0,
+      "n": 2271,
+      "pmin": 24.906,
+      "pmax": 31.898,
+      "kmin": 4.43,
+      "kmax": 7.458,
+      "external": 1494,
+      "share_pct": 24.6,
       "examples": [
-        "улица Петра Николаева",
-        "улица Карла Маркса",
-        "улица Чапаева",
-        "улица Суворова"
+        "улица Горького",
+        "улица Ворошилова",
+        "улица Котовского",
+        "улица Карла Маркса"
       ]
     },
     "4": {
-      "n": 498,
-      "pmin": 36.405,
-      "pmax": 43.782,
-      "kmin": 6.345,
+      "n": 1355,
+      "pmin": 31.903,
+      "pmax": 43.778,
+      "kmin": 5.596,
       "kmax": 9.371,
-      "external": 455,
-      "share_pct": 5.4,
+      "external": 1177,
+      "share_pct": 14.7,
       "examples": [
-        "улица Свердлова",
-        "улица Романенко",
         "улица Карла Маркса",
-        "Молодёжная улица"
+        "улица Романенко",
+        "улица Петра Николаева",
+        "улица Чапаева"
       ]
     }
   },
+  "routes_crossing_gate": 3446,
+  "routes_not_crossing_gate": 5769,
   "kishinevskaya": [
     {
       "id": "n2325366591",
@@ -385,15 +430,6 @@
       "reason": "shortest-distance route selected (was duration-optimal detour)"
     },
     {
-      "id": "w319620046",
-      "address": "Бендеры, Кишинёвский тупик, 1",
-      "old_km": 4.464,
-      "new_km": 4.4645,
-      "duration_opt_km": 4.4645,
-      "status": "routed",
-      "reason": "no shorter alternative — distance unchanged"
-    },
-    {
       "id": "w352110238",
       "address": "Бендеры, Кишинёвский тупик, 2а",
       "old_km": 4.498,
@@ -457,8 +493,26 @@
       "reason": "no shorter alternative — distance unchanged"
     }
   ],
-  "kishinevskaya_total": 35,
+  "kishinevskaya_total": 34,
+  "kishinevskaya_catalog_candidates_total": 35,
+  "kishinevskaya_excluded": [
+    {
+      "uid": "w319620046",
+      "included": false,
+      "reason": "Catalog says Кишинёвский тупик 1, but pinned OSM way w319620046 is tagged addr:street=улица Титова and addr:housenumber=1.",
+      "source_tags": {
+        "addr:street": "улица Титова",
+        "addr:housenumber": "1",
+        "building": "yes"
+      }
+    }
+  ],
   "kishinevskaya_fixed_count": 25,
   "parkany_control_km": 4.715,
-  "status": "DESIGN — provisional tariff boundary; not a public price"
+  "parkany_control_gate_metrics": {
+    "crosses_checkpoint": true,
+    "intersection_chainage_km": 1.8361565423402866,
+    "external_km": 2.8788434576597135
+  },
+  "status": "DESIGN — provisional tariff gate; not a public price"
 }

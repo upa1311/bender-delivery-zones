@@ -64,6 +64,7 @@
 
       <div class="sec">
         <h2>Зоны (по разбросу цены)</h2>
+        <div id="catalog-recalc" class="muted small">Пересчёт каталога…</div>
         <div id="zone-legend" class="muted small">Загрузка…</div>
         <div style="margin-top:6px">
           <label class="flt"><input type="radio" name="mode" value="new" checked> Новая модель</label>
@@ -81,12 +82,16 @@
         <input id="addr-search" type="search" placeholder="улица или дом…"
           style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px" />
         <div id="addr-results" class="muted small"></div>
+        <div id="selected-address" class="muted small" style="margin-top:6px"></div>
       </div>
 
       <div class="sec">
         <h2>Тарифная граница (Парканы, PROVISIONAL)</h2>
         <div class="price-grid" id="price-grid"></div>
         <div id="bcoords" class="muted small" style="margin-top:6px"></div>
+        <label class="muted small" for="gate-slider">Положение gate по контрольному маршруту</label>
+        <input id="gate-slider" type="range" min="1" value="1" style="width:100%"
+          aria-label="Положение gate по контрольному маршруту" />
         <div>
           <button class="rb go" id="approve">Утвердить границу</button>
           <button class="rb sec2" id="copy">Копировать координаты</button>
@@ -105,7 +110,7 @@
     <p id="parkany-block" class="muted small"></p>
     <h2>Кишинёвская — старое vs новое расстояние (все записи)</h2>
     <div id="kish-block" class="muted small">Загрузка…</div>
-    <p class="muted small">Полный пер-адресный расчёт: <code>data/interim/reference-tariff-v3.csv</code>.
+    <p class="muted small">Полный пер-адресный расчёт: <code>data/reference-tariff-v3.csv</code>.
       Это внутренняя расчётная модель, не публично утверждённый тариф.</p>
   </div>
 

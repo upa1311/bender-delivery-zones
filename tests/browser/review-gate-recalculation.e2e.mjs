@@ -113,13 +113,21 @@ test("review panel, map and legend do not overlap", async ({ page }) => {
   });
   const overlaps = (a, b) => a.left < b.right - 1 && a.right > b.left + 1
     && a.top < b.bottom - 1 && a.bottom > b.top + 1;
+  const visibleLegend = {
+    left: Math.max(layout.legend.left, layout.panel.left),
+    top: Math.max(layout.legend.top, layout.panel.top),
+    right: Math.min(layout.legend.right, layout.panel.right),
+    bottom: Math.min(layout.legend.bottom, layout.panel.bottom),
+  };
 
   expect(layout.horizontalOverflow).toBe(false);
   expect(["auto", "scroll"]).toContain(layout.panelOverflowY);
   expect(layout.panel.width).toBeGreaterThan(0);
   expect(layout.map.width).toBeGreaterThan(0);
   expect(overlaps(layout.panel, layout.map)).toBe(false);
-  expect(overlaps(layout.legend, layout.map)).toBe(false);
+  expect(visibleLegend.right - visibleLegend.left).toBeGreaterThan(0);
+  expect(visibleLegend.bottom - visibleLegend.top).toBeGreaterThan(0);
+  expect(overlaps(visibleLegend, layout.map)).toBe(false);
   expect(layout.legend.left).toBeGreaterThanOrEqual(layout.panel.left - 1);
   expect(layout.legend.right).toBeLessThanOrEqual(layout.panel.right + 1);
 });

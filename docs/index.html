@@ -10,27 +10,36 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Public homepage: shows the 4 final K=4 delivery zones by default. -->
+  <!-- Public homepage: the K4 scheme below is the OLD scheme, UNDER REVISION —
+       it is NOT an approved final model. The new tariff model is on /review/. -->
   <div id="notice" role="alert">
-    4 зоны доставки. Тарифы пока не настроены.
+    Старая схема зон находится на пересмотре. Новая тарифная модель доступна на
+    странице проверки: <a href="review/">/review/ — расчётный тариф и зоны →</a>
   </div>
 
   <div id="layout">
     <aside id="sidebar">
-      <h1>Зоны доставки — Бендеры</h1>
+      <h1>Зоны доставки — Бендеры (старая схема, на пересмотре)</h1>
       <p class="muted">
-        4 зоны K=4 по дорожному расстоянию (OSRM). Зона 4 включает отдельный
-        анклав «Северный». Геометрия из <code>final-zone-polygons.geojson</code>,
-        параметры из <code>final-zone-map-summary.json</code>.
+        Ниже показана <b>старая схема K=4</b> — она НЕ утверждена как финальная и
+        находится на пересмотре. Новая тарифная модель (пересчёт по расстоянию,
+        внешняя надбавка, тарифная граница на Парканы) — на странице
+        <a href="review/">/review/</a>.
+        Геометрия старой схемы из <code>final-zone-polygons.geojson</code>.
         Данные © OpenStreetMap contributors.
       </p>
 
       <section id="legend">
-        <h2>Зоны</h2>
+        <h2>Старая схема K=4 (на пересмотре)</h2>
         <ul id="zone-legend" class="legend-list">
           <li class="muted small">Загрузка…</li>
         </ul>
       </section>
+      <p class="muted small" style="background:#fff4e5;border:1px solid #f0a020;
+        border-radius:6px;padding:6px 8px">
+        ⚠ Это НЕ утверждённая финальная модель. Актуальный пересчёт и выбор
+        тарифной границы — на <a href="review/">/review/</a>.
+      </p>
 
       <section id="search-box">
         <label for="street-search"><strong>Поиск улицы</strong> (русское или исходное название)</label>

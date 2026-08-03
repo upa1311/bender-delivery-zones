@@ -241,7 +241,8 @@ def test_browser_e2e_is_installed_and_executed_by_ci():
 
     e2e = (ROOT / "tests/browser/review-gate-recalculation.e2e.mjs").read_text("utf-8")
     for required in (
-        "expect.poll", "data-review-ready", "page.reload()", "toEqual(initial)",
+        "expect.poll", "data-review-ready",
+        'page.reload({ waitUntil: "domcontentloaded" })', "toEqual(initial)",
         'page.waitForEvent("download")', "readFile(downloadPath", "layout.panel",
     ):
         assert required in e2e

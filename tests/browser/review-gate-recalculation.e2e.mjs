@@ -2,10 +2,10 @@ import { readFile } from "node:fs/promises";
 
 import { expect, test } from "@playwright/test";
 
-const reviewUrl = "/review/";
+const reviewUrl = "review/";
 
 async function waitUntilReady(page) {
-  await page.goto(reviewUrl);
+  await page.goto(reviewUrl, { waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-review-ready", "true", {
     timeout: 60_000,
   });
@@ -53,7 +53,7 @@ async function moveGate(page, routeIndex) {
 test.beforeEach(async ({ page }) => {
   await waitUntilReady(page);
   await page.evaluate(() => localStorage.removeItem("bdz_tariff_gate_v2"));
-  await page.reload();
+  await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-review-ready", "true", {
     timeout: 60_000,
   });
@@ -83,7 +83,7 @@ test("gate move recalculates the full catalog and approval survives reload", asy
 
   await page.getByRole("button", { name: "Утвердить границу" }).click();
   await expect(page.locator("#bcoords")).toContainText("Утверждено:");
-  await page.reload();
+  await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-review-ready", "true", {
     timeout: 60_000,
   });

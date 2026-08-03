@@ -1,0 +1,11 @@
+{
+  "name": "bender-delivery-zones-review-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  }
+}

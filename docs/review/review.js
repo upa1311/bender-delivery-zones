@@ -176,7 +176,10 @@ function selectedItem() { return CATALOG.find((item) => item.uid === selectedUid
 function renderSelected() {
   const item = selectedItem(); if (!item) return;
   const color = item.status === "routed" ? ZCOL[item.zone] : "#999";
-  document.getElementById("selected-address").innerHTML = `<span class="zsw" data-selected-color="${color}" style="background:${color}"></span><b>${esc(item.address)}</b><br>`
+  const selected = document.getElementById("selected-address");
+  selected.dataset.selectedZone = item.status === "routed" ? String(item.zone) : "";
+  selected.dataset.selectedPrice = item.status === "routed" ? item.price.toFixed(2) : "";
+  selected.innerHTML = `<span class="zsw" data-selected-color="${color}" style="background:${color}"></span><b>${esc(item.address)}</b><br>`
     + (item.status === "routed" ? `зона ${item.zone}, ${item.price.toFixed(2)} ₽ · пересечение: ${item.crosses ? "да" : "нет"}`
       + `${item.crosses ? ` · chainage ${item.chainage.toFixed(3)} км · external ${item.externalKm.toFixed(3)} км` : ""}` : esc(STATUS_RU[item.status]));
 }
@@ -186,7 +189,10 @@ function renderControl() {
   const surcharge = externalSurcharge(routeMetrics.externalKm), price = basePrice(4.715) + surcharge, center = CONTROL[bIdx];
   document.getElementById("price-grid").innerHTML = [["маршрут км", "4.715"], ["chainage км", routeMetrics.chainage == null ? "—" : routeMetrics.chainage.toFixed(3)],
     ["внешние км", routeMetrics.externalKm.toFixed(3)], ["итог ₽", price.toFixed(2)]].map(([label, value]) => `<div class="price-card"><div class="lbl">${label}</div><div class="val">${value}</div></div>`).join("");
-  document.getElementById("bcoords").innerHTML = `Gate center: <code>${center[1].toFixed(6)}, ${center[0].toFixed(6)}</code> · route index ${bIdx}`
+  const coordinates = document.getElementById("bcoords");
+  coordinates.dataset.lat = center[1].toFixed(6);
+  coordinates.dataset.lon = center[0].toFixed(6);
+  coordinates.innerHTML = `Gate center: <code>${center[1].toFixed(6)}, ${center[0].toFixed(6)}</code> · route index ${bIdx}`
     + (approved ? `<br><span class="ok">Утверждено: ${esc(approved.approved_at)}</span>` : " · <span class='warn'>PROVISIONAL</span>");
   document.getElementById("parkany-block").innerHTML = `Отправление → Парканы, ул. Котовского: OSRM <b>4.715 км</b>, контроль Яндекс <b>4.72 км</b>. `
     + `Первое геометрическое пересечение gate: <b>${routeMetrics.chainage == null ? "нет" : routeMetrics.chainage.toFixed(3) + " км"}</b>; `
@@ -210,6 +216,12 @@ function saveGate() {
   document.getElementById("approve-out").innerHTML = `<span class="ok">Сохранено; полный пересчёт переживёт reload.</span>`;
 }
 function resetGate() { localStorage.removeItem(LSKEY); approved = null; applyGate(provisionalIdx); document.getElementById("approve-out").textContent = "Сброшено к provisional."; }
+
+function exportCheckpoint() {
+  const center = CONTROL[bIdx];
+  return { checkpoint: { lat: +center[1].toFixed(6), lon: +center[0].toFixed(6),
+    status: approved.status, approved_at: approved.approved_at } };
+}
 
 function setupSearch() {
   const input = document.getElementById("addr-search"), output = document.getElementById("addr-results");
@@ -273,7 +285,12 @@ async function init() {
   document.getElementById("approve").addEventListener("click", saveGate);
   document.getElementById("reset").addEventListener("click", resetGate);
   document.getElementById("copy").addEventListener("click", () => navigator.clipboard && navigator.clipboard.writeText(`${CONTROL[bIdx][1].toFixed(6)}, ${CONTROL[bIdx][0].toFixed(6)}`));
-  document.getElementById("download").addEventListener("click", () => { const blob = new Blob([JSON.stringify(approved || { status: "PROVISIONAL", route_index: bIdx, geometry: { type: "LineString", coordinates: gateAt(bIdx) } }, null, 2)], { type: "application/json" }); const anchor = document.createElement("a"); anchor.href = URL.createObjectURL(blob); anchor.download = "tariff-gate.json"; anchor.click(); });
+  document.getElementById("download").addEventListener("click", () => {
+    if (!approved) { document.getElementById("approve-out").innerHTML = '<span class="warn">Сначала утвердите границу.</span>'; return; }
+    const objectUrl = URL.createObjectURL(new Blob([JSON.stringify(exportCheckpoint(), null, 2)], { type: "application/json" }));
+    const anchor = document.createElement("a"); anchor.href = objectUrl; anchor.download = "tariff-checkpoint.json"; anchor.click();
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+  });
   setupSearch();
 
   window.__reviewTest = {

@@ -47,3 +47,55 @@ jobs:
         run: cd vendor/osrm && sha256sum -c CHECKSUMS.sha256
       - name: Build record matches the pin
         run: python scripts/verify_provenance.py
+
+  browser-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install browser test dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run desktop and mobile browser tests
+        env:
+          REVIEW_URL: http://127.0.0.1:8765
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory docs > /tmp/review-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:8765/review/ > /dev/null; then
+              break
+            fi
+            if [ "$attempt" = 40 ]; then
+              cat /tmp/review-http.log
+              exit 1
+            fi
+            sleep 0.25
+          done
+          npx playwright test
+
+      - name: Upload browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

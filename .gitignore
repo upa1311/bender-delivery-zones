@@ -73,6 +73,11 @@ dist/
 .coverage
 htmlcov/
 
+# Node / Playwright browser test artifacts
+node_modules/
+playwright-report/
+test-results/
+
 # Local OSRM build artifacts (multi-GB, rebuildable from the PBF)
 data/interim/osrm/
 *.osrm*

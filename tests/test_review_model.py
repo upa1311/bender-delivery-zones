@@ -207,7 +207,7 @@ def test_kishinevskaya_routes_remain_corrected_and_control_is_close():
     assert abs(SUMMARY["parkany_control_km"] - 4.72) < 0.2
 
 
-def test_browser_recalculates_full_catalog_and_persists_gate():
+def test_review_client_recalculates_full_catalog_and_persists_gate():
     javascript = (ROOT / "docs/review/review.js").read_text("utf-8")
     for required in (
         "recalculateCatalog", "routeGateMetrics", "weightedJenks", "9 215",
@@ -217,12 +217,44 @@ def test_browser_recalculates_full_catalog_and_persists_gate():
         assert required in javascript
     assert "territory" not in javascript
     assert "boundaryKm" not in javascript
+
+
+def test_browser_e2e_is_installed_and_executed_by_ci():
+    package = json.loads((ROOT / "package.json").read_text("utf-8"))
+    assert package["devDependencies"]["@playwright/test"] == "1.62.1"
+    assert package["scripts"]["test:e2e"] == "playwright test"
+    assert (ROOT / "package-lock.json").is_file()
+
+    config = (ROOT / "playwright.config.mjs").read_text("utf-8")
+    for required in (
+        'name: "desktop-chromium"', 'width: 1440', 'height: 900',
+        'name: "mobile-chromium"', 'width: 412', 'height: 915',
+    ):
+        assert required in config
+
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text("utf-8")
+    for required in (
+        "browser-e2e:", "npm ci", "npx playwright install --with-deps chromium",
+        "python -m http.server 8765", "npx playwright test",
+    ):
+        assert required in workflow
+
     e2e = (ROOT / "tests/browser/review-gate-recalculation.e2e.mjs").read_text("utf-8")
-    assert "9 215" in e2e
-    assert "not.toBe(initial.counts)" in e2e
-    assert "not.toBe(initial.color)" in e2e
-    assert "page.reload()" in e2e
-    assert "toEqual(initial)" in e2e
+    for required in (
+        "expect.poll", "data-review-ready", "page.reload()", "toEqual(initial)",
+        'page.waitForEvent("download")', "readFile(downloadPath", "layout.panel",
+    ):
+        assert required in e2e
+
+
+def test_checkpoint_export_has_public_schema_and_keeps_internal_state_private():
+    javascript = (ROOT / "docs/review/review.js").read_text("utf-8")
+    assert "function exportCheckpoint()" in javascript
+    assert "return { checkpoint: { lat:" in javascript
+    assert "lon: +center[0].toFixed(6)" in javascript
+    assert 'anchor.download = "tariff-checkpoint.json"' in javascript
+    assert "JSON.stringify(exportCheckpoint()" in javascript
+    assert "localStorage.setItem(LSKEY, JSON.stringify(approved))" in javascript
 
 
 def test_map_points_cover_catalog_with_uid_linkage():

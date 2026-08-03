@@ -21,28 +21,29 @@ html, body {
   background: var(--bg);
 }
 
-/* Column layout so the map always fills the height left by the banner,
-   independent of banner wrapping on small screens. */
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 #notice {
-  flex: 0 0 auto;
-  background: #eef4ff;
-  border-bottom: 2px solid #2f6fed;
-  color: #16337a;
+  background: #fff4e5;
+  border-bottom: 2px solid #f0a020;
+  color: #8a4b00;
   font-weight: 700;
   text-align: center;
   padding: 10px 14px;
   font-size: 15px;
 }
 
+#notice-trim {
+  background: #eef4ff;
+  border-bottom: 2px solid #2f6fed;
+  color: #16337a;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
 #layout {
-  flex: 1 1 auto;
   display: flex;
-  min-height: 0; /* allow children to scroll/fill inside the flex column */
+  height: calc(100% - 88px);
 }
 
 /* K=4 / K=5 draft cluster-centre badges. */
@@ -60,21 +61,6 @@ body {
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.35);
 }
-
-/* Permanent zone labels (Zone 1..4 + Северный) drawn over the map. */
-.zone-label span {
-  position: relative;
-  left: -50%;
-  display: inline-block;
-  white-space: nowrap;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--c, #1e2430);
-  text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #fff;
-  pointer-events: none;
-  letter-spacing: .01em;
-}
-.zone-label-severny span { font-size: 13px; font-weight: 700; }
 
 /* Permanent settlement labels drawn over the map. */
 .area-label span {
@@ -99,7 +85,7 @@ body {
   border-right: 1px solid var(--border);
 }
 
-#map { flex: 1 1 auto; min-height: 0; height: 100%; }
+#map { flex: 1; height: 100%; }
 
 h1 { font-size: 18px; margin: 0 0 8px; }
 h2 { font-size: 14px; margin: 18px 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }

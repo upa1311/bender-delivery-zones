@@ -1,0 +1,464 @@
+{
+  "model": "review delivery-tariff model (DESIGN, not approved price)",
+  "origin": {
+    "lat": 46.82388,
+    "lon": 29.48313
+  },
+  "distance_source": "OSRM shortest-DISTANCE route (fixes duration detour); canonical release data unchanged",
+  "formula": {
+    "base": "14 if km<=3 else 14+(km-3)*4",
+    "external_surcharge": "max(5, external_km*2) past the Парканы boundary",
+    "rejected": "18 / 6 / 10"
+  },
+  "provisional_boundary_km": 1.8335,
+  "catalog_total": 9216,
+  "status_counts": {
+    "routed": 9215,
+    "duplicate": 1
+  },
+  "status_sum": 9216,
+  "status_sum_equals_9216": true,
+  "priced_addresses": 9215,
+  "zone_candidates_gvf": {
+    "3": {
+      "breaks": [
+        23.8,
+        33.8,
+        43.8
+      ],
+      "gvf": 0.8193
+    },
+    "4": {
+      "breaks": [
+        21.4,
+        28.9,
+        36.4,
+        43.8
+      ],
+      "gvf": 0.9041
+    },
+    "5": {
+      "breaks": [
+        19.9,
+        25.9,
+        31.9,
+        37.9,
+        43.8
+      ],
+      "gvf": 0.9454
+    },
+    "6": {
+      "breaks": [
+        18.9,
+        23.9,
+        28.9,
+        33.9,
+        38.9,
+        43.8
+      ],
+      "gvf": 0.9667
+    },
+    "7": {
+      "breaks": [
+        18.2,
+        22.5,
+        26.8,
+        31.1,
+        35.4,
+        39.6,
+        43.8
+      ],
+      "gvf": 0.9766
+    }
+  },
+  "recommended_zone_count": 4,
+  "recommended_breaks_price": [
+    21.4,
+    28.9,
+    36.4,
+    43.8
+  ],
+  "zone_stats": {
+    "1": {
+      "n": 4044,
+      "pmin": 14.0,
+      "pmax": 21.4,
+      "kmin": 0.032,
+      "kmax": 4.85,
+      "external": 107,
+      "share_pct": 43.9,
+      "examples": [
+        "Коммунистическая улица",
+        "Первомайская улица",
+        "улица Кирова",
+        "Садовая улица"
+      ]
+    },
+    "2": {
+      "n": 3017,
+      "pmin": 21.403,
+      "pmax": 28.9,
+      "kmin": 3.601,
+      "kmax": 6.711,
+      "external": 1517,
+      "share_pct": 32.7,
+      "examples": [
+        "Комсомольская улица",
+        "улица Котовского",
+        "улица Ленина",
+        "улица Ворошилова"
+      ]
+    },
+    "3": {
+      "n": 1656,
+      "pmin": 28.904,
+      "pmax": 36.4,
+      "kmin": 5.095,
+      "kmax": 8.594,
+      "external": 1367,
+      "share_pct": 18.0,
+      "examples": [
+        "улица Петра Николаева",
+        "улица Карла Маркса",
+        "улица Чапаева",
+        "улица Суворова"
+      ]
+    },
+    "4": {
+      "n": 498,
+      "pmin": 36.405,
+      "pmax": 43.782,
+      "kmin": 6.345,
+      "kmax": 9.371,
+      "external": 455,
+      "share_pct": 5.4,
+      "examples": [
+        "улица Свердлова",
+        "улица Романенко",
+        "улица Карла Маркса",
+        "Молодёжная улица"
+      ]
+    }
+  },
+  "kishinevskaya": [
+    {
+      "id": "n2325366591",
+      "address": "Бендеры, Кишинёвская улица, 76",
+      "old_km": 6.471,
+      "new_km": 4.679,
+      "duration_opt_km": 6.4699,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2325729708",
+      "address": "Бендеры, Кишинёвский тупик, 10",
+      "old_km": 4.196,
+      "new_km": 4.1961,
+      "duration_opt_km": 4.1961,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "n2334331706",
+      "address": "Бендеры, Кишинёвская улица, 16",
+      "old_km": 7.099,
+      "new_km": 4.8599,
+      "duration_opt_km": 7.0981,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2334331709",
+      "address": "Бендеры, Кишинёвская улица, 4",
+      "old_km": 7.19,
+      "new_km": 4.9513,
+      "duration_opt_km": 7.1895,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2334331710",
+      "address": "Бендеры, Кишинёвская улица, 20",
+      "old_km": 7.086,
+      "new_km": 4.8481,
+      "duration_opt_km": 7.0864,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2334331711",
+      "address": "Бендеры, Кишинёвская улица, 24",
+      "old_km": 7.024,
+      "new_km": 4.7853,
+      "duration_opt_km": 7.0235,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2334331712",
+      "address": "Бендеры, Кишинёвский переулок, 32",
+      "old_km": 6.976,
+      "new_km": 4.7381,
+      "duration_opt_km": 6.9763,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n2334331713",
+      "address": "Бендеры, Кишинёвский переулок, 34",
+      "old_km": 6.979,
+      "new_km": 4.7408,
+      "duration_opt_km": 6.979,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n4886201637",
+      "address": "Бендеры, Кишинёвская улица, 78",
+      "old_km": 6.465,
+      "new_km": 4.6558,
+      "duration_opt_km": 6.4648,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n5172818452",
+      "address": "Бендеры, Кишинёвская улица, 8/2",
+      "old_km": 7.19,
+      "new_km": 4.9514,
+      "duration_opt_km": 7.1897,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n5172818456",
+      "address": "Бендеры, Кишинёвская улица, 34/2",
+      "old_km": 6.905,
+      "new_km": 4.6664,
+      "duration_opt_km": 6.9046,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n5172818844",
+      "address": "Бендеры, Кишинёвская улица, 12/3",
+      "old_km": 7.117,
+      "new_km": 4.8778,
+      "duration_opt_km": 7.1161,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "n5172819425",
+      "address": "Бендеры, Кишинёвская улица, 8/1",
+      "old_km": 7.181,
+      "new_km": 4.9423,
+      "duration_opt_km": 7.1805,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w209267130",
+      "address": "Бендеры, Кишинёвская улица, 1а",
+      "old_km": 6.442,
+      "new_km": 4.9374,
+      "duration_opt_km": 6.4418,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w209267161",
+      "address": "Бендеры, Кишинёвская улица, 1б",
+      "old_km": 6.424,
+      "new_km": 4.92,
+      "duration_opt_km": 6.4244,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w209267167",
+      "address": "Бендеры, Кишинёвская улица, 1",
+      "old_km": 6.566,
+      "new_km": 4.7745,
+      "duration_opt_km": 6.5654,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w303915656",
+      "address": "Бендеры, Кишинёвская улица, 8",
+      "old_km": 7.223,
+      "new_km": 4.9851,
+      "duration_opt_km": 7.2233,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w303915657",
+      "address": "Бендеры, Кишинёвская улица, 10",
+      "old_km": 7.195,
+      "new_km": 4.9562,
+      "duration_opt_km": 7.1944,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w303915659",
+      "address": "Бендеры, Кишинёвская улица, 12",
+      "old_km": 7.123,
+      "new_km": 4.8849,
+      "duration_opt_km": 7.1232,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w303915660",
+      "address": "Бендеры, Кишинёвская улица, 14",
+      "old_km": 7.16,
+      "new_km": 4.9219,
+      "duration_opt_km": 7.1602,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027125",
+      "address": "Бендеры, Кишинёвская улица, 9",
+      "old_km": 6.38,
+      "new_km": 4.8827,
+      "duration_opt_km": 6.3794,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027126",
+      "address": "Бендеры, Кишинёвская улица, 7",
+      "old_km": 6.398,
+      "new_km": 4.894,
+      "duration_opt_km": 6.3984,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027128",
+      "address": "Бендеры, Кишинёвская улица, 5",
+      "old_km": 6.412,
+      "new_km": 4.8501,
+      "duration_opt_km": 6.412,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027129",
+      "address": "Бендеры, Кишинёвская улица, 3",
+      "old_km": 6.403,
+      "new_km": 4.8589,
+      "duration_opt_km": 6.4032,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027138",
+      "address": "Бендеры, Кишинёвский переулок, 38",
+      "old_km": 7.018,
+      "new_km": 4.7797,
+      "duration_opt_km": 7.0179,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w316027473",
+      "address": "Бендеры, Кишинёвская улица, 54",
+      "old_km": 4.447,
+      "new_km": 4.4466,
+      "duration_opt_km": 4.4466,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w316027884",
+      "address": "Бендеры, Кишинёвская улица, 60",
+      "old_km": 6.636,
+      "new_km": 4.8443,
+      "duration_opt_km": 6.6352,
+      "status": "routed",
+      "reason": "shortest-distance route selected (was duration-optimal detour)"
+    },
+    {
+      "id": "w319620046",
+      "address": "Бендеры, Кишинёвский тупик, 1",
+      "old_km": 4.464,
+      "new_km": 4.4645,
+      "duration_opt_km": 4.4645,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352110238",
+      "address": "Бендеры, Кишинёвский тупик, 2а",
+      "old_km": 4.498,
+      "new_km": 4.4984,
+      "duration_opt_km": 4.4984,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352110239",
+      "address": "Бендеры, Кишинёвский тупик, 5",
+      "old_km": 4.485,
+      "new_km": 4.4851,
+      "duration_opt_km": 4.4851,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352148076",
+      "address": "Бендеры, Кишинёвский тупик, 8а",
+      "old_km": 4.219,
+      "new_km": 4.2193,
+      "duration_opt_km": 4.2193,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352148078",
+      "address": "Бендеры, Кишинёвский тупик, 4",
+      "old_km": 4.548,
+      "new_km": 4.5483,
+      "duration_opt_km": 4.5483,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352148079",
+      "address": "Бендеры, Кишинёвский тупик, 2",
+      "old_km": 4.523,
+      "new_km": 4.5233,
+      "duration_opt_km": 4.5233,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352155391",
+      "address": "Бендеры, Кишинёвский тупик, 7",
+      "old_km": 4.503,
+      "new_km": 4.5033,
+      "duration_opt_km": 4.5033,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    },
+    {
+      "id": "w352155392",
+      "address": "Бендеры, Кишинёвский тупик, 3",
+      "old_km": 4.469,
+      "new_km": 4.4695,
+      "duration_opt_km": 4.4695,
+      "status": "routed",
+      "reason": "no shorter alternative — distance unchanged"
+    }
+  ],
+  "kishinevskaya_total": 35,
+  "kishinevskaya_fixed_count": 25,
+  "parkany_control_km": 4.715,
+  "status": "DESIGN — provisional tariff boundary; not a public price"
+}

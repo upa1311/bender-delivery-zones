@@ -12,8 +12,8 @@ const STATUS_RU = { routed: "маршрут построен", duplicate: "ду�
 const SCODE = { routed: 1, duplicate: 2, outside_supported_area: 4, unreachable: 5, manual_review: 6 };
 const esc = (value) => (value == null ? "" : String(value).replace(/[&<>"]/g,
   (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char])));
-const basePrice = (km) => (km <= 3 ? 14 : 14 + (km - 3) * 4);
-const externalSurcharge = (km) => (km <= 0 ? 0 : Math.max(5, km * 2));
+const { basePrice, externalSurcharge, gateAt: tariffGateAt, routeGateMetrics,
+  weightedJenks, zoneOf } = globalThis.BenderTariffModel;
 
 let MAP, POINT_LAYER, GATE_LINE, GATE_MARKER, CONTROL_LINE, HIGHLIGHT;
 let POINTS = [], CATALOG = [], ROUTES = {}, CONTROL = [], CONTROL_CUM = [];
@@ -41,74 +41,9 @@ function decodePolyline6(encoded) {
   return result;
 }
 
-function haversineKm(a, b) {
-  const rad = Math.PI / 180, radius = 6371.0088;
-  const dLat = (b[1] - a[1]) * rad, dLon = (b[0] - a[0]) * rad;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin(dLon / 2) ** 2;
-  return 2 * radius * Math.asin(Math.sqrt(h));
-}
-
-function cross(a, b) { return a[0] * b[1] - a[1] * b[0]; }
-function segmentIntersectionFraction(routeA, routeB, gateA, gateB) {
-  const r = [routeB[0] - routeA[0], routeB[1] - routeA[1]];
-  const g = [gateB[0] - gateA[0], gateB[1] - gateA[1]];
-  const offset = [gateA[0] - routeA[0], gateA[1] - routeA[1]];
-  const denominator = cross(r, g), epsilon = 1e-12;
-  if (Math.abs(denominator) <= epsilon) return null;
-  const routeFraction = cross(offset, g) / denominator;
-  const gateFraction = cross(offset, r) / denominator;
-  if (routeFraction < -epsilon || routeFraction > 1 + epsilon || gateFraction < -epsilon || gateFraction > 1 + epsilon) return null;
-  return Math.max(0, Math.min(1, routeFraction));
-}
-
-function routeGateMetrics(points, routeKm, gate) {
-  const lengths = [];
-  let geometryKm = 0;
-  for (let i = 0; i < points.length - 1; i += 1) { const length = haversineKm(points[i], points[i + 1]); lengths.push(length); geometryKm += length; }
-  let traversed = 0;
-  for (let i = 0; i < points.length - 1; i += 1) {
-    const fraction = segmentIntersectionFraction(points[i], points[i + 1], gate[0], gate[1]);
-    if (fraction != null) {
-      const chainage = Math.max(0, Math.min(routeKm, (traversed + lengths[i] * fraction) * routeKm / geometryKm));
-      return { crosses: true, chainage, externalKm: Math.max(0, routeKm - chainage) };
-    }
-    traversed += lengths[i];
-  }
-  return { crosses: false, chainage: null, externalKm: 0 };
-}
-
 function gateAt(index, halfLengthM = 90) {
-  const center = CONTROL[index], before = CONTROL[Math.max(0, index - 1)], after = CONTROL[Math.min(CONTROL.length - 1, index + 1)];
-  const latitude = center[1] * Math.PI / 180;
-  const dx = (after[0] - before[0]) * 111320 * Math.cos(latitude), dy = (after[1] - before[1]) * 110540;
-  const length = Math.hypot(dx, dy) || 1, px = -dy / length, py = dx / length;
-  return [-1, 1].map((side) => [center[0] + side * halfLengthM * px / (111320 * Math.cos(latitude)), center[1] + side * halfLengthM * py / 110540]);
+  return tariffGateAt(CONTROL, index, halfLengthM);
 }
-
-function weightedJenks(values, classCount) {
-  const frequency = new Map();
-  values.forEach((value) => frequency.set(value, (frequency.get(value) || 0) + 1));
-  const levels = [...frequency.entries()].sort((a, b) => a[0] - b[0]), n = levels.length;
-  const counts = [0], sums = [0], squares = [0];
-  levels.forEach(([value, count]) => { counts.push(counts.at(-1) + count); sums.push(sums.at(-1) + value * count); squares.push(squares.at(-1) + value * value * count); });
-  const variance = (first, last) => { const weight = counts[last] - counts[first - 1], total = sums[last] - sums[first - 1]; return squares[last] - squares[first - 1] - total * total / weight; };
-  const scores = Array.from({ length: classCount + 1 }, () => Array(n + 1).fill(Infinity));
-  const starts = Array.from({ length: classCount + 1 }, () => Array(n + 1).fill(0));
-  scores[0][0] = 0;
-  for (let group = 1; group <= classCount; group += 1) {
-    for (let last = group; last <= n; last += 1) {
-      for (let first = group; first <= last; first += 1) {
-        const score = scores[group - 1][first - 1] + variance(first, last);
-        if (score < scores[group][last] - 1e-12) { scores[group][last] = score; starts[group][last] = first; }
-      }
-    }
-  }
-  const breaks = []; let last = n;
-  for (let group = classCount; group >= 1; group -= 1) { const first = starts[group][last]; breaks.push(levels[last - 1][0]); last = first - 1; }
-  return breaks.reverse();
-}
-
-function zoneOf(price, breaks) { let zone = 0; while (zone < breaks.length - 1 && price > breaks[zone]) zone += 1; return zone + 1; }
 function streetOf(address) { return (address.split(",")[1] || address).trim(); }
 
 function recalculateCatalog(gate) {

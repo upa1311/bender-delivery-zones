@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Админ-консоль доставки — Bender Delivery Zones</title>
+  <link rel="stylesheet" href="../vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header id="admin-header">
+    <div>
+      <h1>Админ-консоль доставки</h1>
+      <p>Реестр адресов, маршрут A → B и расчёт по утверждённой тарифной модели.</p>
+    </div>
+    <a href="../review/">Открыть проверку модели</a>
+  </header>
+
+  <div id="admin-layout">
+    <aside id="admin-panel">
+      <section class="admin-section" aria-labelledby="model-heading">
+        <h2 id="model-heading">Модель и реестр</h2>
+        <div id="model-status" class="small muted">Загрузка…</div>
+      </section>
+
+      <section class="admin-section" aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Фильтры адресов</h2>
+        <div class="filter-grid">
+          <label>Улица<input id="street-filter" type="search" placeholder="например, Ленина" /></label>
+          <label>Дом<input id="house-filter" type="search" placeholder="номер дома" /></label>
+          <label>Район / населённый пункт<select id="district-filter"><option value="">Все</option></select></label>
+          <label>Утверждённая зона<select id="zone-filter"><option value="">Все</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+        </div>
+        <fieldset id="selection-target">
+          <legend>Куда выбрать найденный адрес</legend>
+          <label><input id="target-a" type="radio" name="target" value="a" checked /> Адрес A</label>
+          <label><input id="target-b" type="radio" name="target" value="b" /> Адрес B</label>
+        </fieldset>
+        <div id="filter-count" class="small muted"></div>
+        <div id="address-results" aria-live="polite"></div>
+      </section>
+
+      <section class="admin-section" aria-labelledby="route-heading">
+        <h2 id="route-heading">Маршрут и стоимость</h2>
+        <div class="selected-grid">
+          <div id="selected-a" class="selected-card"><b>A</b><span>не выбран</span></div>
+          <div id="selected-b" class="selected-card"><b>B</b><span>не выбран</span></div>
+        </div>
+        <div class="action-row">
+          <button id="calculate-route" class="primary" type="button">Построить A → B</button>
+          <button id="swap-addresses" type="button">Поменять A ↔ B</button>
+        </div>
+        <div id="route-error" role="alert"></div>
+        <div id="calculation" hidden>
+          <div class="metric-grid">
+            <div><span>Маршрут</span><b id="route-km"></b></div>
+            <div><span>Время</span><b id="route-minutes"></b></div>
+            <div><span>Зоны A / B</span><b id="route-zones"></b></div>
+            <div><span>Gate</span><b id="route-crosses"></b></div>
+            <div><span>Внешний участок</span><b id="route-external"></b></div>
+            <div><span>Базовая стоимость</span><b id="route-base"></b></div>
+            <div><span>Внешняя надбавка</span><b id="route-surcharge"></b></div>
+            <div class="total"><span>Расчётный итог</span><b id="route-total"></b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section download-row">
+        <a id="download-csv" href="../review/data/reference-tariff-v3.csv" download>
+          Скачать актуальный CSV
+        </a>
+        <span class="small muted">Статическая Pages V1; маршрут запрашивается у публичного OSRM.</span>
+      </section>
+    </aside>
+
+    <main id="admin-map" aria-label="Карта адресов, утверждённого gate и маршрута"></main>
+  </div>
+
+  <script src="../vendor/leaflet/leaflet.js"></script>
+  <script src="../review/tariff-model.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
